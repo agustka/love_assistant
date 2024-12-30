@@ -1,0 +1,45 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    avoid_dynamic_calls: false
+    avoid_classes_with_only_static_members: false
+    always_specify_types: true
+
+analyzer:
+  plugins:
+    - custom_lint
+
+  exclude: [
+    build/**,
+    lib/**.g.dart,
+    lib/**.gr.dart,
+    lib/**.freezed.dart,
+    lib/**.iconfig.dart,
+    lib/**.config.dart,
+    lib/**.gql.dart,
+    lib/presentation/core/localization/intl/messages_all.dart,
+    lib/presentation/core/localization/intl/messages_de.dart,
+    lib/presentation/core/localization/intl/messages_en.dart,
+    lib/presentation/core/localization/intl/messages_es.dart,
+    lib/presentation/core/localization/intl/messages_is.dart,
+    lib/presentation/core/localization/l10n.dart,
+    lib/**.chopper.dart,
+    test/domain/firestore/articles_test.dart,
+  ]
+
+  errors:
+    always_put_control_body_on_new_line: error
+    unnecessary_null_comparison: error
+    invalid_null_aware_operator: error
+    dead_null_aware_expression: error
+    missing_return: error
+    missing_required_param: error
+    must_be_immutable: error
+    prefer_const_constructors: error
+    parameter_assignments: error
+    depend_on_referenced_packages: ignore
+    avoid_classes_with_only_static_members: ignore
+    must_call_super: error
+    unused_element: ignore
+    always_specify_types: ignore

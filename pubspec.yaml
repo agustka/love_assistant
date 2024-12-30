@@ -1,0 +1,59 @@
+name: la
+description: "A new Flutter project."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.4 <4.0.0"
+  flutter: ">=3.24.5"
+
+dependencies:
+  cloud_firestore: 5.6.0
+  cupertino_icons: 1.0.8
+  equatable: 2.0.7
+  firebase_core: 3.9.0
+  firebase_messaging: 15.1.6
+  flutter:
+    sdk: flutter
+  flutter_expandable_fab: 2.3.0
+  flutter_local_notifications: 18.0.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: 2.0.16
+  get_it: 8.0.3
+  google_fonts: 6.2.1
+  hive: 2.2.3
+  injectable: 2.5.0
+  internet_connection_checker_plus: 2.6.0
+  intl: 0.19.0
+  logger: 2.5.0
+  smooth_page_indicator: 1.2.0+3
+
+dev_dependencies:
+  build_runner: 2.4.14
+  flutter_gen_runner: 5.8.0
+  flutter_test:
+    sdk: flutter
+  injectable_generator: 2.6.2
+  intl_utils: 2.8.7
+  lint: 2.3.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+
+flutter_gen:
+  output: lib/presentation/core/assets
+  line_length: 120
+  assets:
+    outputs:
+      class_name: AppAssets
+
+flutter_intl:
+  main_locale: is
+  enabled: true
+  class_name: S
+  arb_dir: lib/presentation/core/localization
+  output_dir: lib/presentation/core/localization
+  # to generate manually: dart run intl_utils:generate

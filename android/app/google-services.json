@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "433068001982",
+    "project_id": "loveassistantgeminiai",
+    "storage_bucket": "loveassistantgeminiai.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433068001982:android:aca853730956d280842cef",
+        "android_client_info": {
+          "package_name": "is.snjohus.love_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVo7v4RNIx-DdlE3ebMJCtqODSHDEP-3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
