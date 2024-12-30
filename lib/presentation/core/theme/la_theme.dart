@@ -2,9 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:la/presentation/core/theme/la_theme_illustrations.dart';
 
 class LaPadding {
+  static const double extraSmall = 4;
+  static const double small = 8;
   static const double medium = 16;
+  static const double large = 24;
+  static const double extraLarge = 32;
+  static const double huge = 40;
+  static const double extraHuge = 48;
+  static const double bottomPadding = 18;
 }
 
 class LaTheme {
@@ -12,6 +20,8 @@ class LaTheme {
   static Brightness _brightness = Brightness.dark;
   static SystemUiOverlayStyle chrome = SystemUiOverlayStyle.dark;
   static SystemUiOverlayStyle chromeNoSpace = SystemUiOverlayStyle.dark;
+
+  static LaThemeIllustrations get illustrations => LaThemeIllustrations(isDarkMode: _brightness == Brightness.dark);
 
   static Brightness get brightness => _brightness;
   static set brightness(Brightness brightness) {
@@ -26,7 +36,9 @@ class LaTheme {
     );
   }
 
-  static const Color _lightPrimary = Color(0xFFE0311A);
+  static TextStyle get font => const TextStyle();
+
+  static const Color _lightPrimary = Color(0xFFD85555);
   static const Color _lightOnPrimary = Color(0xFFFFFFFF);
   static const Color _lightSecondary = Color(0xFFFFD700);
   static const Color _lightOnSecondary = Color(0xFF0E0E0E);
@@ -143,4 +155,12 @@ extension ColorExtension on Color {
   ColorFilter get svg {
     return ColorFilter.mode(this, BlendMode.srcIn);
   }
+}
+
+extension TextStyleExtension on TextStyle {
+  TextStyle get body32 => copyWith(fontSize: 32);
+  TextStyle get body18 => copyWith(fontSize: 18);
+
+  TextStyle get bold => copyWith(fontWeight: FontWeight.w700);
+  TextStyle get light => copyWith(fontWeight: FontWeight.w400);
 }

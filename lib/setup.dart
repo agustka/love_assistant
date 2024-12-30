@@ -7,7 +7,6 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/infrastructure/core/cache/i_hive_cache.dart';
 import 'package:la/infrastructure/core/error_handling/error_handler.dart';
-import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/setup.config.dart';
 
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
