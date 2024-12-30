@@ -3,30 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
-import 'package:la/presentation/core/assets/assets.gen.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
-import 'package:la/presentation/core/widgets/la_app_bar.dart';
-import 'package:la/presentation/core/widgets/la_scaffold.dart';
-import 'package:la/presentation/core/widgets/la_svg.dart';
+import 'package:la/presentation/splash/splash_page.dart';
+import 'package:la/presentation/wizard/wizard_page.dart';
+
+enum PageName {
+  splash("/splash"),
+  wizard("/wizard"),
+  main("/main");
+
+  final String route;
+
+  const PageName(this.route);
+}
 
 class App extends StatefulWidget {
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static UserLocale? _userLocale;
-  static bool _brightnessSet = false;
-  static Brightness _brightness = Brightness.dark;
-  static SystemUiOverlayStyle chrome = SystemUiOverlayStyle.dark;
-
-  static Brightness get brightness => _brightness;
-  static set brightness(Brightness brightness) {
-    _brightness = brightness;
-    final SystemUiOverlayStyle which =
-        brightness == Brightness.light ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light;
-    chrome = which.copyWith(
-      statusBarColor: LaTheme.surface(),
-      systemNavigationBarColor: LaTheme.surface(),
-    );
-  }
 
   static UserLocale get userLocale => _userLocale ?? UserLocale.english();
 
@@ -46,8 +41,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback(
       (Duration timeStamp) {
         setState(() {
-          App._brightnessSet = true;
-          App.brightness = PlatformDetector.platformBrightness(context);
+          LaTheme.brightnessSet = true;
+          LaTheme.brightness = PlatformDetector.platformBrightness(context);
         });
       },
     );
@@ -64,7 +59,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     super.didChangePlatformBrightness();
 
     setState(() {
-      App.brightness = View.of(context).platformDispatcher.platformBrightness;
+      LaTheme.brightness = View.of(context).platformDispatcher.platformBrightness;
 
       SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: LaTheme.surface(),
@@ -75,12 +70,17 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    if (!App._brightnessSet) {
+    if (!LaTheme.brightnessSet) {
       return const SizedBox.shrink();
     }
     return PlatformDetector.isIOS
         ? CupertinoApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
+            navigatorKey: App.navigatorKey,
+            routes: {
+              PageName.splash.route: (BuildContext context) => const SplashPage(),
+              PageName.wizard.route: (BuildContext context) => const WizardPage(),
+            },
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -90,10 +90,15 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             supportedLocales: S.delegate.supportedLocales,
             theme: LaTheme.cupertinoTheme(),
             debugShowCheckedModeBanner: false,
-            home: const HomePage(),
+            initialRoute: PageName.splash.route,
           )
         : MaterialApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
+            navigatorKey: App.navigatorKey,
+            routes: {
+              PageName.splash.route: (BuildContext context) => const SplashPage(),
+              PageName.wizard.route: (BuildContext context) => const WizardPage(),
+            },
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -103,31 +108,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             supportedLocales: S.delegate.supportedLocales,
             debugShowCheckedModeBanner: false,
             theme: LaTheme.materialTheme(),
-            home: const HomePage(),
+            initialRoute: PageName.splash.route,
           );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return LaScaffold(
-      appBar: const LaAppBar(showBack: false, takesUpSpace: false),
-      child: Center(
-        child: LaSvg(
-          AppAssets.icons.loveAssistantLogo,
-          width: MediaQuery.sizeOf(context).width * 0.25,
-          height: MediaQuery.sizeOf(context).width * 0.25,
-          accessibilityScaling: false,
-        ),
-      ),
-    );
   }
 }

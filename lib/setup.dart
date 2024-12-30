@@ -25,7 +25,6 @@ Future<void> appSetup() async {
   //configureFlutterPushes();
 
   getIt<IHiveCache>().initialize();
-  getIt<InitializationService>().init();
 }
 
 void configureFlutterPushes() {
@@ -36,7 +35,7 @@ void configureFlutterPushes() {
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings("@drawable/ic_isb_logo_splash");
+      AndroidInitializationSettings("@drawable/ic_la_logo_splash");
   const DarwinInitializationSettings initializationSettingsIos = DarwinInitializationSettings();
   const InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,

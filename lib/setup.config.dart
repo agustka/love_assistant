@@ -10,6 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:la/application/splash/splash_cubit.dart' as _i247;
 import 'package:la/infrastructure/core/cache/hive_cache.dart' as _i681;
 import 'package:la/infrastructure/core/cache/i_hive_cache.dart' as _i339;
 import 'package:la/infrastructure/core/initialization/initialization_service.dart'
@@ -26,6 +27,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.factory<_i247.SplashCubit>(() => _i247.SplashCubit());
     gh.singleton<_i984.InitializationService>(
         () => _i984.InitializationService());
     gh.lazySingleton<_i339.IHiveCache>(() => const _i681.HiveCache());

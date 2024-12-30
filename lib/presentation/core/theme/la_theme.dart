@@ -1,13 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:la/presentation/core/app.dart';
 
 class LaPadding {
   static const double medium = 16;
 }
 
 class LaTheme {
+  static bool brightnessSet = false;
+  static Brightness _brightness = Brightness.dark;
+  static SystemUiOverlayStyle chrome = SystemUiOverlayStyle.dark;
+  static SystemUiOverlayStyle chromeNoSpace = SystemUiOverlayStyle.dark;
+
+  static Brightness get brightness => _brightness;
+  static set brightness(Brightness brightness) {
+    _brightness = brightness;
+    chromeNoSpace = (brightness == Brightness.light ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light).copyWith(
+      statusBarColor: LaTheme.surface(),
+      systemNavigationBarColor: LaTheme.surface(),
+    );
+    chrome = (brightness == Brightness.light ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark).copyWith(
+      statusBarColor: LaTheme.primary(),
+      systemNavigationBarColor: LaTheme.surface(),
+    );
+  }
+
   static const Color _lightPrimary = Color(0xFFE0311A);
   static const Color _lightOnPrimary = Color(0xFFFFFFFF);
   static const Color _lightSecondary = Color(0xFFFFD700);
@@ -31,63 +49,63 @@ class LaTheme {
   static const Color _darkOnSecondaryContainer = Color(0xFFA7A7A7);
 
   static Color primary() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkPrimary : _lightPrimary;
   }
 
   static Color onPrimary() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkOnPrimary : _lightOnPrimary;
   }
 
   static Color secondary() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkSecondary : _lightSecondary;
   }
 
   static Color onSecondary() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkOnSecondary : _lightOnSecondary;
   }
 
   static Color surface() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkSurface : _lightSurface;
   }
 
   static Color onSurface() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkOnSurface : _lightOnSurface;
   }
 
   static Color error() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkError : _lightError;
   }
 
   static Color onError() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkOnError : _lightOnError;
   }
 
   static Color secondaryContainer() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkSecondaryContainer : _lightSecondaryContainer;
   }
 
   static Color onSecondaryContainer() {
-    final bool isDark = App.brightness == Brightness.dark;
+    final bool isDark = LaTheme.brightness == Brightness.dark;
     return isDark ? _darkOnSecondaryContainer : _lightOnSecondaryContainer;
   }
 
   static ThemeData materialTheme() {
     return ThemeData(
-      brightness: App.brightness,
+      brightness: LaTheme.brightness,
       useMaterial3: true,
       textTheme: GoogleFonts.poppinsTextTheme(),
       scaffoldBackgroundColor: surface(),
       colorScheme: ColorScheme(
-        brightness: App.brightness,
+        brightness: LaTheme.brightness,
         primary: primary(),
         onPrimary: onPrimary(),
         secondary: secondary(),
@@ -104,7 +122,7 @@ class LaTheme {
 
   static CupertinoThemeData cupertinoTheme() {
     return CupertinoThemeData(
-      brightness: App.brightness,
+      brightness: LaTheme.brightness,
       primaryColor: primary(),
       barBackgroundColor: surface(),
       scaffoldBackgroundColor: surface(),

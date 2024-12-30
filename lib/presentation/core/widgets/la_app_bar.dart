@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
 
 class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredSizeWidget {
@@ -59,7 +58,7 @@ class LaAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: App.chrome,
+      systemOverlayStyle: takesUpSpace ? LaTheme.chrome : LaTheme.chromeNoSpace,
       leading: showBack
           ? InkWell(
               onTap: Navigator.of(context).pop,

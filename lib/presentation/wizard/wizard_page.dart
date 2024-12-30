@@ -15,7 +15,7 @@ class _WizardPageState extends State<WizardPage> {
   @override
   Widget build(BuildContext context) {
     return LaScaffold(
-      appBar: LaAppBar(title: S.of(context).wizard_title),
+      appBar: LaAppBar(title: S.of(context).wizard_title, showBack: false),
       child: LaPager(
         itemCount: 4,
         itemBuilder: (BuildContext context, int index) {
