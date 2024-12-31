@@ -50,126 +50,85 @@ class LaTheme {
   static const Color _lightOnBackground = Color(0xFF0E0E0E);
   static const Color _lightSecondaryContainer = Color(0xFFD1D1D1);
   static const Color _lightOnSecondaryContainer = Color(0xFF0E0E0E);
+  static const Color _lightShadow = Color(0x990E0E0E);
 
   static const Color _darkPrimary = Color(0xFFd85555);
   static const Color _darkOnPrimary = Color(0xFF000000);
-  static const Color _darkSecondary = Color(0xFF1A1010);
-  static const Color _darkOnSecondary = Color(0xFFDADADA);
+  static const Color _darkSecondary = Color(0xFFFFD700);
+  static const Color _darkOnSecondary = Color(0xFF0E0E0E);
   static const Color _darkError = Color(0xFFFF0000);
   static const Color _darkOnError = Color(0xFFFFFFFF);
-  static const Color _darkSurface = Color(0xFF242424);
+  static const Color _darkSurface = Color(0xFF2B1E1E);
   static const Color _darkOnSurface = Color(0xFFDADADA);
   static const Color _darkBackground = Color(0xFF1A1010);
   static const Color _darkOnBackground = Color(0xFFE0E0E0);
-  static const Color _darkSecondaryContainer = Color(0xFF121212);
-  static const Color _darkOnSecondaryContainer = Color(0xFFA7A7A7);
+  static const Color _darkSecondaryContainer = Color(0xFF3C2D2D);
+  static const Color _darkOnSecondaryContainer = Color(0xFFF5F5F5);
+  static const Color _darkShadow = Color(0xCC000000);
 
   static Color primary({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(color: _lightPrimary, darkColor: _darkPrimary);
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkPrimary : _lightPrimary;
   }
 
   static Color onPrimary({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(color: _lightOnPrimary, darkColor: _darkOnPrimary);
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnPrimary : _lightOnPrimary;
   }
 
   static Color secondary({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(color: _lightSecondary, darkColor: _darkSecondary);
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkSecondary : _lightSecondary;
   }
 
   static Color onSecondary({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(color: _lightOnSecondary, darkColor: _darkOnSecondary);
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnSecondary : _lightOnSecondary;
   }
 
   static Color surface({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(color: _lightSurface, darkColor: _darkSurface);
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkSurface : _lightSurface;
   }
 
   static Color onSurface({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(color: _lightOnSurface, darkColor: _darkOnSurface);
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnSurface : _lightOnSurface;
   }
 
   static Color error({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(color: _lightError, darkColor: _darkError);
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkError : _lightError;
   }
 
   static Color onError({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(color: _lightOnError, darkColor: _darkOnError);
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnError : _lightOnError;
   }
 
   static Color background({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(
-        color: _lightBackground,
-        darkColor: _darkBackground,
-      );
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkBackground : _lightBackground;
   }
 
   static Color onBackground({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(
-        color: _lightOnBackground,
-        darkColor: _darkOnBackground,
-      );
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnBackground : _lightOnBackground;
   }
 
   static Color secondaryContainer({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(
-        color: _lightSecondaryContainer,
-        darkColor: _darkSecondaryContainer,
-      );
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkSecondaryContainer : _lightSecondaryContainer;
   }
 
   static Color onSecondaryContainer({Brightness? brightness}) {
-    if (PlatformDetector.isIOS) {
-      return const CupertinoDynamicColor.withBrightness(
-        color: _lightOnSecondaryContainer,
-        darkColor: _darkOnSecondaryContainer,
-      );
-    }
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnSecondaryContainer : _lightOnSecondaryContainer;
+  }
+
+  static Color shadow({Brightness? brightness}) {
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
+    return isDark ? _darkShadow : _lightShadow;
   }
 
   static ThemeData materialTheme(Brightness brightness) {
@@ -194,16 +153,16 @@ class LaTheme {
     );
   }
 
-  static CupertinoThemeData cupertinoTheme() {
+  static CupertinoThemeData cupertinoTheme(Brightness brightness) {
     return CupertinoThemeData(
-      brightness: LaTheme.brightness,
-      primaryColor: primary(),
-      barBackgroundColor: surface(),
-      scaffoldBackgroundColor: background(),
+      brightness: brightness,
+      primaryColor: primary(brightness: brightness),
+      barBackgroundColor: surface(brightness: brightness),
+      scaffoldBackgroundColor: background(brightness: brightness),
       applyThemeToAll: true,
       textTheme: CupertinoTextThemeData(
-        primaryColor: onPrimary(),
-        textStyle: GoogleFonts.poppins().copyWith(color: onSurface()),
+        primaryColor: onPrimary(brightness: brightness),
+        textStyle: GoogleFonts.poppins().copyWith(color: onSurface(brightness: brightness)),
       ),
     );
   }

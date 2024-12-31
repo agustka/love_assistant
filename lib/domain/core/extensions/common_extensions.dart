@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
@@ -318,8 +319,8 @@ extension FutureFunctionX<T extends Object> on Future<T> Function() {
         throw Exception("Max tries reached");
       }
 
-      final value = await call();
-      final evaluation = await condition(value);
+      final T value = await call();
+      final bool evaluation = await condition(value);
       if (evaluation) {
         return value;
       }
@@ -327,4 +328,20 @@ extension FutureFunctionX<T extends Object> on Future<T> Function() {
       await Future<void>.delayed(delay);
     }
   }
+}
+
+typedef SpacedWithIndexedBuilder = Widget Function(int index);
+
+extension SpacedWidgets on Iterable<Widget> {
+  List<Widget> spacedWith(Widget spacer) => expand((Widget widget) sync* {
+    yield spacer;
+    yield widget;
+  }).skip(1).toList();
+
+  List<Widget> spaced(double gap) => spacedWith(SizedBox(width: gap, height: gap));
+
+  List<Widget> spacedWithIndexed(SpacedWithIndexedBuilder builder) => expandIndexed((int index, Widget widget) sync* {
+    yield builder(index);
+    yield widget;
+  }).skip(1).toList();
 }

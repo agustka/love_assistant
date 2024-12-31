@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Meira`
+  String get global_more {
+    return Intl.message(
+      'Meira',
+      name: 'global_more',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Uppsetning`
   String get wizard_title {
     return Intl.message(
@@ -135,6 +145,66 @@ class S {
     return Intl.message(
       'Byrjum',
       name: 'wizard_start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Næsta`
+  String get wizard_next {
+    return Intl.message(
+      'Næsta',
+      name: 'wizard_next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aðeins um þína sérstöku persónu`
+  String get wizard_partner_profile_title {
+    return Intl.message(
+      'Aðeins um þína sérstöku persónu',
+      name: 'wizard_partner_profile_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum.`
+  String get wizard_partner_profile_message_1 {
+    return Intl.message(
+      'Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum.',
+      name: 'wizard_partner_profile_message_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þá getum við skipulagt sérstök tilefni og sérsniðið skilaboð betur.`
+  String get wizard_partner_profile_message_2 {
+    return Intl.message(
+      'Þá getum við skipulagt sérstök tilefni og sérsniðið skilaboð betur.',
+      name: 'wizard_partner_profile_message_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hvað heitir þinn félagi?`
+  String get wizard_partner_profile_name_title {
+    return Intl.message(
+      'Hvað heitir þinn félagi?',
+      name: 'wizard_partner_profile_name_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nafn félaga þíns`
+  String get wizard_partner_profile_name_hint {
+    return Intl.message(
+      'Nafn félaga þíns',
+      name: 'wizard_partner_profile_name_hint',
       desc: '',
       args: [],
     );

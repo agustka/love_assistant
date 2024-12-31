@@ -65,12 +65,16 @@ class LaImage extends StatelessWidget {
       );
     } else {
       if (imageLink.toLowerCase().endsWith("svg")) {
-        return SvgPicture.asset(
-          imageLink,
+        return SizedBox(
           width: width,
           height: height,
-          fit: fit,
-          placeholderBuilder: (BuildContext context) => _fallback,
+          child: SvgPicture.asset(
+            imageLink,
+            width: width,
+            height: height,
+            fit: fit,
+            placeholderBuilder: (BuildContext context) => _fallback,
+          ),
         );
       } else {
         return Image.asset(

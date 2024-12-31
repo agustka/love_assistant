@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
         "global_cancel": MessageLookupByLibrary.simpleMessage("Hætta við"),
+        "global_more": MessageLookupByLibrary.simpleMessage("Meira"),
         "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
@@ -39,6 +40,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Þannig getur þú fengið hugmyndir, áminningar og sérsniðin skilaboð sem passa betur."),
         "wizard_greetings_message_3": MessageLookupByLibrary.simpleMessage(
             "Þú þarft ekki að stofna reikning til að hefjast handa."),
+        "wizard_next": MessageLookupByLibrary.simpleMessage("Næsta"),
+        "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
+            "Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum."),
+        "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
+            "Þá getum við skipulagt sérstök tilefni og sérsniðið skilaboð betur."),
+        "wizard_partner_profile_name_hint":
+            MessageLookupByLibrary.simpleMessage("Nafn félaga þíns"),
+        "wizard_partner_profile_name_title":
+            MessageLookupByLibrary.simpleMessage("Hvað heitir þinn félagi?"),
+        "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
+            "Aðeins um þína sérstöku persónu"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning")
       };

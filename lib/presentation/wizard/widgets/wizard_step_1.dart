@@ -16,21 +16,16 @@ class WizardStep1 extends StatelessWidget {
           children: [
             LaEpicImage(
               asset: LaTheme.illustrations.manGreetings,
+                widthAsPercentageOfScreen: 0.58,
             ),
             LaBulletPointList(
+              size: BulletPointListSize.small,
               title: S.of(context).wizard_greetings,
               entries: [
                 S.of(context).wizard_greetings_message_1,
                 S.of(context).wizard_greetings_message_2,
                 S.of(context).wizard_greetings_message_3,
               ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: LaPadding.medium),
-              child: LaButton(
-                text: S.of(context).wizard_start,
-                onTap: context.read<WizardCubit>().start,
-              ),
             ),
           ],
         ),

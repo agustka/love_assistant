@@ -23,7 +23,6 @@ class LaSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget svg;
     final double scale = max(1, Accessibility.of(context).uiScale);
     double imageWidth = width;
     double imageHeight = height;
@@ -33,6 +32,7 @@ class LaSvg extends StatelessWidget {
       imageHeight = imageHeight * scale;
     }
 
+    final Widget svg;
     if (asset.startsWith("http")) {
       svg = SvgPicture.network(
         asset,

@@ -10,4 +10,8 @@ class LaIcons {
   static IconData get translate {
     return PlatformDetector.isIOS ? CupertinoIcons.textformat : Icons.translate;
   }
+
+  static IconData get more {
+    return PlatformDetector.isIOS ? CupertinoIcons.ellipsis : Icons.more_horiz;
+  }
 }

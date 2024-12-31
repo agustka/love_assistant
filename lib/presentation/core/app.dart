@@ -82,7 +82,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             ],
             supportedLocales: S.delegate.supportedLocales,
             locale: App.userLocale?.locale,
-            theme: LaTheme.cupertinoTheme(),
+            theme: LaTheme.cupertinoTheme(LaTheme.brightness ?? Brightness.light),
             debugShowCheckedModeBanner: false,
           )
         : MaterialApp(

@@ -65,7 +65,7 @@ class LaPicker {
           child: Wrap(
             children: entries.entries
                 .map(
-                  (PickerEntry e) => ListTile(
+                  (PickerEntry e) => LaListTile(
                     leading: e.icon == null
                         ? LaSvg(
                             e.svg ?? AppAssets.icons.icTransparent,

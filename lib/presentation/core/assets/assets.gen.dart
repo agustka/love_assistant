@@ -1138,8 +1138,11 @@ class $AssetsIllustrationsDarkGen {
   /// File path: assets/illustrations/dark/woman_reading.svg
   String get womanReading => 'assets/illustrations/dark/woman_reading.svg';
 
+  /// File path: assets/illustrations/dark/woman_running_banner.svg
+  String get womanRunningBanner => 'assets/illustrations/dark/woman_running_banner.svg';
+
   /// List of all assets
-  List<String> get values => [manGreetings, manLove, roundPictureBackground, womanReading];
+  List<String> get values => [manGreetings, manLove, roundPictureBackground, womanReading, womanRunningBanner];
 }
 
 class $AssetsIllustrationsLightGen {
@@ -1157,8 +1160,11 @@ class $AssetsIllustrationsLightGen {
   /// File path: assets/illustrations/light/woman_reading.svg
   String get womanReading => 'assets/illustrations/light/woman_reading.svg';
 
+  /// File path: assets/illustrations/light/woman_running_banner.svg
+  String get womanRunningBanner => 'assets/illustrations/light/woman_running_banner.svg';
+
   /// List of all assets
-  List<String> get values => [manGreetings, manLove, roundPictureBackground, womanReading];
+  List<String> get values => [manGreetings, manLove, roundPictureBackground, womanReading, womanRunningBanner];
 }
 
 class AppAssets {

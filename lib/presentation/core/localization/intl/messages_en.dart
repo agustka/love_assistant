@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
         "global_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "global_more": MessageLookupByLibrary.simpleMessage("More"),
         "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("st"),
         "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("th"),
         "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
@@ -39,6 +40,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "With this, you’ll receive thoughtful reminders, ideas, and personalized messages."),
         "wizard_greetings_message_3": MessageLookupByLibrary.simpleMessage(
             "You don’t need to create an account to get started."),
+        "wizard_next": MessageLookupByLibrary.simpleMessage("Next"),
+        "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
+            "We’ll start with the basics — like their name, pronouns, and important dates."),
+        "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
+            "This helps us personalize reminders and messages just for them."),
+        "wizard_partner_profile_name_hint":
+            MessageLookupByLibrary.simpleMessage("Partner name"),
+        "wizard_partner_profile_name_title":
+            MessageLookupByLibrary.simpleMessage(
+                "What\'s your partner\'s name?"),
+        "wizard_partner_profile_title":
+            MessageLookupByLibrary.simpleMessage("Tell Us About Your Partner"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Begin"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup")
       };
