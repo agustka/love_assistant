@@ -16,12 +16,21 @@ extension _BulletPointListSizeExtension on BulletPointListSize {
     }
   }
 
+  TextStyle get entrySize {
+    switch (this) {
+      case BulletPointListSize.normal:
+        return LaTheme.font.body16;
+      case BulletPointListSize.small:
+        return LaTheme.font.body14;
+    }
+  }
+
   TextStyle get bulletSize {
     switch (this) {
       case BulletPointListSize.normal:
-        return LaTheme.font.body14;
+        return LaTheme.font.body28;
       case BulletPointListSize.small:
-        return LaTheme.font.body12;
+        return LaTheme.font.body24;
     }
   }
 
@@ -35,9 +44,17 @@ extension _BulletPointListSizeExtension on BulletPointListSize {
   }
 }
 
+class BulletPointEntry {
+  final String text;
+  final IconData? icon;
+  final String? emoji;
+
+  BulletPointEntry({required this.text, this.icon, this.emoji});
+}
+
 class LaBulletPointList extends StatelessWidget {
   final String title;
-  final List<String> entries;
+  final List<BulletPointEntry> entries;
   final BulletPointListSize size;
 
   const LaBulletPointList({
@@ -58,14 +75,26 @@ class LaBulletPointList extends StatelessWidget {
             LaText(title, style: size.titleSize),
             SizedBox(height: size.titlePadding),
             ...entries.map(
-              (String e) => LaListTile(
-                leading: LaText("•", style: size.bulletSize),
-                title: LaText(e, style: size.bulletSize),
+              (BulletPointEntry e) => LaListTile(
+                leading: _getLeading(e),
+                title: LaText(e.text, style: size.entrySize),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _getLeading(BulletPointEntry e) {
+    if (e.icon != null) {
+      return Icon(
+        e.icon,
+        size: 24,
+      );
+    } else if (e.emoji != null) {
+      return LaText(e.emoji ?? "•", style: LaTheme.font.body20);
+    }
+    return LaText("•", style: size.bulletSize);
   }
 }

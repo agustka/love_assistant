@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/la_drop_down.dart';
 
 class WizardStep2 extends StatefulWidget {
   const WizardStep2({super.key});
@@ -22,7 +23,7 @@ class _WizardStep2State extends State<WizardStep2> {
         spacing: LaPadding.large,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: LaPadding.extraLarge),
+            padding: const EdgeInsets.only(top: LaPadding.huge),
             child: LaBanner(
               asset: LaTheme.illustrations.womanRunningBanner,
             ),
@@ -33,8 +34,16 @@ class _WizardStep2State extends State<WizardStep2> {
               size: BulletPointListSize.small,
               title: S.of(context).wizard_partner_profile_title,
               entries: [
-                S.of(context).wizard_partner_profile_message_1,
-                S.of(context).wizard_partner_profile_message_2,
+                BulletPointEntry(
+                  text: S.of(context).wizard_partner_profile_message_1,
+                  //emoji: "📝",
+                  //icon: LaIcons.contact,
+                ),
+                BulletPointEntry(
+                  text: S.of(context).wizard_partner_profile_message_2,
+                  //emoji: "💌",
+                  //icon: LaIcons.edit,
+                ),
               ],
             ),
           ),
@@ -46,6 +55,19 @@ class _WizardStep2State extends State<WizardStep2> {
               controller: _controller,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+            child: GenericPicker(
+              title: "Pronouns",
+              options: ['He/Him', 'She/Her', 'They/Them'],
+              freeFormOptionLabel: "Custom",
+              onChanged: (selected, customInput) {
+                print("Selected Pronoun: $selected");
+                print("Custom Pronoun: $customInput");
+              },
+            ),
+          ),
+          const SizedBox.shrink(),
         ],
       ),
     );

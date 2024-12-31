@@ -190,10 +190,10 @@ class S {
     );
   }
 
-  /// `Hvað heitir þinn félagi?`
+  /// `Hvað heitir sérstaka persónan þín?`
   String get wizard_partner_profile_name_title {
     return Intl.message(
-      'Hvað heitir þinn félagi?',
+      'Hvað heitir sérstaka persónan þín?',
       name: 'wizard_partner_profile_name_title',
       desc: '',
       args: [],

@@ -48,7 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "wizard_partner_profile_name_hint":
             MessageLookupByLibrary.simpleMessage("Nafn félaga þíns"),
         "wizard_partner_profile_name_title":
-            MessageLookupByLibrary.simpleMessage("Hvað heitir þinn félagi?"),
+            MessageLookupByLibrary.simpleMessage(
+                "Hvað heitir sérstaka persónan þín?"),
         "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
             "Aðeins um þína sérstöku persónu"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),

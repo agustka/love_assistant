@@ -7,60 +7,61 @@ import 'package:la/presentation/core/widgets/import.dart';
 class LaTextField extends StatelessWidget {
   final String? title;
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
+  final bool enabled;
+  final Color? hintColor;
+  final FocusNode? focusNode;
 
   const LaTextField({
     super.key,
     this.title,
     required this.hintText,
-    required this.controller,
+    this.controller,
+    this.enabled = true,
+    this.hintColor,
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     late Widget text;
     if (PlatformDetector.isIOS) {
-      text = CupertinoTextField(
-        controller: controller,
-        placeholder: hintText,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        decoration: BoxDecoration(
-          color: LaTheme.secondaryContainer(),
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: LaTheme.shadow(),
-              blurRadius: 6,
-              offset: const Offset(0, 3),
-            ),
-          ],
+      text = LaCard(
+        backgroundColor: LaTheme.secondaryContainer(),
+        elevation: 0,
+        child: CupertinoTextField(
+          enabled: enabled,
+          controller: controller,
+          focusNode: focusNode,
+          textCapitalization: TextCapitalization.sentences,
+          placeholder: hintText,
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          decoration: BoxDecoration(
+            color: LaTheme.secondaryContainer(),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          style: LaTheme.font.body16.copyWith(color: LaTheme.onSecondaryContainer()),
+          placeholderStyle: LaTheme.font.body16.copyWith(color: hintColor ?? LaTheme.hintText()),
+          cursorColor: LaTheme.primary(),
         ),
-        style: LaTheme.font.body16.copyWith(color: LaTheme.onSecondaryContainer()),
-        placeholderStyle: LaTheme.font.body16.copyWith(color: CupertinoColors.systemGrey4.withOpacity(0.5)),
-        cursorColor: LaTheme.primary(),
       );
     } else {
-      text = Container(
-        decoration: BoxDecoration(
-          color: LaTheme.secondaryContainer(),
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: LaTheme.shadow(),
-              blurRadius: 6,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
+      text = LaCard(
+        backgroundColor: LaTheme.secondaryContainer(),
+        elevation: 0,
         child: TextField(
+          enabled: enabled,
           controller: controller,
+          focusNode: focusNode,
+          textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: TextStyle(
-              color: Colors.grey[500],
-            ),
+            hintStyle: TextStyle(color: hintColor ?? LaTheme.hintText()),
             border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: LaPadding.mediumSmall,
+              horizontal: LaPadding.medium,
+            ),
           ),
           style: LaTheme.font.body16.copyWith(color: LaTheme.onSecondaryContainer()),
           cursorColor: LaTheme.primary(), // Blue cursor
@@ -70,6 +71,7 @@ class LaTextField extends StatelessWidget {
 
     if (title != null) {
       return LaCard(
+        backgroundColor: LaTheme.surface(),
         child: Padding(
           padding: const EdgeInsets.all(LaPadding.medium),
           child: Column(

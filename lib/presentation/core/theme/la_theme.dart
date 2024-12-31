@@ -8,6 +8,7 @@ import 'package:la/presentation/core/theme/la_theme_illustrations.dart';
 class LaPadding {
   static const double extraSmall = 4;
   static const double small = 8;
+  static const double mediumSmall = 12;
   static const double medium = 16;
   static const double large = 24;
   static const double extraLarge = 32;
@@ -40,31 +41,34 @@ class LaTheme {
 
   static const Color _lightPrimary = Color(0xFFD85555);
   static const Color _lightOnPrimary = Color(0xFFFFFFFF);
-  static const Color _lightSecondary = Color(0xFFFFD700);
+  static const Color _lightSecondary = Color(0xFFF0A07E);
   static const Color _lightOnSecondary = Color(0xFF0E0E0E);
   static const Color _lightError = Color(0xFFFF0000);
   static const Color _lightOnError = Color(0xFFFFFFFF);
-  static const Color _lightSurface = Color(0xFFE7E7E7);
+  static const Color _lightSurface = Color(0xFFFEFEFE);
   static const Color _lightOnSurface = Color(0xFF2e2e2e);
+  static const Color _lightSecondaryContainer = Color(0xFFeeeeee);
+  static const Color _lightOnSecondaryContainer = Color(0xFF0E0E0E);
   static const Color _lightBackground = Color(0xFFF9F9F9);
   static const Color _lightOnBackground = Color(0xFF0E0E0E);
-  static const Color _lightSecondaryContainer = Color(0xFFD1D1D1);
-  static const Color _lightOnSecondaryContainer = Color(0xFF0E0E0E);
-  static const Color _lightShadow = Color(0x990E0E0E);
+  static const Color _lightShadow = Color(0x44000000);
+  static const Color _lightSingleElement = Color(0x22000000);
 
   static const Color _darkPrimary = Color(0xFFd85555);
   static const Color _darkOnPrimary = Color(0xFF000000);
-  static const Color _darkSecondary = Color(0xFFFFD700);
+  static const Color _darkSecondary = Color(0xFFC76D5A);
   static const Color _darkOnSecondary = Color(0xFF0E0E0E);
   static const Color _darkError = Color(0xFFFF0000);
   static const Color _darkOnError = Color(0xFFFFFFFF);
   static const Color _darkSurface = Color(0xFF2B1E1E);
   static const Color _darkOnSurface = Color(0xFFDADADA);
-  static const Color _darkBackground = Color(0xFF1A1010);
-  static const Color _darkOnBackground = Color(0xFFE0E0E0);
   static const Color _darkSecondaryContainer = Color(0xFF3C2D2D);
   static const Color _darkOnSecondaryContainer = Color(0xFFF5F5F5);
+  static const Color _darkBackground = Color(0xFF1A1010);
+  static const Color _darkOnBackground = Color(0xFFE0E0E0);
   static const Color _darkShadow = Color(0xCC000000);
+
+  static const Color _darkSingleElement = Color(0x33FFFFFF);
 
   static Color primary({Brightness? brightness}) {
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
@@ -129,6 +133,19 @@ class LaTheme {
   static Color shadow({Brightness? brightness}) {
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkShadow : _lightShadow;
+  }
+
+  static Color singleElement({Brightness? brightness}) {
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
+    return isDark ? _darkSingleElement : _lightSingleElement;
+  }
+
+  static Color hintText() {
+    final Color? color = Colors.grey[500];
+    if (color == null) {
+     return const Color(0xFFA0A0A0);
+    }
+    return color;
   }
 
   static ThemeData materialTheme(Brightness brightness) {
