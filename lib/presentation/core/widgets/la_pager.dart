@@ -6,12 +6,14 @@ class LaPager extends StatefulWidget {
   final int itemCount;
   final Widget Function(BuildContext context, int index) itemBuilder;
   final void Function(int index)? onDotClicked;
+  final PageController? controller;
 
   const LaPager({
     super.key,
     required this.itemCount,
     required this.itemBuilder,
     this.onDotClicked,
+    this.controller,
   });
 
   @override
@@ -43,13 +45,13 @@ class _LaPagerState extends State<LaPager> {
       children: [
         Expanded(
           child: PageView.builder(
-            controller: _controller,
+            controller: widget.controller ?? _controller,
             itemCount: widget.itemCount,
             itemBuilder: widget.itemBuilder,
           ),
         ),
         SmoothPageIndicator(
-          controller: _controller,
+          controller: widget.controller ?? _controller,
           count: 4,
           effect: SwapEffect(
             type: SwapType.yRotation,

@@ -222,6 +222,7 @@ extension ColorExtension on Color {
 extension TextStyleExtension on TextStyle {
   TextStyle get body32 => copyWith(fontSize: 32);
   TextStyle get body28 => copyWith(fontSize: 28);
+  TextStyle get body24 => copyWith(fontSize: 24);
   TextStyle get body20 => copyWith(fontSize: 20);
   TextStyle get body18 => copyWith(fontSize: 18);
   TextStyle get body17 => copyWith(fontSize: 17);

@@ -1,5 +1,12 @@
 part of 'wizard_cubit.dart';
 
+@immutable
+class WizardEventGoToPage {
+  final int page;
+
+  const WizardEventGoToPage({required this.page});
+}
+
 enum WizardStatus {
   loading,
   loaded,
@@ -21,6 +28,7 @@ class WizardState extends Equatable {
 
   WizardState copyWith({
     WizardStatus? status,
+    int? page,
   }) {
     return WizardState(
       status: status ?? this.status,

@@ -100,21 +100,41 @@ class S {
     );
   }
 
-  /// `Við skulum byrja á að fá smá innsýn í hvað það er sem maki eða félagi þinn hefur áhuga á ásamt nokkrum mikilvægum dagsetningum.`
-  String get wizard_greetings_message {
+  /// `Við skulum byrja á að kanna hvað það er sem maki eða félagi þinn hefur áhuga á.`
+  String get wizard_greetings_message_1 {
     return Intl.message(
-      'Við skulum byrja á að fá smá innsýn í hvað það er sem maki eða félagi þinn hefur áhuga á ásamt nokkrum mikilvægum dagsetningum.',
-      name: 'wizard_greetings_message',
+      'Við skulum byrja á að kanna hvað það er sem maki eða félagi þinn hefur áhuga á.',
+      name: 'wizard_greetings_message_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hafðu engar áhyggjur - upplýsingarnar þínar eru dulkóðaðar og þeim verður ekki deilt með neinum.`
-  String get wizard_greetings_privacy {
+  /// `Þannig getur þú fengið hugmyndir, áminningar og sérsniðin skilaboð sem passa betur.`
+  String get wizard_greetings_message_2 {
     return Intl.message(
-      'Hafðu engar áhyggjur - upplýsingarnar þínar eru dulkóðaðar og þeim verður ekki deilt með neinum.',
-      name: 'wizard_greetings_privacy',
+      'Þannig getur þú fengið hugmyndir, áminningar og sérsniðin skilaboð sem passa betur.',
+      name: 'wizard_greetings_message_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þú þarft ekki að stofna reikning til að hefjast handa.`
+  String get wizard_greetings_message_3 {
+    return Intl.message(
+      'Þú þarft ekki að stofna reikning til að hefjast handa.',
+      name: 'wizard_greetings_message_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Byrjum`
+  String get wizard_start {
+    return Intl.message(
+      'Byrjum',
+      name: 'wizard_start',
       desc: '',
       args: [],
     );

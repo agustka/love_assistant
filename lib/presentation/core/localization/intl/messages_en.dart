@@ -33,10 +33,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select language"),
         "wizard_greetings": MessageLookupByLibrary.simpleMessage(
             "Your Personal Love Assistant"),
-        "wizard_greetings_message": MessageLookupByLibrary.simpleMessage(
-            "Let’s get started on creating a tailored profile for your partner. With this, you’ll receive thoughtful reminders, ideas, and personalized messages."),
-        "wizard_greetings_privacy": MessageLookupByLibrary.simpleMessage(
-            "Don’t worry—your information stays private and won’t be shared with anyone."),
+        "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
+            "Let’s get started on creating a tailored profile for your partner."),
+        "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
+            "With this, you’ll receive thoughtful reminders, ideas, and personalized messages."),
+        "wizard_greetings_message_3": MessageLookupByLibrary.simpleMessage(
+            "You don’t need to create an account to get started."),
+        "wizard_start": MessageLookupByLibrary.simpleMessage("Begin"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup")
       };
 }

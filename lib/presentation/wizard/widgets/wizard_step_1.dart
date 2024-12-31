@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep1 extends StatelessWidget {
@@ -14,11 +16,22 @@ class WizardStep1 extends StatelessWidget {
           children: [
             LaEpicImage(
               asset: LaTheme.illustrations.manGreetings,
-              title: S.of(context).wizard_greetings,
-              message: S.of(context).wizard_greetings_message,
             ),
-            LaText(S.of(context).wizard_greetings_privacy, style: LaTheme.font.body12.light, textAlign: TextAlign.center,),
-            LaButton(text: "Begin", onTap: (){}),
+            LaBulletPointList(
+              title: S.of(context).wizard_greetings,
+              entries: [
+                S.of(context).wizard_greetings_message_1,
+                S.of(context).wizard_greetings_message_2,
+                S.of(context).wizard_greetings_message_3,
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: LaPadding.medium),
+              child: LaButton(
+                text: S.of(context).wizard_start,
+                onTap: context.read<WizardCubit>().start,
+              ),
+            ),
           ],
         ),
       ),

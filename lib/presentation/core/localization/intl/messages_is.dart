@@ -33,10 +33,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veldu tungumál"),
         "wizard_greetings":
             MessageLookupByLibrary.simpleMessage("Velkomin(n)!"),
-        "wizard_greetings_message": MessageLookupByLibrary.simpleMessage(
-            "Við skulum byrja á að fá smá innsýn í hvað það er sem maki eða félagi þinn hefur áhuga á ásamt nokkrum mikilvægum dagsetningum."),
-        "wizard_greetings_privacy": MessageLookupByLibrary.simpleMessage(
-            "Hafðu engar áhyggjur - upplýsingarnar þínar eru dulkóðaðar og þeim verður ekki deilt með neinum."),
+        "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
+            "Við skulum byrja á að kanna hvað það er sem maki eða félagi þinn hefur áhuga á."),
+        "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
+            "Þannig getur þú fengið hugmyndir, áminningar og sérsniðin skilaboð sem passa betur."),
+        "wizard_greetings_message_3": MessageLookupByLibrary.simpleMessage(
+            "Þú þarft ekki að stofna reikning til að hefjast handa."),
+        "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning")
       };
 }
