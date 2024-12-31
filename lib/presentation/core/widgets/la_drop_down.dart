@@ -22,13 +22,13 @@ class GenericPicker extends StatefulWidget {
 }
 
 class _GenericPickerState extends State<GenericPicker> {
-  String? selectedOption;
-  String? customInput = "";
-  final FocusNode customInputFocusNode = FocusNode();
+  String? _selectedOption;
+  String? _customInput = "";
+  final FocusNode _customInputFocusNode = FocusNode();
 
   @override
   void dispose() {
-    customInputFocusNode.dispose(); // Dispose FocusNode to avoid memory leaks
+    _customInputFocusNode.dispose();
     super.dispose();
   }
 
@@ -56,16 +56,16 @@ class _GenericPickerState extends State<GenericPicker> {
                 backgroundColor: LaTheme.secondaryContainer(),
                 elevation: 0,
                 child: LaTextField(
-                  hintText: selectedOption ?? "Select your partner's pronouns",
-                  hintColor: selectedOption == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
+                  hintText: _selectedOption ?? "Select your partner's pronouns",
+                  hintColor: _selectedOption == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
                   enabled: false,
                 ),
               ),
             ),
-            if (selectedOption == widget.freeFormOptionLabel)
+            if (_selectedOption == widget.freeFormOptionLabel)
               LaTextField(
                 hintText: "Enter custom value",
-                focusNode: customInputFocusNode,
+                focusNode: _customInputFocusNode,
               ),
           ],
         ),
@@ -89,7 +89,7 @@ class _GenericPickerState extends State<GenericPicker> {
               child: Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.small),
                 child: DropdownButton(
-                  value: selectedOption,
+                  value: _selectedOption,
                   hint: LaText(
                     "Select your partner's pronouns",
                     style: LaTheme.font.body16.copyWith(color: Colors.grey[500]),
@@ -97,13 +97,19 @@ class _GenericPickerState extends State<GenericPicker> {
                   underline: const SizedBox.shrink(),
                   isExpanded: true,
                   onChanged: (String? value) {
-                    setState(() {
-                      selectedOption = value;
-                      if (selectedOption != widget.freeFormOptionLabel) {
-                        customInput = '';
-                      }
-                      widget.onChanged(selectedOption, customInput);
-                    });
+                    setState(
+                      () {
+                        _selectedOption = value;
+                        if (_selectedOption != widget.freeFormOptionLabel) {
+                          _customInput = "";
+                        }
+                        widget.onChanged(_selectedOption, _customInput);
+
+                        if (_selectedOption == widget.freeFormOptionLabel) {
+                          _customInputFocusNode.requestFocus();
+                        }
+                      },
+                    );
                   },
                   items: [
                     ...widget.options.map(
@@ -122,9 +128,9 @@ class _GenericPickerState extends State<GenericPicker> {
                 ),
               ),
             ),
-            if (selectedOption == widget.freeFormOptionLabel)
+            if (_selectedOption == widget.freeFormOptionLabel)
               LaTextField(
-                focusNode: customInputFocusNode,
+                focusNode: _customInputFocusNode,
                 hintText: "Enter custom value",
               ),
           ],
@@ -134,8 +140,8 @@ class _GenericPickerState extends State<GenericPicker> {
   }
 
   Future<void> _showCupertinoPicker(BuildContext context) async {
-    int initialIndex = widget.options.indexOf(selectedOption ?? widget.options.first);
-    if (selectedOption == widget.freeFormOptionLabel) {
+    int initialIndex = widget.options.indexOf(_selectedOption ?? widget.options.first);
+    if (_selectedOption == widget.freeFormOptionLabel) {
       initialIndex = widget.options.length;
     }
     final FixedExtentScrollController scrollController = FixedExtentScrollController(initialItem: initialIndex);
@@ -173,12 +179,12 @@ class _GenericPickerState extends State<GenericPicker> {
                 onSelectedItemChanged: (int index) {
                   setState(() {
                     if (index < widget.options.length) {
-                      selectedOption = widget.options[index];
-                      customInput = "";
+                      _selectedOption = widget.options[index];
+                      _customInput = "";
                     } else {
-                      selectedOption = widget.freeFormOptionLabel;
+                      _selectedOption = widget.freeFormOptionLabel;
                     }
-                    widget.onChanged(selectedOption, customInput);
+                    widget.onChanged(_selectedOption, _customInput);
                   });
                 },
                 children: [
@@ -201,10 +207,10 @@ class _GenericPickerState extends State<GenericPicker> {
       ),
     );
 
-    if (result != true && selectedOption == widget.freeFormOptionLabel) {
-      customInputFocusNode.requestFocus();
-    } else if (result == true && selectedOption == widget.freeFormOptionLabel) {
-      customInputFocusNode.requestFocus();
+    if (result != true && _selectedOption == widget.freeFormOptionLabel) {
+      _customInputFocusNode.requestFocus();
+    } else if (result == true && _selectedOption == widget.freeFormOptionLabel) {
+      _customInputFocusNode.requestFocus();
     }
   }
 }
