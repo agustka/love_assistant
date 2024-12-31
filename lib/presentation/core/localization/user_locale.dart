@@ -1,14 +1,19 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:la/presentation/core/widgets/import.dart';
 
 class UserLocale extends Equatable {
-  final String localePlain;
   final Locale locale;
+  final Language language;
   final bool valid;
 
   bool get isInvalid => !valid;
 
-  const UserLocale({required this.localePlain, required this.locale, this.valid = true});
+  const UserLocale({
+    required this.locale,
+    required this.language,
+    this.valid = true,
+  });
 
   factory UserLocale.fromString(String input) {
     String language = input;
@@ -20,15 +25,19 @@ class UserLocale extends Equatable {
     }
     final Locale locale = Locale(language, country);
     return UserLocale(
-      localePlain: input,
       locale: locale,
+      language: _languageFromCode(language),
     );
+  }
+
+  factory UserLocale.fromLanguage(Language language) {
+    return UserLocale.fromLocale(language.locale);
   }
 
   factory UserLocale.fromLocale(Locale locale) {
     return UserLocale(
-      localePlain: locale.toLanguageTag(),
       locale: locale,
+      language: _languageFromCode(locale.languageCode),
     );
   }
 
@@ -36,41 +45,56 @@ class UserLocale extends Equatable {
 
   factory UserLocale.icelandic() {
     return const UserLocale(
-      localePlain: "Íslenska",
       locale: Locale("is", "IS"),
+      language: Language.icelandic,
     );
   }
 
   factory UserLocale.english() {
     return const UserLocale(
-      localePlain: "English",
-      locale: Locale("en", "GB"),
+      locale: Locale("en", "US"),
+      language: Language.english,
     );
   }
 
   factory UserLocale.spanish() {
     return const UserLocale(
-      localePlain: "Español",
       locale: Locale("es", "ES"),
+      language: Language.spanish,
     );
   }
 
   factory UserLocale.german() {
     return const UserLocale(
-      localePlain: "Deutsch",
       locale: Locale("de", "DE"),
+      language: Language.german,
     );
+  }
+
+  static Language _languageFromCode(String language) {
+    switch (language.toLowerCase()) {
+      case "en":
+        return Language.english;
+      case "es":
+        return Language.spanish;
+      case "de":
+        return Language.german;
+      case "is":
+        return Language.icelandic;
+      default:
+        return Language.english;
+    }
   }
 
   @override
   String toString() {
-    return locale.toString();
+    return language.properName;
   }
 
   @override
   List<Object> get props => [
-        localePlain,
         locale,
+    language,
         valid,
       ];
 }
@@ -78,8 +102,63 @@ class UserLocale extends Equatable {
 class _$InvalidUserLocale extends UserLocale {
   const _$InvalidUserLocale()
       : super(
-          localePlain: "",
-          locale: const Locale("is"),
+          locale: const Locale("en"),
+          language: Language.invalid,
           valid: false,
         );
+}
+
+enum Language {
+  english,
+  spanish,
+  german,
+  icelandic,
+  invalid,
+}
+
+extension LanguageExtension on Language {
+  String get properName {
+    switch (this) {
+      case Language.english:
+        return "English";
+      case Language.icelandic:
+        return "Íslenska";
+      case Language.german:
+        return "Deutsch";
+      case Language.spanish:
+        return "Español";
+      case Language.invalid:
+        return "";
+    }
+  }
+
+  String get flagIcon {
+    switch (this) {
+      case Language.english:
+        return AppAssets.icons.flags.flagUs;
+      case Language.icelandic:
+        return AppAssets.icons.flags.flagIs;
+      case Language.german:
+        return AppAssets.icons.flags.flagDe;
+      case Language.spanish:
+        return AppAssets.icons.flags.flagEs;
+      case Language.invalid:
+        return AppAssets.icons.icTransparent;
+    }
+  }
+
+  Locale get locale {
+    switch (this) {
+      case Language.english:
+        return const Locale("en", "US");
+      case Language.icelandic:
+        return const Locale("is", "IS");
+      case Language.german:
+        return const Locale("de", "DE");
+      case Language.spanish:
+        return const Locale("es", "ES");
+      case Language.invalid:
+        return const Locale("en", "US");
+    }
+  }
 }

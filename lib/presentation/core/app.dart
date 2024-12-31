@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
@@ -13,7 +15,7 @@ import 'package:la/presentation/wizard/wizard_page.dart';
 import 'package:la/setup.dart';
 
 enum PageName {
-  splash("/splash"),
+  splash("/"),
   wizard("/wizard"),
   main("/main");
 
@@ -63,7 +65,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformDetector.isIOS
+    final Widget core = PlatformDetector.isIOS
         ? CupertinoApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
             navigatorKey: App.navigatorKey,
@@ -71,6 +73,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               PageName.splash.route: (BuildContext context) => const SplashPage(),
               PageName.wizard.route: (BuildContext context) => const WizardPage(),
             },
+            initialRoute: PageName.splash.route,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -81,7 +84,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             locale: App.userLocale?.locale,
             theme: LaTheme.cupertinoTheme(),
             debugShowCheckedModeBanner: false,
-            initialRoute: PageName.splash.route,
           )
         : MaterialApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
@@ -90,6 +92,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               PageName.splash.route: (BuildContext context) => const SplashPage(),
               PageName.wizard.route: (BuildContext context) => const WizardPage(),
             },
+            initialRoute: PageName.splash.route,
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -101,7 +104,22 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             debugShowCheckedModeBanner: false,
             theme: LaTheme.materialTheme(Brightness.light),
             darkTheme: LaTheme.materialTheme(Brightness.dark),
-            initialRoute: PageName.splash.route,
           );
+
+    return BlocProvider<LanguageCubit>(
+      create: (BuildContext context) {
+        return getIt<LanguageCubit>();
+      },
+      child: BlocConsumer<LanguageCubit, LanguageState>(
+        listener: (BuildContext context, LanguageState state) {
+          setState(() {
+            App.userLocale = UserLocale.fromLanguage(state.language);
+          });
+        },
+        builder: (BuildContext context, LanguageState state) {
+          return core;
+        },
+      ),
+    );
   }
 }

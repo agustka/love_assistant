@@ -22,6 +22,5 @@ class LaThemeIllustrations implements $AssetsIllustrationsDarkGen, $AssetsIllust
   String get roundPictureBackground => isDarkMode ? dark.roundPictureBackground : light.roundPictureBackground;
 
   @override
-  // TODO: implement manGreetings
   String get manGreetings => isDarkMode ? dark.manGreetings : light.manGreetings;
 }

@@ -1,6 +1,7 @@
 export '../accessibility/accessibility.dart';
 export '../assets/assets.gen.dart';
 export '../localization/l10n.dart';
+export '../theme/la_icons.dart';
 export '../theme/la_theme.dart';
 
 export 'la_app_bar.dart';

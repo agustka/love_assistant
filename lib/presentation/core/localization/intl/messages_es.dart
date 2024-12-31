@@ -23,11 +23,14 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
+        "global_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_second": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_third": MessageLookupByLibrary.simpleMessage("."),
+        "settings_pick_language":
+            MessageLookupByLibrary.simpleMessage("Select language"),
         "wizard_greetings": MessageLookupByLibrary.simpleMessage("Hi, there!"),
         "wizard_greetings_message": MessageLookupByLibrary.simpleMessage(
             "Let’s create a personalized profile for your partner to make every moment special."),

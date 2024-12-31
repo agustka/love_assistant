@@ -28,11 +28,11 @@ class LaTheme {
     _brightness = brightness;
     chromeNoSpace = (brightness == Brightness.light ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light).copyWith(
       statusBarColor: LaTheme.surface(),
-      systemNavigationBarColor: LaTheme.surface(),
+      systemNavigationBarColor: LaTheme.background(),
     );
     chrome = (brightness == Brightness.light ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark).copyWith(
       statusBarColor: LaTheme.primary(),
-      systemNavigationBarColor: LaTheme.surface(),
+      systemNavigationBarColor: LaTheme.background(),
     );
   }
 
@@ -44,8 +44,10 @@ class LaTheme {
   static const Color _lightOnSecondary = Color(0xFF0E0E0E);
   static const Color _lightError = Color(0xFFFF0000);
   static const Color _lightOnError = Color(0xFFFFFFFF);
-  static const Color _lightSurface = Color(0xFFFEFEFE);
-  static const Color _lightOnSurface = Color(0xFF0E0E0E);
+  static const Color _lightSurface = Color(0xFFE7E7E7);
+  static const Color _lightOnSurface = Color(0xFF2e2e2e);
+  static const Color _lightBackground = Color(0xFFF9F9F9);
+  static const Color _lightOnBackground = Color(0xFF0E0E0E);
   static const Color _lightSecondaryContainer = Color(0xFFD1D1D1);
   static const Color _lightOnSecondaryContainer = Color(0xFF0E0E0E);
 
@@ -55,8 +57,10 @@ class LaTheme {
   static const Color _darkOnSecondary = Color(0xFFDADADA);
   static const Color _darkError = Color(0xFFFF0000);
   static const Color _darkOnError = Color(0xFFFFFFFF);
-  static const Color _darkSurface = Color(0xFF1A1010);
-  static const Color _darkOnSurface = Color(0xFFFAFAFA);
+  static const Color _darkSurface = Color(0xFF242424);
+  static const Color _darkOnSurface = Color(0xFFDADADA);
+  static const Color _darkBackground = Color(0xFF1A1010);
+  static const Color _darkOnBackground = Color(0xFFE0E0E0);
   static const Color _darkSecondaryContainer = Color(0xFF121212);
   static const Color _darkOnSecondaryContainer = Color(0xFFA7A7A7);
 
@@ -124,6 +128,28 @@ class LaTheme {
     return isDark ? _darkOnError : _lightOnError;
   }
 
+  static Color background({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(
+        color: _lightBackground,
+        darkColor: _darkBackground,
+      );
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
+    return isDark ? _darkBackground : _lightBackground;
+  }
+
+  static Color onBackground({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(
+        color: _lightOnBackground,
+        darkColor: _darkOnBackground,
+      );
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
+    return isDark ? _darkOnBackground : _lightOnBackground;
+  }
+
   static Color secondaryContainer({Brightness? brightness}) {
     if (PlatformDetector.isIOS) {
       return const CupertinoDynamicColor.withBrightness(
@@ -151,7 +177,7 @@ class LaTheme {
       brightness: brightness,
       useMaterial3: true,
       textTheme: GoogleFonts.poppinsTextTheme(),
-      scaffoldBackgroundColor: surface(brightness: brightness),
+      scaffoldBackgroundColor: background(brightness: brightness),
       colorScheme: ColorScheme(
         brightness: brightness,
         primary: primary(brightness: brightness),
@@ -173,7 +199,7 @@ class LaTheme {
       brightness: LaTheme.brightness,
       primaryColor: primary(),
       barBackgroundColor: surface(),
-      scaffoldBackgroundColor: surface(),
+      scaffoldBackgroundColor: background(),
       applyThemeToAll: true,
       textTheme: CupertinoTextThemeData(
         primaryColor: onPrimary(),
@@ -196,8 +222,11 @@ extension ColorExtension on Color {
 extension TextStyleExtension on TextStyle {
   TextStyle get body32 => copyWith(fontSize: 32);
   TextStyle get body28 => copyWith(fontSize: 28);
+  TextStyle get body20 => copyWith(fontSize: 20);
   TextStyle get body18 => copyWith(fontSize: 18);
+  TextStyle get body17 => copyWith(fontSize: 17);
   TextStyle get body16 => copyWith(fontSize: 16);
+  TextStyle get body14 => copyWith(fontSize: 14);
   TextStyle get body12 => copyWith(fontSize: 12);
 
   TextStyle get bold => copyWith(fontWeight: FontWeight.w700);

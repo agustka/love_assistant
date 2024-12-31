@@ -60,11 +60,31 @@ class S {
     );
   }
 
+  /// `Hætta við`
+  String get global_cancel {
+    return Intl.message(
+      'Hætta við',
+      name: 'global_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Uppsetning`
   String get wizard_title {
     return Intl.message(
       'Uppsetning',
       name: 'wizard_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Veldu tungumál`
+  String get settings_pick_language {
+    return Intl.message(
+      'Veldu tungumál',
+      name: 'settings_pick_language',
       desc: '',
       args: [],
     );

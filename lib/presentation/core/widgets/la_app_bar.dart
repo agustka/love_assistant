@@ -1,42 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
+import 'package:la/presentation/core/widgets/import.dart';
 
-class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredSizeWidget {
-  final String? title;
-  final bool showBack;
-  final bool takesUpSpace;
+class AppBarActionDefinition {
+  final IconData icon;
+  final void Function() onTap;
 
-  @override
-  Size get preferredSize => takesUpSpace ? const Size.fromHeight(kToolbarHeight) : Size.zero;
+  AppBarActionDefinition({required this.icon, required this.onTap});
 
-  const LaCupertinoAppBar({
-    super.key,
-    this.title,
-    this.showBack = true,
-    this.takesUpSpace = true,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (!takesUpSpace) {
-      return const SizedBox.shrink();
-    }
-    return CupertinoNavigationBar(
-      middle: title == null
-          ? null
-          : Text(
-              title!,
-              style: LaTheme.onPrimary().text,
-            ),
-      backgroundColor: LaTheme.primary(),
-      automaticBackgroundVisibility: false,
+  Widget toWidget() {
+    return LaTapVisual(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.all(PlatformDetector.isIOS ? 0 : LaPadding.medium),
+        child: Icon(
+          icon,
+          size: 24,
+          color: LaTheme.onPrimary(),
+        ),
+      ),
     );
-  }
-
-  @override
-  bool shouldFullyObstruct(BuildContext context) {
-    return false;
   }
 }
 
@@ -44,6 +29,7 @@ class LaAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool showBack;
   final bool takesUpSpace;
+  final AppBarActionDefinition? action;
 
   @override
   Size get preferredSize => takesUpSpace ? const Size.fromHeight(kToolbarHeight) : Size.zero;
@@ -53,12 +39,14 @@ class LaAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.showBack = true,
     this.takesUpSpace = true,
+    this.action,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       systemOverlayStyle: takesUpSpace ? LaTheme.chrome : LaTheme.chromeNoSpace,
+      actions: action != null ? [action!.toWidget()] : [],
       leading: showBack
           ? InkWell(
               onTap: Navigator.of(context).pop,
@@ -75,6 +63,48 @@ class LaAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title,
       showBack: showBack,
       takesUpSpace: takesUpSpace,
+      action: action,
     );
+  }
+}
+
+class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredSizeWidget {
+  final String? title;
+  final bool showBack;
+  final bool takesUpSpace;
+  final AppBarActionDefinition? action;
+
+  @override
+  Size get preferredSize => takesUpSpace ? const Size.fromHeight(kToolbarHeight) : Size.zero;
+
+  const LaCupertinoAppBar({
+    super.key,
+    this.title,
+    this.showBack = true,
+    this.takesUpSpace = true,
+    this.action,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (!takesUpSpace) {
+      return const SizedBox.shrink();
+    }
+    return CupertinoNavigationBar(
+      middle: title == null
+          ? null
+          : Text(
+              title!,
+              style: LaTheme.onPrimary().text,
+            ),
+      backgroundColor: LaTheme.primary(),
+      automaticBackgroundVisibility: false,
+      trailing: action?.toWidget(),
+    );
+  }
+
+  @override
+  bool shouldFullyObstruct(BuildContext context) {
+    return true;
   }
 }

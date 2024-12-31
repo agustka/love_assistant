@@ -23,11 +23,14 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
+        "global_cancel": MessageLookupByLibrary.simpleMessage("Hætta við"),
         "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_second": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_third": MessageLookupByLibrary.simpleMessage("."),
+        "settings_pick_language":
+            MessageLookupByLibrary.simpleMessage("Veldu tungumál"),
         "wizard_greetings":
             MessageLookupByLibrary.simpleMessage("Velkomin(n)!"),
         "wizard_greetings_message": MessageLookupByLibrary.simpleMessage(

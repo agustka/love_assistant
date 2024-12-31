@@ -9,21 +9,16 @@ class WizardStep1 extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
-        child: Stack(
+        child: Column(
+          spacing: LaPadding.large,
           children: [
-            LaIconCircle(icon: AppAssets.icons.flags.flagIs),
-            Column(
-              spacing: LaPadding.large,
-              children: [
-                LaEpicImage(
-                  asset: LaTheme.illustrations.manGreetings,
-                  title: S.of(context).wizard_greetings,
-                  message: S.of(context).wizard_greetings_message,
-                ),
-                LaText(S.of(context).wizard_greetings_privacy, style: LaTheme.font.body12.light, textAlign: TextAlign.center,),
-                LaButton(text: "Begin", onTap: (){}),
-              ],
+            LaEpicImage(
+              asset: LaTheme.illustrations.manGreetings,
+              title: S.of(context).wizard_greetings,
+              message: S.of(context).wizard_greetings_message,
             ),
+            LaText(S.of(context).wizard_greetings_privacy, style: LaTheme.font.body12.light, textAlign: TextAlign.center,),
+            LaButton(text: "Begin", onTap: (){}),
           ],
         ),
       ),
