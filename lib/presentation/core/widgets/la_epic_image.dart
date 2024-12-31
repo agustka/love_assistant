@@ -101,14 +101,14 @@ class LaEpicImage extends StatelessWidget {
           const SizedBox(height: 48),
           LaText(
             title!,
-            style: LaTheme.font.body32.bold,
+            style: LaTheme.font.body28.bold,
             textAlign: TextAlign.center,
           ),
           if (message != null) ...[
             const SizedBox(height: 16),
             LaText(
               message!,
-              style: LaTheme.font.body18.light,
+              style: LaTheme.font.body16.light,
               textAlign: TextAlign.center,
             ),
           ],
@@ -122,7 +122,7 @@ class LaEpicImage extends StatelessWidget {
           const SizedBox(height: LaPadding.extraHuge),
           LaText(
             message!,
-            style: LaTheme.font.body18.light,
+            style: LaTheme.font.body16.light,
             textAlign: TextAlign.center,
           ),
         ],
@@ -135,7 +135,7 @@ class LaEpicImage extends StatelessWidget {
           const SizedBox(height: 48),
           LaText(
             title!,
-            style: LaTheme.font.body32.bold,
+            style: LaTheme.font.body28.bold,
             textAlign: TextAlign.center,
           ),
         ],
@@ -170,9 +170,9 @@ class LaEpicImage extends StatelessWidget {
 
   double _getSize(BuildContext context) {
     final double dimension =
-    heightAsPercentageOfScreen == null ? MediaQuery.sizeOf(context).width : MediaQuery.sizeOf(context).height;
+        heightAsPercentageOfScreen == null ? MediaQuery.sizeOf(context).width : MediaQuery.sizeOf(context).height;
     final double fraction =
-    heightAsPercentageOfScreen == null ? widthAsPercentageOfScreen : heightAsPercentageOfScreen!;
+        heightAsPercentageOfScreen == null ? widthAsPercentageOfScreen : heightAsPercentageOfScreen!;
     final double size = dimension * fraction;
     return size;
   }

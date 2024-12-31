@@ -23,6 +23,17 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
+        "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("st"),
+        "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("th"),
+        "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
+        "ordinal_suffix_second": MessageLookupByLibrary.simpleMessage("nd"),
+        "ordinal_suffix_third": MessageLookupByLibrary.simpleMessage("rd"),
+        "wizard_greetings": MessageLookupByLibrary.simpleMessage(
+            "Your Personal Love Assistant"),
+        "wizard_greetings_message": MessageLookupByLibrary.simpleMessage(
+            "Let’s get started on creating a tailored profile for your partner. With this, you’ll receive thoughtful reminders, ideas, and personalized messages."),
+        "wizard_greetings_privacy": MessageLookupByLibrary.simpleMessage(
+            "Don’t worry—your information stays private and won’t be shared with anyone."),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup")
       };
 }

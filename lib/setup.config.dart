@@ -15,6 +15,8 @@ import 'package:la/infrastructure/core/cache/hive_cache.dart' as _i681;
 import 'package:la/infrastructure/core/cache/i_hive_cache.dart' as _i339;
 import 'package:la/infrastructure/core/initialization/initialization_service.dart'
     as _i984;
+import 'package:la/infrastructure/core/time/i_poll_and_debounce.dart' as _i651;
+import 'package:la/infrastructure/core/time/poll_and_debounce.dart' as _i187;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -31,6 +33,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i984.InitializationService>(
         () => _i984.InitializationService());
     gh.lazySingleton<_i339.IHiveCache>(() => const _i681.HiveCache());
+    gh.factory<_i651.IPollAndDebounce>(() => _i187.PollAndDebounce());
     return this;
   }
 }

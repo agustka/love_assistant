@@ -1,13 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
 import 'package:la/presentation/splash/splash_page.dart';
 import 'package:la/presentation/wizard/wizard_page.dart';
+import 'package:la/setup.dart';
 
 enum PageName {
   splash("/splash"),
@@ -21,9 +24,7 @@ enum PageName {
 
 class App extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  static UserLocale? _userLocale;
-
-  static UserLocale get userLocale => _userLocale ?? UserLocale.english();
+  static UserLocale? userLocale;
 
   const App({super.key});
 
@@ -37,15 +38,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback(
-      (Duration timeStamp) {
-        setState(() {
-          LaTheme.brightnessSet = true;
-          LaTheme.brightness = PlatformDetector.platformBrightness(context);
-        });
-      },
-    );
   }
 
   @override
@@ -58,21 +50,19 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
 
-    setState(() {
-      LaTheme.brightness = View.of(context).platformDispatcher.platformBrightness;
+    setState(() async {
+      final PlatformDispatcher dispatcher = View.of(context).platformDispatcher;
 
-      SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: LaTheme.surface(),
-        systemNavigationBarColor: LaTheme.surface(),
-      );
+      final InitializationService service = getIt<InitializationService>();
+      final bool hasSet = (await service.getPreferredBrightness()) != null;
+      if (!hasSet) {
+        LaTheme.brightness = dispatcher.platformBrightness;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!LaTheme.brightnessSet) {
-      return const SizedBox.shrink();
-    }
     return PlatformDetector.isIOS
         ? CupertinoApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
@@ -88,6 +78,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
+            locale: App.userLocale?.locale,
             theme: LaTheme.cupertinoTheme(),
             debugShowCheckedModeBanner: false,
             initialRoute: PageName.splash.route,
@@ -106,8 +97,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
+            locale: App.userLocale?.locale,
             debugShowCheckedModeBanner: false,
-            theme: LaTheme.materialTheme(),
+            theme: LaTheme.materialTheme(Brightness.light),
+            darkTheme: LaTheme.materialTheme(Brightness.dark),
             initialRoute: PageName.splash.route,
           );
   }

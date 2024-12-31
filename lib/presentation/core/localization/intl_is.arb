@@ -2,5 +2,13 @@
   "@@locale": "is",
   "@@last_modified": "2024-12-01T10:57:18+01:00",
   "app_name": "Hjálp í ást",
-  "wizard_title": "Uppsetning"
+  "wizard_title": "Uppsetning",
+  "wizard_greetings": "Velkomin(n)!",
+  "wizard_greetings_message": "Við skulum byrja á að fá smá innsýn í hvað það er sem maki eða félagi þinn hefur áhuga á ásamt nokkrum mikilvægum dagsetningum.",
+  "wizard_greetings_privacy": "Hafðu engar áhyggjur - upplýsingarnar þínar eru dulkóðaðar og þeim verður ekki deilt með neinum.",
+  "ordinal_suffix_first": ".",
+  "ordinal_suffix_generic": ".",
+  "ordinal_suffix_global": ".",
+  "ordinal_suffix_second": ".",
+  "ordinal_suffix_third": "."
 }

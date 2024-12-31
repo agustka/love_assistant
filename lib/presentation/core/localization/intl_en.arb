@@ -2,5 +2,13 @@
   "@@locale": "en",
   "@@last_modified": "2024-12-01T10:57:18+01:00",
   "app_name": "LoveAssistant",
-  "wizard_title": "Partner setup"
+  "wizard_title": "Partner setup",
+  "wizard_greetings": "Your Personal Love Assistant",
+  "wizard_greetings_message": "Let’s get started on creating a tailored profile for your partner. With this, you’ll receive thoughtful reminders, ideas, and personalized messages.",
+  "wizard_greetings_privacy": "Don’t worry—your information stays private and won’t be shared with anyone.",
+  "ordinal_suffix_first": "st",
+  "ordinal_suffix_generic": "th",
+  "ordinal_suffix_global": ".",
+  "ordinal_suffix_second": "nd",
+  "ordinal_suffix_third": "rd"
 }

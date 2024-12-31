@@ -54,11 +54,10 @@ class _LaPagerState extends State<LaPager> {
           effect: SwapEffect(
             type: SwapType.yRotation,
             activeDotColor: LaTheme.primary(),
-            dotColor: LaTheme.secondaryContainer(),
+            dotColor: LaTheme.onSecondaryContainer(),
           ),
           onDotClicked: widget.onDotClicked,
         ),
-        const SizedBox(height: LaPadding.medium),
       ],
     );
   }

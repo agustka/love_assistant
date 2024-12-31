@@ -13,6 +13,6 @@ class PlatformDetector {
   }
 
   static Brightness platformBrightness(BuildContext context) {
-    return Brightness.dark;//View.of(context).platformDispatcher.platformBrightness;
+    return View.of(context).platformDispatcher.platformBrightness;
   }
 }

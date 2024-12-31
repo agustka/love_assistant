@@ -69,6 +69,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Velkomin(n)!`
+  String get wizard_greetings {
+    return Intl.message(
+      'Velkomin(n)!',
+      name: 'wizard_greetings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Við skulum byrja á að fá smá innsýn í hvað það er sem maki eða félagi þinn hefur áhuga á ásamt nokkrum mikilvægum dagsetningum.`
+  String get wizard_greetings_message {
+    return Intl.message(
+      'Við skulum byrja á að fá smá innsýn í hvað það er sem maki eða félagi þinn hefur áhuga á ásamt nokkrum mikilvægum dagsetningum.',
+      name: 'wizard_greetings_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hafðu engar áhyggjur - upplýsingarnar þínar eru dulkóðaðar og þeim verður ekki deilt með neinum.`
+  String get wizard_greetings_privacy {
+    return Intl.message(
+      'Hafðu engar áhyggjur - upplýsingarnar þínar eru dulkóðaðar og þeim verður ekki deilt með neinum.',
+      name: 'wizard_greetings_privacy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `.`
+  String get ordinal_suffix_first {
+    return Intl.message(
+      '.',
+      name: 'ordinal_suffix_first',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `.`
+  String get ordinal_suffix_generic {
+    return Intl.message(
+      '.',
+      name: 'ordinal_suffix_generic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `.`
+  String get ordinal_suffix_global {
+    return Intl.message(
+      '.',
+      name: 'ordinal_suffix_global',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `.`
+  String get ordinal_suffix_second {
+    return Intl.message(
+      '.',
+      name: 'ordinal_suffix_second',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `.`
+  String get ordinal_suffix_third {
+    return Intl.message(
+      '.',
+      name: 'ordinal_suffix_third',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

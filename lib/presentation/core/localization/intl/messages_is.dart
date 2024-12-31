@@ -23,6 +23,17 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
+        "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
+        "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
+        "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
+        "ordinal_suffix_second": MessageLookupByLibrary.simpleMessage("."),
+        "ordinal_suffix_third": MessageLookupByLibrary.simpleMessage("."),
+        "wizard_greetings":
+            MessageLookupByLibrary.simpleMessage("Velkomin(n)!"),
+        "wizard_greetings_message": MessageLookupByLibrary.simpleMessage(
+            "Við skulum byrja á að fá smá innsýn í hvað það er sem maki eða félagi þinn hefur áhuga á ásamt nokkrum mikilvægum dagsetningum."),
+        "wizard_greetings_privacy": MessageLookupByLibrary.simpleMessage(
+            "Hafðu engar áhyggjur - upplýsingarnar þínar eru dulkóðaðar og þeim verður ekki deilt með neinum."),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning")
       };
 }

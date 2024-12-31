@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/theme/la_theme_illustrations.dart';
 
 class LaPadding {
@@ -16,15 +17,14 @@ class LaPadding {
 }
 
 class LaTheme {
-  static bool brightnessSet = false;
-  static Brightness _brightness = Brightness.dark;
+  static Brightness? _brightness;
   static SystemUiOverlayStyle chrome = SystemUiOverlayStyle.dark;
   static SystemUiOverlayStyle chromeNoSpace = SystemUiOverlayStyle.dark;
 
   static LaThemeIllustrations get illustrations => LaThemeIllustrations(isDarkMode: _brightness == Brightness.dark);
 
-  static Brightness get brightness => _brightness;
-  static set brightness(Brightness brightness) {
+  static Brightness? get brightness => _brightness;
+  static set brightness(Brightness? brightness) {
     _brightness = brightness;
     chromeNoSpace = (brightness == Brightness.light ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light).copyWith(
       statusBarColor: LaTheme.surface(),
@@ -36,7 +36,7 @@ class LaTheme {
     );
   }
 
-  static TextStyle get font => const TextStyle();
+  static TextStyle get font => TextStyle(color: LaTheme.onSurface());
 
   static const Color _lightPrimary = Color(0xFFD85555);
   static const Color _lightOnPrimary = Color(0xFFFFFFFF);
@@ -60,74 +60,110 @@ class LaTheme {
   static const Color _darkSecondaryContainer = Color(0xFF121212);
   static const Color _darkOnSecondaryContainer = Color(0xFFA7A7A7);
 
-  static Color primary() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color primary({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(color: _lightPrimary, darkColor: _darkPrimary);
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkPrimary : _lightPrimary;
   }
 
-  static Color onPrimary() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color onPrimary({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(color: _lightOnPrimary, darkColor: _darkOnPrimary);
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnPrimary : _lightOnPrimary;
   }
 
-  static Color secondary() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color secondary({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(color: _lightSecondary, darkColor: _darkSecondary);
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkSecondary : _lightSecondary;
   }
 
-  static Color onSecondary() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color onSecondary({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(color: _lightOnSecondary, darkColor: _darkOnSecondary);
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnSecondary : _lightOnSecondary;
   }
 
-  static Color surface() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color surface({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(color: _lightSurface, darkColor: _darkSurface);
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkSurface : _lightSurface;
   }
 
-  static Color onSurface() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color onSurface({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(color: _lightOnSurface, darkColor: _darkOnSurface);
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnSurface : _lightOnSurface;
   }
 
-  static Color error() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color error({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(color: _lightError, darkColor: _darkError);
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkError : _lightError;
   }
 
-  static Color onError() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color onError({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(color: _lightOnError, darkColor: _darkOnError);
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnError : _lightOnError;
   }
 
-  static Color secondaryContainer() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color secondaryContainer({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(
+        color: _lightSecondaryContainer,
+        darkColor: _darkSecondaryContainer,
+      );
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkSecondaryContainer : _lightSecondaryContainer;
   }
 
-  static Color onSecondaryContainer() {
-    final bool isDark = LaTheme.brightness == Brightness.dark;
+  static Color onSecondaryContainer({Brightness? brightness}) {
+    if (PlatformDetector.isIOS) {
+      return const CupertinoDynamicColor.withBrightness(
+        color: _lightOnSecondaryContainer,
+        darkColor: _darkOnSecondaryContainer,
+      );
+    }
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnSecondaryContainer : _lightOnSecondaryContainer;
   }
 
-  static ThemeData materialTheme() {
+  static ThemeData materialTheme(Brightness brightness) {
     return ThemeData(
-      brightness: LaTheme.brightness,
+      brightness: brightness,
       useMaterial3: true,
       textTheme: GoogleFonts.poppinsTextTheme(),
-      scaffoldBackgroundColor: surface(),
+      scaffoldBackgroundColor: surface(brightness: brightness),
       colorScheme: ColorScheme(
-        brightness: LaTheme.brightness,
-        primary: primary(),
-        onPrimary: onPrimary(),
-        secondary: secondary(),
-        onSecondary: onSecondary(),
-        error: error(),
-        onError: onError(),
-        surface: surface(),
-        onSurface: onSurface(),
-        secondaryContainer: secondaryContainer(),
-        onSecondaryContainer: onSecondaryContainer(),
+        brightness: brightness,
+        primary: primary(brightness: brightness),
+        onPrimary: onPrimary(brightness: brightness),
+        secondary: secondary(brightness: brightness),
+        onSecondary: onSecondary(brightness: brightness),
+        error: error(brightness: brightness),
+        onError: onError(brightness: brightness),
+        surface: surface(brightness: brightness),
+        onSurface: onSurface(brightness: brightness),
+        secondaryContainer: secondaryContainer(brightness: brightness),
+        onSecondaryContainer: onSecondaryContainer(brightness: brightness),
       ),
     );
   }
@@ -159,7 +195,10 @@ extension ColorExtension on Color {
 
 extension TextStyleExtension on TextStyle {
   TextStyle get body32 => copyWith(fontSize: 32);
+  TextStyle get body28 => copyWith(fontSize: 28);
   TextStyle get body18 => copyWith(fontSize: 18);
+  TextStyle get body16 => copyWith(fontSize: 16);
+  TextStyle get body12 => copyWith(fontSize: 12);
 
   TextStyle get bold => copyWith(fontWeight: FontWeight.w700);
   TextStyle get light => copyWith(fontWeight: FontWeight.w400);

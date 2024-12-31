@@ -109,7 +109,7 @@ class Accessibility {
   }
 
   static String convertDateTimeToVoiceOverSentence(DateTime? date) {
-    final DateFormat accessibilityDateTimeFormat = DateFormat.yMMMMd(App.userLocale.locale.languageCode);
+    final DateFormat accessibilityDateTimeFormat = DateFormat.yMMMMd(App.userLocale?.locale.languageCode);
 
     if (date == null) {
       return "Invalid date.";
