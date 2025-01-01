@@ -145,6 +145,7 @@ class LaButton extends StatelessWidget {
             child: CupertinoButton(
               onPressed: onTap,
               color: LaTheme.secondary(),
+              sizeStyle: CupertinoButtonSize.medium,
               child: child,
             ),
           )

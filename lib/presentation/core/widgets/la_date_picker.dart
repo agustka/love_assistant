@@ -105,7 +105,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
       builder: (BuildContext context) => Container(
         height: 300,
         decoration: BoxDecoration(
-          color: LaTheme.background(),
+          color: LaTheme.surface(),
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
@@ -113,7 +113,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
             Container(
               height: 50,
               decoration: BoxDecoration(
-                color: LaTheme.background(),
+                color: LaTheme.surface(),
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
               ),
               child: Row(

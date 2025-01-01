@@ -62,6 +62,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 child: LaTextField(
                   hint: _selectedOption?.toString() ?? widget.hint ?? "",
                   hintColor: _selectedOption == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
+                  actionIcon: LaIcons.dropDown,
                   enabled: false,
                 ),
               ),

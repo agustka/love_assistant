@@ -74,7 +74,7 @@ class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredS
   final AppBarActionDefinition? action;
 
   @override
-  Size get preferredSize => takesUpSpace ? const Size.fromHeight(kToolbarHeight) : Size.zero;
+  Size get preferredSize => takesUpSpace ? const Size.fromHeight(44) : Size.zero;
 
   const LaCupertinoAppBar({
     super.key,

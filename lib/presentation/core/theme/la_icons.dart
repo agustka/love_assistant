@@ -42,4 +42,8 @@ class LaIcons {
   static IconData get calendar {
     return PlatformDetector.isIOS ? CupertinoIcons.calendar : Icons.calendar_month;
   }
+
+  static IconData get dropDown {
+    return PlatformDetector.isIOS ? CupertinoIcons.chevron_down : Icons.arrow_drop_down;
+  }
 }
