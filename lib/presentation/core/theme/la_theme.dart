@@ -205,10 +205,13 @@ extension TextStyleExtension on TextStyle {
 
   TextStyle get bold => copyWith(fontWeight: FontWeight.w700);
   TextStyle get light => copyWith(fontWeight: FontWeight.w400);
+
   TextStyle get primary => copyWith(color: LaTheme.primary());
   TextStyle get onPrimary => copyWith(color: LaTheme.onPrimary());
   TextStyle get secondary => copyWith(color: LaTheme.secondary());
+  TextStyle get onSecondary => copyWith(color: LaTheme.onSecondary());
   TextStyle get onSurface => copyWith(color: LaTheme.onSurface());
+  TextStyle get onSecondaryContainer => copyWith(color: LaTheme.onSecondaryContainer());
   TextStyle get onBackground => copyWith(color: LaTheme.onBackground());
   TextStyle get hintText => copyWith(color: LaTheme.hintText());
 }

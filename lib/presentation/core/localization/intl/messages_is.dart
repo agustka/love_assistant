@@ -62,7 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gifting, trúlofun osfr."),
         "wizard_partner_anniversary_skip_message":
             MessageLookupByLibrary.simpleMessage(
-                "Ertu viss um að þú viljir sleppa dagsetningu stórviðurða (gifting, trúlofun osfr.)?"),
+                "Ertu viss um að þú viljir sleppa dagsetningu stórviðurðar (gifting, trúlofun osfr.)?"),
         "wizard_partner_anniversary_skip_no_cancel":
             MessageLookupByLibrary.simpleMessage("Nei"),
         "wizard_partner_anniversary_skip_title":
@@ -75,12 +75,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veldu afmælisdagsetningu"),
         "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
             "Hvenær á félagi þinn afmæli?"),
+        "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
+            "Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun."),
+        "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
+            "Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark."),
+        "wizard_partner_loves_title":
+            MessageLookupByLibrary.simpleMessage("Hvað elskar félagi þinn?"),
         "wizard_partner_profile_birthday_missing":
             MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
         "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
             "Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum."),
         "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
-            "Þá getum við skipulagt sérstök tilefni og sérsniðið skilaboð betur."),
+            "Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur."),
         "wizard_partner_profile_name_hint":
             MessageLookupByLibrary.simpleMessage("Nafn félaga þíns"),
         "wizard_partner_profile_name_missing":

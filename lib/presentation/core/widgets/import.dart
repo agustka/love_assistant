@@ -21,6 +21,7 @@ export 'la_icon_circle.dart';
 export 'la_image.dart';
 export 'la_list_tile.dart';
 export 'la_loading_box.dart';
+export 'la_multi_select_picker.dart';
 export 'la_pager.dart';
 export 'la_picker.dart';
 export 'la_scaffold.dart';

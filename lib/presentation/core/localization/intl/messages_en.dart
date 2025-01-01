@@ -76,12 +76,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pick birthday date"),
         "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
             "When is your partner\'s birthday?"),
+        "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
+            "Share the things your partner loves to help me craft personalized experiences."),
+        "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
+            "This ensures that my suggestions and messages are truly meaningful."),
+        "wizard_partner_loves_title": MessageLookupByLibrary.simpleMessage(
+            "Share What Your Partner Loves"),
         "wizard_partner_profile_birthday_missing":
             MessageLookupByLibrary.simpleMessage("Birthday is required"),
         "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
             "We’ll start with the basics — like their name, pronouns, and important dates."),
         "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
-            "This helps us personalize reminders and messages just for them."),
+            "This helps me personalize reminders and messages just for them."),
         "wizard_partner_profile_name_hint":
             MessageLookupByLibrary.simpleMessage("Partner name"),
         "wizard_partner_profile_name_missing":
@@ -92,11 +98,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "wizard_partner_profile_pronoun_missing":
             MessageLookupByLibrary.simpleMessage("Pronoun is required"),
         "wizard_partner_profile_title":
-            MessageLookupByLibrary.simpleMessage("Tell Us About Your Partner"),
+            MessageLookupByLibrary.simpleMessage("Tell Me About Your Partner"),
         "wizard_partner_pronouns_hint": MessageLookupByLibrary.simpleMessage(
             "Select your partner\'s pronouns"),
         "wizard_partner_pronouns_title": MessageLookupByLibrary.simpleMessage(
-            "How should we refer to your partner?"),
+            "How should I refer to your partner?"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Begin"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup")
       };

@@ -260,10 +260,10 @@ class S {
     );
   }
 
-  /// `Þá getum við skipulagt sérstök tilefni og sérsniðið skilaboð betur.`
+  /// `Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur.`
   String get wizard_partner_profile_message_2 {
     return Intl.message(
-      'Þá getum við skipulagt sérstök tilefni og sérsniðið skilaboð betur.',
+      'Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur.',
       name: 'wizard_partner_profile_message_2',
       desc: '',
       args: [],
@@ -390,10 +390,10 @@ class S {
     );
   }
 
-  /// `Ertu viss um að þú viljir sleppa dagsetningu stórviðurða (gifting, trúlofun osfr.)?`
+  /// `Ertu viss um að þú viljir sleppa dagsetningu stórviðurðar (gifting, trúlofun osfr.)?`
   String get wizard_partner_anniversary_skip_message {
     return Intl.message(
-      'Ertu viss um að þú viljir sleppa dagsetningu stórviðurða (gifting, trúlofun osfr.)?',
+      'Ertu viss um að þú viljir sleppa dagsetningu stórviðurðar (gifting, trúlofun osfr.)?',
       name: 'wizard_partner_anniversary_skip_message',
       desc: '',
       args: [],
@@ -415,6 +415,36 @@ class S {
     return Intl.message(
       'Nei',
       name: 'wizard_partner_anniversary_skip_no_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hvað elskar félagi þinn?`
+  String get wizard_partner_loves_title {
+    return Intl.message(
+      'Hvað elskar félagi þinn?',
+      name: 'wizard_partner_loves_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun.`
+  String get wizard_partner_loves_message_1 {
+    return Intl.message(
+      'Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun.',
+      name: 'wizard_partner_loves_message_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.`
+  String get wizard_partner_loves_message_2 {
+    return Intl.message(
+      'Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.',
+      name: 'wizard_partner_loves_message_2',
       desc: '',
       args: [],
     );

@@ -27,6 +27,7 @@ class WizardState extends Equatable {
   final DateTime partnerBirthday;
   final bool missingBirthday;
   final DateTime partnerAnniversary;
+  final bool loveLanguageMissing;
 
   const WizardState({
     required this.status,
@@ -37,6 +38,7 @@ class WizardState extends Equatable {
     required this.partnerBirthday,
     required this.missingBirthday,
     required this.partnerAnniversary,
+    required this.loveLanguageMissing,
   });
 
   WizardState.initial()
@@ -49,6 +51,7 @@ class WizardState extends Equatable {
           partnerBirthday: DateTime(1800),
           missingBirthday: false,
           partnerAnniversary: DateTime(1800),
+          loveLanguageMissing: false,
         );
 
   WizardState copyWith({
@@ -60,6 +63,7 @@ class WizardState extends Equatable {
     DateTime? partnerBirthday,
     bool? missingBirthday,
     DateTime? partnerAnniversary,
+    bool? loveLanguageMissing,
   }) {
     return WizardState(
       status: status ?? this.status,
@@ -70,6 +74,7 @@ class WizardState extends Equatable {
       partnerBirthday: partnerBirthday ?? this.partnerBirthday,
       missingBirthday: missingBirthday ?? this.missingBirthday,
       partnerAnniversary: partnerAnniversary ?? this.partnerAnniversary,
+      loveLanguageMissing: loveLanguageMissing ?? this.loveLanguageMissing,
     );
   }
 
@@ -83,5 +88,6 @@ class WizardState extends Equatable {
         partnerBirthday,
         missingBirthday,
         partnerAnniversary,
+        loveLanguageMissing,
       ];
 }

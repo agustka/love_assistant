@@ -33,6 +33,43 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                   asset: LaTheme.illustrations.womanFloatingBanner,
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium, top: LaPadding.large),
+                child: LaBulletPointList(
+                  size: BulletPointListSize.small,
+                  title: S.of(context).wizard_partner_loves_title,
+                  entries: [
+                    BulletPointEntry(
+                      text: S.of(context).wizard_partner_loves_message_1,
+                      //emoji: "📝",
+                      //icon: LaIcons.contact,
+                    ),
+                    BulletPointEntry(
+                      text: S.of(context).wizard_partner_loves_message_2,
+                      //emoji: "💌",
+                      //icon: LaIcons.edit,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+                child: LaMultiSelectPicker(
+                  title: "What does your partner like?",
+                  optional: false,
+                  options: [
+                    "Quality Time",
+                    "Words of Affirmation",
+                    "Acts of Service",
+                    "Physical Touch",
+                    "Receiving Gifts"
+                  ],
+                  error: state.loveLanguageMissing,
+                  onSelectionChanged: (List<String> selectedOptions) {
+                    context.read<WizardCubit>();
+                  },
+                ),
+              ),
               const SizedBox.shrink(),
             ],
           ),
