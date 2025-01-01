@@ -6,14 +6,18 @@ import 'package:la/presentation/core/widgets/import.dart';
 class LaDropDown<T> extends StatefulWidget {
   final String title;
   final List<T> options;
-  final T freeFormOption;
+  final T? freeFormOption;
+  final String? hint;
+  final String? customHint;
   final void Function(dynamic selected, String? customInput) onChanged;
 
   const LaDropDown({
     required this.title,
     required this.options,
-    required this.freeFormOption,
+    this.freeFormOption,
     required this.onChanged,
+    this.hint,
+    this.customHint,
     super.key,
   });
 
@@ -56,7 +60,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 backgroundColor: LaTheme.secondaryContainer(),
                 elevation: 0,
                 child: LaTextField(
-                  hintText: _selectedOption?.toString() ?? "Select your partner's pronouns",
+                  hint: _selectedOption?.toString() ?? widget.hint ?? "",
                   hintColor: _selectedOption == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
                   enabled: false,
                 ),
@@ -64,7 +68,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
             ),
             if (_selectedOption == widget.freeFormOption)
               LaTextField(
-                hintText: "Enter custom value",
+                hint: widget.customHint ?? "",
                 focusNode: _customInputFocusNode,
                 onChanged: (String input) => widget.onChanged(_selectedOption, input),
               ),
@@ -91,8 +95,8 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 child: DropdownButton<T>(
                   value: _selectedOption,
                   hint: LaText(
-                    "Select your partner's pronouns",
-                    style: LaTheme.font.body16.copyWith(color: Colors.grey[500]),
+                    widget.hint ?? "",
+                    style: LaTheme.font.body16.copyWith(color: LaTheme.hintText()),
                   ),
                   underline: const SizedBox.shrink(),
                   isExpanded: true,
@@ -132,7 +136,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
             if (_selectedOption == widget.freeFormOption)
               LaTextField(
                 focusNode: _customInputFocusNode,
-                hintText: "Enter custom value",
+                hint: widget.customHint ?? "",
                 onChanged: (String input) => widget.onChanged(_selectedOption, input),
               ),
           ],
@@ -164,8 +168,8 @@ class _LaDropDownState<T> extends State<LaDropDown> {
               alignment: Alignment.topRight,
               child: CupertinoButton(
                 child: LaText(
-                  "Done",
-                  style: LaTheme.font.body16.copyWith(color: LaTheme.primary()),
+                  S.of(context).global_done,
+                  style: LaTheme.font.body16.primary,
                 ),
                 onPressed: () {
                   Navigator.pop(context);

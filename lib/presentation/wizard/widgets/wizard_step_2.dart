@@ -49,7 +49,7 @@ class _WizardStep2State extends State<WizardStep2> {
             padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
             child: LaTextField(
               title: S.of(context).wizard_partner_profile_name_title,
-              hintText: S.of(context).wizard_partner_profile_name_hint,
+              hint: S.of(context).wizard_partner_profile_name_hint,
               onChanged: (String input) => context.read<WizardCubit>().onNameChanged(input),
             ),
           ),
@@ -57,10 +57,24 @@ class _WizardStep2State extends State<WizardStep2> {
             padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
             child: LaDropDown<Pronoun>(
               title: "How should we refer to your partner?",
+              hint: "Select your partner's pronouns",
+              customHint: "Enter custom value",
               options: const [Pronoun.sheHer, Pronoun.heHim, Pronoun.theyThem],
               freeFormOption: Pronoun.custom,
               onChanged: (dynamic selected, String? customInput) =>
                   context.read<WizardCubit>().onPronounsChanged(selected as Pronoun, customInput),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+            child: LaDatePicker(
+              title: "Select Birthday",
+              hint: "Pick a date",
+              firstDate: DateTime(1900),
+              lastDate: DateTime.now(),
+              onDateSelected: (DateTime selectedDate) {
+                print("Selected Birthday: ${selectedDate.toIso8601String()}");
+              },
             ),
           ),
           const SizedBox.shrink(),

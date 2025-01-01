@@ -80,6 +80,16 @@ class S {
     );
   }
 
+  /// `Búið`
+  String get global_done {
+    return Intl.message(
+      'Búið',
+      name: 'global_done',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Uppsetning`
   String get wizard_title {
     return Intl.message(

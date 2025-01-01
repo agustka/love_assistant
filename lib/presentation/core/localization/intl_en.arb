@@ -4,6 +4,7 @@
   "app_name": "LoveAssistant",
   "global_cancel": "Cancel",
   "global_more": "More",
+  "global_done": "Done",
   "wizard_title": "Partner setup",
   "settings_pick_language": "Select language",
   "wizard_greetings": "Your Personal Love Assistant",

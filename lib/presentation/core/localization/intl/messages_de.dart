@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
         "global_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "global_done": MessageLookupByLibrary.simpleMessage("Done"),
         "global_more": MessageLookupByLibrary.simpleMessage("More"),
         "global_pronoun_custom": MessageLookupByLibrary.simpleMessage("Custom"),
         "global_pronoun_he_him": MessageLookupByLibrary.simpleMessage("He/Him"),

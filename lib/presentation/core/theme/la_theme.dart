@@ -207,4 +207,6 @@ extension TextStyleExtension on TextStyle {
 
   TextStyle get bold => copyWith(fontWeight: FontWeight.w700);
   TextStyle get light => copyWith(fontWeight: FontWeight.w400);
+  TextStyle get primary => copyWith(color: LaTheme.primary());
+  TextStyle get onBackground => copyWith(color: LaTheme.onBackground());
 }

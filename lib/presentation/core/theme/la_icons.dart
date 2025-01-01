@@ -38,4 +38,8 @@ class LaIcons {
   static IconData get chevron {
     return PlatformDetector.isIOS ? CupertinoIcons.chevron_right : Icons.chevron_right;
   }
+
+  static IconData get calendar {
+    return PlatformDetector.isIOS ? CupertinoIcons.calendar : Icons.calendar_month;
+  }
 }
