@@ -11,6 +11,7 @@
   "global_optional": "Valkvæmt",
   "global_required": "Nauðsynlegt",
   "global_generic_field_error": "Þetta atriði þarf að vera útfyllt",
+  "date_format_month_and_day": "dd. MMMM",
   "wizard_title": "Uppsetning",
   "settings_pick_language": "Veldu tungumál",
   "wizard_greetings": "Velkomin(n)!",

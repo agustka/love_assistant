@@ -11,6 +11,7 @@
   "global_optional": "Optional",
   "global_required": "Required",
   "global_generic_field_error": "This entry is invalid",
+  "date_format_month_and_day": "MMMM dd",
   "wizard_title": "Partner setup",
   "settings_pick_language": "Select language",
   "wizard_greetings": "Your Personal Love Assistant",

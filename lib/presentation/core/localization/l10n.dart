@@ -150,6 +150,16 @@ class S {
     );
   }
 
+  /// `dd. MMMM`
+  String get date_format_month_and_day {
+    return Intl.message(
+      'dd. MMMM',
+      name: 'date_format_month_and_day',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Uppsetning`
   String get wizard_title {
     return Intl.message(

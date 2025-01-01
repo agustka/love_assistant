@@ -28,9 +28,9 @@ class WizardCubit extends BaseCubit<WizardState> {
         getIt<EventBus>().fire(const WizardEventGoToPage(page: 2));
       }
 
-      //if (state.partnerAnniversary.year == 1800 && !confirmed && !hasError) {
+      if (state.partnerAnniversary.year == 1800 && !confirmed && !hasError) {
         getIt<EventBus>().fire(WizardEvent.confirmNoAnniversary);
-      //}
+      }
 
       emit(
         state.copyWith(

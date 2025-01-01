@@ -1135,6 +1135,9 @@ class $AssetsIllustrationsDarkGen {
   /// File path: assets/illustrations/dark/round_picture_background.svg
   String get roundPictureBackground => 'assets/illustrations/dark/round_picture_background.svg';
 
+  /// File path: assets/illustrations/dark/woman_floating_banner.svg
+  String get womanFloatingBanner => 'assets/illustrations/dark/woman_floating_banner.svg';
+
   /// File path: assets/illustrations/dark/woman_reading.svg
   String get womanReading => 'assets/illustrations/dark/woman_reading.svg';
 
@@ -1142,7 +1145,8 @@ class $AssetsIllustrationsDarkGen {
   String get womanRunningBanner => 'assets/illustrations/dark/woman_running_banner.svg';
 
   /// List of all assets
-  List<String> get values => [manGreetings, manLove, roundPictureBackground, womanReading, womanRunningBanner];
+  List<String> get values =>
+      [manGreetings, manLove, roundPictureBackground, womanFloatingBanner, womanReading, womanRunningBanner];
 }
 
 class $AssetsIllustrationsLightGen {
@@ -1157,6 +1161,9 @@ class $AssetsIllustrationsLightGen {
   /// File path: assets/illustrations/light/round_picture_background.svg
   String get roundPictureBackground => 'assets/illustrations/light/round_picture_background.svg';
 
+  /// File path: assets/illustrations/light/woman_floating_banner.svg
+  String get womanFloatingBanner => 'assets/illustrations/light/woman_floating_banner.svg';
+
   /// File path: assets/illustrations/light/woman_reading.svg
   String get womanReading => 'assets/illustrations/light/woman_reading.svg';
 
@@ -1164,7 +1171,8 @@ class $AssetsIllustrationsLightGen {
   String get womanRunningBanner => 'assets/illustrations/light/woman_running_banner.svg';
 
   /// List of all assets
-  List<String> get values => [manGreetings, manLove, roundPictureBackground, womanReading, womanRunningBanner];
+  List<String> get values =>
+      [manGreetings, manLove, roundPictureBackground, womanFloatingBanner, womanReading, womanRunningBanner];
 }
 
 class AppAssets {

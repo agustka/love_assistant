@@ -97,14 +97,11 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
               ),
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
-                child: LaDatePicker(
+                child: LaDayMonthPicker(
                   title: S.of(context).wizard_partner_anniversary_title,
                   hint: S.of(context).wizard_partner_anniversary_hint,
-                  defaultDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now(),
-                  onDateSelected: (DateTime selectedDate) {
-                    context.read<WizardCubit>().onAnniversaryChanged(selectedDate);
+                  onDateSelected: (int month, int day) {
+
                   },
                 ),
               ),

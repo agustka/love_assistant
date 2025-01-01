@@ -4,7 +4,7 @@ import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class LaConfirmationDialog {
-  static Future<bool?> show({
+  static Future<bool> show({
     required BuildContext context,
     required String title,
     required String message,
@@ -21,7 +21,7 @@ class LaConfirmationDialog {
         confirmText: confirmText,
         cancelText: cancelText,
         icon: icon,
-      );
+      ) ?? false;
     } else {
       return await _showMaterialDialog(
         context: context,
@@ -30,7 +30,7 @@ class LaConfirmationDialog {
         confirmText: confirmText,
         cancelText: cancelText,
         icon: icon,
-      );
+      ) ?? false;
     }
   }
 

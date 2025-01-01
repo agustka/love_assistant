@@ -43,6 +43,11 @@ class LaIcons {
     return PlatformDetector.isIOS ? CupertinoIcons.calendar : Icons.calendar_month;
   }
 
+  static IconData get calendarDayMonth {
+    return PlatformDetector.isIOS ? CupertinoIcons.calendar_today : Icons.calendar_month_outlined;
+
+  }
+
   static IconData get dropDown {
     return PlatformDetector.isIOS ? CupertinoIcons.chevron_down : Icons.arrow_drop_down;
   }

@@ -7,6 +7,7 @@ import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_1.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_2.dart';
+import 'package:la/presentation/wizard/widgets/wizard_step_3.dart';
 import 'package:la/setup.dart';
 
 class WizardPage extends StatefulWidget {
@@ -51,14 +52,14 @@ class _WizardPageState extends State<WizardPage> {
               onMessage: (WizardEvent event) async {
                 switch (event) {
                   case WizardEvent.confirmNoAnniversary:
-                    final bool? result = await LaConfirmationDialog.show(
+                    final bool result = await LaConfirmationDialog.show(
                       context: context,
                       title: S.of(context).wizard_partner_anniversary_skip_title,
                       message: S.of(context).wizard_partner_anniversary_skip_message,
                       confirmText: S.of(context).wizard_partner_anniversary_skip_yes_confirm,
                       cancelText: S.of(context).wizard_partner_anniversary_skip_no_cancel,
                     );
-                    if (result == true && context.mounted) {
+                    if (!result && context.mounted) {
                       context.read<WizardCubit>().next(_controller.page?.round() ?? 0, confirmed: true);
                     }
                 }
@@ -109,9 +110,9 @@ class _WizardPageState extends State<WizardPage> {
                       case 1:
                         return const WizardStep2();
                       case 2:
-                        return LaEpicImage(asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
+                        return const WizardStep3();
                       case 3:
-                        return LaEpicImage(asset: LaTheme.illustrations.manLove);
+                        return LaEpicImage(asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
                       case 4:
                       default:
                         return const ColoredBox(color: Colors.pinkAccent);

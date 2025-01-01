@@ -25,8 +25,8 @@ class LaDatePicker extends StatefulWidget {
     this.initialDate,
     this.firstDate,
     this.lastDate,
-    this.optional =  true,
-this.error = false,
+    this.optional = true,
+    this.error = false,
     this.errorText,
   });
 

@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
+        "date_format_month_and_day":
+            MessageLookupByLibrary.simpleMessage("dd. MMMM"),
         "global_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "global_confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "global_done": MessageLookupByLibrary.simpleMessage("Done"),

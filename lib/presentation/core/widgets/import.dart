@@ -12,6 +12,7 @@ export 'la_button.dart';
 export 'la_card.dart';
 export 'la_confirmation_dialog.dart';
 export 'la_date_picker.dart';
+export 'la_day_month_picker.dart';
 export 'la_dot_loader.dart';
 export 'la_drop_down.dart';
 export 'la_epic_image.dart';
