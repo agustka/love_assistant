@@ -180,10 +180,10 @@ class S {
     );
   }
 
-  /// `Velkomin(n)!`
+  /// `✨ Þinn persónulegi sambandsþjónn`
   String get wizard_greetings {
     return Intl.message(
-      'Velkomin(n)!',
+      '✨ Þinn persónulegi sambandsþjónn',
       name: 'wizard_greetings',
       desc: '',
       args: [],

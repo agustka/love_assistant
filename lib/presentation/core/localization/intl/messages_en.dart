@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings_pick_language":
             MessageLookupByLibrary.simpleMessage("Select language"),
         "wizard_greetings": MessageLookupByLibrary.simpleMessage(
-            "Your Personal Love Assistant"),
+            "✨ Your Personal Love Assistant"),
         "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
             "Let’s get started on creating a tailored profile for your partner."),
         "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(

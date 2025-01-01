@@ -54,16 +54,7 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           spacing: LaPadding.small,
           children: [
-            Row(
-              children: [
-                Expanded(child: LaText(widget.title, style: LaTheme.font.body14)),
-                if (!widget.optional)
-                  LaText(
-                    "*${S.of(context).global_required}",
-                    style: LaTheme.font.body12.light.primary,
-                  ),
-              ],
-            ),
+            _getTitle(context),
             Wrap(
               spacing: LaPadding.small,
               runSpacing: LaPadding.extraSmall,
@@ -97,18 +88,7 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
                 );
               }).toList(),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: LaPadding.small),
-              child: AnimatedCrossFade(
-                duration: 300.milliseconds,
-                crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                firstChild: const SizedBox.shrink(),
-                secondChild: LaText(
-                  widget.errorText ?? S.of(context).global_generic_field_error,
-                  style: LaTheme.font.body14.primary,
-                ),
-              ),
-            ),
+            _getError(context),
           ],
         ),
       ),
@@ -116,51 +96,84 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
   }
 
   Widget _buildCupertinoPillPicker() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: CupertinoColors.black,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: widget.options.map((option) {
-            final isSelected = _selectedOptions.contains(option);
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  if (isSelected) {
-                    _selectedOptions.remove(option);
-                  } else {
-                    _selectedOptions.add(option);
-                  }
-                  widget.onSelectionChanged(_selectedOptions);
-                });
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: isSelected ? CupertinoColors.activeBlue : CupertinoColors.systemGrey5,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: LaText(
-                  option.toString(),
-                  style: TextStyle(
-                    color: isSelected ? CupertinoColors.white : CupertinoColors.black,
-                  ),
-                ),
+    return LaCard(
+      child: Padding(
+        padding: const EdgeInsets.all(LaPadding.medium),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: LaPadding.small,
+          children: [
+            _getTitle(context),
+            Padding(
+              padding: const EdgeInsets.only(top: LaPadding.extraSmall),
+              child: Wrap(
+                spacing: LaPadding.small,
+                runSpacing: LaPadding.small,
+                children: widget.options.map((T option) {
+                  final bool isSelected = _selectedOptions.contains(option);
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (isSelected) {
+                          _selectedOptions.remove(option);
+                        } else {
+                          _selectedOptions.add(option);
+                        }
+                        widget.onSelectionChanged(_selectedOptions);
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: LaPadding.mediumSmall,
+                        vertical: LaPadding.small,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isSelected ? LaTheme.secondary() : LaTheme.secondaryContainer(),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: LaText(
+                        option.toString(),
+                        style: isSelected
+                            ? LaTheme.font.body14.onSecondary.light
+                            : LaTheme.font.body14.onSecondaryContainer.light,
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-            );
-          }).toList(),
+            ),
+            _getError(context),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _getTitle(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(child: LaText(widget.title, style: LaTheme.font.body14)),
+        if (!widget.optional)
+          LaText(
+            "*${S.of(context).global_required}",
+            style: LaTheme.font.body12.light.primary,
+          ),
       ],
+    );
+  }
+
+  Widget _getError(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: LaPadding.small),
+      child: AnimatedCrossFade(
+        duration: 300.milliseconds,
+        crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+        firstChild: const SizedBox.shrink(),
+        secondChild: LaText(
+          widget.errorText ?? S.of(context).global_generic_field_error,
+          style: LaTheme.font.body14.primary,
+        ),
+      ),
     );
   }
 }

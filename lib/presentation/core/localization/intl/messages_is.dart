@@ -49,8 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ordinal_suffix_third": MessageLookupByLibrary.simpleMessage("."),
         "settings_pick_language":
             MessageLookupByLibrary.simpleMessage("Veldu tungumál"),
-        "wizard_greetings":
-            MessageLookupByLibrary.simpleMessage("Velkomin(n)!"),
+        "wizard_greetings": MessageLookupByLibrary.simpleMessage(
+            "✨ Þinn persónulegi sambandsþjónn"),
         "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
             "Við skulum byrja á að kanna hvað það er sem maki eða félagi þinn hefur áhuga á."),
         "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
