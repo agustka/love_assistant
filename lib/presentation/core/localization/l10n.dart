@@ -259,6 +259,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Hún`
+  String get global_pronoun_she_her {
+    return Intl.message(
+      'Hún',
+      name: 'global_pronoun_she_her',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hann`
+  String get global_pronoun_he_him {
+    return Intl.message(
+      'Hann',
+      name: 'global_pronoun_he_him',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hán`
+  String get global_pronoun_they_them {
+    return Intl.message(
+      'Hán',
+      name: 'global_pronoun_they_them',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Velja sjálf(ur)`
+  String get global_pronoun_custom {
+    return Intl.message(
+      'Velja sjálf(ur)',
+      name: 'global_pronoun_custom',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

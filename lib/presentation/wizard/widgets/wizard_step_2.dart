@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
+import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
-import 'package:la/presentation/core/widgets/la_drop_down.dart';
 
 class WizardStep2 extends StatefulWidget {
   const WizardStep2({super.key});
@@ -14,8 +14,6 @@ class WizardStep2 extends StatefulWidget {
 }
 
 class _WizardStep2State extends State<WizardStep2> {
-  final TextEditingController _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -52,19 +50,17 @@ class _WizardStep2State extends State<WizardStep2> {
             child: LaTextField(
               title: S.of(context).wizard_partner_profile_name_title,
               hintText: S.of(context).wizard_partner_profile_name_hint,
-              controller: _controller,
+              onChanged: (String input) => context.read<WizardCubit>().onNameChanged(input),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
-            child: GenericPicker(
-              title: "Pronouns",
-              options: ['He/Him', 'She/Her', 'They/Them'],
-              freeFormOptionLabel: "Custom",
-              onChanged: (selected, customInput) {
-                print("Selected Pronoun: $selected");
-                print("Custom Pronoun: $customInput");
-              },
+            child: LaDropDown<Pronoun>(
+              title: "How should we refer to your partner?",
+              options: const [Pronoun.sheHer, Pronoun.heHim, Pronoun.theyThem],
+              freeFormOption: Pronoun.custom,
+              onChanged: (dynamic selected, String? customInput) =>
+                  context.read<WizardCubit>().onPronounsChanged(selected as Pronoun, customInput),
             ),
           ),
           const SizedBox.shrink(),

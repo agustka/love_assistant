@@ -1,4 +1,3 @@
-import 'dart:io'; // For Platform checks
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
@@ -11,6 +10,7 @@ class LaTextField extends StatelessWidget {
   final bool enabled;
   final Color? hintColor;
   final FocusNode? focusNode;
+  final void Function(String input)? onChanged;
 
   const LaTextField({
     super.key,
@@ -20,6 +20,7 @@ class LaTextField extends StatelessWidget {
     this.enabled = true,
     this.hintColor,
     this.focusNode,
+    this.onChanged,
   });
 
   @override
@@ -32,6 +33,7 @@ class LaTextField extends StatelessWidget {
         child: CupertinoTextField(
           enabled: enabled,
           controller: controller,
+          onChanged: onChanged,
           focusNode: focusNode,
           textCapitalization: TextCapitalization.sentences,
           placeholder: hintText,
@@ -52,7 +54,7 @@ class LaTextField extends StatelessWidget {
         child: TextField(
           enabled: enabled,
           controller: controller,
-          focusNode: focusNode,
+          onChanged: onChanged, focusNode: focusNode,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             hintText: hintText,

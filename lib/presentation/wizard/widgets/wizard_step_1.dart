@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep1 extends StatelessWidget {

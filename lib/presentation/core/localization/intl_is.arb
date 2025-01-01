@@ -21,5 +21,9 @@
   "ordinal_suffix_generic": ".",
   "ordinal_suffix_global": ".",
   "ordinal_suffix_second": ".",
-  "ordinal_suffix_third": "."
+  "ordinal_suffix_third": ".",
+  "global_pronoun_she_her": "Hún",
+  "global_pronoun_he_him": "Hann",
+  "global_pronoun_they_them": "Hán",
+  "global_pronoun_custom": "Velja sjálf(ur)"
 }

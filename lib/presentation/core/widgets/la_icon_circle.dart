@@ -38,7 +38,6 @@ class LaIconCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color defaultCircleColor = LaTheme.surface();
-    final double iconSize = size == null ? 16 : (size! / 2.5);
 
     final double scale = min(2, max(1, Accessibility.of(context).uiScale));
 

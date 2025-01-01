@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
-class GenericPicker extends StatefulWidget {
+class LaDropDown<T> extends StatefulWidget {
   final String title;
-  final List<String> options;
-  final String freeFormOptionLabel;
-  final void Function(String? selected, String? customInput) onChanged; // Callback to handle selection or custom input
+  final List<T> options;
+  final T freeFormOption;
+  final void Function(dynamic selected, String? customInput) onChanged;
 
-  const GenericPicker({
+  const LaDropDown({
     required this.title,
     required this.options,
-    required this.freeFormOptionLabel,
+    required this.freeFormOption,
     required this.onChanged,
     super.key,
   });
 
   @override
-  _GenericPickerState createState() => _GenericPickerState();
+  _LaDropDownState createState() => _LaDropDownState<T>();
 }
 
-class _GenericPickerState extends State<GenericPicker> {
-  String? _selectedOption;
+class _LaDropDownState<T> extends State<LaDropDown> {
+  T? _selectedOption;
   String? _customInput = "";
   final FocusNode _customInputFocusNode = FocusNode();
 
@@ -35,13 +35,13 @@ class _GenericPickerState extends State<GenericPicker> {
   @override
   Widget build(BuildContext context) {
     if (PlatformDetector.isIOS) {
-      return _buildCupertinoPicker(context);
+      return _getCupertinoPicker(context);
     } else {
-      return _buildMaterialPicker(context);
+      return _getMaterialPicker(context);
     }
   }
 
-  Widget _buildCupertinoPicker(BuildContext context) {
+  Widget _getCupertinoPicker(BuildContext context) {
     return LaCard(
       child: Padding(
         padding: const EdgeInsets.all(LaPadding.medium),
@@ -56,16 +56,17 @@ class _GenericPickerState extends State<GenericPicker> {
                 backgroundColor: LaTheme.secondaryContainer(),
                 elevation: 0,
                 child: LaTextField(
-                  hintText: _selectedOption ?? "Select your partner's pronouns",
+                  hintText: _selectedOption?.toString() ?? "Select your partner's pronouns",
                   hintColor: _selectedOption == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
                   enabled: false,
                 ),
               ),
             ),
-            if (_selectedOption == widget.freeFormOptionLabel)
+            if (_selectedOption == widget.freeFormOption)
               LaTextField(
                 hintText: "Enter custom value",
                 focusNode: _customInputFocusNode,
+                onChanged: (String input) => widget.onChanged(_selectedOption, input),
               ),
           ],
         ),
@@ -73,8 +74,7 @@ class _GenericPickerState extends State<GenericPicker> {
     );
   }
 
-  // Material Picker for Android
-  Widget _buildMaterialPicker(BuildContext context) {
+  Widget _getMaterialPicker(BuildContext context) {
     return LaCard(
       child: Padding(
         padding: const EdgeInsets.all(LaPadding.medium),
@@ -88,7 +88,7 @@ class _GenericPickerState extends State<GenericPicker> {
               elevation: 0,
               child: Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.small),
-                child: DropdownButton(
+                child: DropdownButton<T>(
                   value: _selectedOption,
                   hint: LaText(
                     "Select your partner's pronouns",
@@ -96,42 +96,44 @@ class _GenericPickerState extends State<GenericPicker> {
                   ),
                   underline: const SizedBox.shrink(),
                   isExpanded: true,
-                  onChanged: (String? value) {
-                    setState(
-                      () {
-                        _selectedOption = value;
-                        if (_selectedOption != widget.freeFormOptionLabel) {
-                          _customInput = "";
-                        }
-                        widget.onChanged(_selectedOption, _customInput);
-
-                        if (_selectedOption == widget.freeFormOptionLabel) {
-                          _customInputFocusNode.requestFocus();
-                        }
-                      },
-                    );
+                  onChanged: (T? value) {
+                    if (value == null) {
+                      return;
+                    }
+                    setState(() {
+                      _selectedOption = value;
+                      if (_selectedOption != widget.freeFormOption) {
+                        _customInput = "";
+                      }
+                      widget.onChanged(_selectedOption, _customInput);
+                      if (_selectedOption == widget.freeFormOption) {
+                        _customInputFocusNode.requestFocus();
+                      }
+                    });
                   },
                   items: [
                     ...widget.options.map(
-                      (String option) {
-                        return DropdownMenuItem<String>(
-                          value: option,
-                          child: Text(option),
+                      (dynamic option) {
+                        return DropdownMenuItem<T>(
+                          value: option as T,
+                          child: LaText(option.toString(), style: LaTheme.font.body14),
                         );
                       },
                     ),
-                    DropdownMenuItem(
-                      value: widget.freeFormOptionLabel,
-                      child: Text(widget.freeFormOptionLabel),
-                    ),
+                    if (widget.freeFormOption != null)
+                      DropdownMenuItem<T>(
+                        value: widget.freeFormOption as T,
+                        child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body14),
+                      ),
                   ],
                 ),
               ),
             ),
-            if (_selectedOption == widget.freeFormOptionLabel)
+            if (_selectedOption == widget.freeFormOption)
               LaTextField(
                 focusNode: _customInputFocusNode,
                 hintText: "Enter custom value",
+                onChanged: (String input) => widget.onChanged(_selectedOption, input),
               ),
           ],
         ),
@@ -141,7 +143,7 @@ class _GenericPickerState extends State<GenericPicker> {
 
   Future<void> _showCupertinoPicker(BuildContext context) async {
     int initialIndex = widget.options.indexOf(_selectedOption ?? widget.options.first);
-    if (_selectedOption == widget.freeFormOptionLabel) {
+    if (_selectedOption == widget.freeFormOption) {
       initialIndex = widget.options.length;
     }
     final FixedExtentScrollController scrollController = FixedExtentScrollController(initialItem: initialIndex);
@@ -158,7 +160,6 @@ class _GenericPickerState extends State<GenericPicker> {
         ),
         child: Column(
           children: [
-            // Optional: Add a done button at the top to close the picker
             Align(
               alignment: Alignment.topRight,
               child: CupertinoButton(
@@ -179,26 +180,26 @@ class _GenericPickerState extends State<GenericPicker> {
                 onSelectedItemChanged: (int index) {
                   setState(() {
                     if (index < widget.options.length) {
-                      _selectedOption = widget.options[index];
+                      _selectedOption = widget.options[index] as T;
                       _customInput = "";
                     } else {
-                      _selectedOption = widget.freeFormOptionLabel;
+                      _selectedOption = widget.freeFormOption as T;
                     }
-                    widget.onChanged(_selectedOption, _customInput);
                   });
                 },
                 children: [
                   ...widget.options.map(
-                    (String option) => Center(
+                    (dynamic option) => Center(
                       child: LaText(
-                        option,
+                        (option as T).toString(),
                         style: LaTheme.font.body16,
                       ),
                     ),
                   ),
-                  Center(
-                    child: LaText(widget.freeFormOptionLabel, style: LaTheme.font.body16),
-                  ),
+                  if (widget.freeFormOption != null)
+                    Center(
+                      child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body16),
+                    ),
                 ],
               ),
             ),
@@ -207,10 +208,16 @@ class _GenericPickerState extends State<GenericPicker> {
       ),
     );
 
-    if (result != true && _selectedOption == widget.freeFormOptionLabel) {
+    if (result != true && _selectedOption == widget.freeFormOption) {
       _customInputFocusNode.requestFocus();
-    } else if (result == true && _selectedOption == widget.freeFormOptionLabel) {
+    } else if (result == true && _selectedOption == widget.freeFormOption) {
       _customInputFocusNode.requestFocus();
+    } else if (_selectedOption == null) {
+      setState(() {
+        _selectedOption = widget.options.first as T;
+      });
     }
+
+    widget.onChanged(_selectedOption, _customInput);
   }
 }

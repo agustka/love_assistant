@@ -11,6 +11,7 @@ export 'la_bullet_point_list.dart';
 export 'la_button.dart';
 export 'la_card.dart';
 export 'la_dot_loader.dart';
+export 'la_drop_down.dart';
 export 'la_epic_image.dart';
 export 'la_event_bus_listener.dart';
 export 'la_icon_circle.dart';

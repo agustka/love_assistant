@@ -25,6 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
         "global_cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "global_more": MessageLookupByLibrary.simpleMessage("More"),
+        "global_pronoun_custom": MessageLookupByLibrary.simpleMessage("Custom"),
+        "global_pronoun_he_him": MessageLookupByLibrary.simpleMessage("He/Him"),
+        "global_pronoun_she_her":
+            MessageLookupByLibrary.simpleMessage("She/Her"),
+        "global_pronoun_they_them":
+            MessageLookupByLibrary.simpleMessage("They/Them"),
         "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("st"),
         "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("th"),
         "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),

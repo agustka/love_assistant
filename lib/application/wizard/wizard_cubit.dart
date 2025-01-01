@@ -3,9 +3,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/application/core/base_cubit.dart';
-import 'package:la/infrastructure/core/initialization/initialization_service.dart';
-import 'package:la/presentation/core/app.dart';
-import 'package:la/presentation/core/localization/user_locale.dart';
+import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/setup.dart';
 
 part 'wizard_state.dart';
@@ -19,5 +17,13 @@ class WizardCubit extends BaseCubit<WizardState> {
   void start() {
     getIt<EventBus>().fire(const WizardEventGoToPage(page: 1));
     emit(state.copyWith(page: 1));
+  }
+
+  void onNameChanged(String input) {
+
+  }
+
+  void onPronounsChanged(Pronoun? pronoun, String? customInput) {
+
   }
 }

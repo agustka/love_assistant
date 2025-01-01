@@ -25,6 +25,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
         "global_cancel": MessageLookupByLibrary.simpleMessage("Hætta við"),
         "global_more": MessageLookupByLibrary.simpleMessage("Meira"),
+        "global_pronoun_custom":
+            MessageLookupByLibrary.simpleMessage("Velja sjálf(ur)"),
+        "global_pronoun_he_him": MessageLookupByLibrary.simpleMessage("Hann"),
+        "global_pronoun_she_her": MessageLookupByLibrary.simpleMessage("Hún"),
+        "global_pronoun_they_them": MessageLookupByLibrary.simpleMessage("Hán"),
         "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),

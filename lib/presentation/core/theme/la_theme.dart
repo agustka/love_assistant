@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/theme/la_theme_illustrations.dart';
 
 class LaPadding {

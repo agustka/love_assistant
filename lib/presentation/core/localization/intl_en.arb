@@ -21,5 +21,9 @@
   "ordinal_suffix_generic": "th",
   "ordinal_suffix_global": ".",
   "ordinal_suffix_second": "nd",
-  "ordinal_suffix_third": "rd"
+  "ordinal_suffix_third": "rd",
+  "global_pronoun_she_her": "She/Her",
+  "global_pronoun_he_him": "He/Him",
+  "global_pronoun_they_them": "They/Them",
+  "global_pronoun_custom": "Custom"
 }
