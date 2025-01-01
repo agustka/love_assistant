@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 
 class PlatformDetector {
   static bool get isIOS {
-    return true;//Platform.isIOS;
+    return true;//;Platform.isIOS;
   }
 
   static bool get isAndroid {

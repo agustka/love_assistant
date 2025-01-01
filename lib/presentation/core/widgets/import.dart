@@ -10,6 +10,7 @@ export 'la_bottom_buttons.dart';
 export 'la_bullet_point_list.dart';
 export 'la_button.dart';
 export 'la_card.dart';
+export 'la_confirmation_dialog.dart';
 export 'la_date_picker.dart';
 export 'la_dot_loader.dart';
 export 'la_drop_down.dart';

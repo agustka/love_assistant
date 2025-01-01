@@ -47,57 +47,77 @@ class _WizardPageState extends State<WizardPage> {
         },
         child: BlocBuilder<WizardCubit, WizardState>(
           builder: (BuildContext context, WizardState state) {
-            return LaScaffold(
-              appBar: LaAppBar(
-                title: S.of(context).wizard_title,
-                showBack: false,
-                action: AppBarActionDefinition(
-                  icon: LaIcons.language,
-                  onTap: () {
-                    LaPicker.showPicker(
-                      context,
-                      entries: PickerEntries(
-                        title: S.of(context).settings_pick_language,
-                        entries: langs
-                            .map(
-                              (Language e) => PickerEntry(
-                                text: e.properName,
-                                svg: e.flagIcon,
-                                onTap: () => context.read<LanguageCubit>().setLanguage(e),
-                              ),
-                            )
-                            .toList(),
-                      ),
+            return LaEventBusListener<WizardEvent>(
+              onMessage: (WizardEvent event) async {
+                switch (event) {
+                  case WizardEvent.confirmNoAnniversary:
+                    final bool? result = await LaConfirmationDialog.show(
+                      context: context,
+                      title: S.of(context).wizard_partner_anniversary_skip_title,
+                      message: S.of(context).wizard_partner_anniversary_skip_message,
+                      confirmText: S.of(context).wizard_partner_anniversary_skip_yes_confirm,
+                      cancelText: S.of(context).wizard_partner_anniversary_skip_no_cancel,
                     );
+                    if (result == true && context.mounted) {
+                      context.read<WizardCubit>().next(_controller.page?.round() ?? 0, confirmed: true);
+                    }
+                }
+              },
+              child: LaScaffold(
+                appBar: LaAppBar(
+                  title: S.of(context).wizard_title,
+                  showBack: false,
+                  action: AppBarActionDefinition(
+                    icon: LaIcons.language,
+                    onTap: () {
+                      LaPicker.showPicker(
+                        context,
+                        entries: PickerEntries(
+                          title: S.of(context).settings_pick_language,
+                          entries: langs
+                              .map(
+                                (Language e) => PickerEntry(
+                                  text: e.properName,
+                                  svg: e.flagIcon,
+                                  onTap: () => context.read<LanguageCubit>().setLanguage(e),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                bottomButtons: BottomButtonsDefinition(
+                  buttons: [
+                    BottomButtonDefinition(
+                      text: S.of(context).wizard_next,
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        context.read<WizardCubit>().next((_controller.page ?? 0).round());
+                      },
+                    ),
+                  ],
+                ),
+                child: LaPager(
+                  itemCount: 4,
+                  controller: _controller,
+                  itemBuilder: (BuildContext context, int index) {
+                    switch (index) {
+                      case 0:
+                        return const WizardStep1();
+                      case 1:
+                        return const WizardStep2();
+                      case 2:
+                        return LaEpicImage(asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
+                      case 3:
+                        return LaEpicImage(asset: LaTheme.illustrations.manLove);
+                      case 4:
+                      default:
+                        return const ColoredBox(color: Colors.pinkAccent);
+                    }
                   },
                 ),
-              ),
-              bottomButtons: BottomButtonsDefinition(
-                buttons: [
-                  BottomButtonDefinition(
-                    text: S.of(context).wizard_next,
-                    onTap: context.read<WizardCubit>().start,
-                  ),
-                ],
-              ),
-              child: LaPager(
-                itemCount: 4,
-                controller: _controller,
-                itemBuilder: (BuildContext context, int index) {
-                  switch (index) {
-                    case 0:
-                      return const WizardStep1();
-                    case 1:
-                      return const WizardStep2();
-                    case 2:
-                      return LaEpicImage(asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
-                    case 3:
-                      return LaEpicImage(asset: LaTheme.illustrations.manLove);
-                    case 4:
-                    default:
-                      return const ColoredBox(color: Colors.pinkAccent);
-                  }
-                },
               ),
             );
           },

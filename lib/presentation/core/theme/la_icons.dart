@@ -46,4 +46,8 @@ class LaIcons {
   static IconData get dropDown {
     return PlatformDetector.isIOS ? CupertinoIcons.chevron_down : Icons.arrow_drop_down;
   }
+
+  static IconData get question {
+    return CupertinoIcons.question_circle;
+  }
 }

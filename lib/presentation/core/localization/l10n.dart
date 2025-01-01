@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Staðfesta`
+  String get global_confirm {
+    return Intl.message(
+      'Staðfesta',
+      name: 'global_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Meira`
   String get global_more {
     return Intl.message(
@@ -85,6 +95,56 @@ class S {
     return Intl.message(
       'Búið',
       name: 'global_done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þín eigin`
+  String get global_enter_custom {
+    return Intl.message(
+      'Þín eigin',
+      name: 'global_enter_custom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Veldu dagsetningu`
+  String get global_pick_date {
+    return Intl.message(
+      'Veldu dagsetningu',
+      name: 'global_pick_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Valkvæmt`
+  String get global_optional {
+    return Intl.message(
+      'Valkvæmt',
+      name: 'global_optional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nauðsynlegt`
+  String get global_required {
+    return Intl.message(
+      'Nauðsynlegt',
+      name: 'global_required',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þetta atriði þarf að vera útfyllt`
+  String get global_generic_field_error {
+    return Intl.message(
+      'Þetta atriði þarf að vera útfyllt',
+      name: 'global_generic_field_error',
       desc: '',
       args: [],
     );
@@ -215,6 +275,136 @@ class S {
     return Intl.message(
       'Nafn félaga þíns',
       name: 'wizard_partner_profile_name_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nafn er nauðsynlegt`
+  String get wizard_partner_profile_name_missing {
+    return Intl.message(
+      'Nafn er nauðsynlegt',
+      name: 'wizard_partner_profile_name_missing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hvernig á að ávarpa félaga þinn?`
+  String get wizard_partner_pronouns_title {
+    return Intl.message(
+      'Hvernig á að ávarpa félaga þinn?',
+      name: 'wizard_partner_pronouns_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fornafn er nauðsynlegt`
+  String get wizard_partner_profile_pronoun_missing {
+    return Intl.message(
+      'Fornafn er nauðsynlegt',
+      name: 'wizard_partner_profile_pronoun_missing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Veldu fornafn`
+  String get wizard_partner_pronouns_hint {
+    return Intl.message(
+      'Veldu fornafn',
+      name: 'wizard_partner_pronouns_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hvenær á félagi þinn afmæli?`
+  String get wizard_partner_birthday_title {
+    return Intl.message(
+      'Hvenær á félagi þinn afmæli?',
+      name: 'wizard_partner_birthday_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Afmæli er nauðsynlegt`
+  String get wizard_partner_profile_birthday_missing {
+    return Intl.message(
+      'Afmæli er nauðsynlegt',
+      name: 'wizard_partner_profile_birthday_missing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Veldu afmælisdagsetningu`
+  String get wizard_partner_birthday_hint {
+    return Intl.message(
+      'Veldu afmælisdagsetningu',
+      name: 'wizard_partner_birthday_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Einhver stór dagsetning?`
+  String get wizard_partner_anniversary_title {
+    return Intl.message(
+      'Einhver stór dagsetning?',
+      name: 'wizard_partner_anniversary_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gifting, trúlofun osfr.`
+  String get wizard_partner_anniversary_hint {
+    return Intl.message(
+      'Gifting, trúlofun osfr.',
+      name: 'wizard_partner_anniversary_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sleppa stórviðburði?`
+  String get wizard_partner_anniversary_skip_title {
+    return Intl.message(
+      'Sleppa stórviðburði?',
+      name: 'wizard_partner_anniversary_skip_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ertu viss um að þú viljir sleppa dagsetningu stórviðurða (gifting, trúlofun osfr.)?`
+  String get wizard_partner_anniversary_skip_message {
+    return Intl.message(
+      'Ertu viss um að þú viljir sleppa dagsetningu stórviðurða (gifting, trúlofun osfr.)?',
+      name: 'wizard_partner_anniversary_skip_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Já, sleppa`
+  String get wizard_partner_anniversary_skip_yes_confirm {
+    return Intl.message(
+      'Já, sleppa',
+      name: 'wizard_partner_anniversary_skip_yes_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nei`
+  String get wizard_partner_anniversary_skip_no_cancel {
+    return Intl.message(
+      'Nei',
+      name: 'wizard_partner_anniversary_skip_no_cancel',
       desc: '',
       args: [],
     );

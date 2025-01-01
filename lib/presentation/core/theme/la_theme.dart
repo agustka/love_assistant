@@ -52,6 +52,7 @@ class LaTheme {
   static const Color _lightOnBackground = Color(0xFF0E0E0E);
   static const Color _lightShadow = Color(0x44000000);
   static const Color _lightSingleElement = Color(0x22000000);
+  static const Color _lightHintText = Color(0xFFA0A0A0);
 
   static const Color _darkPrimary = Color(0xFFd85555);
   static const Color _darkOnPrimary = Color(0xFF000000);
@@ -66,8 +67,8 @@ class LaTheme {
   static const Color _darkBackground = Color(0xFF1A1010);
   static const Color _darkOnBackground = Color(0xFFE0E0E0);
   static const Color _darkShadow = Color(0xCC000000);
-
   static const Color _darkSingleElement = Color(0x33FFFFFF);
+  static const Color _darkHintText = Color(0xFF707070);
 
   static Color primary({Brightness? brightness}) {
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
@@ -139,12 +140,9 @@ class LaTheme {
     return isDark ? _darkSingleElement : _lightSingleElement;
   }
 
-  static Color hintText() {
-    final Color? color = Colors.grey[500];
-    if (color == null) {
-     return const Color(0xFFA0A0A0);
-    }
-    return color;
+  static Color hintText({Brightness? brightness}) {
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
+    return isDark ? _darkHintText : _lightHintText;
   }
 
   static ThemeData materialTheme(Brightness brightness) {
@@ -208,5 +206,9 @@ extension TextStyleExtension on TextStyle {
   TextStyle get bold => copyWith(fontWeight: FontWeight.w700);
   TextStyle get light => copyWith(fontWeight: FontWeight.w400);
   TextStyle get primary => copyWith(color: LaTheme.primary());
+  TextStyle get onPrimary => copyWith(color: LaTheme.onPrimary());
+  TextStyle get secondary => copyWith(color: LaTheme.secondary());
+  TextStyle get onSurface => copyWith(color: LaTheme.onSurface());
   TextStyle get onBackground => copyWith(color: LaTheme.onBackground());
+  TextStyle get hintText => copyWith(color: LaTheme.hintText());
 }

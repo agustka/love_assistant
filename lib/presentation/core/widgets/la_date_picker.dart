@@ -7,19 +7,27 @@ import 'package:la/presentation/core/widgets/import.dart';
 class LaDatePicker extends StatefulWidget {
   final String title;
   final String? hint;
+  final DateTime? defaultDate;
   final DateTime? initialDate;
   final DateTime? firstDate;
   final DateTime? lastDate;
+  final bool optional;
+  final bool error;
+  final String? errorText;
   final void Function(DateTime selectedDate) onDateSelected;
 
   const LaDatePicker({
+    super.key,
     required this.title,
     required this.onDateSelected,
     this.hint,
+    this.defaultDate,
     this.initialDate,
     this.firstDate,
     this.lastDate,
-    super.key,
+    this.optional =  true,
+this.error = false,
+    this.errorText,
   });
 
   @override
@@ -44,8 +52,17 @@ class _LaDatePickerState extends State<LaDatePicker> {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: LaPadding.small,
           children: [
-            LaText(widget.title, style: LaTheme.font.body14.light),
-            GestureDetector(
+            Row(
+              children: [
+                Expanded(child: LaText(widget.title, style: LaTheme.font.body14.light)),
+                if (!widget.optional)
+                  LaText(
+                    "*${S.of(context).global_required}",
+                    style: LaTheme.font.body12.light.primary,
+                  ),
+              ],
+            ),
+            LaTapVisual(
               onTap: () {
                 if (PlatformDetector.isIOS) {
                   _showCupertinoDatePicker(context);
@@ -55,9 +72,12 @@ class _LaDatePickerState extends State<LaDatePicker> {
               },
               child: LaTextField(
                 enabled: false,
+                showCard: false,
                 actionIcon: LaIcons.calendar,
                 hintColor: _selectedDate == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
                 hint: _selectedDate != null ? DateFormat.yMMMMd().format(_selectedDate!) : widget.hint ?? "",
+                error: widget.error,
+                errorText: widget.errorText,
               ),
             ),
           ],
@@ -69,7 +89,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
   Future<void> _showMaterialDatePicker(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: widget.initialDate ?? DateTime(1990),
+      initialDate: widget.initialDate ?? widget.defaultDate ?? DateTime(DateTime.now().year),
       firstDate: widget.firstDate ?? DateTime(1900),
       lastDate: widget.lastDate ?? DateTime(2100),
       builder: (BuildContext context, Widget? child) {
@@ -136,7 +156,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
             ),
             Expanded(
               child: CupertinoDatePicker(
-                initialDateTime: widget.initialDate ?? DateTime(1990),
+                initialDateTime: widget.initialDate ?? widget.defaultDate ?? DateTime(DateTime.now().year),
                 minimumDate: widget.firstDate,
                 maximumDate: widget.lastDate,
                 mode: CupertinoDatePickerMode.date,
@@ -154,7 +174,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
 
     if (_selectedDate == null) {
       setState(() {
-        _selectedDate = widget.initialDate ?? DateTime(1990);
+        _selectedDate = widget.initialDate ?? widget.defaultDate ?? DateTime(DateTime.now().year);
         widget.onDateSelected(_selectedDate!);
       });
     }

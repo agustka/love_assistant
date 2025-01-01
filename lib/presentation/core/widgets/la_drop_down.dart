@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
@@ -9,16 +10,22 @@ class LaDropDown<T> extends StatefulWidget {
   final T? freeFormOption;
   final String? hint;
   final String? customHint;
+  final bool optional;
+  final bool error;
+  final String? errorText;
   final void Function(dynamic selected, String? customInput) onChanged;
 
   const LaDropDown({
+    super.key,
     required this.title,
     required this.options,
     this.freeFormOption,
     required this.onChanged,
     this.hint,
     this.customHint,
-    super.key,
+    this.optional = true,
+    this.error = false,
+    this.errorText,
   });
 
   @override
@@ -53,22 +60,52 @@ class _LaDropDownState<T> extends State<LaDropDown> {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: LaPadding.small,
           children: [
-            LaText(widget.title, style: LaTheme.font.body14.light),
-            LaTapVisual(
-              onTap: () => _showCupertinoPicker(context),
-              child: LaCard(
-                backgroundColor: LaTheme.secondaryContainer(),
-                elevation: 0,
-                child: LaTextField(
-                  hint: _selectedOption?.toString() ?? widget.hint ?? "",
-                  hintColor: _selectedOption == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
-                  actionIcon: LaIcons.dropDown,
-                  enabled: false,
+            Row(
+              children: [
+                Expanded(child: LaText(widget.title, style: LaTheme.font.body14.light)),
+                if (!widget.optional)
+                  LaText(
+                    "*${S.of(context).global_required}",
+                    style: LaTheme.font.body12.light.primary,
+                  ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: LaPadding.extraSmall,
+              children: [
+                LaTapVisual(
+                  onTap: () => _showCupertinoPicker(context),
+                  child: LaCard(
+                    backgroundColor: LaTheme.secondaryContainer(),
+                    elevation: 0,
+                    child: LaTextField(
+                      optional: false,
+                      showCard: false,
+                      hint: _selectedOption?.toString() ?? widget.hint ?? "",
+                      hintColor: _selectedOption == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
+                      actionIcon: LaIcons.dropDown,
+                      enabled: false,
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(left: LaPadding.small),
+                  child: AnimatedCrossFade(
+                    duration: 300.milliseconds,
+                    crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                    firstChild: const SizedBox.shrink(),
+                    secondChild: LaText(
+                      widget.errorText ?? S.of(context).global_generic_field_error,
+                      style: LaTheme.font.body14.primary,
+                    ),
+                  ),
+                ),
+              ],
             ),
             if (_selectedOption == widget.freeFormOption)
               LaTextField(
+                optional: false,
                 hint: widget.customHint ?? "",
                 focusNode: _customInputFocusNode,
                 onChanged: (String input) => widget.onChanged(_selectedOption, input),
@@ -87,55 +124,83 @@ class _LaDropDownState<T> extends State<LaDropDown> {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: LaPadding.small,
           children: [
-            LaText(widget.title, style: LaTheme.font.body14.light),
-            LaCard(
-              backgroundColor: LaTheme.secondaryContainer(),
-              elevation: 0,
-              child: Padding(
-                padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.small),
-                child: DropdownButton<T>(
-                  value: _selectedOption,
-                  hint: LaText(
-                    widget.hint ?? "",
-                    style: LaTheme.font.body16.copyWith(color: LaTheme.hintText()),
+            Row(
+              children: [
+                Expanded(child: LaText(widget.title, style: LaTheme.font.body14.light)),
+                if (!widget.optional)
+                  LaText(
+                    "*${S.of(context).global_required}",
+                    style: LaTheme.font.body12.light.primary,
                   ),
-                  underline: const SizedBox.shrink(),
-                  isExpanded: true,
-                  onChanged: (T? value) {
-                    if (value == null) {
-                      return;
-                    }
-                    setState(() {
-                      _selectedOption = value;
-                      if (_selectedOption != widget.freeFormOption) {
-                        _customInput = "";
-                      }
-                      widget.onChanged(_selectedOption, _customInput);
-                      if (_selectedOption == widget.freeFormOption) {
-                        _customInputFocusNode.requestFocus();
-                      }
-                    });
-                  },
-                  items: [
-                    ...widget.options.map(
-                      (dynamic option) {
-                        return DropdownMenuItem<T>(
-                          value: option as T,
-                          child: LaText(option.toString(), style: LaTheme.font.body14),
-                        );
-                      },
-                    ),
-                    if (widget.freeFormOption != null)
-                      DropdownMenuItem<T>(
-                        value: widget.freeFormOption as T,
-                        child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body14),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: LaPadding.extraSmall,
+              children: [
+                LaCard(
+                  backgroundColor: LaTheme.secondaryContainer(),
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.small),
+                    child: DropdownButton<T>(
+                      value: _selectedOption,
+                      hint: LaText(
+                        widget.hint ?? "",
+                        style: LaTheme.font.body16.hintText,
                       ),
-                  ],
+                      underline: const SizedBox.shrink(),
+                      isExpanded: true,
+                      onChanged: (T? value) {
+                        if (value == null) {
+                          return;
+                        }
+                        setState(() {
+                          _selectedOption = value;
+                          if (_selectedOption != widget.freeFormOption) {
+                            _customInput = "";
+                          }
+                          widget.onChanged(_selectedOption, _customInput);
+                          if (_selectedOption == widget.freeFormOption) {
+                            _customInputFocusNode.requestFocus();
+                          }
+                        });
+                      },
+                      items: [
+                        ...widget.options.map(
+                          (dynamic option) {
+                            return DropdownMenuItem<T>(
+                              value: option as T,
+                              child: LaText(option.toString(), style: LaTheme.font.body16),
+                            );
+                          },
+                        ),
+                        if (widget.freeFormOption != null)
+                          DropdownMenuItem<T>(
+                            value: widget.freeFormOption as T,
+                            child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body16),
+                          ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(left: LaPadding.small),
+                  child: AnimatedCrossFade(
+                    duration: 300.milliseconds,
+                    crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                    firstChild: const SizedBox.shrink(),
+                    secondChild: LaText(
+                      widget.errorText ?? S.of(context).global_generic_field_error,
+                      style: LaTheme.font.body14.primary,
+                    ),
+                  ),
+                ),
+              ],
             ),
             if (_selectedOption == widget.freeFormOption)
               LaTextField(
+                showCard: false,
                 focusNode: _customInputFocusNode,
                 hint: widget.customHint ?? "",
                 onChanged: (String input) => widget.onChanged(_selectedOption, input),
