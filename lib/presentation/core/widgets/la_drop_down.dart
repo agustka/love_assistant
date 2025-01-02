@@ -12,7 +12,9 @@ class LaDropDown<T> extends StatefulWidget {
   final String? customHint;
   final bool optional;
   final bool error;
+  final bool customError;
   final String? errorText;
+  final String? customErrorText;
   final String? explanation;
   final void Function(dynamic selected, String? customInput) onChanged;
 
@@ -26,7 +28,9 @@ class LaDropDown<T> extends StatefulWidget {
     this.customHint,
     this.optional = true,
     this.error = false,
+    this.customError = false,
     this.errorText,
+    this.customErrorText,
     this.explanation,
   });
 
@@ -192,6 +196,8 @@ class _LaDropDownState<T> extends State<LaDropDown> {
         focusNode: _customInputFocusNode,
         hint: widget.customHint ?? "",
         onChanged: (String input) => widget.onChanged(_selectedOption, input),
+        error: widget.customError,
+        errorText: widget.customErrorText,
       );
     }
     return const SizedBox.shrink();

@@ -78,6 +78,8 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                   freeFormOption: Pronoun.custom,
                   error: state.missingPronoun,
                   errorText: S.of(context).wizard_partner_profile_pronoun_missing,
+                  customError: state.missingCustomPronoun,
+                  customErrorText: S.of(context).wizard_partner_profile_pronoun_missing,
                   onChanged: (dynamic selected, String? customInput) {
                     context.read<WizardCubit>().onPronounsChanged(selected as Pronoun, customInput);
                   },

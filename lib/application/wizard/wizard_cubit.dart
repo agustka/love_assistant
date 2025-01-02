@@ -26,11 +26,20 @@ class WizardCubit extends BaseCubit<WizardState> {
       if (!state.isInitial) {
         hasError = hasError || state.partnerBirthday.year == 1800;
       }
+      bool missingCustomPronoun = false;
+      if (state.partnerPronoun == Pronoun.custom && state.customPronoun.isEmpty) {
+        hasError = true;
+        missingCustomPronoun = true;
+      }
 
-      if (state.isInitial && state.partnerName.isNotEmpty && state.partnerPronoun != Pronoun.invalid) {
+      if (state.isInitial &&
+          state.partnerName.isNotEmpty &&
+          state.partnerPronoun != Pronoun.invalid &&
+          !missingCustomPronoun) {
         getIt<EventBus>().fire(const WizardEventGoToPage(page: 2));
       } else if (state.partnerName.isNotEmpty &&
           state.partnerPronoun != Pronoun.invalid &&
+          !missingCustomPronoun &&
           state.partnerBirthday.year > 1800 &&
           (state.partnerAnniversary.year > 1800 || confirmed)) {
         getIt<EventBus>().fire(const WizardEventGoToPage(page: 2));
@@ -44,6 +53,7 @@ class WizardCubit extends BaseCubit<WizardState> {
         state.copyWith(
           missingName: state.partnerName.isEmpty,
           missingPronoun: state.partnerPronoun == Pronoun.invalid,
+          missingCustomPronoun: missingCustomPronoun,
           missingBirthday: state.partnerBirthday.year == 1800,
         ),
       );
@@ -55,7 +65,14 @@ class WizardCubit extends BaseCubit<WizardState> {
   }
 
   void onPronounsChanged(Pronoun pronoun, String? customInput) {
-    emit(state.copyWith(partnerPronoun: pronoun, missingPronoun: false));
+    emit(
+      state.copyWith(
+        partnerPronoun: pronoun,
+        missingPronoun: false,
+        customPronoun: customInput,
+        missingCustomPronoun: false,
+      ),
+    );
   }
 
   void onBirthdayChanged(DateTime selectedDate) {
