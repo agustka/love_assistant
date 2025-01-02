@@ -1132,6 +1132,9 @@ class $AssetsIllustrationsDarkGen {
   /// File path: assets/illustrations/dark/man_love.svg
   String get manLove => 'assets/illustrations/dark/man_love.svg';
 
+  /// File path: assets/illustrations/dark/man_love_banner.svg
+  String get manLoveBanner => 'assets/illustrations/dark/man_love_banner.svg';
+
   /// File path: assets/illustrations/dark/round_picture_background.svg
   String get roundPictureBackground => 'assets/illustrations/dark/round_picture_background.svg';
 
@@ -1145,8 +1148,15 @@ class $AssetsIllustrationsDarkGen {
   String get womanRunningBanner => 'assets/illustrations/dark/woman_running_banner.svg';
 
   /// List of all assets
-  List<String> get values =>
-      [manGreetings, manLove, roundPictureBackground, womanFloatingBanner, womanReading, womanRunningBanner];
+  List<String> get values => [
+        manGreetings,
+        manLove,
+        manLoveBanner,
+        roundPictureBackground,
+        womanFloatingBanner,
+        womanReading,
+        womanRunningBanner
+      ];
 }
 
 class $AssetsIllustrationsLightGen {
@@ -1157,6 +1167,9 @@ class $AssetsIllustrationsLightGen {
 
   /// File path: assets/illustrations/light/man_love.svg
   String get manLove => 'assets/illustrations/light/man_love.svg';
+
+  /// File path: assets/illustrations/light/man_love_banner.svg
+  String get manLoveBanner => 'assets/illustrations/light/man_love_banner.svg';
 
   /// File path: assets/illustrations/light/round_picture_background.svg
   String get roundPictureBackground => 'assets/illustrations/light/round_picture_background.svg';
@@ -1171,8 +1184,15 @@ class $AssetsIllustrationsLightGen {
   String get womanRunningBanner => 'assets/illustrations/light/woman_running_banner.svg';
 
   /// List of all assets
-  List<String> get values =>
-      [manGreetings, manLove, roundPictureBackground, womanFloatingBanner, womanReading, womanRunningBanner];
+  List<String> get values => [
+        manGreetings,
+        manLove,
+        manLoveBanner,
+        roundPictureBackground,
+        womanFloatingBanner,
+        womanReading,
+        womanRunningBanner
+      ];
 }
 
 class AppAssets {

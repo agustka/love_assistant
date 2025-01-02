@@ -16,6 +16,7 @@ class LaTextField extends StatelessWidget {
   final IconData? actionIcon;
   final bool error;
   final String? errorText;
+  final int? maxLength;
   final void Function(String input)? onChanged;
 
   const LaTextField({
@@ -32,6 +33,7 @@ class LaTextField extends StatelessWidget {
     this.onChanged,
     this.error = false,
     this.errorText,
+    this.maxLength,
   });
 
   @override
@@ -59,6 +61,7 @@ class LaTextField extends StatelessWidget {
                 style: LaTheme.font.body16.copyWith(color: LaTheme.onSecondaryContainer()),
                 placeholderStyle: LaTheme.font.body16.copyWith(color: hintColor ?? LaTheme.hintText()),
                 cursorColor: LaTheme.primary(),
+                maxLength: maxLength,
               ),
             ),
             if (actionIcon != null)
@@ -85,7 +88,8 @@ class LaTextField extends StatelessWidget {
               child: TextField(
                 enabled: enabled,
                 controller: controller,
-                onChanged: onChanged, focusNode: focusNode,
+                onChanged: onChanged,
+                focusNode: focusNode,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                   hintText: hint,
@@ -95,9 +99,11 @@ class LaTextField extends StatelessWidget {
                     vertical: LaPadding.mediumSmall,
                     horizontal: LaPadding.medium,
                   ),
+                  counterText: "",
                 ),
                 style: LaTheme.font.body16.copyWith(color: LaTheme.onSecondaryContainer()),
-                cursorColor: LaTheme.primary(), // Blue cursor
+                cursorColor: LaTheme.primary(),
+                maxLength: maxLength,
               ),
             ),
             if (actionIcon != null)

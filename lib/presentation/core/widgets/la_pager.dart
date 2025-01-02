@@ -52,7 +52,7 @@ class _LaPagerState extends State<LaPager> {
         ),
         SmoothPageIndicator(
           controller: widget.controller ?? _controller,
-          count: 4,
+          count: widget.itemCount,
           effect: SwapEffect(
             type: SwapType.yRotation,
             activeDotColor: LaTheme.primary(),

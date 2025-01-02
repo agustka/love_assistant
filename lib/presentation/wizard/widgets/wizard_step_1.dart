@@ -14,7 +14,7 @@ class WizardStep1 extends StatelessWidget {
           children: [
             LaEpicImage(
               asset: LaTheme.illustrations.manGreetings,
-              widthAsPercentageOfScreen: 0.58,
+              widthAsPercentageOfScreen: 0.5,
             ),
             Padding(
               padding: const EdgeInsets.only(top: LaPadding.large),
@@ -31,11 +31,6 @@ class WizardStep1 extends StatelessWidget {
                     text: S.of(context).wizard_greetings_message_2,
                     //emoji: "🔔",
                     //icon: LaIcons.notification,
-                  ),
-                  BulletPointEntry(
-                    text: S.of(context).wizard_greetings_message_3,
-                    //emoji: "🔓",
-                    //icon: LaIcons.lockOpen,
                   ),
                 ],
               ),

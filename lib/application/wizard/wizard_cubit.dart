@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/application/core/base_cubit.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
+import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/setup.dart';
 
 part 'wizard_state.dart';
@@ -12,23 +13,30 @@ part 'wizard_state.dart';
 class WizardCubit extends BaseCubit<WizardState> {
   WizardCubit() : super(WizardState.initial());
 
-  Future init() async {}
+  Future init() async {
+    final bool isInitial = !getIt<InitializationService>().profileCreated;
+    emit(state.copyWith(isInitial: isInitial));
+  }
 
   void next(int currentPage, {bool confirmed = false}) {
     if (currentPage == 0) {
       getIt<EventBus>().fire(const WizardEventGoToPage(page: 1));
     } else if (currentPage == 1) {
-      final bool hasError =
-          state.partnerName.isEmpty || state.partnerPronoun == Pronoun.invalid || state.partnerBirthday.year == 1800;
+      bool hasError = state.partnerName.isEmpty || state.partnerPronoun == Pronoun.invalid;
+      if (!state.isInitial) {
+        hasError = hasError || state.partnerBirthday.year == 1800;
+      }
 
-      if (state.partnerName.isNotEmpty &&
+      if (state.isInitial && state.partnerName.isNotEmpty && state.partnerPronoun != Pronoun.invalid) {
+        getIt<EventBus>().fire(const WizardEventGoToPage(page: 2));
+      } else if (state.partnerName.isNotEmpty &&
           state.partnerPronoun != Pronoun.invalid &&
           state.partnerBirthday.year > 1800 &&
           (state.partnerAnniversary.year > 1800 || confirmed)) {
         getIt<EventBus>().fire(const WizardEventGoToPage(page: 2));
       }
 
-      if (state.partnerAnniversary.year == 1800 && !confirmed && !hasError) {
+      if (state.partnerAnniversary.year == 1800 && !confirmed && !hasError && !state.isInitial) {
         getIt<EventBus>().fire(WizardEvent.confirmNoAnniversary);
       }
 

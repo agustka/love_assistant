@@ -29,4 +29,7 @@ class LaThemeIllustrations implements $AssetsIllustrationsDarkGen, $AssetsIllust
 
   @override
   String get womanFloatingBanner => isDarkMode ? dark.womanFloatingBanner : light.womanFloatingBanner;
+
+  @override
+  String get manLoveBanner => isDarkMode ? dark.manLoveBanner : light.manLoveBanner;
 }

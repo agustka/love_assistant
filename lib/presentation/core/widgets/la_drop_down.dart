@@ -13,6 +13,7 @@ class LaDropDown<T> extends StatefulWidget {
   final bool optional;
   final bool error;
   final String? errorText;
+  final String? explanation;
   final void Function(dynamic selected, String? customInput) onChanged;
 
   const LaDropDown({
@@ -26,6 +27,7 @@ class LaDropDown<T> extends StatefulWidget {
     this.optional = true,
     this.error = false,
     this.errorText,
+    this.explanation,
   });
 
   @override
@@ -60,16 +62,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: LaPadding.small,
           children: [
-            Row(
-              children: [
-                Expanded(child: LaText(widget.title, style: LaTheme.font.body14.light)),
-                if (!widget.optional)
-                  LaText(
-                    "*${S.of(context).global_required}",
-                    style: LaTheme.font.body12.light.primary,
-                  ),
-              ],
-            ),
+            _getTitle(context),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: LaPadding.extraSmall,
@@ -103,13 +96,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 ),
               ],
             ),
-            if (_selectedOption == widget.freeFormOption)
-              LaTextField(
-                optional: false,
-                hint: widget.customHint ?? "",
-                focusNode: _customInputFocusNode,
-                onChanged: (String input) => widget.onChanged(_selectedOption, input),
-              ),
+            _getFreeFormOption(context),
           ],
         ),
       ),
@@ -124,16 +111,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: LaPadding.small,
           children: [
-            Row(
-              children: [
-                Expanded(child: LaText(widget.title, style: LaTheme.font.body14.light)),
-                if (!widget.optional)
-                  LaText(
-                    "*${S.of(context).global_required}",
-                    style: LaTheme.font.body12.light.primary,
-                  ),
-              ],
-            ),
+            _getTitle(context),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: LaPadding.extraSmall,
@@ -145,6 +123,8 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                     padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.small),
                     child: DropdownButton<T>(
                       value: _selectedOption,
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      elevation:12,
                       hint: LaText(
                         widget.hint ?? "",
                         style: LaTheme.font.body16.hintText,
@@ -198,17 +178,23 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 ),
               ],
             ),
-            if (_selectedOption == widget.freeFormOption)
-              LaTextField(
-                showCard: false,
-                focusNode: _customInputFocusNode,
-                hint: widget.customHint ?? "",
-                onChanged: (String input) => widget.onChanged(_selectedOption, input),
-              ),
+            _getFreeFormOption(context),
           ],
         ),
       ),
     );
+  }
+
+  Widget _getFreeFormOption(BuildContext context) {
+    if (_selectedOption == widget.freeFormOption && widget.freeFormOption != null) {
+      return LaTextField(
+        showCard: false,
+        focusNode: _customInputFocusNode,
+        hint: widget.customHint ?? "",
+        onChanged: (String input) => widget.onChanged(_selectedOption, input),
+      );
+    }
+    return const SizedBox.shrink();
   }
 
   Future<void> _showCupertinoPicker(BuildContext context) async {
@@ -289,5 +275,31 @@ class _LaDropDownState<T> extends State<LaDropDown> {
     }
 
     widget.onChanged(_selectedOption, _customInput);
+  }
+
+  Widget _getTitle(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: LaTapVisual(
+            onTap: () =>
+                LaConfirmationDialog.show(context: context, title: widget.title, message: widget.explanation ?? ""),
+            enabled: widget.explanation != null,
+            child: Row(
+              spacing: LaPadding.extraSmall,
+              children: [
+                LaText(widget.title, style: LaTheme.font.body14.light),
+                if (widget.explanation != null) Icon(LaIcons.information, size: 16, color: LaTheme.hintText()),
+              ],
+            ),
+          ),
+        ),
+        if (!widget.optional)
+          LaText(
+            "*${S.of(context).global_required}",
+            style: LaTheme.font.body12.light.primary,
+          ),
+      ],
+    );
   }
 }

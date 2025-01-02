@@ -8,6 +8,7 @@ import 'package:la/presentation/core/widgets/import.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_1.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_2.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_3.dart';
+import 'package:la/presentation/wizard/widgets/wizard_step_4.dart';
 import 'package:la/setup.dart';
 
 class WizardPage extends StatefulWidget {
@@ -100,23 +101,30 @@ class _WizardPageState extends State<WizardPage> {
                     ),
                   ],
                 ),
-                child: LaPager(
-                  itemCount: 4,
-                  controller: _controller,
-                  itemBuilder: (BuildContext context, int index) {
-                    switch (index) {
-                      case 0:
-                        return const WizardStep1();
-                      case 1:
-                        return const WizardStep2();
-                      case 2:
-                        return const WizardStep3();
-                      case 3:
-                        return LaEpicImage(asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
-                      case 4:
-                      default:
-                        return const ColoredBox(color: Colors.pinkAccent);
-                    }
+                child: BlocBuilder<WizardCubit, WizardState>(
+                  builder: (BuildContext context, WizardState state) {
+                    return LaPager(
+                      itemCount: state.isInitial ? 4 : 5,
+                      controller: _controller,
+                      itemBuilder: (BuildContext context, int index) {
+                        switch (index) {
+                          case 0:
+                            return const WizardStep1();
+                          case 1:
+                            return const WizardStep2();
+                          case 2:
+                            return const WizardStep3();
+                          case 3:
+                            if (!state.isInitial) {
+                              return const WizardStep4();
+                            }
+                            return LaEpicImage(asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
+                          case 5:
+                          default:
+                            return LaEpicImage(asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
+                        }
+                      },
+                    );
                   },
                 ),
               ),

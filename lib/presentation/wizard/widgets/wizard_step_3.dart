@@ -40,15 +40,18 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                   title: S.of(context).wizard_partner_loves_title,
                   entries: [
                     BulletPointEntry(
-                      text: S.of(context).wizard_partner_loves_message_1,
+                      text: state.isInitial
+                          ? S.of(context).wizard_partner_loves_message_initial_1
+                          : S.of(context).wizard_partner_loves_message_1,
                       //emoji: "📝",
                       //icon: LaIcons.contact,
                     ),
-                    BulletPointEntry(
-                      text: S.of(context).wizard_partner_loves_message_2,
-                      //emoji: "💌",
-                      //icon: LaIcons.edit,
-                    ),
+                    if (!state.isInitial)
+                      BulletPointEntry(
+                        text: S.of(context).wizard_partner_loves_message_2,
+                        //emoji: "💌",
+                        //icon: LaIcons.edit,
+                      ),
                   ],
                 ),
               ),
@@ -56,6 +59,7 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaMultiSelectPicker(
                   title: "What does your partner like?",
+                  explanation: S.of(context).wizard_partner_love_language_explanation,
                   optional: false,
                   options: [
                     "Quality Time",
@@ -70,6 +74,74 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                   },
                 ),
               ),
+              if (state.isInitial)
+                Padding(
+                  padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+                  child: LaDropDown<String>(
+                    title: "What tone of voice should I use?",
+                    options: [
+                      "Playful",
+                      "Romantic",
+                      "Casual",
+                      "Formal",
+                    ],
+                    explanation: S.of(context).wizard_partner_tone_of_voice_explanation,
+                    hint: "Select tone of voice",
+                    error: state.loveLanguageMissing,
+                    onChanged: (dynamic selectedOptions, String? custom) {
+                      context.read<WizardCubit>();
+                    },
+                  ),
+                ),
+              if (!state.isInitial)
+                Padding(
+                  padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+                  child: LaMultiSelectPicker(
+                    title: "Does your partner have any hobbies?",
+                    options: [
+                      "Reading",
+                      "Cooking",
+                      "Traveling",
+                      "Gaming",
+                      "Fitness",
+                      "Music",
+                      "Crafting",
+                      "Gardening",
+                      "Movies & TV",
+                      "Fishing",
+                      "Sports"
+                    ],
+                    explanation: S.of(context).wizard_partner_hobbies_explanation,
+                    error: state.loveLanguageMissing,
+                    onSelectionChanged: (List<String> selectedOptions) {
+                      context.read<WizardCubit>();
+                    },
+                  ),
+                ),
+              if (!state.isInitial)
+                Padding(
+                  padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+                  child: LaMultiSelectPicker(
+                    title: "What food does your partner like?",
+                    options: [
+                      "Chocolate",
+                      "Coffee",
+                      "Pizza",
+                      "Sushi",
+                      "Tacos",
+                      "Burgers",
+                      "Seafood",
+                      "Salads",
+                      "Pasta",
+                      "Fried Foods"
+                    ],
+                    explanation: S.of(context).wizard_partner_foods_explanation,
+                    error: state.loveLanguageMissing,
+                    onSelectionChanged: (List<String> selectedOptions) {
+                      context.read<WizardCubit>();
+                    },
+                  ),
+                ),
               const SizedBox.shrink(),
             ],
           ),

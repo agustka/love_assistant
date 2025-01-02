@@ -40,10 +40,11 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                   title: S.of(context).wizard_partner_profile_title,
                   entries: [
                     BulletPointEntry(
-                      text: S.of(context).wizard_partner_profile_message_1,
+                      text: state.isInitial ? S.of(context).wizard_partner_profile_message_initial_1 : S.of(context).wizard_partner_profile_message_1,
                       //emoji: "📝",
                       //icon: LaIcons.contact,
                     ),
+                    if (!state.isInitial)
                     BulletPointEntry(
                       text: S.of(context).wizard_partner_profile_message_2,
                       //emoji: "💌",
@@ -60,7 +61,10 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                   hint: S.of(context).wizard_partner_profile_name_hint,
                   error: state.missingName,
                   errorText: S.of(context).wizard_partner_profile_name_missing,
-                  onChanged: (String input) { context.read<WizardCubit>().onNameChanged(input);},
+                  maxLength: 90,
+                  onChanged: (String input) {
+                    context.read<WizardCubit>().onNameChanged(input);
+                  },
                 ),
               ),
               Padding(
@@ -79,12 +83,14 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                   },
                 ),
               ),
+              if (!state.isInitial)
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaDatePicker(
                   optional: false,
                   title: S.of(context).wizard_partner_birthday_title,
                   hint: S.of(context).wizard_partner_birthday_hint,
+                  explanation: S.of(context).wizard_partner_birthday_explanation,
                   firstDate: DateTime(1900),
                   defaultDate: DateTime(1990),
                   lastDate: DateTime.now(),
@@ -95,11 +101,13 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                   },
                 ),
               ),
+              if (!state.isInitial)
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaDatePicker(
                   title: S.of(context).wizard_partner_anniversary_title,
                   hint: S.of(context).wizard_partner_anniversary_hint,
+                  explanation: S.of(context).wizard_partner_anniversary_explanation,
                   defaultDate: DateTime.now(),
                   firstDate: DateTime(1900),
                   lastDate: DateTime.now(),

@@ -11,6 +11,7 @@ class LaMultiSelectPicker<T> extends StatefulWidget {
   final bool optional;
   final bool error;
   final String? errorText;
+  final String? explanation;
   final void Function(List<T>) onSelectionChanged;
 
   const LaMultiSelectPicker({
@@ -21,6 +22,7 @@ class LaMultiSelectPicker<T> extends StatefulWidget {
     this.optional = true,
     this.error = false,
     this.errorText,
+    this.explanation,
     this.initialSelectedOptions = const [],
   });
 
@@ -105,7 +107,7 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
           children: [
             _getTitle(context),
             Padding(
-              padding: const EdgeInsets.only(top: LaPadding.extraSmall),
+              padding: const EdgeInsets.only(top: LaPadding.small),
               child: Wrap(
                 spacing: LaPadding.small,
                 runSpacing: LaPadding.small,
@@ -134,8 +136,8 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
                       child: LaText(
                         option.toString(),
                         style: isSelected
-                            ? LaTheme.font.body14.onSecondary.light
-                            : LaTheme.font.body14.onSecondaryContainer.light,
+                            ? LaTheme.font.body16.onSecondary.light
+                            : LaTheme.font.body16.onSecondaryContainer.light,
                       ),
                     ),
                   );
@@ -152,7 +154,20 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
   Widget _getTitle(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: LaText(widget.title, style: LaTheme.font.body14)),
+        Expanded(
+          child: LaTapVisual(
+            onTap: () =>
+                LaConfirmationDialog.show(context: context, title: widget.title, message: widget.explanation ?? ""),
+            enabled: widget.explanation != null,
+            child: Row(
+              spacing: LaPadding.extraSmall,
+              children: [
+                LaText(widget.title, style: LaTheme.font.body14.light),
+                if (widget.explanation != null) Icon(LaIcons.information, size: 16, color: LaTheme.hintText()),
+              ],
+            ),
+          ),
+        ),
         if (!widget.optional)
           LaText(
             "*${S.of(context).global_required}",

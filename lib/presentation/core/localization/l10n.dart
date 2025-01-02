@@ -180,41 +180,31 @@ class S {
     );
   }
 
-  /// `✨ Þinn persónulegi sambandsþjónn`
+  /// `✨ Aðstoðarmaður ástarmála`
   String get wizard_greetings {
     return Intl.message(
-      '✨ Þinn persónulegi sambandsþjónn',
+      '✨ Aðstoðarmaður ástarmála',
       name: 'wizard_greetings',
       desc: '',
       args: [],
     );
   }
 
-  /// `Við skulum byrja á að kanna hvað það er sem maki eða félagi þinn hefur áhuga á.`
+  /// `Hæ, ég er hér til að hjálpa þér að rækta sambandið þitt.`
   String get wizard_greetings_message_1 {
     return Intl.message(
-      'Við skulum byrja á að kanna hvað það er sem maki eða félagi þinn hefur áhuga á.',
+      'Hæ, ég er hér til að hjálpa þér að rækta sambandið þitt.',
       name: 'wizard_greetings_message_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Þannig getur þú fengið hugmyndir, áminningar og sérsniðin skilaboð sem passa betur.`
+  /// `Ég get minnt þig á mikilvægar dagsetningar, samið skilaboð og stungið upp á góðum hugmyndum.`
   String get wizard_greetings_message_2 {
     return Intl.message(
-      'Þannig getur þú fengið hugmyndir, áminningar og sérsniðin skilaboð sem passa betur.',
+      'Ég get minnt þig á mikilvægar dagsetningar, samið skilaboð og stungið upp á góðum hugmyndum.',
       name: 'wizard_greetings_message_2',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Þú þarft ekki að stofna reikning til að hefjast handa.`
-  String get wizard_greetings_message_3 {
-    return Intl.message(
-      'Þú þarft ekki að stofna reikning til að hefjast handa.',
-      name: 'wizard_greetings_message_3',
       desc: '',
       args: [],
     );
@@ -240,10 +230,10 @@ class S {
     );
   }
 
-  /// `Aðeins um þína sérstöku persónu`
+  /// `Byrjum á grunnatriðunum`
   String get wizard_partner_profile_title {
     return Intl.message(
-      'Aðeins um þína sérstöku persónu',
+      'Byrjum á grunnatriðunum',
       name: 'wizard_partner_profile_title',
       desc: '',
       args: [],
@@ -255,6 +245,16 @@ class S {
     return Intl.message(
       'Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum.',
       name: 'wizard_partner_profile_message_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er.`
+  String get wizard_partner_profile_message_initial_1 {
+    return Intl.message(
+      'Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er.',
+      name: 'wizard_partner_profile_message_initial_1',
       desc: '',
       args: [],
     );
@@ -360,6 +360,16 @@ class S {
     );
   }
 
+  /// `Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.`
+  String get wizard_partner_birthday_explanation {
+    return Intl.message(
+      'Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.',
+      name: 'wizard_partner_birthday_explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Einhver stór dagsetning?`
   String get wizard_partner_anniversary_title {
     return Intl.message(
@@ -420,6 +430,16 @@ class S {
     );
   }
 
+  /// `Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.`
+  String get wizard_partner_anniversary_explanation {
+    return Intl.message(
+      'Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.',
+      name: 'wizard_partner_anniversary_explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Hvað elskar félagi þinn?`
   String get wizard_partner_loves_title {
     return Intl.message(
@@ -440,11 +460,71 @@ class S {
     );
   }
 
+  /// `Segðu mér frá ástarmáli félaga þíns og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.`
+  String get wizard_partner_loves_message_initial_1 {
+    return Intl.message(
+      'Segðu mér frá ástarmáli félaga þíns og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.',
+      name: 'wizard_partner_loves_message_initial_1',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.`
   String get wizard_partner_loves_message_2 {
     return Intl.message(
       'Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.',
       name: 'wizard_partner_loves_message_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.`
+  String get wizard_partner_love_language_explanation {
+    return Intl.message(
+      'Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.',
+      name: 'wizard_partner_love_language_explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.`
+  String get wizard_partner_hobbies_explanation {
+    return Intl.message(
+      'Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.',
+      name: 'wizard_partner_hobbies_explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.`
+  String get wizard_partner_foods_explanation {
+    return Intl.message(
+      'Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.',
+      name: 'wizard_partner_foods_explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.`
+  String get wizard_partner_tone_of_voice_explanation {
+    return Intl.message(
+      'Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.',
+      name: 'wizard_partner_tone_of_voice_explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.`
+  String get wizard_partner_gift_types_explanation {
+    return Intl.message(
+      'Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.',
+      name: 'wizard_partner_gift_types_explanation',
       desc: '',
       args: [],
     );

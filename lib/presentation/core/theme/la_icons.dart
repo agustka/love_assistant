@@ -55,4 +55,8 @@ class LaIcons {
   static IconData get question {
     return CupertinoIcons.question_circle;
   }
+
+  static IconData get information {
+    return PlatformDetector.isIOS ? CupertinoIcons.info : Icons.info_outline;
+  }
 }

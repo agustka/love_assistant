@@ -14,6 +14,7 @@ class LaDatePicker extends StatefulWidget {
   final bool optional;
   final bool error;
   final String? errorText;
+  final String? explanation;
   final void Function(DateTime selectedDate) onDateSelected;
 
   const LaDatePicker({
@@ -28,6 +29,7 @@ class LaDatePicker extends StatefulWidget {
     this.optional = true,
     this.error = false,
     this.errorText,
+    this.explanation,
   });
 
   @override
@@ -54,7 +56,20 @@ class _LaDatePickerState extends State<LaDatePicker> {
           children: [
             Row(
               children: [
-                Expanded(child: LaText(widget.title, style: LaTheme.font.body14.light)),
+                Expanded(
+                  child: LaTapVisual(
+                    onTap: () => LaConfirmationDialog.show(
+                        context: context, title: widget.title, message: widget.explanation ?? ""),
+                    enabled: widget.explanation != null,
+                    child: Row(
+                      spacing: LaPadding.extraSmall,
+                      children: [
+                        LaText(widget.title, style: LaTheme.font.body14.light),
+                        if (widget.explanation != null) Icon(LaIcons.information, size: 16, color: LaTheme.hintText()),
+                      ],
+                    ),
+                  ),
+                ),
                 if (!widget.optional)
                   LaText(
                     "*${S.of(context).global_required}",

@@ -49,15 +49,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "ordinal_suffix_third": MessageLookupByLibrary.simpleMessage("."),
         "settings_pick_language":
             MessageLookupByLibrary.simpleMessage("Veldu tungumál"),
-        "wizard_greetings": MessageLookupByLibrary.simpleMessage(
-            "✨ Þinn persónulegi sambandsþjónn"),
+        "wizard_greetings":
+            MessageLookupByLibrary.simpleMessage("✨ Aðstoðarmaður ástarmála"),
         "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
-            "Við skulum byrja á að kanna hvað það er sem maki eða félagi þinn hefur áhuga á."),
+            "Hæ, ég er hér til að hjálpa þér að rækta sambandið þitt."),
         "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
-            "Þannig getur þú fengið hugmyndir, áminningar og sérsniðin skilaboð sem passa betur."),
-        "wizard_greetings_message_3": MessageLookupByLibrary.simpleMessage(
-            "Þú þarft ekki að stofna reikning til að hefjast handa."),
+            "Ég get minnt þig á mikilvægar dagsetningar, samið skilaboð og stungið upp á góðum hugmyndum."),
         "wizard_next": MessageLookupByLibrary.simpleMessage("Næsta"),
+        "wizard_partner_anniversary_explanation":
+            MessageLookupByLibrary.simpleMessage(
+                "Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu."),
         "wizard_partner_anniversary_hint":
             MessageLookupByLibrary.simpleMessage("Gifting, trúlofun osfr."),
         "wizard_partner_anniversary_skip_message":
@@ -71,14 +72,29 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Já, sleppa"),
         "wizard_partner_anniversary_title":
             MessageLookupByLibrary.simpleMessage("Einhver stór dagsetning?"),
+        "wizard_partner_birthday_explanation": MessageLookupByLibrary.simpleMessage(
+            "Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu."),
         "wizard_partner_birthday_hint":
             MessageLookupByLibrary.simpleMessage("Veldu afmælisdagsetningu"),
         "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
             "Hvenær á félagi þinn afmæli?"),
+        "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
+            "Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði."),
+        "wizard_partner_gift_types_explanation":
+            MessageLookupByLibrary.simpleMessage(
+                "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative."),
+        "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
+            "Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir."),
+        "wizard_partner_love_language_explanation":
+            MessageLookupByLibrary.simpleMessage(
+                "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást."),
         "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
             "Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun."),
         "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
             "Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark."),
+        "wizard_partner_loves_message_initial_1":
+            MessageLookupByLibrary.simpleMessage(
+                "Segðu mér frá ástarmáli félaga þíns og talsmáta svo ég geti samið skilaboð sem hitta beint í mark."),
         "wizard_partner_loves_title":
             MessageLookupByLibrary.simpleMessage("Hvað elskar félagi þinn?"),
         "wizard_partner_profile_birthday_missing":
@@ -87,6 +103,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum."),
         "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
             "Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur."),
+        "wizard_partner_profile_message_initial_1":
+            MessageLookupByLibrary.simpleMessage(
+                "Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er."),
         "wizard_partner_profile_name_hint":
             MessageLookupByLibrary.simpleMessage("Nafn félaga þíns"),
         "wizard_partner_profile_name_missing":
@@ -96,12 +115,15 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Hvað heitir sérstaka persónan þín?"),
         "wizard_partner_profile_pronoun_missing":
             MessageLookupByLibrary.simpleMessage("Fornafn er nauðsynlegt"),
-        "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
-            "Aðeins um þína sérstöku persónu"),
+        "wizard_partner_profile_title":
+            MessageLookupByLibrary.simpleMessage("Byrjum á grunnatriðunum"),
         "wizard_partner_pronouns_hint":
             MessageLookupByLibrary.simpleMessage("Veldu fornafn"),
         "wizard_partner_pronouns_title": MessageLookupByLibrary.simpleMessage(
             "Hvernig á að ávarpa félaga þinn?"),
+        "wizard_partner_tone_of_voice_explanation":
+            MessageLookupByLibrary.simpleMessage(
+                "Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns."),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning")
       };
