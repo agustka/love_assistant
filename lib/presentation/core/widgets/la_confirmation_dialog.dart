@@ -15,22 +15,24 @@ class LaConfirmationDialog {
   }) async {
     if (PlatformDetector.isIOS) {
       return await _showCupertinoDialog(
-        context: context,
-        title: title,
-        message: message,
-        confirmText: confirmText,
-        cancelText: cancelText,
-        icon: icon,
-      ) ?? false;
+            context: context,
+            title: title,
+            message: message,
+            confirmText: confirmText,
+            cancelText: cancelText,
+            icon: icon,
+          ) ??
+          false;
     } else {
       return await _showMaterialDialog(
-        context: context,
-        title: title,
-        message: message,
-        confirmText: confirmText,
-        cancelText: cancelText,
-        icon: icon,
-      ) ?? false;
+            context: context,
+            title: title,
+            message: message,
+            confirmText: confirmText,
+            cancelText: cancelText,
+            icon: icon,
+          ) ??
+          false;
     }
   }
 
@@ -62,14 +64,20 @@ class LaConfirmationDialog {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+                FocusScope.of(context).unfocus();
+              },
               child: LaText(
                 confirmText ?? S.of(context).global_confirm,
                 style: LaTheme.font.body16.primary,
               ),
             ),
             TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                FocusScope.of(context).unfocus();
+              },
               child: LaText(
                 cancelText ?? S.of(context).global_cancel,
                 style: LaTheme.font.body16.primary,
@@ -120,14 +128,20 @@ class LaConfirmationDialog {
                   const SizedBox(width: LaPadding.large),
                   Expanded(
                     child: LaButton(
-                      onTap: () => Navigator.of(context).pop(false),
+                      onTap: () {
+                        Navigator.of(context).pop(false);
+                        FocusScope.of(context).unfocus();
+                      },
                       text: confirmText ?? S.of(context).global_confirm,
                     ),
                   ),
                   const SizedBox(width: LaPadding.medium),
                   Expanded(
                     child: LaButton(
-                      onTap: () => Navigator.of(context).pop(true),
+                      onTap: () {
+                        Navigator.of(context).pop(true);
+                        FocusScope.of(context).unfocus();
+                      },
                       text: cancelText ?? S.of(context).global_cancel,
                     ),
                   ),

@@ -14,6 +14,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:la/application/core/language/language_cubit.dart' as _i953;
 import 'package:la/application/splash/splash_cubit.dart' as _i247;
 import 'package:la/application/wizard/wizard_cubit.dart' as _i167;
+import 'package:la/infrastructure/core/auth/device_id_provider.dart' as _i700;
 import 'package:la/infrastructure/core/cache/hive_cache.dart' as _i681;
 import 'package:la/infrastructure/core/cache/i_hive_cache.dart' as _i339;
 import 'package:la/infrastructure/core/event/event_bus_module.dart' as _i16;
@@ -42,6 +43,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i1017.EventBus>(() => eventBusModule.eventBus);
     gh.lazySingleton<_i339.IHiveCache>(() => const _i681.HiveCache());
     gh.factory<_i651.IPollAndDebounce>(() => _i187.PollAndDebounce());
+    gh.singleton<_i700.DeviceIdProvider>(
+        () => _i700.DeviceIdProvider(gh<_i339.IHiveCache>()));
     return this;
   }
 }

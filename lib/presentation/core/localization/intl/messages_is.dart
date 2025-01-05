@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings_pick_language":
             MessageLookupByLibrary.simpleMessage("Veldu tungumál"),
         "wizard_greetings":
-            MessageLookupByLibrary.simpleMessage("✨ Aðstoðarmaður ástarmála"),
+            MessageLookupByLibrary.simpleMessage("✨ Þinn eigin Ástar Engill"),
         "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
             "Hæ, ég er hér til að hjálpa þér að rækta sambandið þitt."),
         "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(

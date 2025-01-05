@@ -11,6 +11,7 @@ Future<void> main() async {
   await appSetup();
 
   final InitializationService initService = getIt<InitializationService>();
+  await initService.init();
   final Brightness? userBrightness = await initService.getPreferredBrightness();
   final Locale? userLocale = await initService.getPreferredLocale();
 

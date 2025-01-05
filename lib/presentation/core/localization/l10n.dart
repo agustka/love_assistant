@@ -180,10 +180,10 @@ class S {
     );
   }
 
-  /// `✨ Aðstoðarmaður ástarmála`
+  /// `✨ Þinn eigin Ástar Engill`
   String get wizard_greetings {
     return Intl.message(
-      '✨ Aðstoðarmaður ástarmála',
+      '✨ Þinn eigin Ástar Engill',
       name: 'wizard_greetings',
       desc: '',
       args: [],

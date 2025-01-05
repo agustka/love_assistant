@@ -21,34 +21,9 @@ Future<void> appSetup() async {
   }
 
   await _configureInjection();
-  //configureFlutterPushes();
-
-  getIt<IHiveCache>().initialize();
-}
-
-void configureFlutterPushes() {
-  if (flutterLocalNotificationsPlugin != null) {
-    return;
-  }
-
-  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings("@drawable/ic_la_logo_splash");
-  const DarwinInitializationSettings initializationSettingsIos = DarwinInitializationSettings();
-  const InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsIos,
-  );
-
-  flutterLocalNotificationsPlugin?.initialize(
-    initializationSettings,
-    onDidReceiveNotificationResponse: (NotificationResponse details) {},
-  );
 }
 
 final GetIt getIt = GetIt.instance;
-
 @injectableInit
 Future<void> _configureInjection() async {
   getIt.init();
