@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
-import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
+import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep3 extends StatefulWidget {
@@ -57,20 +57,16 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
               ),
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
-                child: LaMultiSelectPicker(
-                  title: "What does your partner like?",
+                child: LaMultiSelectPicker<LoveLanguage>(
+                  title: S.of(context).wizard_partner_love_language_title,
                   explanation: S.of(context).wizard_partner_love_language_explanation,
                   optional: false,
-                  options: [
-                    "Quality Time",
-                    "Words of Affirmation",
-                    "Acts of Service",
-                    "Physical Touch",
-                    "Receiving Gifts"
-                  ],
+                  options: LoveLanguage.values.toList()
+                    ..removeWhere((LoveLanguage e) => e == LoveLanguage.invalid)
+                    ..sort((LoveLanguage left, LoveLanguage right) => left.toString().compareTo(right.toString())),
                   error: state.loveLanguageMissing,
-                  onSelectionChanged: (List<String> selectedOptions) {
-                    context.read<WizardCubit>();
+                  onSelectionChanged: (List<LoveLanguage> selectedOptions) {
+                    context.read<WizardCubit>().onLoveLanguageChanged(selectedOptions);
                   },
                 ),
               ),

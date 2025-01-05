@@ -12,16 +12,16 @@ class PronounValueObject extends ValueObject<Pronoun> {
 
   const PronounValueObject._(Pronoun super.input, Failure<String>? super.failure);
 
-  const factory PronounValueObject.invalid() = _$InvalidRegularSavingDayOfWeekValueObject;
+  const factory PronounValueObject.invalid() = _$InvalidPronounValueObject;
 
   static Failure<String>? _validate(String? input) {
     final Pronoun productType = _parse(input);
     if (input == null) {
-      return const Failure("Regular saving day of week must not be null.");
+      return const Failure("Pronoun must not be null.");
     } else if (productType != Pronoun.invalid) {
       return null;
     }
-    return Failure("Unknown regular saving day of week type $input.", reference: input);
+    return Failure("Unknown pronoun type $input.", reference: input);
   }
 
   static Pronoun _parse(String? input) {
@@ -37,14 +37,14 @@ class PronounValueObject extends ValueObject<Pronoun> {
       case "invalid":
         return Pronoun.invalid;
       default:
-        errEnum(type: "RegularSavingDayOfWeek", input: input);
+        errEnum(type: "Pronoun", input: input);
         return Pronoun.invalid;
     }
   }
 }
 
-class _$InvalidRegularSavingDayOfWeekValueObject extends PronounValueObject {
-  const _$InvalidRegularSavingDayOfWeekValueObject()
+class _$InvalidPronounValueObject extends PronounValueObject {
+  const _$InvalidPronounValueObject()
       : super._(
     Pronoun.invalid,
     const Failure("Invalid/null instance."),

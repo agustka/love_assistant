@@ -3,6 +3,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/application/core/base_cubit.dart';
+import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/setup.dart';
@@ -81,5 +82,9 @@ class WizardCubit extends BaseCubit<WizardState> {
 
   void onAnniversaryChanged(DateTime selectedDate) {
     emit(state.copyWith(partnerAnniversary: selectedDate));
+  }
+
+  void onLoveLanguageChanged(List<LoveLanguage> selectedOptions) {
+    emit(state.copyWith(partnerLoveLanguages: selectedOptions));
   }
 }

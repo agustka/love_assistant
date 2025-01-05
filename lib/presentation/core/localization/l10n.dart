@@ -530,6 +530,16 @@ class S {
     );
   }
 
+  /// `Hvernig ástar-tjáning á best við?`
+  String get wizard_partner_love_language_title {
+    return Intl.message(
+      'Hvernig ástar-tjáning á best við?',
+      name: 'wizard_partner_love_language_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `.`
   String get ordinal_suffix_first {
     return Intl.message(
@@ -615,6 +625,56 @@ class S {
     return Intl.message(
       'Velja sjálf(ur)',
       name: 'global_pronoun_custom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Að fá gjafir`
+  String get global_love_language_receiving_gifts {
+    return Intl.message(
+      'Að fá gjafir',
+      name: 'global_love_language_receiving_gifts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þjónusta`
+  String get global_love_language_acts_of_service {
+    return Intl.message(
+      'Þjónusta',
+      name: 'global_love_language_acts_of_service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tími saman`
+  String get global_love_language_quality_time {
+    return Intl.message(
+      'Tími saman',
+      name: 'global_love_language_quality_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Falleg orð`
+  String get global_love_language_words_of_affirmation {
+    return Intl.message(
+      'Falleg orð',
+      name: 'global_love_language_words_of_affirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Líkamleg snerting`
+  String get global_love_language_physical_touch {
+    return Intl.message(
+      'Líkamleg snerting',
+      name: 'global_love_language_physical_touch',
       desc: '',
       args: [],
     );

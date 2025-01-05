@@ -49,6 +49,7 @@
   "wizard_partner_foods_explanation": "Sharing your loved one’s favorite foods will help me select the correct food gifts and restaurant suggestons.",
   "wizard_partner_tone_of_voice_explanation": "Selecting the correct tone of voice helps me craft messages that resonate with your loved one better.",
   "wizard_partner_gift_types_explanation": "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.",
+  "wizard_partner_love_language_title": "What does your partner like?",
   "ordinal_suffix_first": "st",
   "ordinal_suffix_generic": "th",
   "ordinal_suffix_global": ".",
@@ -57,5 +58,10 @@
   "global_pronoun_she_her": "She/Her",
   "global_pronoun_he_him": "He/Him",
   "global_pronoun_they_them": "They/Them",
-  "global_pronoun_custom": "Custom"
+  "global_pronoun_custom": "Custom",
+  "global_love_language_receiving_gifts": "Receiving gifts",
+  "global_love_language_acts_of_service": "Acts of service",
+  "global_love_language_quality_time": "Quality time",
+  "global_love_language_words_of_affirmation": "Words of affirmation",
+  "global_love_language_physical_touch": "Physical touch"
 }

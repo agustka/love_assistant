@@ -32,6 +32,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Þín eigin"),
         "global_generic_field_error": MessageLookupByLibrary.simpleMessage(
             "Þetta atriði þarf að vera útfyllt"),
+        "global_love_language_acts_of_service":
+            MessageLookupByLibrary.simpleMessage("Þjónusta"),
+        "global_love_language_physical_touch":
+            MessageLookupByLibrary.simpleMessage("Líkamleg snerting"),
+        "global_love_language_quality_time":
+            MessageLookupByLibrary.simpleMessage("Tími saman"),
+        "global_love_language_receiving_gifts":
+            MessageLookupByLibrary.simpleMessage("Að fá gjafir"),
+        "global_love_language_words_of_affirmation":
+            MessageLookupByLibrary.simpleMessage("Falleg orð"),
         "global_more": MessageLookupByLibrary.simpleMessage("Meira"),
         "global_optional": MessageLookupByLibrary.simpleMessage("Valkvæmt"),
         "global_pick_date":
@@ -88,6 +98,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "wizard_partner_love_language_explanation":
             MessageLookupByLibrary.simpleMessage(
                 "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást."),
+        "wizard_partner_love_language_title":
+            MessageLookupByLibrary.simpleMessage(
+                "Hvernig ástar-tjáning á best við?"),
         "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
             "Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun."),
         "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(

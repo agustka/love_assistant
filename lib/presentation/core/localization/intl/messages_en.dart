@@ -32,6 +32,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter custom value"),
         "global_generic_field_error":
             MessageLookupByLibrary.simpleMessage("This entry is invalid"),
+        "global_love_language_acts_of_service":
+            MessageLookupByLibrary.simpleMessage("Acts of service"),
+        "global_love_language_physical_touch":
+            MessageLookupByLibrary.simpleMessage("Physical touch"),
+        "global_love_language_quality_time":
+            MessageLookupByLibrary.simpleMessage("Quality time"),
+        "global_love_language_receiving_gifts":
+            MessageLookupByLibrary.simpleMessage("Receiving gifts"),
+        "global_love_language_words_of_affirmation":
+            MessageLookupByLibrary.simpleMessage("Words of affirmation"),
         "global_more": MessageLookupByLibrary.simpleMessage("More"),
         "global_optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "global_pick_date": MessageLookupByLibrary.simpleMessage("Pick a date"),
@@ -89,6 +99,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "wizard_partner_love_language_explanation":
             MessageLookupByLibrary.simpleMessage(
                 "There are said to be five forms of expressions of love.\nQuality Time: Spending undivided, meaningful time together.\nWords of Affirmation: Expressing love and appreciation through kind and affirming words.\nActs of Service: Showing love by doing helpful or thoughtful tasks.\nPhysical Touch: Expressing love through physical gestures like hugs, kisses, and other forms of touch.\nReceiving Gifts: Giving and receiving thoughtful gifts as a symbol of love."),
+        "wizard_partner_love_language_title":
+            MessageLookupByLibrary.simpleMessage(
+                "What does your partner like?"),
         "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
             "Share the things your partner loves to help me craft personalized experiences."),
         "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(

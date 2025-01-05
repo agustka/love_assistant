@@ -31,6 +31,7 @@ class WizardState extends Equatable {
   final bool missingBirthday;
   final DateTime partnerAnniversary;
   final bool loveLanguageMissing;
+  final List<LoveLanguage> partnerLoveLanguages;
 
   const WizardState({
     required this.status,
@@ -45,6 +46,7 @@ class WizardState extends Equatable {
     required this.missingBirthday,
     required this.partnerAnniversary,
     required this.loveLanguageMissing,
+    required this.partnerLoveLanguages,
   });
 
   WizardState.initial()
@@ -56,11 +58,12 @@ class WizardState extends Equatable {
           partnerPronoun: Pronoun.invalid,
           customPronoun: "",
           missingPronoun: false,
-      missingCustomPronoun:false,
+          missingCustomPronoun: false,
           partnerBirthday: DateTime(1800),
           missingBirthday: false,
           partnerAnniversary: DateTime(1800),
           loveLanguageMissing: false,
+          partnerLoveLanguages: [],
         );
 
   WizardState copyWith({
@@ -76,6 +79,7 @@ class WizardState extends Equatable {
     bool? missingBirthday,
     DateTime? partnerAnniversary,
     bool? loveLanguageMissing,
+    List<LoveLanguage>? partnerLoveLanguages,
   }) {
     return WizardState(
       status: status ?? this.status,
@@ -85,11 +89,12 @@ class WizardState extends Equatable {
       partnerPronoun: partnerPronoun ?? this.partnerPronoun,
       customPronoun: customPronoun ?? this.customPronoun,
       missingPronoun: missingPronoun ?? this.missingPronoun,
-      missingCustomPronoun:missingCustomPronoun??this.missingCustomPronoun,
+      missingCustomPronoun: missingCustomPronoun ?? this.missingCustomPronoun,
       partnerBirthday: partnerBirthday ?? this.partnerBirthday,
       missingBirthday: missingBirthday ?? this.missingBirthday,
       partnerAnniversary: partnerAnniversary ?? this.partnerAnniversary,
       loveLanguageMissing: loveLanguageMissing ?? this.loveLanguageMissing,
+      partnerLoveLanguages: partnerLoveLanguages ?? this.partnerLoveLanguages,
     );
   }
 
@@ -102,10 +107,11 @@ class WizardState extends Equatable {
         partnerPronoun,
         customPronoun,
         missingPronoun,
-    missingCustomPronoun,
+        missingCustomPronoun,
         partnerBirthday,
         missingBirthday,
         partnerAnniversary,
         loveLanguageMissing,
+        partnerLoveLanguages,
       ];
 }

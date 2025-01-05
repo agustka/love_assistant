@@ -49,6 +49,7 @@
   "wizard_partner_foods_explanation": "Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.",
   "wizard_partner_tone_of_voice_explanation": "Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.",
   "wizard_partner_gift_types_explanation": "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.",
+  "wizard_partner_love_language_title": "Hvernig ástar-tjáning á best við?",
   "ordinal_suffix_first": ".",
   "ordinal_suffix_generic": ".",
   "ordinal_suffix_global": ".",
@@ -57,5 +58,10 @@
   "global_pronoun_she_her": "Hún",
   "global_pronoun_he_him": "Hann",
   "global_pronoun_they_them": "Hán",
-  "global_pronoun_custom": "Velja sjálf(ur)"
+  "global_pronoun_custom": "Velja sjálf(ur)",
+  "global_love_language_receiving_gifts": "Að fá gjafir",
+  "global_love_language_acts_of_service": "Þjónusta",
+  "global_love_language_quality_time": "Tími saman",
+  "global_love_language_words_of_affirmation": "Falleg orð",
+  "global_love_language_physical_touch": "Líkamleg snerting"
 }
