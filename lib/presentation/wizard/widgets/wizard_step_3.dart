@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
+import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
+import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep3 extends StatefulWidget {
@@ -37,11 +39,15 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium, top: LaPadding.large),
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
-                  title: S.of(context).wizard_partner_loves_title,
+                  title: S.of(context).wizard_partner_loves_title(
+                        state.partnerPronoun.getNominative(state.customPronoun).toLowerCase(),
+                      ),
                   entries: [
                     BulletPointEntry(
                       text: state.isInitial
-                          ? S.of(context).wizard_partner_loves_message_initial_1
+                          ? S.of(context).wizard_partner_loves_message_initial_1(
+                                state.partnerPronoun.getPossessive(state.customPronoun).toLowerCase(),
+                              )
                           : S.of(context).wizard_partner_loves_message_1,
                       //emoji: "📝",
                       //icon: LaIcons.contact,
@@ -73,16 +79,15 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
               if (state.isInitial)
                 Padding(
                   padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
-                  child: LaDropDown<String>(
-                    title: "What tone of voice should I use?",
-                    options: [
-                      "Playful",
-                      "Romantic",
-                      "Casual",
-                      "Formal",
-                    ],
+                  child: LaDropDown<ToneOfVoice>(
+                    title: S.of(context).wizard_partner_tone_of_voice_title(
+                          state.partnerPronoun.getDative(state.customPronoun).toLowerCase(),
+                        ),
+                    hint: S.of(context).wizard_partner_tone_of_voice_hint,
                     explanation: S.of(context).wizard_partner_tone_of_voice_explanation,
-                    hint: "Select tone of voice",
+                    options: ToneOfVoice.values.toList()
+                      ..removeWhere((ToneOfVoice e) => e == ToneOfVoice.invalid)
+                      ..sort((ToneOfVoice left, ToneOfVoice right) => left.toString().compareTo(right.toString())),
                     error: state.loveLanguageMissing,
                     onChanged: (dynamic selectedOptions, String? custom) {
                       context.read<WizardCubit>();

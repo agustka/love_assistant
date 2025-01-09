@@ -239,8 +239,8 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
           child: _loadingIndicator(
             child: LaButton(
               key: button.key,
-              buttonStyle: cnt == 1 ? LaButtonStyle.primary : LaButtonStyle.secondary,
               text: button.text,
+              buttonStyle: cnt == 1 ? LaButtonStyle.primary : LaButtonStyle.secondary,
               maxLines: 2,
               onTap: button.onTap,
               enabled: button.enabled,

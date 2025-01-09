@@ -59,7 +59,10 @@ class _LaDatePickerState extends State<LaDatePicker> {
                 Expanded(
                   child: LaTapVisual(
                     onTap: () => LaConfirmationDialog.show(
-                        context: context, title: widget.title, message: widget.explanation ?? ""),
+                      context: context,
+                      title: widget.title,
+                      message: widget.explanation ?? "",
+                    ),
                     enabled: widget.explanation != null,
                     child: Row(
                       spacing: LaPadding.extraSmall,

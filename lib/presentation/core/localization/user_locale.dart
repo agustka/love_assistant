@@ -57,28 +57,10 @@ class UserLocale extends Equatable {
     );
   }
 
-  factory UserLocale.spanish() {
-    return const UserLocale(
-      locale: Locale("es", "ES"),
-      language: Language.spanish,
-    );
-  }
-
-  factory UserLocale.german() {
-    return const UserLocale(
-      locale: Locale("de", "DE"),
-      language: Language.german,
-    );
-  }
-
   static Language _languageFromCode(String language) {
     switch (language.toLowerCase()) {
       case "en":
         return Language.english;
-      case "es":
-        return Language.spanish;
-      case "de":
-        return Language.german;
       case "is":
         return Language.icelandic;
       default:
@@ -110,8 +92,6 @@ class _$InvalidUserLocale extends UserLocale {
 
 enum Language {
   english,
-  spanish,
-  german,
   icelandic,
   invalid,
 }
@@ -123,10 +103,6 @@ extension LanguageExtension on Language {
         return "English";
       case Language.icelandic:
         return "Íslenska";
-      case Language.german:
-        return "Deutsch";
-      case Language.spanish:
-        return "Español";
       case Language.invalid:
         return "";
     }
@@ -138,10 +114,6 @@ extension LanguageExtension on Language {
         return AppAssets.icons.flags.flagUs;
       case Language.icelandic:
         return AppAssets.icons.flags.flagIs;
-      case Language.german:
-        return AppAssets.icons.flags.flagDe;
-      case Language.spanish:
-        return AppAssets.icons.flags.flagEs;
       case Language.invalid:
         return AppAssets.icons.icTransparent;
     }
@@ -153,10 +125,6 @@ extension LanguageExtension on Language {
         return const Locale("en", "US");
       case Language.icelandic:
         return const Locale("is", "IS");
-      case Language.german:
-        return const Locale("de", "DE");
-      case Language.spanish:
-        return const Locale("es", "ES");
       case Language.invalid:
         return const Locale("en", "US");
     }

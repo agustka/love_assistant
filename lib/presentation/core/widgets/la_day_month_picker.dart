@@ -192,10 +192,10 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                       child: Text(_getMonthName(index + 1)),
                     );
                   }),
-                  onChanged: (value) {
+                  onChanged: (int? value) {
                     setState(() {
-                      _selectedMonth = value!;
-                      _selectedDay = null; // Reset day when month changes
+                      _selectedMonth = value;
+                      _selectedDay = null;
                     });
                   },
                 ),

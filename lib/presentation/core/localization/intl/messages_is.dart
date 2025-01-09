@@ -20,6 +20,13 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'is';
 
+  static String m0(gender) =>
+      "Segðu mér frá ástar-tungumálinu ${gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.";
+
+  static String m1(gender) => "Hvað elskar ${gender}?";
+
+  static String m2(gender) => "Hvernig talsmáta líkar ${gender}?";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
@@ -48,10 +55,42 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veldu dagsetningu"),
         "global_pronoun_custom":
             MessageLookupByLibrary.simpleMessage("Velja sjálf(ur)"),
+        "global_pronoun_he_dative":
+            MessageLookupByLibrary.simpleMessage("Honum"),
         "global_pronoun_he_him": MessageLookupByLibrary.simpleMessage("Hann"),
+        "global_pronoun_he_nominative":
+            MessageLookupByLibrary.simpleMessage("Hann"),
+        "global_pronoun_he_possessive":
+            MessageLookupByLibrary.simpleMessage("Hans"),
+        "global_pronoun_invalid_dative":
+            MessageLookupByLibrary.simpleMessage("Þeim"),
+        "global_pronoun_invalid_nominative":
+            MessageLookupByLibrary.simpleMessage("Þau"),
+        "global_pronoun_invalid_possessive":
+            MessageLookupByLibrary.simpleMessage("Þeirra"),
+        "global_pronoun_she_dative":
+            MessageLookupByLibrary.simpleMessage("Henni"),
         "global_pronoun_she_her": MessageLookupByLibrary.simpleMessage("Hún"),
+        "global_pronoun_she_nominative":
+            MessageLookupByLibrary.simpleMessage("Hún"),
+        "global_pronoun_she_possessive":
+            MessageLookupByLibrary.simpleMessage("Hennar"),
+        "global_pronoun_they_dative":
+            MessageLookupByLibrary.simpleMessage("Háni"),
+        "global_pronoun_they_nominative":
+            MessageLookupByLibrary.simpleMessage("Hán"),
+        "global_pronoun_they_possessive":
+            MessageLookupByLibrary.simpleMessage("Háns"),
         "global_pronoun_they_them": MessageLookupByLibrary.simpleMessage("Hán"),
         "global_required": MessageLookupByLibrary.simpleMessage("Nauðsynlegt"),
+        "global_tone_of_voice_casual":
+            MessageLookupByLibrary.simpleMessage("Hversdagslegur"),
+        "global_tone_of_voice_formal":
+            MessageLookupByLibrary.simpleMessage("Formlegur"),
+        "global_tone_of_voice_playful":
+            MessageLookupByLibrary.simpleMessage("Hnyttinn"),
+        "global_tone_of_voice_romantic":
+            MessageLookupByLibrary.simpleMessage("Rómantískur"),
         "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
         "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
@@ -105,11 +144,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun."),
         "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
             "Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark."),
-        "wizard_partner_loves_message_initial_1":
-            MessageLookupByLibrary.simpleMessage(
-                "Segðu mér frá ástarmáli félaga þíns og talsmáta svo ég geti samið skilaboð sem hitta beint í mark."),
-        "wizard_partner_loves_title":
-            MessageLookupByLibrary.simpleMessage("Hvað elskar félagi þinn?"),
+        "wizard_partner_loves_message_initial_1": m0,
+        "wizard_partner_loves_title": m1,
         "wizard_partner_profile_birthday_missing":
             MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
         "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
@@ -137,6 +173,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "wizard_partner_tone_of_voice_explanation":
             MessageLookupByLibrary.simpleMessage(
                 "Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns."),
+        "wizard_partner_tone_of_voice_hint":
+            MessageLookupByLibrary.simpleMessage("Veldu talsmáta"),
+        "wizard_partner_tone_of_voice_title": m2,
+        "wizard_previous": MessageLookupByLibrary.simpleMessage("Fyrri"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning")
       };

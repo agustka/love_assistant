@@ -21,11 +21,18 @@ class WizardPage extends StatefulWidget {
 class _WizardPageState extends State<WizardPage> {
   late final PageController _controller;
 
+  double _page = 0;
+
   @override
   void initState() {
     super.initState();
 
     _controller = PageController();
+    _controller.addListener(() {
+      setState(() {
+        _page = _controller.page ?? 0;
+      });
+    });
   }
 
   @override
@@ -103,6 +110,18 @@ class _WizardPageState extends State<WizardPage> {
                           context.read<WizardCubit>().next((_controller.page ?? 0).round());
                         },
                       ),
+                      if (_page > 0)
+                        BottomButtonDefinition(
+                          text: S.of(context).wizard_previous,
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            _controller.animateToPage(
+                              (_page - 1).round(),
+                              duration: 300.milliseconds,
+                              curve: Curves.easeIn,
+                            );
+                          },
+                        ),
                     ],
                   ),
                   child: BlocBuilder<WizardCubit, WizardState>(
@@ -110,6 +129,7 @@ class _WizardPageState extends State<WizardPage> {
                       return LaPager(
                         itemCount: state.isInitial ? 4 : 5,
                         controller: _controller,
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           switch (index) {
                             case 0:
@@ -123,11 +143,15 @@ class _WizardPageState extends State<WizardPage> {
                                 return const WizardStep4();
                               }
                               return LaEpicImage(
-                                  asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
+                                asset: AppAssets.animations.progress,
+                                type: LaEpicImageType.animation,
+                              );
                             case 5:
                             default:
                               return LaEpicImage(
-                                  asset: AppAssets.animations.progress, type: LaEpicImageType.animation);
+                                asset: AppAssets.animations.progress,
+                                type: LaEpicImageType.animation,
+                              );
                           }
                         },
                       );

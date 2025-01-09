@@ -46,9 +46,9 @@ class PronounValueObject extends ValueObject<Pronoun> {
 class _$InvalidPronounValueObject extends PronounValueObject {
   const _$InvalidPronounValueObject()
       : super._(
-    Pronoun.invalid,
-    const Failure("Invalid/null instance."),
-  );
+          Pronoun.invalid,
+          const Failure("Invalid/null instance."),
+        );
 }
 
 enum Pronoun {
@@ -71,6 +71,53 @@ enum Pronoun {
         return S.current.global_pronoun_custom;
       case Pronoun.invalid:
         return "";
+    }
+  }
+}
+
+extension PronounExtension on Pronoun {
+  String getNominative(String custom) {
+    switch (this) {
+      case Pronoun.sheHer:
+        return S.current.global_pronoun_she_nominative;
+      case Pronoun.heHim:
+        return S.current.global_pronoun_he_nominative;
+      case Pronoun.theyThem:
+        return S.current.global_pronoun_they_nominative;
+      case Pronoun.custom:
+        return custom;
+      case Pronoun.invalid:
+        return S.current.global_pronoun_invalid_nominative;
+    }
+  }
+
+  String getDative(String custom) {
+    switch (this) {
+      case Pronoun.sheHer:
+        return S.current.global_pronoun_she_dative;
+      case Pronoun.heHim:
+        return S.current.global_pronoun_he_dative;
+      case Pronoun.theyThem:
+        return S.current.global_pronoun_they_dative;
+      case Pronoun.custom:
+        return custom;
+      case Pronoun.invalid:
+        return S.current.global_pronoun_invalid_dative;
+    }
+  }
+
+  String getPossessive(String custom) {
+    switch (this) {
+      case Pronoun.sheHer:
+        return S.current.global_pronoun_she_possessive;
+      case Pronoun.heHim:
+        return S.current.global_pronoun_he_possessive;
+      case Pronoun.theyThem:
+        return S.current.global_pronoun_they_possessive;
+      case Pronoun.custom:
+        return custom;
+      case Pronoun.invalid:
+        return S.current.global_pronoun_invalid_possessive;
     }
   }
 }

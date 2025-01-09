@@ -144,7 +144,7 @@ class LaButton extends StatelessWidget {
             width: double.infinity,
             child: CupertinoButton(
               onPressed: onTap,
-              color: LaTheme.secondary(),
+              color: colors.enabledBackgroundColor,
               sizeStyle: CupertinoButtonSize.medium,
               child: child,
             ),
@@ -154,8 +154,12 @@ class LaButton extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onTap,
               style: ElevatedButton.styleFrom(
-                backgroundColor: LaTheme.secondary(),
-                foregroundColor: LaTheme.onSecondary(),
+                elevation: 0,
+                side: BorderSide(color: colors.enabledBorderColor),
+                backgroundColor: colors.enabledBackgroundColor,
+                foregroundColor: colors.enabledTextColor,
+                disabledBackgroundColor: colors.disabledBackgroundColor,
+                disabledForegroundColor: colors.disabledTextColor,
               ),
               child: child,
             ),
@@ -196,7 +200,7 @@ class _IsbButtonColorPalette {
         enabledBackgroundColor: LaTheme.secondary(),
         enabledBorderColor: Colors.transparent,
         enabledSplashColor: LaTheme.onSecondary(),
-        disabledTextColor: LaTheme.onSecondary().withValues(alpha: 155),
+        disabledTextColor: LaTheme.hintText(),
         disabledBackgroundColor: LaTheme.secondary().withValues(alpha: 155),
         disabledBorderColor: Colors.transparent,
         disabledSplashColor: LaTheme.onSecondary().withValues(alpha: 155),
@@ -204,15 +208,15 @@ class _IsbButtonColorPalette {
       );
 
   factory _IsbButtonColorPalette.secondary() => _IsbButtonColorPalette._(
-        enabledTextColor: LaTheme.onSecondary(),
-        enabledBackgroundColor: LaTheme.secondary(),
-        enabledBorderColor: Colors.transparent,
-        enabledSplashColor: LaTheme.onSecondary(),
-        disabledTextColor: LaTheme.onSecondary().withValues(alpha: 155),
-        disabledBackgroundColor: LaTheme.secondary().withValues(alpha: 155),
+        enabledTextColor: LaTheme.onTertiaryContainer(),
+        enabledBackgroundColor: LaTheme.tertiaryContainer(),
+        enabledBorderColor:  Colors.transparent,
+        enabledSplashColor: LaTheme.onSecondaryContainer(),
+        disabledTextColor: LaTheme.hintText(),
+        disabledBackgroundColor: LaTheme.tertiaryContainer(),
         disabledBorderColor: Colors.transparent,
-        disabledSplashColor: LaTheme.onSecondary().withValues(alpha: 155),
-        busyColor: LaTheme.onSecondary(),
+        disabledSplashColor: LaTheme.onTertiaryContainer(),
+        busyColor: LaTheme.onTertiaryContainer(),
       );
 
   Color getTextColor(bool enabled) => enabled ? enabledTextColor : disabledTextColor;

@@ -7,6 +7,7 @@ class LaPager extends StatefulWidget {
   final Widget Function(BuildContext context, int index) itemBuilder;
   final void Function(int index)? onDotClicked;
   final PageController? controller;
+  final ScrollPhysics? physics;
 
   const LaPager({
     super.key,
@@ -14,6 +15,7 @@ class LaPager extends StatefulWidget {
     required this.itemBuilder,
     this.onDotClicked,
     this.controller,
+    this.physics,
   });
 
   @override
@@ -48,6 +50,7 @@ class _LaPagerState extends State<LaPager> {
             controller: widget.controller ?? _controller,
             itemCount: widget.itemCount,
             itemBuilder: widget.itemBuilder,
+            physics: widget.physics,
           ),
         ),
         SmoothPageIndicator(

@@ -230,6 +230,16 @@ class S {
     );
   }
 
+  /// `Fyrri`
+  String get wizard_previous {
+    return Intl.message(
+      'Fyrri',
+      name: 'wizard_previous',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Byrjum á grunnatriðunum`
   String get wizard_partner_profile_title {
     return Intl.message(
@@ -440,13 +450,13 @@ class S {
     );
   }
 
-  /// `Hvað elskar félagi þinn?`
-  String get wizard_partner_loves_title {
+  /// `Hvað elskar {gender}?`
+  String wizard_partner_loves_title(Object gender) {
     return Intl.message(
-      'Hvað elskar félagi þinn?',
+      'Hvað elskar $gender?',
       name: 'wizard_partner_loves_title',
       desc: '',
-      args: [],
+      args: [gender],
     );
   }
 
@@ -460,13 +470,13 @@ class S {
     );
   }
 
-  /// `Segðu mér frá ástarmáli félaga þíns og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.`
-  String get wizard_partner_loves_message_initial_1 {
+  /// `Segðu mér frá ástar-tungumálinu {gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.`
+  String wizard_partner_loves_message_initial_1(Object gender) {
     return Intl.message(
-      'Segðu mér frá ástarmáli félaga þíns og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.',
+      'Segðu mér frá ástar-tungumálinu $gender og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.',
       name: 'wizard_partner_loves_message_initial_1',
       desc: '',
-      args: [],
+      args: [gender],
     );
   }
 
@@ -515,6 +525,26 @@ class S {
     return Intl.message(
       'Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.',
       name: 'wizard_partner_tone_of_voice_explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hvernig talsmáta líkar {gender}?`
+  String wizard_partner_tone_of_voice_title(Object gender) {
+    return Intl.message(
+      'Hvernig talsmáta líkar $gender?',
+      name: 'wizard_partner_tone_of_voice_title',
+      desc: '',
+      args: [gender],
+    );
+  }
+
+  /// `Veldu talsmáta`
+  String get wizard_partner_tone_of_voice_hint {
+    return Intl.message(
+      'Veldu talsmáta',
+      name: 'wizard_partner_tone_of_voice_hint',
       desc: '',
       args: [],
     );
@@ -679,6 +709,166 @@ class S {
       args: [],
     );
   }
+
+  /// `Þau`
+  String get global_pronoun_invalid_nominative {
+    return Intl.message(
+      'Þau',
+      name: 'global_pronoun_invalid_nominative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hún`
+  String get global_pronoun_she_nominative {
+    return Intl.message(
+      'Hún',
+      name: 'global_pronoun_she_nominative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hann`
+  String get global_pronoun_he_nominative {
+    return Intl.message(
+      'Hann',
+      name: 'global_pronoun_he_nominative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hán`
+  String get global_pronoun_they_nominative {
+    return Intl.message(
+      'Hán',
+      name: 'global_pronoun_they_nominative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þeim`
+  String get global_pronoun_invalid_dative {
+    return Intl.message(
+      'Þeim',
+      name: 'global_pronoun_invalid_dative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Henni`
+  String get global_pronoun_she_dative {
+    return Intl.message(
+      'Henni',
+      name: 'global_pronoun_she_dative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Honum`
+  String get global_pronoun_he_dative {
+    return Intl.message(
+      'Honum',
+      name: 'global_pronoun_he_dative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Háni`
+  String get global_pronoun_they_dative {
+    return Intl.message(
+      'Háni',
+      name: 'global_pronoun_they_dative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hennar`
+  String get global_pronoun_she_possessive {
+    return Intl.message(
+      'Hennar',
+      name: 'global_pronoun_she_possessive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hans`
+  String get global_pronoun_he_possessive {
+    return Intl.message(
+      'Hans',
+      name: 'global_pronoun_he_possessive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Háns`
+  String get global_pronoun_they_possessive {
+    return Intl.message(
+      'Háns',
+      name: 'global_pronoun_they_possessive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þeirra`
+  String get global_pronoun_invalid_possessive {
+    return Intl.message(
+      'Þeirra',
+      name: 'global_pronoun_invalid_possessive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hnyttinn`
+  String get global_tone_of_voice_playful {
+    return Intl.message(
+      'Hnyttinn',
+      name: 'global_tone_of_voice_playful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rómantískur`
+  String get global_tone_of_voice_romantic {
+    return Intl.message(
+      'Rómantískur',
+      name: 'global_tone_of_voice_romantic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hversdagslegur`
+  String get global_tone_of_voice_casual {
+    return Intl.message(
+      'Hversdagslegur',
+      name: 'global_tone_of_voice_casual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Formlegur`
+  String get global_tone_of_voice_formal {
+    return Intl.message(
+      'Formlegur',
+      name: 'global_tone_of_voice_formal',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -687,9 +877,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'is'),
-      Locale.fromSubtags(languageCode: 'de'),
       Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'es'),
     ];
   }
 
