@@ -139,9 +139,9 @@ class _WizardPageState extends State<WizardPage> {
                             case 2:
                               return const WizardStep3();
                             case 3:
-                              if (!state.isInitial) {
+                              //if (!state.isInitial) {
                                 return const WizardStep4();
-                              }
+                              //}
                               return LaEpicImage(
                                 asset: AppAssets.animations.progress,
                                 type: LaEpicImageType.animation,

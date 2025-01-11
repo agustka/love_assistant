@@ -40,24 +40,18 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium, top: LaPadding.large),
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
-                  title: S.of(context).wizard_partner_loves_title(
-                        state.partnerName,
-                      ),
+                  title: S.of(context).wizard_partner_loves_title(state.partnerName),
                   entries: [
                     BulletPointEntry(
                       text: state.isInitial
                           ? S.of(context).wizard_partner_loves_message_initial_1(
-                                state.partnerPronoun.getPossessive(state.customPronoun).toLowerCase(),
+                                state.partnerPronoun.getThagufall(state.customPronoun).toLowerCase(),
                               )
                           : S.of(context).wizard_partner_loves_message_1,
-                      //emoji: "📝",
-                      //icon: LaIcons.contact,
                     ),
                     if (!state.isInitial)
                       BulletPointEntry(
                         text: S.of(context).wizard_partner_loves_message_2,
-                        //emoji: "💌",
-                        //icon: LaIcons.edit,
                       ),
                   ],
                 ),
@@ -66,7 +60,7 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaMultiSelectPicker<LoveLanguage>(
                   title: S.of(context).wizard_partner_love_language_title(
-                        state.partnerPronoun.getNominative(state.customPronoun).toLowerCase(),
+                        state.partnerPronoun.getThagufall(state.customPronoun).toLowerCase(),
                       ),
                   explanation: S.of(context).wizard_partner_love_language_explanation,
                   optional: false,
@@ -84,7 +78,7 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                   padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                   child: LaDropDown<ToneOfVoice>(
                     title: S.of(context).wizard_partner_tone_of_voice_title(
-                          state.partnerPronoun.getNominative(state.customPronoun).toLowerCase(),
+                          state.partnerPronoun.getTholfall(state.customPronoun).toLowerCase(),
                         ),
                     hint: S.of(context).wizard_partner_tone_of_voice_hint,
                     explanation: S.of(context).wizard_partner_tone_of_voice_explanation,
@@ -109,30 +103,6 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                     error: state.loveLanguageMissing,
                     onSelectionChanged: (List<Hobby> selectedOptions) {
                       context.read<WizardCubit>().onHobbiesChanged(selectedOptions);
-                    },
-                  ),
-                ),
-              if (!state.isInitial)
-                Padding(
-                  padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
-                  child: LaMultiSelectPicker(
-                    title: "What food does your partner like?",
-                    options: [
-                      "Chocolate",
-                      "Coffee",
-                      "Pizza",
-                      "Sushi",
-                      "Tacos",
-                      "Burgers",
-                      "Seafood",
-                      "Salads",
-                      "Pasta",
-                      "Fried Foods"
-                    ],
-                    explanation: S.of(context).wizard_partner_foods_explanation,
-                    error: state.loveLanguageMissing,
-                    onSelectionChanged: (List<String> selectedOptions) {
-                      context.read<WizardCubit>();
                     },
                   ),
                 ),

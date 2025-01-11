@@ -20,16 +20,24 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(gender) => "Does ${gender} have any hobbies?";
+  static String m0(gender) =>
+      "Please share with me ${gender} gift and food preferences.";
 
-  static String m1(name) => "Which love language does ${name} like?";
+  static String m1(name, gender) =>
+      "This ensures I recommend things ${name} loves and can avoid what ${gender} may not like as much.";
 
-  static String m2(gender) =>
+  static String m2(gender) => "Tell me a bit more about ${gender} tastes";
+
+  static String m3(gender) => "Does ${gender} have any hobbies?";
+
+  static String m4(gender) => "Which love languages match ${gender}?";
+
+  static String m5(gender) =>
       "Tell me about ${gender} love languages and preferred tone of voice so I can create messages that hit the mark.";
 
-  static String m3(gender) => "What does ${gender} like?";
+  static String m6(gender) => "What does ${gender} like?";
 
-  static String m4(gender) => "What tone of voice does ${gender} like?";
+  static String m7(gender) => "What tone of voice fits ${gender} best?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -73,34 +81,42 @@ class MessageLookup extends MessageLookupByLibrary {
         "global_optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "global_pick_date": MessageLookupByLibrary.simpleMessage("Pick a date"),
         "global_pronoun_custom": MessageLookupByLibrary.simpleMessage("Custom"),
-        "global_pronoun_he_dative": MessageLookupByLibrary.simpleMessage("He"),
-        "global_pronoun_he_him": MessageLookupByLibrary.simpleMessage("He/Him"),
-        "global_pronoun_he_nominative":
-            MessageLookupByLibrary.simpleMessage("He"),
-        "global_pronoun_he_possessive":
+        "global_pronoun_he_eignarfall":
             MessageLookupByLibrary.simpleMessage("His"),
-        "global_pronoun_invalid_dative":
+        "global_pronoun_he_him": MessageLookupByLibrary.simpleMessage("He"),
+        "global_pronoun_he_nefnifall":
+            MessageLookupByLibrary.simpleMessage("He"),
+        "global_pronoun_he_thagufall":
+            MessageLookupByLibrary.simpleMessage("Him"),
+        "global_pronoun_he_tholfall":
+            MessageLookupByLibrary.simpleMessage("Him"),
+        "global_pronoun_invalid_eignarfall":
+            MessageLookupByLibrary.simpleMessage("Theirs"),
+        "global_pronoun_invalid_nefnifall":
+            MessageLookupByLibrary.simpleMessage("Them"),
+        "global_pronoun_invalid_thagufall":
+            MessageLookupByLibrary.simpleMessage("Them"),
+        "global_pronoun_invalid_tholfall":
             MessageLookupByLibrary.simpleMessage("They"),
-        "global_pronoun_invalid_nominative":
-            MessageLookupByLibrary.simpleMessage("They"),
-        "global_pronoun_invalid_possessive":
-            MessageLookupByLibrary.simpleMessage("Their"),
-        "global_pronoun_she_dative":
+        "global_pronoun_she_eignarfall":
+            MessageLookupByLibrary.simpleMessage("Hers"),
+        "global_pronoun_she_her": MessageLookupByLibrary.simpleMessage("She"),
+        "global_pronoun_she_nefnifall":
             MessageLookupByLibrary.simpleMessage("She"),
-        "global_pronoun_she_her":
-            MessageLookupByLibrary.simpleMessage("She/Her"),
-        "global_pronoun_she_nominative":
-            MessageLookupByLibrary.simpleMessage("She"),
-        "global_pronoun_she_possessive":
+        "global_pronoun_she_thagufall":
             MessageLookupByLibrary.simpleMessage("Her"),
-        "global_pronoun_they_dative":
+        "global_pronoun_she_tholfall":
+            MessageLookupByLibrary.simpleMessage("Her"),
+        "global_pronoun_they_eignarfall":
+            MessageLookupByLibrary.simpleMessage("Theirs"),
+        "global_pronoun_they_nefnifall":
             MessageLookupByLibrary.simpleMessage("They"),
-        "global_pronoun_they_nominative":
-            MessageLookupByLibrary.simpleMessage("They"),
-        "global_pronoun_they_possessive":
-            MessageLookupByLibrary.simpleMessage("Their"),
+        "global_pronoun_they_thagufall":
+            MessageLookupByLibrary.simpleMessage("Them"),
         "global_pronoun_they_them":
-            MessageLookupByLibrary.simpleMessage("They/Them"),
+            MessageLookupByLibrary.simpleMessage("They"),
+        "global_pronoun_they_tholfall":
+            MessageLookupByLibrary.simpleMessage("Them"),
         "global_required": MessageLookupByLibrary.simpleMessage("Required"),
         "global_tone_of_voice_casual":
             MessageLookupByLibrary.simpleMessage("Casual"),
@@ -147,6 +163,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pick birthday date"),
         "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
             "When is your partner’s birthday?"),
+        "wizard_partner_food_and_gifts_message_1": m0,
+        "wizard_partner_food_and_gifts_message_2": m1,
+        "wizard_partner_food_and_gifts_title": m2,
         "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
             "Sharing your loved one’s favorite foods will help me select the correct food gifts and restaurant suggestons."),
         "wizard_partner_gift_types_explanation":
@@ -154,17 +173,17 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative."),
         "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
             "Sharing your loved one’s hobbies will help me select a variety of appropriate activities and gifts."),
-        "wizard_partner_hobbies_title": m0,
+        "wizard_partner_hobbies_title": m3,
         "wizard_partner_love_language_explanation":
             MessageLookupByLibrary.simpleMessage(
                 "There are said to be five forms of expressions of love.\nQuality Time: Spending undivided, meaningful time together.\nWords of Affirmation: Expressing love and appreciation through kind and affirming words.\nActs of Service: Showing love by doing helpful or thoughtful tasks.\nPhysical Touch: Expressing love through physical gestures like hugs, kisses, and other forms of touch.\nReceiving Gifts: Giving and receiving thoughtful gifts as a symbol of love."),
-        "wizard_partner_love_language_title": m1,
+        "wizard_partner_love_language_title": m4,
         "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
             "Share the things your partner loves to help me craft personalized experiences."),
         "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
             "This ensures that my suggestions and messages are truly meaningful."),
-        "wizard_partner_loves_message_initial_1": m2,
-        "wizard_partner_loves_title": m3,
+        "wizard_partner_loves_message_initial_1": m5,
+        "wizard_partner_loves_title": m6,
         "wizard_partner_profile_birthday_missing":
             MessageLookupByLibrary.simpleMessage("Birthday is required"),
         "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
@@ -173,7 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "This helps me personalize reminders and messages just for them."),
         "wizard_partner_profile_message_initial_1":
             MessageLookupByLibrary.simpleMessage(
-                "We’ll start with the basics; name and pronouns."),
+                "We’ll start with the basics; name and gender."),
         "wizard_partner_profile_name_hint":
             MessageLookupByLibrary.simpleMessage("Partner name"),
         "wizard_partner_profile_name_missing":
@@ -193,7 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Selecting the correct tone of voice helps me craft messages that resonate with your loved one better."),
         "wizard_partner_tone_of_voice_hint":
             MessageLookupByLibrary.simpleMessage("Select tone of voice"),
-        "wizard_partner_tone_of_voice_title": m4,
+        "wizard_partner_tone_of_voice_title": m7,
         "wizard_previous": MessageLookupByLibrary.simpleMessage("Previous"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Begin"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup")

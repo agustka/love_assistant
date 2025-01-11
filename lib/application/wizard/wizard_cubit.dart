@@ -60,11 +60,13 @@ class WizardCubit extends BaseCubit<WizardState> {
           missingBirthday: state.partnerBirthday.year == 1800,
         ),
       );
+    } else if (currentPage == 2) {
+      getIt<EventBus>().fire(const WizardEventGoToPage(page: 3));
     }
   }
 
   void onNameChanged(String input) {
-    emit(state.copyWith(partnerName: input, missingName: false));
+    emit(state.copyWith(partnerName: input.trim(), missingName: false));
   }
 
   void onPronounsChanged(Pronoun pronoun, String? customInput) {
@@ -95,6 +97,6 @@ class WizardCubit extends BaseCubit<WizardState> {
   }
 
   void onHobbiesChanged(List<Hobby> selectedOptions) {
-    emit(state.copyWith(partnerhobbies: selectedOptions));
+    emit(state.copyWith(partnerHobbies: selectedOptions));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
+import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep4 extends StatefulWidget {
@@ -36,32 +37,43 @@ class _WizardStep4State extends State<WizardStep4> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium, top: LaPadding.large),
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
-                  title: "Segðu mér aðeins meira", //"Tell Me More About Your Partner",
+                  title: S.of(context).wizard_partner_food_and_gifts_title(
+                        state.partnerPronoun.getEignarfall(state.customPronoun).toLowerCase(),
+                      ),
                   entries: [
                     BulletPointEntry(
-                      text: "Help me craft thoughtful suggestions by sharing their gift preferences and dislikes.",
-                      //emoji: "📝",
-                      //icon: LaIcons.contact,
+                      text: S.of(context).wizard_partner_food_and_gifts_message_1(
+                        state.partnerPronoun.getTholfall(state.customPronoun).toLowerCase(),
+                      ),
                     ),
                     BulletPointEntry(
-                      text: "This ensures I recommend things they’ll love and avoid what they don’t.",
-                      //emoji: "💌",
-                      //icon: LaIcons.edit,
+                      text: S.of(context).wizard_partner_food_and_gifts_message_2(
+                        state.partnerName,
+                        state.partnerPronoun.getNefnifall(state.customPronoun).toLowerCase(),
+                      ),
                     ),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
-                child: LaDropDown<String>(
-                  title: "What tone of voice should I use?",
+                child: LaMultiSelectPicker(
+                  title: "What food does your partner like?",
                   options: [
-                    "Playful", "Romantic", "Casual", "Formal",
+                    "Chocolate",
+                    "Coffee",
+                    "Pizza",
+                    "Sushi",
+                    "Tacos",
+                    "Burgers",
+                    "Seafood",
+                    "Salads",
+                    "Pasta",
+                    "Fried Foods"
                   ],
-                  explanation: S.of(context).wizard_partner_tone_of_voice_explanation,
-                  hint: "Select tone of voice",
+                  explanation: S.of(context).wizard_partner_foods_explanation,
                   error: state.loveLanguageMissing,
-                  onChanged: (dynamic selectedOptions, String? custom) {
+                  onSelectionChanged: (List<String> selectedOptions) {
                     context.read<WizardCubit>();
                   },
                 ),

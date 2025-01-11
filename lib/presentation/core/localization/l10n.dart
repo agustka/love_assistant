@@ -470,10 +470,10 @@ class S {
     );
   }
 
-  /// `Segðu mér frá ástar-tungumálinu {gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.`
+  /// `Segðu mér frá ástar-tungumálinu sem passar {gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.`
   String wizard_partner_loves_message_initial_1(Object gender) {
     return Intl.message(
-      'Segðu mér frá ástar-tungumálinu $gender og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.',
+      'Segðu mér frá ástar-tungumálinu sem passar $gender og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.',
       name: 'wizard_partner_loves_message_initial_1',
       desc: '',
       args: [gender],
@@ -560,13 +560,13 @@ class S {
     );
   }
 
-  /// `Hvernig ástarmál á best við {name}?`
-  String wizard_partner_love_language_title(Object name) {
+  /// `Hvernig ástarmál passar {gender}?`
+  String wizard_partner_love_language_title(Object gender) {
     return Intl.message(
-      'Hvernig ástarmál á best við $name?',
+      'Hvernig ástarmál passar $gender?',
       name: 'wizard_partner_love_language_title',
       desc: '',
-      args: [name],
+      args: [gender],
     );
   }
 
@@ -577,6 +577,36 @@ class S {
       name: 'wizard_partner_hobbies_title',
       desc: '',
       args: [gender],
+    );
+  }
+
+  /// `Segðu mér aðeins frá {gender} smekk`
+  String wizard_partner_food_and_gifts_title(Object gender) {
+    return Intl.message(
+      'Segðu mér aðeins frá $gender smekk',
+      name: 'wizard_partner_food_and_gifts_title',
+      desc: '',
+      args: [gender],
+    );
+  }
+
+  /// `Segðu mér frá matar og gjafastíl sem á best við {gender}.`
+  String wizard_partner_food_and_gifts_message_1(Object gender) {
+    return Intl.message(
+      'Segðu mér frá matar og gjafastíl sem á best við $gender.',
+      name: 'wizard_partner_food_and_gifts_message_1',
+      desc: '',
+      args: [gender],
+    );
+  }
+
+  /// `Þá get ég stungið upp á hlutum sem {name} mun dýrka og forðast þá sem {gender} kýs síður.`
+  String wizard_partner_food_and_gifts_message_2(Object name, Object gender) {
+    return Intl.message(
+      'Þá get ég stungið upp á hlutum sem $name mun dýrka og forðast þá sem $gender kýs síður.',
+      name: 'wizard_partner_food_and_gifts_message_2',
+      desc: '',
+      args: [name, gender],
     );
   }
 
@@ -720,121 +750,161 @@ class S {
     );
   }
 
-  /// `Þau`
-  String get global_pronoun_invalid_nominative {
-    return Intl.message(
-      'Þau',
-      name: 'global_pronoun_invalid_nominative',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Hún`
-  String get global_pronoun_she_nominative {
+  String get global_pronoun_she_nefnifall {
     return Intl.message(
       'Hún',
-      name: 'global_pronoun_she_nominative',
+      name: 'global_pronoun_she_nefnifall',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hann`
-  String get global_pronoun_he_nominative {
+  /// `Hana`
+  String get global_pronoun_she_tholfall {
     return Intl.message(
-      'Hann',
-      name: 'global_pronoun_he_nominative',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Hán`
-  String get global_pronoun_they_nominative {
-    return Intl.message(
-      'Hán',
-      name: 'global_pronoun_they_nominative',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Þeim`
-  String get global_pronoun_invalid_dative {
-    return Intl.message(
-      'Þeim',
-      name: 'global_pronoun_invalid_dative',
+      'Hana',
+      name: 'global_pronoun_she_tholfall',
       desc: '',
       args: [],
     );
   }
 
   /// `Henni`
-  String get global_pronoun_she_dative {
+  String get global_pronoun_she_thagufall {
     return Intl.message(
       'Henni',
-      name: 'global_pronoun_she_dative',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Honum`
-  String get global_pronoun_he_dative {
-    return Intl.message(
-      'Honum',
-      name: 'global_pronoun_he_dative',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Háni`
-  String get global_pronoun_they_dative {
-    return Intl.message(
-      'Háni',
-      name: 'global_pronoun_they_dative',
+      name: 'global_pronoun_she_thagufall',
       desc: '',
       args: [],
     );
   }
 
   /// `Hennar`
-  String get global_pronoun_she_possessive {
+  String get global_pronoun_she_eignarfall {
     return Intl.message(
       'Hennar',
-      name: 'global_pronoun_she_possessive',
+      name: 'global_pronoun_she_eignarfall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hann`
+  String get global_pronoun_he_nefnifall {
+    return Intl.message(
+      'Hann',
+      name: 'global_pronoun_he_nefnifall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hann`
+  String get global_pronoun_he_tholfall {
+    return Intl.message(
+      'Hann',
+      name: 'global_pronoun_he_tholfall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Honum`
+  String get global_pronoun_he_thagufall {
+    return Intl.message(
+      'Honum',
+      name: 'global_pronoun_he_thagufall',
       desc: '',
       args: [],
     );
   }
 
   /// `Hans`
-  String get global_pronoun_he_possessive {
+  String get global_pronoun_he_eignarfall {
     return Intl.message(
       'Hans',
-      name: 'global_pronoun_he_possessive',
+      name: 'global_pronoun_he_eignarfall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hán`
+  String get global_pronoun_they_nefnifall {
+    return Intl.message(
+      'Hán',
+      name: 'global_pronoun_they_nefnifall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hán`
+  String get global_pronoun_they_tholfall {
+    return Intl.message(
+      'Hán',
+      name: 'global_pronoun_they_tholfall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Háni`
+  String get global_pronoun_they_thagufall {
+    return Intl.message(
+      'Háni',
+      name: 'global_pronoun_they_thagufall',
       desc: '',
       args: [],
     );
   }
 
   /// `Háns`
-  String get global_pronoun_they_possessive {
+  String get global_pronoun_they_eignarfall {
     return Intl.message(
       'Háns',
-      name: 'global_pronoun_they_possessive',
+      name: 'global_pronoun_they_eignarfall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þau`
+  String get global_pronoun_invalid_nefnifall {
+    return Intl.message(
+      'Þau',
+      name: 'global_pronoun_invalid_nefnifall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þau`
+  String get global_pronoun_invalid_tholfall {
+    return Intl.message(
+      'Þau',
+      name: 'global_pronoun_invalid_tholfall',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þeim`
+  String get global_pronoun_invalid_thagufall {
+    return Intl.message(
+      'Þeim',
+      name: 'global_pronoun_invalid_thagufall',
       desc: '',
       args: [],
     );
   }
 
   /// `Þeirra`
-  String get global_pronoun_invalid_possessive {
+  String get global_pronoun_invalid_eignarfall {
     return Intl.message(
       'Þeirra',
-      name: 'global_pronoun_invalid_possessive',
+      name: 'global_pronoun_invalid_eignarfall',
       desc: '',
       args: [],
     );

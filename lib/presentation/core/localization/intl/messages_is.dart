@@ -20,16 +20,24 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'is';
 
-  static String m0(gender) => "Hefur ${gender} einhver áhugamál?";
+  static String m0(gender) =>
+      "Segðu mér frá matar og gjafastíl sem á best við ${gender}.";
 
-  static String m1(name) => "Hvernig ástarmál á best við ${name}?";
+  static String m1(name, gender) =>
+      "Þá get ég stungið upp á hlutum sem ${name} mun dýrka og forðast þá sem ${gender} kýs síður.";
 
-  static String m2(gender) =>
-      "Segðu mér frá ástar-tungumálinu ${gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.";
+  static String m2(gender) => "Segðu mér aðeins frá ${gender} smekk";
 
-  static String m3(gender) => "Hvað elskar ${gender}?";
+  static String m3(gender) => "Hefur ${gender} einhver áhugamál?";
 
-  static String m4(gender) => "Hvernig talsmáti á best við ${gender}?";
+  static String m4(gender) => "Hvernig ástarmál passar ${gender}?";
+
+  static String m5(gender) =>
+      "Segðu mér frá ástar-tungumálinu sem passar ${gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.";
+
+  static String m6(gender) => "Hvað elskar ${gender}?";
+
+  static String m7(gender) => "Hvernig talsmáti á best við ${gender}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -78,33 +86,41 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veldu dagsetningu"),
         "global_pronoun_custom":
             MessageLookupByLibrary.simpleMessage("Velja sjálf(ur)"),
-        "global_pronoun_he_dative":
-            MessageLookupByLibrary.simpleMessage("Honum"),
-        "global_pronoun_he_him": MessageLookupByLibrary.simpleMessage("Hann"),
-        "global_pronoun_he_nominative":
-            MessageLookupByLibrary.simpleMessage("Hann"),
-        "global_pronoun_he_possessive":
+        "global_pronoun_he_eignarfall":
             MessageLookupByLibrary.simpleMessage("Hans"),
-        "global_pronoun_invalid_dative":
-            MessageLookupByLibrary.simpleMessage("Þeim"),
-        "global_pronoun_invalid_nominative":
-            MessageLookupByLibrary.simpleMessage("Þau"),
-        "global_pronoun_invalid_possessive":
+        "global_pronoun_he_him": MessageLookupByLibrary.simpleMessage("Hann"),
+        "global_pronoun_he_nefnifall":
+            MessageLookupByLibrary.simpleMessage("Hann"),
+        "global_pronoun_he_thagufall":
+            MessageLookupByLibrary.simpleMessage("Honum"),
+        "global_pronoun_he_tholfall":
+            MessageLookupByLibrary.simpleMessage("Hann"),
+        "global_pronoun_invalid_eignarfall":
             MessageLookupByLibrary.simpleMessage("Þeirra"),
-        "global_pronoun_she_dative":
-            MessageLookupByLibrary.simpleMessage("Henni"),
-        "global_pronoun_she_her": MessageLookupByLibrary.simpleMessage("Hún"),
-        "global_pronoun_she_nominative":
-            MessageLookupByLibrary.simpleMessage("Hún"),
-        "global_pronoun_she_possessive":
+        "global_pronoun_invalid_nefnifall":
+            MessageLookupByLibrary.simpleMessage("Þau"),
+        "global_pronoun_invalid_thagufall":
+            MessageLookupByLibrary.simpleMessage("Þeim"),
+        "global_pronoun_invalid_tholfall":
+            MessageLookupByLibrary.simpleMessage("Þau"),
+        "global_pronoun_she_eignarfall":
             MessageLookupByLibrary.simpleMessage("Hennar"),
-        "global_pronoun_they_dative":
-            MessageLookupByLibrary.simpleMessage("Háni"),
-        "global_pronoun_they_nominative":
-            MessageLookupByLibrary.simpleMessage("Hán"),
-        "global_pronoun_they_possessive":
+        "global_pronoun_she_her": MessageLookupByLibrary.simpleMessage("Hún"),
+        "global_pronoun_she_nefnifall":
+            MessageLookupByLibrary.simpleMessage("Hún"),
+        "global_pronoun_she_thagufall":
+            MessageLookupByLibrary.simpleMessage("Henni"),
+        "global_pronoun_she_tholfall":
+            MessageLookupByLibrary.simpleMessage("Hana"),
+        "global_pronoun_they_eignarfall":
             MessageLookupByLibrary.simpleMessage("Háns"),
+        "global_pronoun_they_nefnifall":
+            MessageLookupByLibrary.simpleMessage("Hán"),
+        "global_pronoun_they_thagufall":
+            MessageLookupByLibrary.simpleMessage("Háni"),
         "global_pronoun_they_them": MessageLookupByLibrary.simpleMessage("Hán"),
+        "global_pronoun_they_tholfall":
+            MessageLookupByLibrary.simpleMessage("Hán"),
         "global_required": MessageLookupByLibrary.simpleMessage("Nauðsynlegt"),
         "global_tone_of_voice_casual":
             MessageLookupByLibrary.simpleMessage("Hversdagslegur"),
@@ -150,6 +166,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Veldu afmælisdagsetningu"),
         "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
             "Hvenær á félagi þinn afmæli?"),
+        "wizard_partner_food_and_gifts_message_1": m0,
+        "wizard_partner_food_and_gifts_message_2": m1,
+        "wizard_partner_food_and_gifts_title": m2,
         "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
             "Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði."),
         "wizard_partner_gift_types_explanation":
@@ -157,17 +176,17 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative."),
         "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
             "Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir."),
-        "wizard_partner_hobbies_title": m0,
+        "wizard_partner_hobbies_title": m3,
         "wizard_partner_love_language_explanation":
             MessageLookupByLibrary.simpleMessage(
                 "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást."),
-        "wizard_partner_love_language_title": m1,
+        "wizard_partner_love_language_title": m4,
         "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
             "Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun."),
         "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
             "Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark."),
-        "wizard_partner_loves_message_initial_1": m2,
-        "wizard_partner_loves_title": m3,
+        "wizard_partner_loves_message_initial_1": m5,
+        "wizard_partner_loves_title": m6,
         "wizard_partner_profile_birthday_missing":
             MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
         "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
@@ -197,7 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns."),
         "wizard_partner_tone_of_voice_hint":
             MessageLookupByLibrary.simpleMessage("Veldu talsmáta"),
-        "wizard_partner_tone_of_voice_title": m4,
+        "wizard_partner_tone_of_voice_title": m7,
         "wizard_previous": MessageLookupByLibrary.simpleMessage("Fyrri"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning")

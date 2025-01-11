@@ -76,48 +76,63 @@ enum Pronoun {
 }
 
 extension PronounExtension on Pronoun {
-  String getNominative(String custom) {
+  String getNefnifall(String custom) {
     switch (this) {
       case Pronoun.sheHer:
-        return S.current.global_pronoun_she_nominative;
+        return S.current.global_pronoun_she_nefnifall;
       case Pronoun.heHim:
-        return S.current.global_pronoun_he_nominative;
+        return S.current.global_pronoun_he_nefnifall;
       case Pronoun.theyThem:
-        return S.current.global_pronoun_they_nominative;
+        return S.current.global_pronoun_they_nefnifall;
       case Pronoun.custom:
         return custom;
       case Pronoun.invalid:
-        return S.current.global_pronoun_invalid_nominative;
+        return S.current.global_pronoun_invalid_nefnifall;
     }
   }
 
-  String getDative(String custom) {
+  String getTholfall(String custom) {
     switch (this) {
       case Pronoun.sheHer:
-        return S.current.global_pronoun_she_dative;
+        return S.current.global_pronoun_she_tholfall;
       case Pronoun.heHim:
-        return S.current.global_pronoun_he_dative;
+        return S.current.global_pronoun_he_tholfall;
       case Pronoun.theyThem:
-        return S.current.global_pronoun_they_dative;
+        return S.current.global_pronoun_they_tholfall;
       case Pronoun.custom:
         return custom;
       case Pronoun.invalid:
-        return S.current.global_pronoun_invalid_dative;
+        return S.current.global_pronoun_invalid_tholfall;
     }
   }
 
-  String getPossessive(String custom) {
+  String getThagufall(String custom) {
     switch (this) {
       case Pronoun.sheHer:
-        return S.current.global_pronoun_she_possessive;
+        return S.current.global_pronoun_she_thagufall;
       case Pronoun.heHim:
-        return S.current.global_pronoun_he_possessive;
+        return S.current.global_pronoun_he_thagufall;
       case Pronoun.theyThem:
-        return S.current.global_pronoun_they_possessive;
+        return S.current.global_pronoun_they_thagufall;
       case Pronoun.custom:
         return custom;
       case Pronoun.invalid:
-        return S.current.global_pronoun_invalid_possessive;
+        return S.current.global_pronoun_invalid_thagufall;
+    }
+  }
+
+  String getEignarfall(String custom) {
+    switch (this) {
+      case Pronoun.sheHer:
+        return S.current.global_pronoun_she_eignarfall;
+      case Pronoun.heHim:
+        return S.current.global_pronoun_he_eignarfall;
+      case Pronoun.theyThem:
+        return S.current.global_pronoun_they_eignarfall;
+      case Pronoun.custom:
+        return custom;
+      case Pronoun.invalid:
+        return S.current.global_pronoun_invalid_eignarfall;
     }
   }
 }
