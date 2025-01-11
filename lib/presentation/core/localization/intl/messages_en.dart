@@ -20,12 +20,16 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(gender) =>
+  static String m0(gender) => "Does ${gender} have any hobbies?";
+
+  static String m1(name) => "Which love language does ${name} like?";
+
+  static String m2(gender) =>
       "Tell me about ${gender} love languages and preferred tone of voice so I can create messages that hit the mark.";
 
-  static String m1(gender) => "What does ${gender} like?";
+  static String m3(gender) => "What does ${gender} like?";
 
-  static String m2(gender) => "What tone of voice does ${gender} like?";
+  static String m4(gender) => "What tone of voice does ${gender} like?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -39,6 +43,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter custom value"),
         "global_generic_field_error":
             MessageLookupByLibrary.simpleMessage("This entry is invalid"),
+        "global_hobby_cooking": MessageLookupByLibrary.simpleMessage("Cooking"),
+        "global_hobby_crafting":
+            MessageLookupByLibrary.simpleMessage("Crafting"),
+        "global_hobby_fishing_and_hunting":
+            MessageLookupByLibrary.simpleMessage("Fishing and hunting"),
+        "global_hobby_fitness": MessageLookupByLibrary.simpleMessage("Fitness"),
+        "global_hobby_gaming": MessageLookupByLibrary.simpleMessage("Gaming"),
+        "global_hobby_gardening":
+            MessageLookupByLibrary.simpleMessage("Gardening"),
+        "global_hobby_movies_and_tv":
+            MessageLookupByLibrary.simpleMessage("Movies & TV"),
+        "global_hobby_music": MessageLookupByLibrary.simpleMessage("Music"),
+        "global_hobby_reading": MessageLookupByLibrary.simpleMessage("Reading"),
+        "global_hobby_sports": MessageLookupByLibrary.simpleMessage("Sports"),
+        "global_hobby_traveling":
+            MessageLookupByLibrary.simpleMessage("Traveling"),
         "global_love_language_acts_of_service":
             MessageLookupByLibrary.simpleMessage("Acts of service"),
         "global_love_language_physical_touch":
@@ -134,18 +154,17 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative."),
         "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
             "Sharing your loved one’s hobbies will help me select a variety of appropriate activities and gifts."),
+        "wizard_partner_hobbies_title": m0,
         "wizard_partner_love_language_explanation":
             MessageLookupByLibrary.simpleMessage(
                 "There are said to be five forms of expressions of love.\nQuality Time: Spending undivided, meaningful time together.\nWords of Affirmation: Expressing love and appreciation through kind and affirming words.\nActs of Service: Showing love by doing helpful or thoughtful tasks.\nPhysical Touch: Expressing love through physical gestures like hugs, kisses, and other forms of touch.\nReceiving Gifts: Giving and receiving thoughtful gifts as a symbol of love."),
-        "wizard_partner_love_language_title":
-            MessageLookupByLibrary.simpleMessage(
-                "What does your partner like?"),
+        "wizard_partner_love_language_title": m1,
         "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
             "Share the things your partner loves to help me craft personalized experiences."),
         "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
             "This ensures that my suggestions and messages are truly meaningful."),
-        "wizard_partner_loves_message_initial_1": m0,
-        "wizard_partner_loves_title": m1,
+        "wizard_partner_loves_message_initial_1": m2,
+        "wizard_partner_loves_title": m3,
         "wizard_partner_profile_birthday_missing":
             MessageLookupByLibrary.simpleMessage("Birthday is required"),
         "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
@@ -174,7 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Selecting the correct tone of voice helps me craft messages that resonate with your loved one better."),
         "wizard_partner_tone_of_voice_hint":
             MessageLookupByLibrary.simpleMessage("Select tone of voice"),
-        "wizard_partner_tone_of_voice_title": m2,
+        "wizard_partner_tone_of_voice_title": m4,
         "wizard_previous": MessageLookupByLibrary.simpleMessage("Previous"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Begin"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup")

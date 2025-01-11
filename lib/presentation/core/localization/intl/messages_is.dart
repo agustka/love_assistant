@@ -20,12 +20,16 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'is';
 
-  static String m0(gender) =>
+  static String m0(gender) => "Hefur ${gender} einhver áhugamál?";
+
+  static String m1(name) => "Hvernig ástarmál á best við ${name}?";
+
+  static String m2(gender) =>
       "Segðu mér frá ástar-tungumálinu ${gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.";
 
-  static String m1(gender) => "Hvað elskar ${gender}?";
+  static String m3(gender) => "Hvað elskar ${gender}?";
 
-  static String m2(gender) => "Hvernig talsmáta líkar ${gender}?";
+  static String m4(gender) => "Hvernig talsmáti á best við ${gender}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -39,6 +43,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Þín eigin"),
         "global_generic_field_error": MessageLookupByLibrary.simpleMessage(
             "Þetta atriði þarf að vera útfyllt"),
+        "global_hobby_cooking":
+            MessageLookupByLibrary.simpleMessage("Eldamennska"),
+        "global_hobby_crafting": MessageLookupByLibrary.simpleMessage("Föndur"),
+        "global_hobby_fishing_and_hunting":
+            MessageLookupByLibrary.simpleMessage("Veiðar"),
+        "global_hobby_fitness": MessageLookupByLibrary.simpleMessage("Heilsa"),
+        "global_hobby_gaming":
+            MessageLookupByLibrary.simpleMessage("Tölvuleikir"),
+        "global_hobby_gardening":
+            MessageLookupByLibrary.simpleMessage("Garðyrkja"),
+        "global_hobby_movies_and_tv":
+            MessageLookupByLibrary.simpleMessage("Myndir og sjónvarp"),
+        "global_hobby_music": MessageLookupByLibrary.simpleMessage("Tónlist"),
+        "global_hobby_reading":
+            MessageLookupByLibrary.simpleMessage("Lestur og bækur"),
+        "global_hobby_sports":
+            MessageLookupByLibrary.simpleMessage("Íþróttir og sport"),
+        "global_hobby_traveling":
+            MessageLookupByLibrary.simpleMessage("Ferðalög"),
         "global_love_language_acts_of_service":
             MessageLookupByLibrary.simpleMessage("Þjónusta"),
         "global_love_language_physical_touch":
@@ -134,18 +157,17 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative."),
         "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
             "Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir."),
+        "wizard_partner_hobbies_title": m0,
         "wizard_partner_love_language_explanation":
             MessageLookupByLibrary.simpleMessage(
                 "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást."),
-        "wizard_partner_love_language_title":
-            MessageLookupByLibrary.simpleMessage(
-                "Hvernig ástar-tjáning á best við?"),
+        "wizard_partner_love_language_title": m1,
         "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
             "Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun."),
         "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
             "Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark."),
-        "wizard_partner_loves_message_initial_1": m0,
-        "wizard_partner_loves_title": m1,
+        "wizard_partner_loves_message_initial_1": m2,
+        "wizard_partner_loves_title": m3,
         "wizard_partner_profile_birthday_missing":
             MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
         "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
@@ -175,7 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns."),
         "wizard_partner_tone_of_voice_hint":
             MessageLookupByLibrary.simpleMessage("Veldu talsmáta"),
-        "wizard_partner_tone_of_voice_title": m2,
+        "wizard_partner_tone_of_voice_title": m4,
         "wizard_previous": MessageLookupByLibrary.simpleMessage("Fyrri"),
         "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
         "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning")

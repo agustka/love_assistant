@@ -52,7 +52,8 @@
   "wizard_partner_tone_of_voice_title": "What tone of voice does {gender} like?",
   "wizard_partner_tone_of_voice_hint": "Select tone of voice",
   "wizard_partner_gift_types_explanation": "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.",
-  "wizard_partner_love_language_title": "What does your partner like?",
+  "wizard_partner_love_language_title": "Which love language does {name} like?",
+  "wizard_partner_hobbies_title": "Does {gender} have any hobbies?",
   "ordinal_suffix_first": "st",
   "ordinal_suffix_generic": "th",
   "ordinal_suffix_global": ".",
@@ -82,5 +83,16 @@
   "global_tone_of_voice_playful": "Playful",
   "global_tone_of_voice_romantic": "Romantic",
   "global_tone_of_voice_casual": "Casual",
-  "global_tone_of_voice_formal": "Formal"
+  "global_tone_of_voice_formal": "Formal",
+  "global_hobby_reading": "Reading",
+  "global_hobby_cooking": "Cooking",
+  "global_hobby_traveling": "Traveling",
+  "global_hobby_gaming": "Gaming",
+  "global_hobby_fitness": "Fitness",
+  "global_hobby_music": "Music",
+  "global_hobby_crafting": "Crafting",
+  "global_hobby_gardening": "Gardening",
+  "global_hobby_movies_and_tv": "Movies & TV",
+  "global_hobby_fishing_and_hunting": "Fishing and hunting",
+  "global_hobby_sports": "Sports"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
+import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
@@ -40,7 +41,7 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
                   title: S.of(context).wizard_partner_loves_title(
-                        state.partnerPronoun.getNominative(state.customPronoun).toLowerCase(),
+                        state.partnerName,
                       ),
                   entries: [
                     BulletPointEntry(
@@ -64,7 +65,9 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaMultiSelectPicker<LoveLanguage>(
-                  title: S.of(context).wizard_partner_love_language_title,
+                  title: S.of(context).wizard_partner_love_language_title(
+                        state.partnerPronoun.getNominative(state.customPronoun).toLowerCase(),
+                      ),
                   explanation: S.of(context).wizard_partner_love_language_explanation,
                   optional: false,
                   options: LoveLanguage.values.toList()
@@ -81,7 +84,7 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                   padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                   child: LaDropDown<ToneOfVoice>(
                     title: S.of(context).wizard_partner_tone_of_voice_title(
-                          state.partnerPronoun.getDative(state.customPronoun).toLowerCase(),
+                          state.partnerPronoun.getNominative(state.customPronoun).toLowerCase(),
                         ),
                     hint: S.of(context).wizard_partner_tone_of_voice_hint,
                     explanation: S.of(context).wizard_partner_tone_of_voice_explanation,
@@ -89,33 +92,23 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                       ..removeWhere((ToneOfVoice e) => e == ToneOfVoice.invalid)
                       ..sort((ToneOfVoice left, ToneOfVoice right) => left.toString().compareTo(right.toString())),
                     error: state.loveLanguageMissing,
-                    onChanged: (dynamic selectedOptions, String? custom) {
-                      context.read<WizardCubit>();
+                    onChanged: (dynamic selectedOption, String? custom) {
+                      context.read<WizardCubit>().onToneOfVoiceChanged(selectedOption as ToneOfVoice);
                     },
                   ),
                 ),
               if (!state.isInitial)
                 Padding(
                   padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
-                  child: LaMultiSelectPicker(
-                    title: "Does your partner have any hobbies?",
-                    options: [
-                      "Reading",
-                      "Cooking",
-                      "Traveling",
-                      "Gaming",
-                      "Fitness",
-                      "Music",
-                      "Crafting",
-                      "Gardening",
-                      "Movies & TV",
-                      "Fishing",
-                      "Sports"
-                    ],
+                  child: LaMultiSelectPicker<Hobby>(
+                    title: S.of(context).wizard_partner_hobbies_title(state.partnerName),
+                    options: Hobby.values.toList()
+                      ..removeWhere((Hobby e) => e == Hobby.invalid)
+                      ..sort((Hobby left, Hobby right) => left.toString().compareTo(right.toString())),
                     explanation: S.of(context).wizard_partner_hobbies_explanation,
                     error: state.loveLanguageMissing,
-                    onSelectionChanged: (List<String> selectedOptions) {
-                      context.read<WizardCubit>();
+                    onSelectionChanged: (List<Hobby> selectedOptions) {
+                      context.read<WizardCubit>().onHobbiesChanged(selectedOptions);
                     },
                   ),
                 ),

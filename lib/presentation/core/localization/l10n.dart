@@ -530,10 +530,10 @@ class S {
     );
   }
 
-  /// `Hvernig talsmáta líkar {gender}?`
+  /// `Hvernig talsmáti á best við {gender}?`
   String wizard_partner_tone_of_voice_title(Object gender) {
     return Intl.message(
-      'Hvernig talsmáta líkar $gender?',
+      'Hvernig talsmáti á best við $gender?',
       name: 'wizard_partner_tone_of_voice_title',
       desc: '',
       args: [gender],
@@ -560,13 +560,23 @@ class S {
     );
   }
 
-  /// `Hvernig ástar-tjáning á best við?`
-  String get wizard_partner_love_language_title {
+  /// `Hvernig ástarmál á best við {name}?`
+  String wizard_partner_love_language_title(Object name) {
     return Intl.message(
-      'Hvernig ástar-tjáning á best við?',
+      'Hvernig ástarmál á best við $name?',
       name: 'wizard_partner_love_language_title',
       desc: '',
-      args: [],
+      args: [name],
+    );
+  }
+
+  /// `Hefur {gender} einhver áhugamál?`
+  String wizard_partner_hobbies_title(Object gender) {
+    return Intl.message(
+      'Hefur $gender einhver áhugamál?',
+      name: 'wizard_partner_hobbies_title',
+      desc: '',
+      args: [gender],
     );
   }
 
@@ -865,6 +875,116 @@ class S {
     return Intl.message(
       'Formlegur',
       name: 'global_tone_of_voice_formal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lestur og bækur`
+  String get global_hobby_reading {
+    return Intl.message(
+      'Lestur og bækur',
+      name: 'global_hobby_reading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Eldamennska`
+  String get global_hobby_cooking {
+    return Intl.message(
+      'Eldamennska',
+      name: 'global_hobby_cooking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ferðalög`
+  String get global_hobby_traveling {
+    return Intl.message(
+      'Ferðalög',
+      name: 'global_hobby_traveling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tölvuleikir`
+  String get global_hobby_gaming {
+    return Intl.message(
+      'Tölvuleikir',
+      name: 'global_hobby_gaming',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Heilsa`
+  String get global_hobby_fitness {
+    return Intl.message(
+      'Heilsa',
+      name: 'global_hobby_fitness',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tónlist`
+  String get global_hobby_music {
+    return Intl.message(
+      'Tónlist',
+      name: 'global_hobby_music',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Föndur`
+  String get global_hobby_crafting {
+    return Intl.message(
+      'Föndur',
+      name: 'global_hobby_crafting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Garðyrkja`
+  String get global_hobby_gardening {
+    return Intl.message(
+      'Garðyrkja',
+      name: 'global_hobby_gardening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Myndir og sjónvarp`
+  String get global_hobby_movies_and_tv {
+    return Intl.message(
+      'Myndir og sjónvarp',
+      name: 'global_hobby_movies_and_tv',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Veiðar`
+  String get global_hobby_fishing_and_hunting {
+    return Intl.message(
+      'Veiðar',
+      name: 'global_hobby_fishing_and_hunting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Íþróttir og sport`
+  String get global_hobby_sports {
+    return Intl.message(
+      'Íþróttir og sport',
+      name: 'global_hobby_sports',
       desc: '',
       args: [],
     );

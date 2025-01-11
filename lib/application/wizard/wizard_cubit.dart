@@ -3,8 +3,10 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/application/core/base_cubit.dart';
+import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
+import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/setup.dart';
 
@@ -86,5 +88,13 @@ class WizardCubit extends BaseCubit<WizardState> {
 
   void onLoveLanguageChanged(List<LoveLanguage> selectedOptions) {
     emit(state.copyWith(partnerLoveLanguages: selectedOptions));
+  }
+
+  void onToneOfVoiceChanged(ToneOfVoice toneOfVoice) {
+    emit(state.copyWith(partnerToneOfVoice: toneOfVoice));
+  }
+
+  void onHobbiesChanged(List<Hobby> selectedOptions) {
+    emit(state.copyWith(partnerhobbies: selectedOptions));
   }
 }
