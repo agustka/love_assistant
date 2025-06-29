@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class LaPager extends StatefulWidget {
@@ -42,10 +43,9 @@ class _LaPagerState extends State<LaPager> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: LaPadding.medium,
+    return LaColumn(
       children: [
-        Expanded(
+        LaExpanded(
           child: PageView.builder(
             controller: widget.controller ?? _controller,
             itemCount: widget.itemCount,
@@ -53,6 +53,7 @@ class _LaPagerState extends State<LaPager> {
             physics: widget.physics,
           ),
         ),
+        const LaSizedBox(height: LaPaddings.medium),
         SmoothPageIndicator(
           controller: widget.controller ?? _controller,
           count: widget.itemCount,

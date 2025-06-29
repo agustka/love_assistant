@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
-import 'package:la/presentation/core/widgets/la_form_field_listener.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
+import 'package:la/presentation/core/widgets/organisms/import.dart';
 
 class LaDropDown<T> extends StatefulWidget {
   final String fieldId;
@@ -60,17 +61,17 @@ class _LaDropDownState<T> extends State<LaDropDown> {
 
   Widget _getCupertinoPicker(BuildContext context) {
     return LaCard(
-      child: Padding(
-        padding: const EdgeInsets.all(LaPadding.medium),
-        child: Column(
+      child: LaPadding.all(
+        value: LaPaddings.medium,
+        child: LaColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: LaPadding.small,
           children: [
             _getTitle(context),
-            Column(
+            const LaSizedBox(height: LaPaddings.small),
+            LaColumn(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: LaPadding.extraSmall,
               children: [
+                const LaSizedBox(height: LaPaddings.extraSmall),
                 LaTapVisual(
                   onTap: () => _showCupertinoPicker(context),
                   child: LaCard(
@@ -98,28 +99,28 @@ class _LaDropDownState<T> extends State<LaDropDown> {
 
   Widget _getMaterialPicker(BuildContext context) {
     return LaCard(
-      child: Padding(
-        padding: const EdgeInsets.all(LaPadding.medium),
-        child: Column(
+      child: LaPadding.all(
+        value: LaPaddings.medium,
+        child: LaColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: LaPadding.small,
           children: [
             _getTitle(context),
-            Column(
+            const LaSizedBox(height: LaPaddings.small),
+            LaColumn(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: LaPadding.extraSmall,
               children: [
+                const LaSizedBox(height: LaPaddings.extraSmall),
                 LaCard(
                   backgroundColor: LaTheme.secondaryContainer(),
                   elevation: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.small),
+                  child: LaPadding(
+                    padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.small),
                     child: DropdownButton<T>(
                       value: _selectedOption,
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      elevation: 12,
+                      borderRadius: LaCornerRadius.medium.borderRadius as BorderRadius,
+                      elevation: LaElevation.medium.toInt(),
                       hint: LaText(widget.hint ?? "", style: LaTheme.font.body16.hintText),
-                      underline: const SizedBox.shrink(),
+                      underline: const LaSizedBox.shrink(),
                       isExpanded: true,
                       onChanged: (T? value) {
                         if (value == null) {
@@ -163,15 +164,18 @@ class _LaDropDownState<T> extends State<LaDropDown> {
 
   Widget _getFreeFormOption(BuildContext context) {
     if (_selectedOption == widget.freeFormOption && widget.freeFormOption != null && widget.freeFormFieldId != null) {
-      return LaTextField(
-        fieldId: widget.freeFormFieldId!,
-        showCard: false,
-        focusNode: _customInputFocusNode,
-        hint: widget.customHint ?? "",
-        onChanged: (String input) => widget.onChanged(_selectedOption, input),
+      return LaPadding(
+        padding: const EdgeInsets.only(top: LaPaddings.mediumSmall),
+        child: LaTextField(
+          fieldId: widget.freeFormFieldId!,
+          showCard: false,
+          focusNode: _customInputFocusNode,
+          hint: widget.customHint ?? "",
+          onChanged: (String input) => widget.onChanged(_selectedOption, input),
+        ),
       );
     }
-    return const SizedBox.shrink();
+    return const LaSizedBox.shrink();
   }
 
   Future<void> _showCupertinoPicker(BuildContext context) async {
@@ -183,7 +187,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
 
     final dynamic result = await showCupertinoModalPopup(
       context: context,
-      builder: (BuildContext context) => Container(
+      builder: (BuildContext context) => LaContainer(
         height: 250,
         decoration: BoxDecoration(
           color: LaTheme.surface(),
@@ -191,7 +195,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
             top: Radius.circular(20), // Rounded top corners
           ),
         ),
-        child: Column(
+        child: LaColumn(
           children: [
             Align(
               alignment: Alignment.topRight,
@@ -202,7 +206,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 },
               ),
             ),
-            Expanded(
+            LaExpanded(
               child: CupertinoPicker(
                 scrollController: scrollController,
                 backgroundColor: LaTheme.surface(),
@@ -219,10 +223,10 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 },
                 children: [
                   ...widget.options.map(
-                    (dynamic option) => Center(child: LaText((option as T).toString(), style: LaTheme.font.body16)),
+                    (dynamic option) => LaCenter(child: LaText((option as T).toString(), style: LaTheme.font.body16)),
                   ),
                   if (widget.freeFormOption != null)
-                    Center(child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body16)),
+                    LaCenter(child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body16)),
                 ],
               ),
             ),
@@ -245,23 +249,27 @@ class _LaDropDownState<T> extends State<LaDropDown> {
   }
 
   Widget _getTitle(BuildContext context) {
-    return Row(
+    return LaRow(
       children: [
-        Expanded(
+        LaExpanded(
           child: LaTapVisual(
             onTap: () =>
                 LaConfirmationDialog.show(context: context, title: widget.title, message: widget.explanation ?? ""),
             enabled: widget.explanation != null,
-            child: Row(
-              spacing: LaPadding.extraSmall,
+            child: LaRow(
               children: [
                 LaText(widget.title, style: LaTheme.font.body14.light),
-                if (widget.explanation != null) Icon(LaIcons.information, size: 16, color: LaTheme.hintText()),
+                const LaSizedBox(width: LaPaddings.extraSmall),
+                if (widget.explanation != null) LaIcon(LaIcons.information, size: 16, color: LaTheme.hintText()),
               ],
             ),
           ),
         ),
-        if (!widget.optional) LaText("*${S.of(context).global_required}", style: LaTheme.font.body12.light.primary),
+        if (!widget.optional)
+          LaText(
+            "*${S.of(context).global_required}",
+            style: LaTheme.font.body12.light.primary,
+          ),
       ],
     );
   }

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
+import 'package:la/presentation/core/widgets/organisms/import.dart';
 
 class WizardStep2 extends StatefulWidget {
   static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
@@ -38,16 +40,16 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
       builder: (BuildContext context, WizardState state) {
         return SingleChildScrollView(
           child: Column(
-            spacing: LaPadding.large,
+            spacing: LaPaddings.large,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: LaPadding.huge),
+                padding: const EdgeInsets.only(top: LaPaddings.huge),
                 child: LaBanner(
                   asset: LaTheme.illustrations.womanRunningBanner,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium, top: LaPadding.large),
+                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium, top: LaPaddings.large),
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
                   title: widget.title,
@@ -67,7 +69,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
                 child: LaTextField(
                   fieldId: WizardStep2.partnerNameFieldId,
                   optional: false,
@@ -80,7 +82,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
                 child: LaDropDown<Pronoun>(
                   fieldId: WizardStep2.partnerPronounFieldId,
                   freeFormFieldId: WizardStep2.partnerPronounFreeFormFieldId,
@@ -97,7 +99,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
               ),
               if (!state.isInitial)
               Padding(
-                padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
                 child: LaDatePicker(
                   fieldId: WizardStep2.partnerBirthdayFieldId,
                   optional: false,
@@ -114,7 +116,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
               ),
               if (!state.isInitial)
               Padding(
-                padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
+                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
                 child: LaDatePicker(
                   fieldId: WizardStep2.partnerAnniversaryFieldId,
                   title: S.of(context).wizard_partner_anniversary_title,

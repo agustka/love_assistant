@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
-import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
+import 'package:la/presentation/core/widgets/organisms/import.dart';
 
 class LaScaffold extends StatelessWidget {
   final LaAppBar? appBar;

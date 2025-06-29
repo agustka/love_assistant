@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart' hide LaPadding;
+import 'package:la/presentation/core/widgets/atoms/la_padding.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
 
 enum BottomButtonsStyle {
   sideBySide,
@@ -91,7 +94,7 @@ class BottomButtonDefinition extends Equatable {
 
 class LaBottomButtons extends StatefulWidget {
   static const Key bottomButtonsMoreButtonKey = Key("bottomButtonsMoreButtonKey");
-  static double bottomPadding = LaPadding.medium;
+  static double bottomPadding = LaPaddings.medium;
 
   final BottomButtonsDefinition buttons;
 
@@ -99,8 +102,8 @@ class LaBottomButtons extends StatefulWidget {
 
   static double getBottomButtonsHeight({BottomButtonsStyle style = BottomButtonsStyle.sideBySide}) {
     return switch (style) {
-      BottomButtonsStyle.sideBySide => LaButton.buttonHeight + LaPadding.bottomPadding + bottomPadding,
-      BottomButtonsStyle.sandwich => (LaButton.buttonHeight * 2) + (LaPadding.bottomPadding * 3) + bottomPadding,
+      BottomButtonsStyle.sideBySide => LaButton.buttonHeight + LaPaddings.bottomPadding + bottomPadding,
+      BottomButtonsStyle.sandwich => (LaButton.buttonHeight * 2) + (LaPaddings.bottomPadding * 3) + bottomPadding,
     };
   }
 
@@ -122,14 +125,14 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
   @override
   Widget build(BuildContext context) {
     if (widget.buttons.buttons.isEmpty && widget.buttons.aboveButtonsWidget == null) {
-      return const SizedBox.shrink();
+      return const LaSizedBox.shrink();
     }
 
     final double padding = MediaQuery.of(context).padding.bottom;
-    if (padding < LaPadding.extraLarge) {
-      LaBottomButtons.bottomPadding = padding + LaPadding.medium;
+    if (padding < LaPaddings.extraLarge) {
+      LaBottomButtons.bottomPadding = padding + LaPaddings.medium;
     } else {
-      LaBottomButtons.bottomPadding = padding + LaPadding.extraSmall;
+      LaBottomButtons.bottomPadding = padding + LaPaddings.extraSmall;
     }
 
     final bool padBottom = (widget.buttons.buttons.isNotEmpty || widget.buttons.aboveButtonsWidget != null) &&
@@ -137,27 +140,27 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
 
     return Material(
       color: widget.buttons.background ?? LaTheme.background(),
-      child: Column(
+      child: LaColumn(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (widget.buttons.aboveButtonsWidget == null) const SizedBox(height: LaPadding.small),
+          if (widget.buttons.aboveButtonsWidget == null) const LaSizedBox(height: LaPaddings.small),
 
-          widget.buttons.aboveButtonsWidget ?? const SizedBox.shrink(),
+          widget.buttons.aboveButtonsWidget ?? const LaSizedBox.shrink(),
 
           if (widget.buttons.buttons.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
-              child: SizedBox(
+            LaPadding(
+              padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
+              child: LaSizedBox(
                 width: double.infinity,
                 child: _getMainButtonEntries(context),
               ),
             ),
 
-          if (padBottom) SizedBox(height: LaBottomButtons.bottomPadding),
+          if (padBottom) LaSizedBox(height: LaBottomButtons.bottomPadding),
 
           // Pushes buttons up for keyboard
           if (widget.shouldPushOnKeyboard && padBottom)
-            SizedBox(height: max(0, MediaQuery.of(context).viewInsets.bottom)),
+            LaSizedBox(height: max(0, MediaQuery.of(context).viewInsets.bottom)),
         ],
       ),
     );
@@ -167,7 +170,7 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
     switch (widget.buttons.type) {
       case BottomButtonsStyle.sideBySide:
         return IntrinsicHeight(
-          child: Row(
+          child: LaRow(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: _getSideBySideButtons(context),
           ),
@@ -175,7 +178,7 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
       case BottomButtonsStyle.sandwich:
         return LaSeparatedColumn(
           separatorBuilder: (BuildContext context, int index) {
-            return const SizedBox(height: LaPadding.medium);
+            return const LaSizedBox(height: LaPaddings.medium);
           },
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -230,11 +233,11 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
         break;
       }
       if (cnt > 0) {
-        entries.add(const SizedBox(width: 10));
+        entries.add(const LaSizedBox(width: 10));
       }
       cnt++;
       entries.add(
-        Flexible(
+        LaFlexible(
           flex: flex,
           child: _loadingIndicator(
             child: LaButton(
@@ -254,9 +257,9 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
     final bool shouldDisplayMoreButton =
         _buttons.buttons.length > 2 || (Accessibility.of(context).isInAccessibilityMode && _buttons.buttons.length > 1);
     if (shouldDisplayMoreButton) {
-      entries.add(const SizedBox(width: 10));
+      entries.add(const LaSizedBox(width: 10));
       entries.add(
-        Flexible(
+        LaFlexible(
           flex: overflowFlex,
           child: _loadingIndicator(
             child: Semantics(
@@ -284,8 +287,8 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
     if (widget.buttons.loading) {
       return IgnorePointer(
         child: LaLoadingBox(
-          child: Padding(
-            padding: const EdgeInsets.all(1),
+          child: LaPadding.all(
+            value: 1,
             child: child,
           ),
         ),
@@ -355,8 +358,8 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
         return SafeArea(
           child: LaSeparatedColumn(
             mainAxisSize: MainAxisSize.min,
-            separatorBuilder: (_, __) => const Padding(
-              padding: EdgeInsets.symmetric(horizontal: LaPadding.medium),
+            separatorBuilder: (_, __) => LaPadding.symmetric(
+              horizontal: LaPadding.medium,
               child: LaDivider(),
             ),
             children: overflowing
@@ -370,16 +373,16 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
                         action: button.onTap,
                       );
                     },
-                    child: Container(
+                    child: LaContainer(
                       width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.only(
                         top: LaPadding.medium,
                         bottom: LaPadding.medium,
                       ),
-                      child: Row(
+                      child: LaRow(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const SizedBox(width: LaPadding.medium),
+                          LaSizedBox(width: LaPadding.medium),
                           if (button.icon != null) ...[
                             LaSvg(
                               button.icon!,
@@ -387,9 +390,9 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
                               height: 24,
                               color: button.enabled ? LaTheme.onSurface() : LaTheme.onSurface().withValues(alpha: 155),
                             ),
-                            const SizedBox(width: 16),
+                            LaSizedBox(width: 16),
                           ],
-                          Expanded(
+                          LaExpanded(
                             child: LaText(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

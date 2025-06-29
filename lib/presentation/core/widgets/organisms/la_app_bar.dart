@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class AppBarActionDefinition {
@@ -12,9 +13,9 @@ class AppBarActionDefinition {
   Widget toWidget() {
     return LaTapVisual(
       onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.all(PlatformDetector.isIOS ? 0 : LaPadding.medium),
-        child: Icon(
+      child: LaPadding.all(
+        value: PlatformDetector.isIOS ? 0 : LaPaddings.medium,
+        child: LaIcon(
           icon,
           size: 24,
           color: LaTheme.onPrimary(),
@@ -49,10 +50,10 @@ class LaAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: showBack
           ? InkWell(
               onTap: Navigator.of(context).pop,
-              child: Icon(Icons.arrow_back, color: LaTheme.onPrimary()),
+              child: LaIcon(Icons.arrow_back, color: LaTheme.onPrimary()),
             )
           : null,
-      title: title == null ? null : Text(title!, style: TextStyle(color: LaTheme.onPrimary())),
+      title: title == null ? null : LaText(title!, style: TextStyle(color: LaTheme.onPrimary())),
       backgroundColor: LaTheme.primary(),
     );
   }
@@ -87,12 +88,12 @@ class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredS
   @override
   Widget build(BuildContext context) {
     if (!takesUpSpace) {
-      return const SizedBox.shrink();
+      return const LaSizedBox.shrink();
     }
     return CupertinoNavigationBar(
       middle: title == null
           ? null
-          : Text(
+          : LaText(
               title!,
               style: LaTheme.onPrimary().text,
             ),

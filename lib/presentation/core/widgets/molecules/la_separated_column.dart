@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 
 class LaSeparatedColumn extends StatelessWidget {
   final int itemCount;
@@ -50,15 +51,12 @@ class LaSeparatedColumn extends StatelessWidget {
       );
     }
 
-    return Column(
+    return LaColumn(
       mainAxisAlignment: mainAxisAlignment,
       mainAxisSize: mainAxisSize,
       crossAxisAlignment: crossAxisAlignment,
-      textDirection: textDirection,
-      verticalDirection: verticalDirection,
-      textBaseline: textBaseline,
       children: children.spacedWithIndexed(
-        (int index) => separatorBuilder?.call(context, index) ?? const SizedBox.shrink(),
+        (int index) => separatorBuilder?.call(context, index) ?? const LaSizedBox.shrink(),
       ),
     );
   }

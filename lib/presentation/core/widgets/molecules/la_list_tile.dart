@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class LaListTile extends StatelessWidget {
@@ -33,17 +34,18 @@ class LaListTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-        child: Row(
+      child: LaPadding.symmetric(
+        vertical: 12.0,
+        horizontal: 16.0,
+        child: LaRow(
           children: [
             if (leading != null) ...[
               leading!,
-              const SizedBox(width: LaPadding.medium),
+              const LaSizedBox(width: LaPaddings.medium),
             ],
             // Title and Subtitle (expanded to fill space)
-            Expanded(
-              child: Column(
+            LaExpanded(
+              child: LaColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   title,

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class LaIconCircle extends StatelessWidget {

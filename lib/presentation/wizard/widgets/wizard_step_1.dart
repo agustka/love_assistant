@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
+import 'package:la/presentation/core/widgets/organisms/import.dart';
 
 class WizardStep1 extends StatelessWidget {
   final String title;
@@ -15,16 +17,16 @@ class WizardStep1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
+        padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
         child: Column(
-          spacing: LaPadding.large,
+          spacing: LaPaddings.large,
           children: [
             LaEpicImage(
               asset: LaTheme.illustrations.manGreetings,
               widthAsPercentageOfScreen: 0.5,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: LaPadding.large),
+              padding: const EdgeInsets.only(top: LaPaddings.large),
               child: LaBulletPointList(
                 size: BulletPointListSize.small,
                 title: title,

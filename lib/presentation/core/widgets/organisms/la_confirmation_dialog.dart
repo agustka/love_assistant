@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class LaConfirmationDialog {
@@ -50,11 +51,11 @@ class LaConfirmationDialog {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          title: Row(
-            spacing: LaPadding.mediumSmall,
+          shape: LaCornerRadius.medium,
+          title: LaRow(
             children: [
-              if (icon != null) Icon(icon, color: LaTheme.onSurface()),
+              if (icon != null) LaIcon(icon, color: LaTheme.onSurface()),
+              if (icon != null) const LaSizedBox(width: LaPaddings.mediumSmall),
               LaText(title, style: LaTheme.font.body24.bold.onSurface),
             ],
           ),
@@ -100,33 +101,33 @@ class LaConfirmationDialog {
     return await showCupertinoModalPopup<bool>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return LaContainer(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: LaTheme.surface(),
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
-          child: Column(
+          child: LaColumn(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (icon != null) Icon(icon, size: 40, color: LaTheme.primary()),
-              if (icon != null) const SizedBox(height: 8),
+              if (icon != null) LaIcon(icon, size: LaSizes.huge, color: LaTheme.primary()),
+              if (icon != null) const LaSizedBox(height: LaSizes.small),
               LaText(
                 title,
                 style: LaTheme.font.body20.bold.onSurface,
               ),
-              const SizedBox(height: LaPadding.medium),
-              Text(
+              const LaSizedBox(height: LaPaddings.medium),
+              LaText(
                 message,
                 style: LaTheme.font.body16.onSurface,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: LaPadding.large),
-              Row(
+              const LaSizedBox(height: LaPaddings.large),
+              LaRow(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const SizedBox(width: LaPadding.large),
-                  Expanded(
+                  const LaSizedBox(width: LaPaddings.large),
+                  LaExpanded(
                     child: LaButton(
                       onTap: () {
                         Navigator.of(context).pop(false);
@@ -135,8 +136,8 @@ class LaConfirmationDialog {
                       text: confirmText ?? S.of(context).global_confirm,
                     ),
                   ),
-                  const SizedBox(width: LaPadding.medium),
-                  Expanded(
+                  const LaSizedBox(width: LaPaddings.medium),
+                  LaExpanded(
                     child: LaButton(
                       onTap: () {
                         Navigator.of(context).pop(true);
@@ -145,10 +146,10 @@ class LaConfirmationDialog {
                       text: cancelText ?? S.of(context).global_cancel,
                     ),
                   ),
-                  const SizedBox(width: LaPadding.large),
+                  const LaSizedBox(width: LaPaddings.large),
                 ],
               ),
-              const SizedBox(height: LaPadding.medium),
+              const LaSizedBox(height: LaPaddings.medium),
             ],
           ),
         );

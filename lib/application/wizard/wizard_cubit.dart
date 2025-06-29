@@ -38,7 +38,7 @@ class WizardCubit extends BaseCubit<WizardState> {
       final bool missingName = state.partnerName.isEmpty;
       final bool missingPronoun = !state.partnerPronoun.hasPronoun(state.customPronoun);
       final bool missingBirthday = state.partnerBirthday.year <= 1800;
-      if (currentStep.index == 0) {
+      if (currentStep.index == 1) {
         if (missingName) {
           getIt<EventBus>().fire(WizardEvent.missingName);
         }

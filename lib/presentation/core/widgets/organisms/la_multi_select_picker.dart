@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
-import 'package:la/presentation/core/widgets/la_form_field_listener.dart';
+import 'package:la/presentation/core/widgets/organisms/import.dart';
 
 class LaMultiSelectPicker<T> extends StatefulWidget {
   final String fieldId;
@@ -58,16 +59,16 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
 
   Widget _buildMaterialPillPicker() {
     return LaCard(
-      child: Padding(
-        padding: const EdgeInsets.all(LaPadding.medium),
-        child: Column(
+      child: LaPadding.all(
+        value: LaPaddings.medium,
+        child: LaColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: LaPadding.small,
           children: [
             _getTitle(context),
+            const LaSizedBox(height: LaPaddings.small),
             Wrap(
-              spacing: LaPadding.small,
-              runSpacing: LaPadding.extraSmall,
+              spacing: LaPaddings.small,
+              runSpacing: LaPaddings.extraSmall,
               children: widget.options.map((T option) {
                 final bool isSelected = _selectedOptions.contains(option);
                 return FilterChip(
@@ -107,18 +108,17 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
 
   Widget _buildCupertinoPillPicker() {
     return LaCard(
-      child: Padding(
-        padding: const EdgeInsets.all(LaPadding.medium),
-        child: Column(
+      child: LaPadding.all(
+        value: LaPaddings.medium,
+        child: LaColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: LaPadding.small,
           children: [
             _getTitle(context),
-            Padding(
-              padding: const EdgeInsets.only(top: LaPadding.small),
+            LaPadding(
+              padding: const EdgeInsets.only(top: LaPaddings.small),
               child: Wrap(
-                spacing: LaPadding.small,
-                runSpacing: LaPadding.small,
+                spacing: LaPaddings.small,
+                runSpacing: LaPaddings.small,
                 children: widget.options.map((T option) {
                   final bool isSelected = _selectedOptions.contains(option);
                   return GestureDetector(
@@ -132,10 +132,10 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
                         widget.onSelectionChanged(_selectedOptions);
                       });
                     },
-                    child: Container(
+                    child: LaContainer(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: LaPadding.mediumSmall,
-                        vertical: LaPadding.small,
+                        horizontal: LaPaddings.mediumSmall,
+                        vertical: LaPaddings.small,
                       ),
                       decoration: BoxDecoration(
                         color: isSelected ? LaTheme.secondary() : LaTheme.secondaryContainer(),
@@ -160,18 +160,18 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
   }
 
   Widget _getTitle(BuildContext context) {
-    return Row(
+    return LaRow(
       children: [
-        Expanded(
+        LaExpanded(
           child: LaTapVisual(
             onTap: () =>
                 LaConfirmationDialog.show(context: context, title: widget.title, message: widget.explanation ?? ""),
             enabled: widget.explanation != null,
-            child: Row(
-              spacing: LaPadding.extraSmall,
+            child: LaRow(
               children: [
                 LaText(widget.title, style: LaTheme.font.body14.light),
-                if (widget.explanation != null) Icon(LaIcons.information, size: 16, color: LaTheme.hintText()),
+                if (widget.explanation != null) const LaSizedBox(width: LaPaddings.extraSmall),
+                if (widget.explanation != null) LaIcon(LaIcons.information, size: 16, color: LaTheme.hintText()),
               ],
             ),
           ),
@@ -186,12 +186,12 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
   }
 
   Widget _getError(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: LaPadding.small),
+    return LaPadding(
+      padding: const EdgeInsets.only(left: LaPaddings.small),
       child: AnimatedCrossFade(
         duration: 300.milliseconds,
         crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-        firstChild: const SizedBox.shrink(),
+        firstChild: const LaSizedBox.shrink(),
         secondChild: LaText(
           widget.errorText ?? S.of(context).global_generic_field_error,
           style: LaTheme.font.body14.primary,

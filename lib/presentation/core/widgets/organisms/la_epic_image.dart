@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 import 'package:lottie/lottie.dart';
 
@@ -47,8 +48,8 @@ class LaEpicImage extends StatelessWidget {
     };
     final Widget image = overrideWidget ?? (isLoading ? LaLoadingBox(child: _getImage(context)) : _getImage(context));
 
-    Widget core = Padding(
-      padding: EdgeInsets.only(top: shouldAddTopPadding ? 42 : 0),
+    Widget core = LaPadding(
+      padding: EdgeInsets.only(top: shouldAddTopPadding ? LaPaddings.huge : 0),
       child: image,
     );
     if (semantics.isNotEmpty) {
@@ -61,7 +62,7 @@ class LaEpicImage extends StatelessWidget {
     }
 
     if (type == LaEpicImageType.avatar) {
-      const double backgroundPadding = LaPadding.large;
+      const double backgroundPadding = LaPaddings.large;
       final double size = _getSize(context);
       final double backgroundSize = size + backgroundPadding;
       core = Stack(
@@ -74,7 +75,7 @@ class LaEpicImage extends StatelessWidget {
             color: LaTheme.secondary(),
           ),
           Align(
-            child: Container(
+            child: LaContainer(
               margin: const EdgeInsets.only(left: backgroundPadding),
               height: size,
               width: size,
@@ -90,22 +91,22 @@ class LaEpicImage extends StatelessWidget {
     }
 
     if (Accessibility.of(context).isInAccessibilityMode && hideInAccessibilityMode) {
-      core = const SizedBox.shrink();
+      core = const LaSizedBox.shrink();
     }
 
     if (title != null && message != null) {
-      return Column(
+      return LaColumn(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           core,
-          const SizedBox(height: 48),
+          const LaSizedBox(height: LaPaddings.extraHuge),
           LaText(
             title!,
             style: LaTheme.font.body28.bold,
             textAlign: TextAlign.center,
           ),
           if (message != null) ...[
-            const SizedBox(height: 16),
+            const LaSizedBox(height: LaPaddings.medium),
             LaText(
               message!,
               style: LaTheme.font.body16.light,
@@ -115,11 +116,11 @@ class LaEpicImage extends StatelessWidget {
         ],
       );
     } else if (message != null) {
-      return Column(
+      return LaColumn(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           core,
-          const SizedBox(height: LaPadding.extraHuge),
+          const LaSizedBox(height: LaPaddings.extraHuge),
           LaText(
             message!,
             style: LaTheme.font.body16.light,
@@ -128,11 +129,11 @@ class LaEpicImage extends StatelessWidget {
         ],
       );
     } else if (title != null) {
-      return Column(
+      return LaColumn(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           core,
-          const SizedBox(height: 48),
+          const LaSizedBox(height: LaPaddings.extraHuge),
           LaText(
             title!,
             style: LaTheme.font.body28.bold,

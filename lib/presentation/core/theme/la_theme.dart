@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:la/presentation/core/theme/la_theme_illustrations.dart';
 
-class LaPadding {
+class LaPaddings {
   static const double extraSmall = 4;
   static const double small = 8;
   static const double mediumSmall = 12;
@@ -16,24 +16,41 @@ class LaPadding {
   static const double bottomPadding = 18;
 }
 
+class LaSizes {
+  static const double extraSmall = 4;
+  static const double small = 8;
+  static const double mediumSmall = 12;
+  static const double medium = 16;
+  static const double large = 24;
+  static const double extraLarge = 32;
+  static const double huge = 40;
+  static const double extraHuge = 48;
+  static const double bottomPadding = 18;
+}
+
+class LaElevation {
+  static const double minimal = 0;
+  static const double medium = 12;
+}
+
 class LaCornerRadius {
-  static const ShapeBorder extraSmall = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)));
-  static const ShapeBorder small = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
-  static const ShapeBorder mediumSmall = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)));
-  static const ShapeBorder medium = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)));
-  static const ShapeBorder large = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24)));
-  static const ShapeBorder extraLarge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32)));
-  static const ShapeBorder huge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40)));
-  static const ShapeBorder extraHuge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(48)));
-  static const ShapeBorder none = RoundedRectangleBorder();
-  static const ShapeBorder pill = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50)));
-  static const ShapeBorder card = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)));
-  static const ShapeBorder button = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
-  static const ShapeBorder input = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
-  static const ShapeBorder modal = RoundedRectangleBorder(
+  static const RoundedRectangleBorder extraSmall = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)));
+  static const RoundedRectangleBorder small = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
+  static const RoundedRectangleBorder mediumSmall = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)));
+  static const RoundedRectangleBorder medium = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)));
+  static const RoundedRectangleBorder large = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24)));
+  static const RoundedRectangleBorder extraLarge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32)));
+  static const RoundedRectangleBorder huge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40)));
+  static const RoundedRectangleBorder extraHuge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(48)));
+  static const RoundedRectangleBorder none = RoundedRectangleBorder();
+  static const RoundedRectangleBorder pill = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50)));
+  static const RoundedRectangleBorder card = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)));
+  static const RoundedRectangleBorder button = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
+  static const RoundedRectangleBorder input = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
+  static const RoundedRectangleBorder modal = RoundedRectangleBorder(
     borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
   );
-  static const ShapeBorder bottomSheet = RoundedRectangleBorder(
+  static const RoundedRectangleBorder bottomSheet = RoundedRectangleBorder(
     borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
   );
 }

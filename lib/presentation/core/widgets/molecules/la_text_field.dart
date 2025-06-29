@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
-import 'package:la/presentation/core/widgets/la_form_field_listener.dart';
 
 class LaTextField extends StatefulWidget {
   final String fieldId;
@@ -58,10 +58,10 @@ class _LaTextField extends State<LaTextField> {
     if (PlatformDetector.isIOS) {
       text = LaCard(
         backgroundColor: LaTheme.secondaryContainer(),
-        elevation: 0,
-        child: Row(
+        elevation: LaElevation.minimal,
+        child: LaRow(
           children: [
-            Expanded(
+            LaExpanded(
               child: CupertinoTextField(
                 enabled: widget.enabled,
                 controller: widget.controller,
@@ -78,9 +78,11 @@ class _LaTextField extends State<LaTextField> {
               ),
             ),
             if (widget.actionIcon != null)
-              Padding(
-                padding: const EdgeInsets.only(right: LaPadding.mediumSmall),
-                child: Center(child: Icon(widget.actionIcon, size: 24, color: widget.hintColor)),
+              LaPadding(
+                padding: const EdgeInsets.only(right: LaPaddings.mediumSmall),
+                child: LaCenter(
+                  child: LaIcon(widget.actionIcon!, size: LaSizes.large, color: widget.hintColor),
+                ),
               ),
           ],
         ),
@@ -89,9 +91,9 @@ class _LaTextField extends State<LaTextField> {
       text = LaCard(
         backgroundColor: LaTheme.secondaryContainer(),
         elevation: 0,
-        child: Row(
+        child: LaRow(
           children: [
-            Expanded(
+            LaExpanded(
               child: TextField(
                 enabled: widget.enabled,
                 controller: widget.controller,
@@ -103,8 +105,8 @@ class _LaTextField extends State<LaTextField> {
                   hintStyle: TextStyle(color: widget.hintColor ?? LaTheme.hintText()),
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(
-                    vertical: LaPadding.mediumSmall,
-                    horizontal: LaPadding.medium,
+                    vertical: LaPaddings.mediumSmall,
+                    horizontal: LaPaddings.medium,
                   ),
                   counterText: "",
                 ),
@@ -114,9 +116,11 @@ class _LaTextField extends State<LaTextField> {
               ),
             ),
             if (widget.actionIcon != null)
-              Padding(
-                padding: const EdgeInsets.only(right: LaPadding.mediumSmall),
-                child: Center(child: Icon(widget.actionIcon, size: 24, color: widget.hintColor)),
+              LaPadding(
+                padding: const EdgeInsets.only(right: LaPaddings.mediumSmall),
+                child: LaCenter(
+                  child: LaIcon(widget.actionIcon!, size: LaSizes.large, color: widget.hintColor),
+                ),
               ),
           ],
         ),
@@ -127,18 +131,18 @@ class _LaTextField extends State<LaTextField> {
     if (widget.showCard) {
       finalWidget = LaCard(
         backgroundColor: LaTheme.surface(),
-        child: Padding(
-          padding: const EdgeInsets.all(LaPadding.medium),
-          child: Column(
+        child: LaPadding.all(
+          value: LaPaddings.medium,
+          child: LaColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: LaPadding.small,
             children: [
-              Row(
+              LaRow(
                 children: [
-                  if (widget.title != null) Expanded(child: LaText(widget.title!, style: LaTheme.font.body14.light)),
+                  if (widget.title != null) LaExpanded(child: LaText(widget.title!, style: LaTheme.font.body14.light)),
                   if (!widget.optional) LaText("*${S.of(context).global_required}", style: LaTheme.font.body12.light.primary),
                 ],
               ),
+              const LaSizedBox(height: LaPaddings.small),
               finalWidget,
             ],
           ),

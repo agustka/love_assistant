@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
+import 'package:la/presentation/core/widgets/organisms/import.dart';
 
 class LaDatePicker extends StatefulWidget {
   final String fieldId;
@@ -47,10 +50,10 @@ class _LaDatePickerState extends State<LaDatePicker> {
   Widget build(BuildContext context) {
     return LaCard(
       child: Padding(
-        padding: const EdgeInsets.all(LaPadding.medium),
+        padding: const EdgeInsets.all(LaPaddings.medium),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: LaPadding.small,
+          spacing: LaPaddings.small,
           children: [
             Row(
               children: [
@@ -63,7 +66,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
                     ),
                     enabled: widget.explanation != null,
                     child: Row(
-                      spacing: LaPadding.extraSmall,
+                      spacing: LaPaddings.extraSmall,
                       children: [
                         LaText(widget.title, style: LaTheme.font.body14.light),
                         if (widget.explanation != null) Icon(LaIcons.information, size: 16, color: LaTheme.hintText()),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
 
 enum BulletPointListSize {
   normal,
@@ -37,9 +39,9 @@ extension _BulletPointListSizeExtension on BulletPointListSize {
   double get titlePadding {
     switch (this) {
       case BulletPointListSize.normal:
-        return LaPadding.medium;
+        return LaPaddings.medium;
       case BulletPointListSize.small:
-        return LaPadding.small;
+        return LaPaddings.small;
     }
   }
 }
@@ -67,13 +69,13 @@ class LaBulletPointList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LaCard(
-      child: Padding(
-        padding: const EdgeInsets.all(LaPadding.medium),
-        child: Column(
+      child: LaPadding.all(
+        value: LaPaddings.medium,
+        child: LaColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             LaText(title, style: size.titleSize),
-            SizedBox(height: size.titlePadding),
+            LaSizedBox(height: size.titlePadding),
             ...entries.map(
               (BulletPointEntry e) => LaListTile(
                 leading: _getLeading(e),
@@ -88,8 +90,8 @@ class LaBulletPointList extends StatelessWidget {
 
   Widget _getLeading(BulletPointEntry e) {
     if (e.icon != null) {
-      return Icon(
-        e.icon,
+      return LaIcon(
+        e.icon!,
         size: 24,
       );
     } else if (e.emoji != null) {

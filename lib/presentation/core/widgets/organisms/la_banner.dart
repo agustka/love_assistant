@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 
 class LaBanner extends StatelessWidget {
   final String asset;

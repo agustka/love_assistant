@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart' hide LaPadding;
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
 
 class PickerEntries {
   final String title;
@@ -61,7 +63,7 @@ class LaPicker {
       useSafeArea: true,
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.only(top: LaPadding.large, bottom: LaPadding.small),
+          padding: const EdgeInsets.only(top: LaPaddings.large, bottom: LaPaddings.small),
           child: Wrap(
             children: entries.entries
                 .map(
@@ -69,7 +71,7 @@ class LaPicker {
                     leading: e.icon == null
                         ? LaSvg(
                             e.svg ?? AppAssets.icons.icTransparent,
-                            width: 24,
+                            width: LaSizes.large,
                             height: 24,
                           )
                         : Icon(e.icon),

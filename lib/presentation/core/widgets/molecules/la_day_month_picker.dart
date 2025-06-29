@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
 
 class LaDayMonthPicker extends StatefulWidget {
   final String fieldId;
@@ -42,22 +44,19 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
   @override
   Widget build(BuildContext context) {
     return LaCard(
-      child: Padding(
-        padding: const EdgeInsets.all(LaPadding.medium),
-        child: Column(
+      child: LaPadding.all(
+        value: LaPaddings.medium,
+        child: LaColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: LaPadding.small,
           children: [
-            Row(
+            LaRow(
               children: [
-                Expanded(child: LaText(widget.title, style: LaTheme.font.body14.light)),
+                LaExpanded(child: LaText(widget.title, style: LaTheme.font.body14.light)),
                 if (!widget.optional)
-                  LaText(
-                    "*${S.of(context).global_required}",
-                    style: LaTheme.font.body12.light.primary,
-                  ),
+                  LaText("*${S.of(context).global_required}", style: LaTheme.font.body12.light.primary),
               ],
             ),
+            const LaSizedBox(height: LaPaddings.small),
             LaTapVisual(
               onTap: () {
                 if (PlatformDetector.isIOS) {
@@ -88,16 +87,16 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
     await showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return LaContainer(
           height: 300,
           decoration: const BoxDecoration(
             color: CupertinoColors.systemBackground,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
-          child: Column(
+          child: LaColumn(
             children: [
               // Done button
-              Container(
+              LaContainer(
                 height: 50,
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -110,15 +109,15 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                     widget.onDateSelected(_selectedMonth!, _selectedDay!);
                     Navigator.pop(context);
                   },
-                  child: const Text("Done", style: TextStyle(color: CupertinoColors.activeBlue)),
+                  child: const LaText("Done", style: TextStyle(color: CupertinoColors.activeBlue)),
                 ),
               ),
               // Day-Month Picker
-              Expanded(
-                child: Row(
+              LaExpanded(
+                child: LaRow(
                   children: [
                     // Month Picker
-                    Expanded(
+                    LaExpanded(
                       child: CupertinoPicker(
                         scrollController: FixedExtentScrollController(initialItem: tempMonth - 1),
                         itemExtent: 32,
@@ -127,21 +126,21 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                         },
                         children: List.generate(
                           12,
-                          (index) => Center(child: Text(_getMonthName(index + 1))),
+                          (int index) => LaCenter(child: LaText(_getMonthName(index + 1), style: LaTheme.font.body14)),
                         ),
                       ),
                     ),
                     // Day Picker
-                    Expanded(
+                    LaExpanded(
                       child: CupertinoPicker(
                         scrollController: FixedExtentScrollController(initialItem: tempDay - 1),
                         itemExtent: 32,
-                        onSelectedItemChanged: (index) {
+                        onSelectedItemChanged: (int index) {
                           tempDay = index + 1;
                         },
                         children: List.generate(
                           31,
-                          (index) => Center(child: Text("${index + 1}")),
+                          (index) => LaCenter(child: LaText("${index + 1}", style: LaTheme.font.body14)),
                         ),
                       ),
                     ),
@@ -164,20 +163,15 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
+          shape: LaCornerRadius.medium,
+          child: LaPadding.all(
+            value: 16,
+            child: LaColumn(
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Title
-                Text(
-                  widget.title,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-                const SizedBox(height: 16),
+                LaText(widget.title, style: LaTheme.font.body18.bold),
+                const LaSizedBox(height: LaPaddings.medium),
 
                 // Month Dropdown
                 DropdownButton<int>(
@@ -186,7 +180,7 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                   items: List.generate(12, (int index) {
                     return DropdownMenuItem<int>(
                       value: index + 1,
-                      child: Text(_getMonthName(index + 1)),
+                      child: LaText(_getMonthName(index + 1), style: LaTheme.font.body14),
                     );
                   }),
                   onChanged: (int? value) {
@@ -196,13 +190,13 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                     });
                   },
                 ),
-                const SizedBox(height: 16),
+                const LaSizedBox(height: LaPaddings.medium),
 
                 // Day Grid
                 _buildDayGrid(),
 
                 // Confirm Button
-                const SizedBox(height: 16),
+                const LaSizedBox(height: LaPaddings.medium),
                 ElevatedButton(
                   onPressed: () {
                     if (_selectedDay != null) {
@@ -210,11 +204,11 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                       Navigator.pop(context);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Please select a day.")),
+                        SnackBar(content: LaText(S.of(context).global_pick_date, style: LaTheme.font.body14)),
                       );
                     }
                   },
-                  child: const Text("Confirm"),
+                  child: LaText(S.of(context).global_confirm, style: LaTheme.font.body14),
                 ),
               ],
             ),
@@ -235,8 +229,9 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
       ),
-      itemBuilder: (context, index) {
-        final day = index + 1;
+      itemBuilder: (BuildContext context, int index) {
+        final int day = index + 1;
+        final bool isSelected = day == _selectedDay;
 
         return GestureDetector(
           onTap: () {
@@ -244,20 +239,18 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
               _selectedDay = day;
             });
           },
-          child: Container(
-            alignment: Alignment.center,
+          child: LaContainer(
             decoration: BoxDecoration(
-              color: _selectedDay == day ? Colors.blue : Colors.grey[300], // Highlight selected day
+              color: isSelected ? LaTheme.primary() : LaTheme.secondaryContainer(),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: _selectedDay == day ? Colors.blue : Colors.grey,
-              ),
             ),
-            child: Text(
-              "$day",
-              style: TextStyle(
-                color: _selectedDay == day ? Colors.white : Colors.black,
-                fontWeight: FontWeight.bold,
+            child: LaCenter(
+              child: LaText(
+                _getMonthName(index + 1),
+                style: TextStyle(
+                  color: isSelected ? LaTheme.onPrimary() : LaTheme.onSecondaryContainer(),
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                ),
               ),
             ),
           ),

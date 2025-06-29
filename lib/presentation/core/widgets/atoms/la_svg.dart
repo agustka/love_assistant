@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:la/presentation/core/accessibility/accessibility.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
+import 'package:la/presentation/core/widgets/accessibility.dart';
 
 class LaSvg extends StatelessWidget {
   final String asset;

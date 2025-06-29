@@ -31,7 +31,7 @@ class _WizardStep4State extends State<WizardStep6> with AutomaticKeepAliveClient
       builder: (BuildContext context, WizardState state) {
         return const SingleChildScrollView(
           child: Column(
-            spacing: LaPadding.large,
+            spacing: LaPaddings.large,
             children: [
               // TODO finish step 6 for detail profile
               SizedBox.shrink(),

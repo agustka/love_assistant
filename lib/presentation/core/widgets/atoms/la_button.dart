@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/widgets/atoms/import.dart' hide LaPadding;
 import 'package:la/presentation/core/widgets/import.dart';
 
 enum LaButtonSize {
@@ -110,7 +111,7 @@ class LaButton extends StatelessWidget {
       final Color textColor = colors.getTextColor(enabled);
       final bool hasText = text?.isNotEmpty ?? false;
       child = Padding(
-        padding: const EdgeInsets.all(LaPadding.small),
+        padding: const EdgeInsets.all(LaPaddings.small),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -121,7 +122,7 @@ class LaButton extends StatelessWidget {
                 size: size.iconSize,
                 color: textColor,
               ),
-            if (icon != null && hasText) const SizedBox(width: LaPadding.small),
+            if (icon != null && hasText) const SizedBox(width: LaPaddings.small),
             if (hasText)
               Flexible(
                 child: LaText(
