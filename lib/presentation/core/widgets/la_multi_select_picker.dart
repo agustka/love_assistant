@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/la_form_field_listener.dart';
 
 class LaMultiSelectPicker<T> extends StatefulWidget {
+  final String fieldId;
   final String title;
   final List<T> options;
   final List<T> initialSelectedOptions;
@@ -15,6 +17,7 @@ class LaMultiSelectPicker<T> extends StatefulWidget {
 
   const LaMultiSelectPicker({
     super.key,
+    required this.fieldId,
     required this.title,
     required this.options,
     required this.onSelectionChanged,
@@ -40,11 +43,17 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final Widget child;
     if (PlatformDetector.isIOS) {
-      return _buildCupertinoPillPicker();
+      child = _buildCupertinoPillPicker();
     } else {
-      return _buildMaterialPillPicker();
+      child = _buildMaterialPillPicker();
     }
+
+    return LaFormFieldListener(
+      fieldId: widget.fieldId,
+      child: child,
+    );
   }
 
   Widget _buildMaterialPillPicker() {

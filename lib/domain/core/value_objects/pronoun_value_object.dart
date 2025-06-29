@@ -76,6 +76,10 @@ enum Pronoun {
 }
 
 extension PronounExtension on Pronoun {
+  bool hasPronoun(String custom) {
+    return this != Pronoun.invalid || custom.isNotEmpty;
+  }
+
   String getNefnifall(String custom) {
     switch (this) {
       case Pronoun.sheHer:

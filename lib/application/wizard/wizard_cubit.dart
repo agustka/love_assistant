@@ -22,7 +22,7 @@ class WizardCubit extends BaseCubit<WizardState> {
   Future init() async {
     final bool isInitial = !getIt<InitializationService>().profileCreated;
     final WizardConfig config = isInitial ? WizardConfig.initial : WizardConfig.detailed;
-    emit(state.copyWith(isInitial: isInitial, config: config));
+    emit(state.copyWith(status: WizardStatus.loaded, isInitial: isInitial, config: config));
   }
 
   void next(int currentPage, {bool confirmed = false}) {
@@ -37,6 +37,18 @@ class WizardCubit extends BaseCubit<WizardState> {
     final WizardStep nextStep = _config.visibleSteps[nextStepIndex];
 
     if (!_validateCurrentStep(currentStep)) {
+      final bool missingName = state.partnerName.isEmpty;
+      final bool missingPronoun = !state.partnerPronoun.hasPronoun(state.customPronoun);
+      final bool missingBirthday = state.partnerBirthday.year <= 1800;
+      if (missingName) {
+        getIt<EventBus>().fire(WizardEvent.missingName);
+      }
+      if (missingPronoun) {
+        getIt<EventBus>().fire(WizardEvent.missingPronoun);
+      }
+      if (missingBirthday) {
+        getIt<EventBus>().fire(WizardEvent.missingBirthday);
+      }
       return;
     }
 
@@ -54,15 +66,17 @@ class WizardCubit extends BaseCubit<WizardState> {
   bool _validateCurrentStep(WizardStep step) {
     switch (step.index) {
       case 0:
+        return true; // Always valid for the greetings screen
+      case 1:
         return state.partnerName.isNotEmpty &&
             state.partnerPronoun != Pronoun.invalid &&
             (state.partnerPronoun != Pronoun.custom ||
                 state.customPronoun.isNotEmpty);
-      case 1:
-        return state.partnerBirthday.year > 1800;
       case 2:
-        return true; // Always valid for preferences step
+        return state.partnerBirthday.year > 1800;
       case 3:
+        return true; // Always valid for preferences step
+      case 4:
         return true; // Hobbies step is optional
       default:
         return true;
@@ -77,15 +91,13 @@ class WizardCubit extends BaseCubit<WizardState> {
     emit(
       state.copyWith(
         partnerPronoun: pronoun,
-        missingPronoun: false,
         customPronoun: customInput,
-        missingCustomPronoun: false,
       ),
     );
   }
 
   void onBirthdayChanged(DateTime selectedDate) {
-    emit(state.copyWith(partnerBirthday: selectedDate, missingBirthday: false));
+    emit(state.copyWith(partnerBirthday: selectedDate));
   }
 
   void onAnniversaryChanged(DateTime selectedDate) {

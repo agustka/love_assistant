@@ -5,25 +5,23 @@ import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class LaDayMonthPicker extends StatefulWidget {
+  final String fieldId;
   final String title;
   final String? hint;
   final int? initialMonth;
   final int? initialDay;
   final bool optional;
-  final bool error;
-  final String? errorText;
   final void Function(int month, int day) onDateSelected;
 
   const LaDayMonthPicker({
     super.key,
+    required this.fieldId,
     required this.title,
     required this.onDateSelected,
     this.hint,
     this.initialMonth,
     this.initialDay,
     this.optional = true,
-    this.error = false,
-    this.errorText,
   });
 
   @override
@@ -69,13 +67,12 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                 }
               },
               child: LaTextField(
+                fieldId: widget.fieldId,
                 enabled: false,
                 showCard: false,
                 actionIcon: LaIcons.calendarDayMonth,
                 hintColor: _selectedDay == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
                 hint: _selectedDay != null ? _getSelectedDateText(context) : widget.hint ?? "",
-                error: widget.error,
-                errorText: widget.errorText,
               ),
             ),
           ],

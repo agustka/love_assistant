@@ -1,3 +1,4 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/language/language_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/la_form_field_listener.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_1.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_2.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_3.dart';
@@ -64,6 +66,27 @@ class _WizardPageState extends State<WizardPage> {
             return LaEventBusListener<WizardEvent>(
               onMessage: (WizardEvent event) async {
                 switch (event) {
+                  case WizardEvent.missingName:
+                    getIt<EventBus>().fire(
+                      LaFormFieldErrorEvent(
+                        fieldId: WizardStep2.partnerNameFieldId,
+                        message: S.of(context).wizard_partner_profile_name_missing,
+                      ),
+                    );
+                  case WizardEvent.missingPronoun:
+                    getIt<EventBus>().fire(
+                      LaFormFieldErrorEvent(
+                        fieldId: WizardStep2.partnerPronounFieldId,
+                        message: S.of(context).wizard_partner_profile_pronoun_missing,
+                      ),
+                    );
+                  case WizardEvent.missingBirthday:
+                    getIt<EventBus>().fire(
+                      LaFormFieldErrorEvent(
+                        fieldId: WizardStep2.partnerBirthdayFieldId,
+                        message: S.of(context).wizard_partner_profile_birthday_missing,
+                      ),
+                    );
                   case WizardEvent.confirmNoAnniversary:
                     final bool result = await LaConfirmationDialog.show(
                       context: context,

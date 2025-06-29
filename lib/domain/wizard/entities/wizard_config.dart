@@ -38,6 +38,11 @@ class WizardStep {
         return visibleInDetailed;
     }
   }
+
+  @override
+  String toString() {
+    return "$index) ${type.name}";
+  }
 }
 
 class WizardConfig {
@@ -50,11 +55,11 @@ class WizardConfig {
   });
 
   List<WizardStep> get visibleSteps =>
-      steps.where((step) => step.isVisibleInMode(mode)).toList();
+      steps.where((WizardStep step) => step.isVisibleInMode(mode)).toList();
 
   int get stepCount => visibleSteps.length;
 
-  static const initial = WizardConfig(
+  static const WizardConfig initial = WizardConfig(
     mode: WizardMode.initial,
     steps: [
       WizardStep(
@@ -88,7 +93,7 @@ class WizardConfig {
     ],
   );
 
-  static const detailed = WizardConfig(
+  static const WizardConfig detailed = WizardConfig(
     mode: WizardMode.detailed,
     steps: [
       WizardStep(

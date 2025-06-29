@@ -5,6 +5,9 @@ import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep4 extends StatefulWidget {
+  static const String foodPreferencesFieldId = "WizardStep4_foodPreferencesFieldId";
+  static const String giftPreferencesFieldId = "WizardStep_giftPreferencesFieldId";
+
   final String title;
   final String description;
 
@@ -77,8 +80,9 @@ class _WizardStep4State extends State<WizardStep4> with AutomaticKeepAliveClient
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaMultiSelectPicker(
+                  fieldId: WizardStep4.foodPreferencesFieldId,
                   title: "What food does your partner like?",
-                  options: [
+                  options: const [
                     "Chocolate",
                     "Coffee",
                     "Pizza",
@@ -91,7 +95,6 @@ class _WizardStep4State extends State<WizardStep4> with AutomaticKeepAliveClient
                     "Fried Foods"
                   ],
                   explanation: S.of(context).wizard_partner_foods_explanation,
-                  error: state.loveLanguageMissing,
                   onSelectionChanged: (List<String> selectedOptions) {
                     context.read<WizardCubit>();
                   },
@@ -100,8 +103,9 @@ class _WizardStep4State extends State<WizardStep4> with AutomaticKeepAliveClient
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaMultiSelectPicker(
+                  fieldId: WizardStep4.giftPreferencesFieldId,
                   title: "Which gift types does your partner like?",
-                  options: [
+                  options: const [
                     "Experience",
                     "Sentimental Items",
                     "Practical Gifts",
@@ -111,7 +115,6 @@ class _WizardStep4State extends State<WizardStep4> with AutomaticKeepAliveClient
                     "Surprise Me",
                   ],
                   explanation: S.of(context).wizard_partner_gift_types_explanation,
-                  error: state.loveLanguageMissing,
                   onSelectionChanged: (List<String> selectedOptions) {
                     context.read<WizardCubit>();
                   },

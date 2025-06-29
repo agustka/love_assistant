@@ -5,6 +5,11 @@ import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep2 extends StatefulWidget {
+  static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
+  static const String partnerPronounFieldId = "WizardStep2_partnerPronounFieldId";
+  static const String partnerBirthdayFieldId = "WizardStep2_partnerBirthdayFieldId";
+  static const String partnerAnniversaryFieldId = "WizardStep2_partnerAnniversaryFieldId";
+
   final String title;
   final String description;
 
@@ -63,11 +68,10 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaTextField(
+                  fieldId: WizardStep2.partnerNameFieldId,
                   optional: false,
                   title: S.of(context).wizard_partner_profile_name_title,
                   hint: S.of(context).wizard_partner_profile_name_hint,
-                  error: state.missingName,
-                  errorText: S.of(context).wizard_partner_profile_name_missing,
                   maxLength: 90,
                   onChanged: (String input) {
                     context.read<WizardCubit>().onNameChanged(input);
@@ -77,16 +81,13 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaDropDown<Pronoun>(
+                  fieldId: WizardStep2.partnerPronounFieldId,
                   optional: false,
                   title: S.of(context).wizard_partner_pronouns_title,
                   hint: S.of(context).wizard_partner_pronouns_hint,
                   customHint: S.of(context).global_enter_custom,
                   options: const [Pronoun.sheHer, Pronoun.heHim, Pronoun.theyThem],
                   freeFormOption: Pronoun.custom,
-                  error: state.missingPronoun,
-                  errorText: S.of(context).wizard_partner_profile_pronoun_missing,
-                  customError: state.missingCustomPronoun,
-                  customErrorText: S.of(context).wizard_partner_profile_pronoun_missing,
                   onChanged: (dynamic selected, String? customInput) {
                     context.read<WizardCubit>().onPronounsChanged(selected as Pronoun, customInput);
                   },
@@ -96,6 +97,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaDatePicker(
+                  fieldId: WizardStep2.partnerBirthdayFieldId,
                   optional: false,
                   title: S.of(context).wizard_partner_birthday_title,
                   hint: S.of(context).wizard_partner_birthday_hint,
@@ -103,8 +105,6 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                   firstDate: DateTime(1900),
                   defaultDate: DateTime(1990),
                   lastDate: DateTime.now(),
-                  error: state.missingBirthday,
-                  errorText: S.of(context).wizard_partner_profile_birthday_missing,
                   onDateSelected: (DateTime selectedDate) {
                     context.read<WizardCubit>().onBirthdayChanged(selectedDate);
                   },
@@ -114,6 +114,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaDatePicker(
+                  fieldId: WizardStep2.partnerAnniversaryFieldId,
                   title: S.of(context).wizard_partner_anniversary_title,
                   hint: S.of(context).wizard_partner_anniversary_hint,
                   explanation: S.of(context).wizard_partner_anniversary_explanation,

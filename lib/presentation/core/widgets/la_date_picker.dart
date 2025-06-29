@@ -5,6 +5,7 @@ import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class LaDatePicker extends StatefulWidget {
+  final String fieldId;
   final String title;
   final String? hint;
   final DateTime? defaultDate;
@@ -12,13 +13,12 @@ class LaDatePicker extends StatefulWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
   final bool optional;
-  final bool error;
-  final String? errorText;
   final String? explanation;
   final void Function(DateTime selectedDate) onDateSelected;
 
   const LaDatePicker({
     super.key,
+    required this.fieldId,
     required this.title,
     required this.onDateSelected,
     this.hint,
@@ -27,8 +27,6 @@ class LaDatePicker extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.optional = true,
-    this.error = false,
-    this.errorText,
     this.explanation,
   });
 
@@ -89,13 +87,12 @@ class _LaDatePickerState extends State<LaDatePicker> {
                 }
               },
               child: LaTextField(
+                fieldId: widget.fieldId,
                 enabled: false,
                 showCard: false,
                 actionIcon: LaIcons.calendar,
                 hintColor: _selectedDate == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
                 hint: _selectedDate != null ? DateFormat.yMMMMd().format(_selectedDate!) : widget.hint ?? "",
-                error: widget.error,
-                errorText: widget.errorText,
               ),
             ),
           ],

@@ -8,6 +8,9 @@ class WizardEventGoToPage {
 }
 
 enum WizardEvent {
+  missingName,
+  missingPronoun,
+  missingBirthday,
   confirmNoAnniversary,
 }
 
@@ -23,15 +26,10 @@ class WizardState extends Equatable {
   final bool isInitial;
   final WizardConfig config;
   final String partnerName;
-  final bool missingName;
   final Pronoun partnerPronoun;
   final String customPronoun;
-  final bool missingPronoun;
-  final bool missingCustomPronoun;
   final DateTime partnerBirthday;
-  final bool missingBirthday;
   final DateTime partnerAnniversary;
-  final bool loveLanguageMissing;
   final List<LoveLanguage> partnerLoveLanguages;
   final ToneOfVoice partnerToneOfVoice;
   final List<Hobby> partnerHobbies;
@@ -41,15 +39,10 @@ class WizardState extends Equatable {
     required this.isInitial,
     required this.config,
     required this.partnerName,
-    required this.missingName,
     required this.partnerPronoun,
     required this.customPronoun,
-    required this.missingPronoun,
-    required this.missingCustomPronoun,
     required this.partnerBirthday,
-    required this.missingBirthday,
     required this.partnerAnniversary,
-    required this.loveLanguageMissing,
     required this.partnerLoveLanguages,
     required this.partnerToneOfVoice,
     required this.partnerHobbies,
@@ -61,15 +54,10 @@ class WizardState extends Equatable {
           isInitial: true,
           config: WizardConfig.initial,
           partnerName: "",
-          missingName: false,
           partnerPronoun: Pronoun.invalid,
           customPronoun: "",
-          missingPronoun: false,
-          missingCustomPronoun: false,
           partnerBirthday: DateTime(1800),
-          missingBirthday: false,
           partnerAnniversary: DateTime(1800),
-          loveLanguageMissing: false,
           partnerLoveLanguages: [],
           partnerToneOfVoice: ToneOfVoice.invalid,
           partnerHobbies: [],
@@ -83,12 +71,8 @@ class WizardState extends Equatable {
     bool? missingName,
     Pronoun? partnerPronoun,
     String? customPronoun,
-    bool? missingPronoun,
-    bool? missingCustomPronoun,
     DateTime? partnerBirthday,
-    bool? missingBirthday,
     DateTime? partnerAnniversary,
-    bool? loveLanguageMissing,
     List<LoveLanguage>? partnerLoveLanguages,
     ToneOfVoice? partnerToneOfVoice,
     List<Hobby>? partnerHobbies,
@@ -98,15 +82,10 @@ class WizardState extends Equatable {
       isInitial: isInitial ?? this.isInitial,
       config: config ?? this.config,
       partnerName: partnerName ?? this.partnerName,
-      missingName: missingName ?? this.missingName,
       partnerPronoun: partnerPronoun ?? this.partnerPronoun,
       customPronoun: customPronoun ?? this.customPronoun,
-      missingPronoun: missingPronoun ?? this.missingPronoun,
-      missingCustomPronoun: missingCustomPronoun ?? this.missingCustomPronoun,
       partnerBirthday: partnerBirthday ?? this.partnerBirthday,
-      missingBirthday: missingBirthday ?? this.missingBirthday,
       partnerAnniversary: partnerAnniversary ?? this.partnerAnniversary,
-      loveLanguageMissing: loveLanguageMissing ?? this.loveLanguageMissing,
       partnerLoveLanguages: partnerLoveLanguages ?? this.partnerLoveLanguages,
       partnerToneOfVoice: partnerToneOfVoice ?? this.partnerToneOfVoice,
       partnerHobbies: partnerHobbies ?? this.partnerHobbies,
@@ -119,15 +98,10 @@ class WizardState extends Equatable {
         isInitial,
         config,
         partnerName,
-        missingName,
         partnerPronoun,
         customPronoun,
-        missingPronoun,
-        missingCustomPronoun,
         partnerBirthday,
-        missingBirthday,
         partnerAnniversary,
-        loveLanguageMissing,
         partnerLoveLanguages,
         partnerToneOfVoice,
         partnerHobbies,

@@ -3,34 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/widgets/la_form_field_listener.dart';
 
 class LaDropDown<T> extends StatefulWidget {
+  final String fieldId;
   final String title;
   final List<T> options;
   final T? freeFormOption;
+  final String? freeFormFieldId;
   final String? hint;
   final String? customHint;
   final bool optional;
-  final bool error;
-  final bool customError;
-  final String? errorText;
-  final String? customErrorText;
   final String? explanation;
   final void Function(dynamic selected, String? customInput) onChanged;
 
   const LaDropDown({
     super.key,
+    required this.fieldId,
     required this.title,
     required this.options,
     this.freeFormOption,
+    this.freeFormFieldId,
     required this.onChanged,
     this.hint,
     this.customHint,
     this.optional = true,
-    this.error = false,
-    this.customError = false,
-    this.errorText,
-    this.customErrorText,
     this.explanation,
   });
 
@@ -51,11 +48,14 @@ class _LaDropDownState<T> extends State<LaDropDown> {
 
   @override
   Widget build(BuildContext context) {
+    final Widget child;
     if (PlatformDetector.isIOS) {
-      return _getCupertinoPicker(context);
+      child = _getCupertinoPicker(context);
     } else {
-      return _getMaterialPicker(context);
+      child = _getMaterialPicker(context);
     }
+
+    return LaFormFieldListener(fieldId: widget.fieldId, child: child);
   }
 
   Widget _getCupertinoPicker(BuildContext context) {
@@ -77,24 +77,13 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                     backgroundColor: LaTheme.secondaryContainer(),
                     elevation: 0,
                     child: LaTextField(
+                      fieldId: widget.fieldId,
                       optional: false,
                       showCard: false,
                       hint: _selectedOption?.toString() ?? widget.hint ?? "",
                       hintColor: _selectedOption == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
                       actionIcon: LaIcons.dropDown,
                       enabled: false,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: LaPadding.small),
-                  child: AnimatedCrossFade(
-                    duration: 300.milliseconds,
-                    crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                    firstChild: const SizedBox.shrink(),
-                    secondChild: LaText(
-                      widget.errorText ?? S.of(context).global_generic_field_error,
-                      style: LaTheme.font.body14.primary,
                     ),
                   ),
                 ),
@@ -128,11 +117,8 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                     child: DropdownButton<T>(
                       value: _selectedOption,
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      elevation:12,
-                      hint: LaText(
-                        widget.hint ?? "",
-                        style: LaTheme.font.body16.hintText,
-                      ),
+                      elevation: 12,
+                      hint: LaText(widget.hint ?? "", style: LaTheme.font.body16.hintText),
                       underline: const SizedBox.shrink(),
                       isExpanded: true,
                       onChanged: (T? value) {
@@ -151,32 +137,18 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                         });
                       },
                       items: [
-                        ...widget.options.map(
-                          (dynamic option) {
-                            return DropdownMenuItem<T>(
-                              value: option as T,
-                              child: LaText(option.toString(), style: LaTheme.font.body16),
-                            );
-                          },
-                        ),
+                        ...widget.options.map((dynamic option) {
+                          return DropdownMenuItem<T>(
+                            value: option as T,
+                            child: LaText(option.toString(), style: LaTheme.font.body16),
+                          );
+                        }),
                         if (widget.freeFormOption != null)
                           DropdownMenuItem<T>(
                             value: widget.freeFormOption as T,
                             child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body16),
                           ),
                       ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: LaPadding.small),
-                  child: AnimatedCrossFade(
-                    duration: 300.milliseconds,
-                    crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                    firstChild: const SizedBox.shrink(),
-                    secondChild: LaText(
-                      widget.errorText ?? S.of(context).global_generic_field_error,
-                      style: LaTheme.font.body14.primary,
                     ),
                   ),
                 ),
@@ -190,14 +162,13 @@ class _LaDropDownState<T> extends State<LaDropDown> {
   }
 
   Widget _getFreeFormOption(BuildContext context) {
-    if (_selectedOption == widget.freeFormOption && widget.freeFormOption != null) {
+    if (_selectedOption == widget.freeFormOption && widget.freeFormOption != null && widget.freeFormFieldId != null) {
       return LaTextField(
+        fieldId: widget.freeFormFieldId!,
         showCard: false,
         focusNode: _customInputFocusNode,
         hint: widget.customHint ?? "",
         onChanged: (String input) => widget.onChanged(_selectedOption, input),
-        error: widget.customError,
-        errorText: widget.customErrorText,
       );
     }
     return const SizedBox.shrink();
@@ -225,10 +196,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
             Align(
               alignment: Alignment.topRight,
               child: CupertinoButton(
-                child: LaText(
-                  S.of(context).global_done,
-                  style: LaTheme.font.body16.primary,
-                ),
+                child: LaText(S.of(context).global_done, style: LaTheme.font.body16.primary),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -251,17 +219,10 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 },
                 children: [
                   ...widget.options.map(
-                    (dynamic option) => Center(
-                      child: LaText(
-                        (option as T).toString(),
-                        style: LaTheme.font.body16,
-                      ),
-                    ),
+                    (dynamic option) => Center(child: LaText((option as T).toString(), style: LaTheme.font.body16)),
                   ),
                   if (widget.freeFormOption != null)
-                    Center(
-                      child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body16),
-                    ),
+                    Center(child: LaText(widget.freeFormOption!.toString(), style: LaTheme.font.body16)),
                 ],
               ),
             ),
@@ -300,11 +261,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
             ),
           ),
         ),
-        if (!widget.optional)
-          LaText(
-            "*${S.of(context).global_required}",
-            style: LaTheme.font.body12.light.primary,
-          ),
+        if (!widget.optional) LaText("*${S.of(context).global_required}", style: LaTheme.font.body12.light.primary),
       ],
     );
   }

@@ -8,6 +8,10 @@ import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep3 extends StatefulWidget {
+  static const String loveLanguageFieldId = "WizardStep3_loveLanguageFieldId";
+  static const String toneOfVoiceFieldId = "WizardStep3_toneOfVoiceFieldId";
+  static const String partnerHobbiesFieldId = "WizardStep3_partnerHobbiesFieldId";
+
   final String title;
   final String description;
 
@@ -66,6 +70,7 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
               Padding(
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaMultiSelectPicker<LoveLanguage>(
+                  fieldId: WizardStep3.loveLanguageFieldId,
                   title: S.of(context).wizard_partner_love_language_title(
                         state.partnerPronoun.getThagufall(state.customPronoun).toLowerCase(),
                       ),
@@ -74,7 +79,6 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                   options: LoveLanguage.values.toList()
                     ..removeWhere((LoveLanguage e) => e == LoveLanguage.invalid)
                     ..sort((LoveLanguage left, LoveLanguage right) => left.toString().compareTo(right.toString())),
-                  error: state.loveLanguageMissing,
                   onSelectionChanged: (List<LoveLanguage> selectedOptions) {
                     context.read<WizardCubit>().onLoveLanguageChanged(selectedOptions);
                   },
@@ -84,6 +88,7 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 Padding(
                   padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                   child: LaDropDown<ToneOfVoice>(
+                    fieldId: WizardStep3.toneOfVoiceFieldId,
                     title: S.of(context).wizard_partner_tone_of_voice_title(
                           state.partnerPronoun.getTholfall(state.customPronoun).toLowerCase(),
                         ),
@@ -92,7 +97,6 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                     options: ToneOfVoice.values.toList()
                       ..removeWhere((ToneOfVoice e) => e == ToneOfVoice.invalid)
                       ..sort((ToneOfVoice left, ToneOfVoice right) => left.toString().compareTo(right.toString())),
-                    error: state.loveLanguageMissing,
                     onChanged: (dynamic selectedOption, String? custom) {
                       context.read<WizardCubit>().onToneOfVoiceChanged(selectedOption as ToneOfVoice);
                     },
@@ -102,12 +106,12 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 Padding(
                   padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                   child: LaMultiSelectPicker<Hobby>(
+                    fieldId: WizardStep3.partnerHobbiesFieldId,
                     title: S.of(context).wizard_partner_hobbies_title(state.partnerName),
                     options: Hobby.values.toList()
                       ..removeWhere((Hobby e) => e == Hobby.invalid)
                       ..sort((Hobby left, Hobby right) => left.toString().compareTo(right.toString())),
                     explanation: S.of(context).wizard_partner_hobbies_explanation,
-                    error: state.loveLanguageMissing,
                     onSelectionChanged: (List<Hobby> selectedOptions) {
                       context.read<WizardCubit>().onHobbiesChanged(selectedOptions);
                     },

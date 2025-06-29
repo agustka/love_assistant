@@ -16,6 +16,28 @@ class LaPadding {
   static const double bottomPadding = 18;
 }
 
+class LaCornerRadius {
+  static const ShapeBorder extraSmall = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)));
+  static const ShapeBorder small = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
+  static const ShapeBorder mediumSmall = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)));
+  static const ShapeBorder medium = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)));
+  static const ShapeBorder large = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24)));
+  static const ShapeBorder extraLarge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32)));
+  static const ShapeBorder huge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40)));
+  static const ShapeBorder extraHuge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(48)));
+  static const ShapeBorder none = RoundedRectangleBorder();
+  static const ShapeBorder pill = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50)));
+  static const ShapeBorder card = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)));
+  static const ShapeBorder button = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
+  static const ShapeBorder input = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
+  static const ShapeBorder modal = RoundedRectangleBorder(
+    borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+  );
+  static const ShapeBorder bottomSheet = RoundedRectangleBorder(
+    borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+  );
+}
+
 class LaTheme {
   static Brightness? _brightness;
   static SystemUiOverlayStyle chrome = SystemUiOverlayStyle.dark;
@@ -54,8 +76,8 @@ class LaTheme {
   static const Color _lightShadow = Color(0x44000000);
   static const Color _lightSingleElement = Color(0x22000000);
   static const Color _lightHintText = Color(0xFFA0A0A0);
-  static const Color _lightError = Color(0xFFFF0000);
-  static const Color _lightOnError = Color(0xFFFFFFFF);
+  static const Color _lightError = Color(0xFFD83535);
+  static const Color _lightOnError = Color(0xFF1A0000);
 
   static const Color _darkBackground = Color(0xFF1A1010);
   static const Color _darkOnBackground = Color(0xFFE0E0E0);
@@ -66,7 +88,6 @@ class LaTheme {
   static const Color _darkTertiaryContainer = Color(0xFF2E2323);
   static const Color _darkOnTertiaryContainer = Color(0xFFF5F5F5);
 
-
   static const Color _darkPrimary = Color(0xFFd85555);
   static const Color _darkOnPrimary = Color(0xFF000000);
   static const Color _darkSecondary = Color(0xFFC76D5A);
@@ -74,8 +95,8 @@ class LaTheme {
   static const Color _darkShadow = Color(0xCC000000);
   static const Color _darkSingleElement = Color(0x33FFFFFF);
   static const Color _darkHintText = Color(0xFF707070);
-  static const Color _darkError = Color(0xFFFF0000);
-  static const Color _darkOnError = Color(0xFFFFFFFF);
+  static const Color _darkError = Color(0xFFE54D4D);
+  static const Color _darkOnError = Color(0xFF1A0000);
 
   static Color primary({Brightness? brightness}) {
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
@@ -146,7 +167,6 @@ class LaTheme {
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
     return isDark ? _darkOnTertiaryContainer : _lightOnTertiaryContainer;
   }
-
 
   static Color shadow({Brightness? brightness}) {
     final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
@@ -231,5 +251,6 @@ extension TextStyleExtension on TextStyle {
   TextStyle get onSurface => copyWith(color: LaTheme.onSurface());
   TextStyle get onSecondaryContainer => copyWith(color: LaTheme.onSecondaryContainer());
   TextStyle get onBackground => copyWith(color: LaTheme.onBackground());
+  TextStyle get onError => copyWith(color: LaTheme.onError());
   TextStyle get hintText => copyWith(color: LaTheme.hintText());
 }
