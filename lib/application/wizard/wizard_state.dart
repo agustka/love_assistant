@@ -21,6 +21,7 @@ enum WizardStatus {
 class WizardState extends Equatable {
   final WizardStatus status;
   final bool isInitial;
+  final WizardConfig config;
   final String partnerName;
   final bool missingName;
   final Pronoun partnerPronoun;
@@ -38,6 +39,7 @@ class WizardState extends Equatable {
   const WizardState({
     required this.status,
     required this.isInitial,
+    required this.config,
     required this.partnerName,
     required this.missingName,
     required this.partnerPronoun,
@@ -57,6 +59,7 @@ class WizardState extends Equatable {
       : this(
           status: WizardStatus.loading,
           isInitial: true,
+          config: WizardConfig.initial,
           partnerName: "",
           missingName: false,
           partnerPronoun: Pronoun.invalid,
@@ -75,6 +78,7 @@ class WizardState extends Equatable {
   WizardState copyWith({
     WizardStatus? status,
     bool? isInitial,
+    WizardConfig? config,
     String? partnerName,
     bool? missingName,
     Pronoun? partnerPronoun,
@@ -92,6 +96,7 @@ class WizardState extends Equatable {
     return WizardState(
       status: status ?? this.status,
       isInitial: isInitial ?? this.isInitial,
+      config: config ?? this.config,
       partnerName: partnerName ?? this.partnerName,
       missingName: missingName ?? this.missingName,
       partnerPronoun: partnerPronoun ?? this.partnerPronoun,
@@ -112,6 +117,7 @@ class WizardState extends Equatable {
   List<Object?> get props => [
         status,
         isInitial,
+        config,
         partnerName,
         missingName,
         partnerPronoun,

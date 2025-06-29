@@ -18,8 +18,10 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,22 +56,12 @@ class S {
 
   /// `Hjálp í ást`
   String get app_name {
-    return Intl.message(
-      'Hjálp í ást',
-      name: 'app_name',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Hjálp í ást', name: 'app_name', desc: '', args: []);
   }
 
   /// `Hætta við`
   String get global_cancel {
-    return Intl.message(
-      'Hætta við',
-      name: 'global_cancel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Hætta við', name: 'global_cancel', desc: '', args: []);
   }
 
   /// `Staðfesta`
@@ -82,22 +76,12 @@ class S {
 
   /// `Meira`
   String get global_more {
-    return Intl.message(
-      'Meira',
-      name: 'global_more',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Meira', name: 'global_more', desc: '', args: []);
   }
 
   /// `Búið`
   String get global_done {
-    return Intl.message(
-      'Búið',
-      name: 'global_done',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Búið', name: 'global_done', desc: '', args: []);
   }
 
   /// `Þín eigin`
@@ -162,12 +146,7 @@ class S {
 
   /// `Uppsetning`
   String get wizard_title {
-    return Intl.message(
-      'Uppsetning',
-      name: 'wizard_title',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Uppsetning', name: 'wizard_title', desc: '', args: []);
   }
 
   /// `Veldu tungumál`
@@ -212,32 +191,17 @@ class S {
 
   /// `Byrjum`
   String get wizard_start {
-    return Intl.message(
-      'Byrjum',
-      name: 'wizard_start',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Byrjum', name: 'wizard_start', desc: '', args: []);
   }
 
   /// `Næsta`
   String get wizard_next {
-    return Intl.message(
-      'Næsta',
-      name: 'wizard_next',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Næsta', name: 'wizard_next', desc: '', args: []);
   }
 
   /// `Fyrri`
   String get wizard_previous {
-    return Intl.message(
-      'Fyrri',
-      name: 'wizard_previous',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Fyrri', name: 'wizard_previous', desc: '', args: []);
   }
 
   /// `Byrjum á grunnatriðunum`
@@ -612,12 +576,7 @@ class S {
 
   /// `.`
   String get ordinal_suffix_first {
-    return Intl.message(
-      '.',
-      name: 'ordinal_suffix_first',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('.', name: 'ordinal_suffix_first', desc: '', args: []);
   }
 
   /// `.`
@@ -632,32 +591,17 @@ class S {
 
   /// `.`
   String get ordinal_suffix_global {
-    return Intl.message(
-      '.',
-      name: 'ordinal_suffix_global',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('.', name: 'ordinal_suffix_global', desc: '', args: []);
   }
 
   /// `.`
   String get ordinal_suffix_second {
-    return Intl.message(
-      '.',
-      name: 'ordinal_suffix_second',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('.', name: 'ordinal_suffix_second', desc: '', args: []);
   }
 
   /// `.`
   String get ordinal_suffix_third {
-    return Intl.message(
-      '.',
-      name: 'ordinal_suffix_third',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('.', name: 'ordinal_suffix_third', desc: '', args: []);
   }
 
   /// `Hún`

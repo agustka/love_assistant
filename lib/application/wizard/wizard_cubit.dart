@@ -7,61 +7,65 @@ import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
+import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/setup.dart';
 
 part 'wizard_state.dart';
 
-@injectable
+@Injectable()
 class WizardCubit extends BaseCubit<WizardState> {
-  WizardCubit() : super(WizardState.initial());
+  final WizardConfig _config;
+
+  WizardCubit() : _config = WizardConfig.initial, super(WizardState.initial());
 
   Future init() async {
     final bool isInitial = !getIt<InitializationService>().profileCreated;
-    emit(state.copyWith(isInitial: isInitial));
+    final WizardConfig config = isInitial ? WizardConfig.initial : WizardConfig.detailed;
+    emit(state.copyWith(isInitial: isInitial, config: config));
   }
 
   void next(int currentPage, {bool confirmed = false}) {
-    if (currentPage == 0) {
-      getIt<EventBus>().fire(const WizardEventGoToPage(page: 1));
-    } else if (currentPage == 1) {
-      bool hasError = state.partnerName.isEmpty || state.partnerPronoun == Pronoun.invalid;
-      if (!state.isInitial) {
-        hasError = hasError || state.partnerBirthday.year == 1800;
-      }
-      bool missingCustomPronoun = false;
-      if (state.partnerPronoun == Pronoun.custom && state.customPronoun.isEmpty) {
-        hasError = true;
-        missingCustomPronoun = true;
-      }
+    final WizardStep currentStep = _config.visibleSteps[currentPage];
+    final int nextStepIndex = currentPage + 1;
 
-      if (state.isInitial &&
-          state.partnerName.isNotEmpty &&
-          state.partnerPronoun != Pronoun.invalid &&
-          !missingCustomPronoun) {
-        getIt<EventBus>().fire(const WizardEventGoToPage(page: 2));
-      } else if (state.partnerName.isNotEmpty &&
-          state.partnerPronoun != Pronoun.invalid &&
-          !missingCustomPronoun &&
-          state.partnerBirthday.year > 1800 &&
-          (state.partnerAnniversary.year > 1800 || confirmed)) {
-        getIt<EventBus>().fire(const WizardEventGoToPage(page: 2));
-      }
+    if (nextStepIndex >= _config.visibleSteps.length) {
+      // Handle completion
+      return;
+    }
 
-      if (state.partnerAnniversary.year == 1800 && !confirmed && !hasError && !state.isInitial) {
+    final WizardStep nextStep = _config.visibleSteps[nextStepIndex];
+
+    if (!_validateCurrentStep(currentStep)) {
+      return;
+    }
+
+    // Handle special cases for anniversary validation
+    if (currentStep.index == 1 && !confirmed && !state.isInitial) {
+      if (state.partnerAnniversary.year == 1800) {
         getIt<EventBus>().fire(WizardEvent.confirmNoAnniversary);
+        return;
       }
+    }
 
-      emit(
-        state.copyWith(
-          missingName: state.partnerName.isEmpty,
-          missingPronoun: state.partnerPronoun == Pronoun.invalid,
-          missingCustomPronoun: missingCustomPronoun,
-          missingBirthday: state.partnerBirthday.year == 1800,
-        ),
-      );
-    } else if (currentPage == 2) {
-      getIt<EventBus>().fire(const WizardEventGoToPage(page: 3));
+    getIt<EventBus>().fire(WizardEventGoToPage(page: nextStepIndex));
+  }
+
+  bool _validateCurrentStep(WizardStep step) {
+    switch (step.index) {
+      case 0:
+        return state.partnerName.isNotEmpty &&
+            state.partnerPronoun != Pronoun.invalid &&
+            (state.partnerPronoun != Pronoun.custom ||
+                state.customPronoun.isNotEmpty);
+      case 1:
+        return state.partnerBirthday.year > 1800;
+      case 2:
+        return true; // Always valid for preferences step
+      case 3:
+        return true; // Hobbies step is optional
+      default:
+        return true;
     }
   }
 

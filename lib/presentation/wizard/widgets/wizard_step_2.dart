@@ -5,7 +5,14 @@ import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep2 extends StatefulWidget {
-  const WizardStep2({super.key});
+  final String title;
+  final String description;
+
+  const WizardStep2({
+    super.key,
+    required this.title,
+    required this.description,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -37,10 +44,10 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium, top: LaPadding.large),
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
-                  title: S.of(context).wizard_partner_profile_title,
+                  title: widget.title,
                   entries: [
                     BulletPointEntry(
-                      text: state.isInitial ? S.of(context).wizard_partner_profile_message_initial_1 : S.of(context).wizard_partner_profile_message_1,
+                      text: widget.description,
                       //emoji: "📝",
                       //icon: LaIcons.contact,
                     ),

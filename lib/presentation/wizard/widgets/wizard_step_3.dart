@@ -8,7 +8,14 @@ import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep3 extends StatefulWidget {
-  const WizardStep3({super.key});
+  final String title;
+  final String description;
+
+  const WizardStep3({
+    super.key,
+    required this.title,
+    required this.description,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -40,14 +47,14 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium, top: LaPadding.large),
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
-                  title: S.of(context).wizard_partner_loves_title(state.partnerName),
+                  title: widget.title,
                   entries: [
                     BulletPointEntry(
                       text: state.isInitial
                           ? S.of(context).wizard_partner_loves_message_initial_1(
                                 state.partnerPronoun.getThagufall(state.customPronoun).toLowerCase(),
                               )
-                          : S.of(context).wizard_partner_loves_message_1,
+                          : widget.description,
                     ),
                     if (!state.isInitial)
                       BulletPointEntry(

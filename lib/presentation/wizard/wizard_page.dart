@@ -3,12 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
+import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
+import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_1.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_2.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_3.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_4.dart';
+import 'package:la/presentation/wizard/widgets/wizard_step_5.dart';
+import 'package:la/presentation/wizard/widgets/wizard_step_6.dart';
+import 'package:la/presentation/wizard/wizard_presenter.dart';
 import 'package:la/setup.dart';
 
 class WizardPage extends StatefulWidget {
@@ -102,6 +107,7 @@ class _WizardPageState extends State<WizardPage> {
                     ),
                   ),
                   bottomButtons: BottomButtonsDefinition(
+                    loading: state.status == WizardStatus.loading,
                     buttons: [
                       BottomButtonDefinition(
                         text: S.of(context).wizard_next,
@@ -127,31 +133,31 @@ class _WizardPageState extends State<WizardPage> {
                   child: BlocBuilder<WizardCubit, WizardState>(
                     builder: (BuildContext context, WizardState state) {
                       return LaPager(
-                        itemCount: state.isInitial ? 4 : 5,
+                        itemCount: state.config.stepCount,
                         controller: _controller,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
-                          switch (index) {
-                            case 0:
-                              return const WizardStep1();
-                            case 1:
-                              return const WizardStep2();
-                            case 2:
-                              return const WizardStep3();
-                            case 3:
-                              //if (!state.isInitial) {
-                                return const WizardStep4();
-                              //}
-                              return LaEpicImage(
-                                asset: AppAssets.animations.progress,
-                                type: LaEpicImageType.animation,
-                              );
-                            case 5:
-                            default:
-                              return LaEpicImage(
-                                asset: AppAssets.animations.progress,
-                                type: LaEpicImageType.animation,
-                              );
+                          final WizardStep step = state.config.visibleSteps[index];
+                          final String stepTitle = WizardPresenter.getStepTitle(
+                            context,
+                            step.type,
+                            gender: state.partnerPronoun.getNefnifall(state.customPronoun),
+                          );
+                          final String stepDescription = WizardPresenter.getStepDescription(context, step.type);
+
+                          switch (step.type) {
+                            case WizardStepType.greetings:
+                              return WizardStep1(title: stepTitle, description: stepDescription);
+                            case WizardStepType.basicInfo:
+                              return WizardStep2(title: stepTitle, description: stepDescription);
+                            case WizardStepType.dates:
+                              return WizardStep3(title: stepTitle, description: stepDescription);
+                            case WizardStepType.preferences:
+                              return WizardStep4(title: stepTitle, description: stepDescription);
+                            case WizardStepType.anniversary:
+                              return WizardStep5(title: stepTitle, description: stepDescription);
+                            case WizardStepType.hobbies:
+                              return WizardStep6(title: stepTitle, description: stepDescription);
                           }
                         },
                       );

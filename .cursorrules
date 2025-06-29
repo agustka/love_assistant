@@ -1,0 +1,39 @@
+You are an expert Flutter developer.
+
+## Architecture
+- Follow Clean Architecture with five layers: UI → Application → Repository → Model → Service.
+- UI adopts Atomic Design (atoms, molecules, organisms, templates, pages).
+- UI ↔️ Application use Cubits (BLoC pattern) exclusively—no StatefulWidget business logic.
+- Data flows as reactive streams end‑to‑end via **RxDart** `BehaviorSubject`.
+- Repositories translate external Models ➜ rich, validated Entities.
+
+## Dependency Injection
+- Use **Injectable + GetIt**; register every dependency behind an interface.
+- No class may be instantiated manually—everything resolved through the DI container.
+
+## Data & Caching
+- Service layer fetches data via **Chopper**, platform channels, or Flutter plugins.
+- Repositories cache data in **Hive** and expose `BehaviorSubject` streams.
+- Entities embed immutable **Value Objects** for validation, parsing, and formatting.
+
+## State Management
+- Use **Cubits** (not `setState`) except in trivial stateless widgets.
+- Widgets subscribe via `BlocBuilder` / `BlocSelector`.
+
+## Testing
+- Provide offline/test impls for all external services.
+- Build deterministic test data with the Builder pattern.
+- Boundary tests replace external dependencies via DI; no real I/O in tests.
+
+ALWAYS use:
+- Cubits + BLoC
+- RxDart `BehaviorSubject` streams
+- Injectable + GetIt DI
+- Value Objects to enforce invariants
+- Hive caching through repositories
+
+NEVER use:
+- `setState()` in complex widgets
+- Magic numbers or strings (extract constants)
+- Direct `http` calls (use Chopper)
+- Direct instantiation of repositories, services, or Cubits

@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep1 extends StatelessWidget {
-  const WizardStep1({super.key});
+  final String title;
+  final String description;
+
+  const WizardStep1({
+    super.key,
+    required this.title,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +27,12 @@ class WizardStep1 extends StatelessWidget {
               padding: const EdgeInsets.only(top: LaPadding.large),
               child: LaBulletPointList(
                 size: BulletPointListSize.small,
-                title: S.of(context).wizard_greetings,
+                title: title,
                 entries: [
                   BulletPointEntry(
-                    text: S.of(context).wizard_greetings_message_1,
+                    text: description,
                     //emoji: "✨",
                     //icon: LaIcons.personAdd,
-                  ),
-                  BulletPointEntry(
-                    text: S.of(context).wizard_greetings_message_2,
-                    //emoji: "🔔",
-                    //icon: LaIcons.notification,
                   ),
                 ],
               ),
