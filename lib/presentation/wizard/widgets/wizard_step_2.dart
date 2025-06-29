@@ -7,6 +7,7 @@ import 'package:la/presentation/core/widgets/import.dart';
 class WizardStep2 extends StatefulWidget {
   static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
   static const String partnerPronounFieldId = "WizardStep2_partnerPronounFieldId";
+  static const String partnerPronounFreeFormFieldId = "WizardStep2_partnerPronounFreeFormFieldId";
   static const String partnerBirthdayFieldId = "WizardStep2_partnerBirthdayFieldId";
   static const String partnerAnniversaryFieldId = "WizardStep2_partnerAnniversaryFieldId";
 
@@ -82,6 +83,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
                 child: LaDropDown<Pronoun>(
                   fieldId: WizardStep2.partnerPronounFieldId,
+                  freeFormFieldId: WizardStep2.partnerPronounFreeFormFieldId,
                   optional: false,
                   title: S.of(context).wizard_partner_pronouns_title,
                   hint: S.of(context).wizard_partner_pronouns_hint,

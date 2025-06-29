@@ -77,7 +77,10 @@ enum Pronoun {
 
 extension PronounExtension on Pronoun {
   bool hasPronoun(String custom) {
-    return this != Pronoun.invalid || custom.isNotEmpty;
+    if ((this == Pronoun.custom || this == Pronoun.invalid) && custom.isEmpty) {
+      return false;
+    }
+    return true;
   }
 
   String getNefnifall(String custom) {

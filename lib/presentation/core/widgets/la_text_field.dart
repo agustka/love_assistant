@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 import 'package:la/presentation/core/widgets/la_form_field_listener.dart';
@@ -125,9 +124,7 @@ class _LaTextField extends State<LaTextField> {
     }
 
     Widget finalWidget = text;
-    if (!widget.showCard) {
-      return finalWidget;
-    } else {
+    if (widget.showCard) {
       finalWidget = LaCard(
         backgroundColor: LaTheme.surface(),
         child: Padding(

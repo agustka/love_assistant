@@ -235,7 +235,7 @@ extension ImageExtendsion on Image {
     return dominantColor;
   }
 
-  Future<Uint8List?> getImageBytes(ui.ImageByteFormat format) async {
+  Future<Uint8List?> getImageBytes(ui.ImageByteFormat format) {
     final ui.PictureRecorder recorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(recorder);
 

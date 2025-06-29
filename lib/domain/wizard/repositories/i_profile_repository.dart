@@ -15,4 +15,4 @@ abstract class IProfileRepository {
   
   /// Deletes the current profile
   Future<void> deleteProfile();
-} 
+}

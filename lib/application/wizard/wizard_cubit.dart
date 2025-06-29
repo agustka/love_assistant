@@ -34,20 +34,20 @@ class WizardCubit extends BaseCubit<WizardState> {
       return;
     }
 
-    final WizardStep nextStep = _config.visibleSteps[nextStepIndex];
-
     if (!_validateCurrentStep(currentStep)) {
       final bool missingName = state.partnerName.isEmpty;
       final bool missingPronoun = !state.partnerPronoun.hasPronoun(state.customPronoun);
       final bool missingBirthday = state.partnerBirthday.year <= 1800;
-      if (missingName) {
-        getIt<EventBus>().fire(WizardEvent.missingName);
-      }
-      if (missingPronoun) {
-        getIt<EventBus>().fire(WizardEvent.missingPronoun);
-      }
-      if (missingBirthday) {
-        getIt<EventBus>().fire(WizardEvent.missingBirthday);
+      if (currentStep.index == 0) {
+        if (missingName) {
+          getIt<EventBus>().fire(WizardEvent.missingName);
+        }
+        if (missingPronoun) {
+          getIt<EventBus>().fire(WizardEvent.missingPronoun);
+        }
+        if (missingBirthday && !state.isInitial) {
+          getIt<EventBus>().fire(WizardEvent.missingBirthday);
+        }
       }
       return;
     }

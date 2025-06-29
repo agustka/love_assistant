@@ -63,7 +63,6 @@ class _Shimmer extends StatefulWidget {
   final bool enabled;
 
   const _Shimmer({
-    super.key,
     required this.child,
     required this.gradient,
     this.direction = _ShimmerDirection.ltr,
@@ -78,7 +77,6 @@ class _Shimmer extends StatefulWidget {
   /// `highlightColor`.
   ///
   _Shimmer.fromColors({
-    super.key,
     required this.child,
     required Color baseColor,
     required Color highlightColor,

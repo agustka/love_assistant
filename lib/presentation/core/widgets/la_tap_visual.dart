@@ -136,7 +136,6 @@ class _LaCupertinoTappable extends StatefulWidget {
   final bool excludeFromSemantics;
 
   const _LaCupertinoTappable({
-    super.key,
     this.onTap,
     this.onLongPress,
     required this.child,

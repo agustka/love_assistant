@@ -74,9 +74,12 @@ class _WizardPageState extends State<WizardPage> {
                       ),
                     );
                   case WizardEvent.missingPronoun:
+                    final String fieldId = state.partnerPronoun == Pronoun.custom
+                        ? WizardStep2.partnerPronounFreeFormFieldId
+                        : WizardStep2.partnerPronounFieldId;
                     getIt<EventBus>().fire(
                       LaFormFieldErrorEvent(
-                        fieldId: WizardStep2.partnerPronounFieldId,
+                        fieldId: fieldId,
                         message: S.of(context).wizard_partner_profile_pronoun_missing,
                       ),
                     );

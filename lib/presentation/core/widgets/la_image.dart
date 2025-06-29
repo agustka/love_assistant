@@ -99,7 +99,6 @@ class _LaFileImage extends StatelessWidget {
   final ImageFrameBuilder? frameBuilder;
 
   const _LaFileImage({
-    super.key,
     required this.path,
     this.fallback,
     this.width,
