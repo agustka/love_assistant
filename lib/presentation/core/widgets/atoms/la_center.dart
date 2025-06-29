@@ -20,4 +20,4 @@ class LaCenter extends StatelessWidget {
       child: child,
     );
   }
-} 
+}

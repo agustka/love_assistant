@@ -72,7 +72,7 @@ class LaPicker {
                         ? LaSvg(
                             e.svg ?? AppAssets.icons.icTransparent,
                             width: LaSizes.large,
-                            height: 24,
+                            height: LaSizes.large,
                           )
                         : Icon(e.icon),
                     title: LaText(e.text, style: LaTheme.font.body16),

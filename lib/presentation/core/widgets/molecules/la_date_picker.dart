@@ -69,7 +69,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
                       spacing: LaPaddings.extraSmall,
                       children: [
                         LaText(widget.title, style: LaTheme.font.body14.light),
-                        if (widget.explanation != null) Icon(LaIcons.information, size: 16, color: LaTheme.hintText()),
+                        if (widget.explanation != null) Icon(LaIcons.information, size: LaSizes.medium, color: LaTheme.hintText()),
                       ],
                     ),
                   ),
@@ -141,7 +141,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
     await showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => Container(
-        height: 300,
+        height: LaSizes.pickerHeight,
         decoration: BoxDecoration(
           color: LaTheme.surface(),
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
@@ -149,7 +149,7 @@ class _LaDatePickerState extends State<LaDatePicker> {
         child: Column(
           children: [
             Container(
-              height: 50,
+              height: LaSizes.pickerHeaderHeight,
               decoration: BoxDecoration(
                 color: LaTheme.surface(),
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),

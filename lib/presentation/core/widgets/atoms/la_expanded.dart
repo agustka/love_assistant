@@ -17,4 +17,4 @@ class LaExpanded extends StatelessWidget {
       child: child,
     );
   }
-} 
+}

@@ -20,4 +20,4 @@ class LaFlexible extends StatelessWidget {
       child: child,
     );
   }
-} 
+}

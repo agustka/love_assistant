@@ -36,4 +36,4 @@ class LaSizedBox extends StatelessWidget {
       child: child,
     );
   }
-} 
+}

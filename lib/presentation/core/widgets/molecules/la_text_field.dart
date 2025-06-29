@@ -57,8 +57,7 @@ class _LaTextField extends State<LaTextField> {
     late Widget text;
     if (PlatformDetector.isIOS) {
       text = LaCard(
-        backgroundColor: LaTheme.secondaryContainer(),
-        elevation: LaElevation.minimal,
+        type: CardType.secondary,
         child: LaRow(
           children: [
             LaExpanded(
@@ -69,8 +68,8 @@ class _LaTextField extends State<LaTextField> {
                 focusNode: widget.focusNode ?? _fallbackFocusNode,
                 textCapitalization: TextCapitalization.sentences,
                 placeholder: widget.hint,
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                decoration: BoxDecoration(color: LaTheme.secondaryContainer(), borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.symmetric(vertical: LaPaddings.mediumSmall, horizontal: LaPaddings.medium),
+                decoration: BoxDecoration(color: LaTheme.secondaryContainer(), borderRadius: BorderRadius.circular(LaCornerRadius.mediumSmall)),
                 style: LaTheme.font.body16.copyWith(color: LaTheme.onSecondaryContainer()),
                 placeholderStyle: LaTheme.font.body16.copyWith(color: widget.hintColor ?? LaTheme.hintText()),
                 cursorColor: LaTheme.primary(),
@@ -89,8 +88,7 @@ class _LaTextField extends State<LaTextField> {
       );
     } else {
       text = LaCard(
-        backgroundColor: LaTheme.secondaryContainer(),
-        elevation: 0,
+        type: CardType.secondary,
         child: LaRow(
           children: [
             LaExpanded(
@@ -130,7 +128,6 @@ class _LaTextField extends State<LaTextField> {
     Widget finalWidget = text;
     if (widget.showCard) {
       finalWidget = LaCard(
-        backgroundColor: LaTheme.surface(),
         child: LaPadding.all(
           value: LaPaddings.medium,
           child: LaColumn(

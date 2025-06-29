@@ -6,11 +6,9 @@ import 'package:la/presentation/core/widgets/atoms/import.dart' hide LaPadding;
 import 'package:la/presentation/core/widgets/atoms/la_padding.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 import 'package:la/presentation/core/widgets/molecules/import.dart';
+import 'package:la/presentation/core/widgets/templates/import.dart';
 
-enum BottomButtonsStyle {
-  sideBySide,
-  sandwich,
-}
+enum BottomButtonsStyle { sideBySide, sandwich }
 
 @immutable
 class BottomButtonsDefinition extends Equatable {
@@ -40,24 +38,24 @@ class BottomButtonsDefinition extends Equatable {
 
   @override
   List<Object?> get props => [
-        drawerHeading,
-        type,
-        loading,
-        buttons,
-        aboveButtonsWidget,
-        exit,
-        shouldPushOnKeyboard,
-        background,
-        addBottomPadding,
-        showDropShadow,
-      ];
+    drawerHeading,
+    type,
+    loading,
+    buttons,
+    aboveButtonsWidget,
+    exit,
+    shouldPushOnKeyboard,
+    background,
+    addBottomPadding,
+    showDropShadow,
+  ];
 }
 
 @immutable
 class BottomButtonDefinition extends Equatable {
   final String text;
   final String? drawerText;
-  final String? icon;
+  final IconData? icon;
   final bool enabled;
   final bool busy;
   final Key? key;
@@ -80,16 +78,7 @@ class BottomButtonDefinition extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        key,
-        text,
-        drawerText,
-        icon,
-        enabled,
-        busy,
-        onTap,
-        onDisabledTap,
-      ];
+  List<Object?> get props => [key, text, drawerText, icon, enabled, busy, onTap, onDisabledTap];
 }
 
 class LaBottomButtons extends StatefulWidget {
@@ -107,11 +96,7 @@ class LaBottomButtons extends StatefulWidget {
     };
   }
 
-  const LaBottomButtons({
-    super.key,
-    required this.buttons,
-    this.shouldPushOnKeyboard = true,
-  });
+  const LaBottomButtons({super.key, required this.buttons, this.shouldPushOnKeyboard = true});
 
   @override
   State<StatefulWidget> createState() {
@@ -135,7 +120,8 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
       LaBottomButtons.bottomPadding = padding + LaPaddings.extraSmall;
     }
 
-    final bool padBottom = (widget.buttons.buttons.isNotEmpty || widget.buttons.aboveButtonsWidget != null) &&
+    final bool padBottom =
+        (widget.buttons.buttons.isNotEmpty || widget.buttons.aboveButtonsWidget != null) &&
         widget.buttons.addBottomPadding;
 
     return Material(
@@ -150,10 +136,7 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
           if (widget.buttons.buttons.isNotEmpty)
             LaPadding(
               padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-              child: LaSizedBox(
-                width: double.infinity,
-                child: _getMainButtonEntries(context),
-              ),
+              child: LaSizedBox(width: double.infinity, child: _getMainButtonEntries(context)),
             ),
 
           if (padBottom) LaSizedBox(height: LaBottomButtons.bottomPadding),
@@ -170,10 +153,7 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
     switch (widget.buttons.type) {
       case BottomButtonsStyle.sideBySide:
         return IntrinsicHeight(
-          child: LaRow(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _getSideBySideButtons(context),
-          ),
+          child: LaRow(crossAxisAlignment: CrossAxisAlignment.stretch, children: _getSideBySideButtons(context)),
         );
       case BottomButtonsStyle.sandwich:
         return LaSeparatedColumn(
@@ -181,31 +161,27 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
             return const LaSizedBox(height: LaPaddings.medium);
           },
           mainAxisSize: MainAxisSize.min,
-          children: [
-            ..._getSandwichButtons(context),
-          ],
+          children: [..._getSandwichButtons(context)],
         );
     }
   }
 
   List<Widget> _getSandwichButtons(BuildContext context) {
-    return _buttons.buttons.map(
-      (BottomButtonDefinition button) {
-        final int index = _buttons.buttons.indexOf(button);
-        return _loadingIndicator(
-          child: LaButton(
-            key: button.key,
-            buttonStyle: index == 0 ? LaButtonStyle.primary : LaButtonStyle.secondary,
-            text: button.text,
-            maxLines: 1,
-            onTap: button.onTap,
-            enabled: button.enabled,
-            busy: button.busy,
-            onDisabledTap: button.onDisabledTap,
-          ),
-        );
-      },
-    ).toList();
+    return _buttons.buttons.map((BottomButtonDefinition button) {
+      final int index = _buttons.buttons.indexOf(button);
+      return _loadingIndicator(
+        child: LaButton(
+          key: button.key,
+          buttonStyle: index == 0 ? LaButtonStyle.primary : LaButtonStyle.secondary,
+          text: button.text,
+          maxLines: 1,
+          onTap: button.onTap,
+          enabled: button.enabled,
+          busy: button.busy,
+          onDisabledTap: button.onDisabledTap,
+        ),
+      );
+    }).toList();
   }
 
   List<Widget> _getSideBySideButtons(BuildContext context) {
@@ -233,7 +209,7 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
         break;
       }
       if (cnt > 0) {
-        entries.add(const LaSizedBox(width: 10));
+        entries.add(const LaSizedBox(width: LaPaddings.small));
       }
       cnt++;
       entries.add(
@@ -257,23 +233,16 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
     final bool shouldDisplayMoreButton =
         _buttons.buttons.length > 2 || (Accessibility.of(context).isInAccessibilityMode && _buttons.buttons.length > 1);
     if (shouldDisplayMoreButton) {
-      entries.add(const LaSizedBox(width: 10));
+      entries.add(const LaSizedBox(width: LaPaddings.small));
       entries.add(
         LaFlexible(
           flex: overflowFlex,
           child: _loadingIndicator(
-            child: Semantics(
-              container: true,
-              button: true,
-              label: S.of(context).global_more,
-              child: ExcludeSemantics(
-                child: LaButton(
-                  key: LaBottomButtons.bottomButtonsMoreButtonKey,
-                  onTap: () => _showOverflowOptions(context),
-                  buttonStyle: LaButtonStyle.secondary,
-                  icon: LaIcons.more,
-                ),
-              ),
+            child: LaButton(
+              key: LaBottomButtons.bottomButtonsMoreButtonKey,
+              onTap: () => _showOverflowOptions(context),
+              buttonStyle: LaButtonStyle.secondary,
+              icon: LaIcons.more,
             ),
           ),
         ),
@@ -286,12 +255,7 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
   Widget _loadingIndicator({required Widget child}) {
     if (widget.buttons.loading) {
       return IgnorePointer(
-        child: LaLoadingBox(
-          child: LaPadding.all(
-            value: 1,
-            child: child,
-          ),
-        ),
+        child: LaLoadingBox(child: LaPadding.all(value: 1, child: child)),
       );
     }
     return child;
@@ -327,12 +291,7 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
     }
   }
 
-  Widget _excludeMainSemantics({
-    required Widget child,
-    required bool excludeChildren,
-    String? label,
-    void Function()? onTap,
-  }) {
+  Widget _excludeMainSemantics({required Widget child, required bool excludeChildren}) {
     if (!MediaQuery.of(context).accessibleNavigation) {
       return child;
     }
@@ -352,67 +311,15 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
       }
       overflowing = widget.buttons.buttons.sublist(2);
     }
-    /*
-    LaBottomDrawer.fromTemplate(
-      builder: (BuildContext context) {
-        return SafeArea(
-          child: LaSeparatedColumn(
-            mainAxisSize: MainAxisSize.min,
-            separatorBuilder: (_, __) => LaPadding.symmetric(
-              horizontal: LaPadding.medium,
-              child: LaDivider(),
-            ),
-            children: overflowing
-                .map(
-                  (BottomButtonDefinition button) => LaTapVisual(
-                    key: button.key,
-                    onTap: () {
-                      Navigator.pop(context);
-                      getIt<IPollAndDebounce>().delayCall(
-                        delay: 200.milliseconds,
-                        action: button.onTap,
-                      );
-                    },
-                    child: LaContainer(
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.only(
-                        top: LaPadding.medium,
-                        bottom: LaPadding.medium,
-                      ),
-                      child: LaRow(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          LaSizedBox(width: LaPadding.medium),
-                          if (button.icon != null) ...[
-                            LaSvg(
-                              button.icon!,
-                              width: 24,
-                              height: 24,
-                              color: button.enabled ? LaTheme.onSurface() : LaTheme.onSurface().withValues(alpha: 155),
-                            ),
-                            LaSizedBox(width: 16),
-                          ],
-                          LaExpanded(
-                            child: LaText(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              button.drawerText ?? button.text,
-                              style: _getButtonTextStyle(context: context).copyWith(
-                                color:
-                                    button.enabled ? LaTheme.onSurface() : LaTheme.onSurface().withValues(alpha: 155),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      },
+
+    LaBottomDrawer.show(
+      context: context,
+      config: BottomDrawerConfig(
+        heading: S.of(context).global_more,
+        entries: overflowing
+            .map((BottomButtonDefinition e) => BottomDrawerEntry(text: e.text, onTap: e.onTap, icon: e.icon))
+            .toList(),
+      ),
     );
-    */
   }
 }

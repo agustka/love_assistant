@@ -43,3 +43,6 @@ analyzer:
     must_call_super: error
     unused_element: ignore
     always_specify_types: ignore
+
+formatter:
+  trailing_commas: preserve

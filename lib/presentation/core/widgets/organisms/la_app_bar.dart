@@ -17,7 +17,7 @@ class AppBarActionDefinition {
         value: PlatformDetector.isIOS ? 0 : LaPaddings.medium,
         child: LaIcon(
           icon,
-          size: 24,
+          size: LaSizes.large,
           color: LaTheme.onPrimary(),
         ),
       ),

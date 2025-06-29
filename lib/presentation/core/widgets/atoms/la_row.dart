@@ -23,4 +23,4 @@ class LaRow extends StatelessWidget {
       children: children,
     );
   }
-} 
+}

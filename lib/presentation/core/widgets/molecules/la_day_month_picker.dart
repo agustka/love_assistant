@@ -88,18 +88,18 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
       context: context,
       builder: (BuildContext context) {
         return LaContainer(
-          height: 300,
+          height: LaSizes.pickerHeight,
           decoration: const BoxDecoration(
             color: CupertinoColors.systemBackground,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(LaCornerRadius.large)),
           ),
           child: LaColumn(
             children: [
               // Done button
               LaContainer(
-                height: 50,
+                height: LaSizes.pickerHeaderHeight,
                 alignment: Alignment.centerRight,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
                 child: CupertinoButton(
                   onPressed: () {
                     setState(() {
@@ -120,7 +120,7 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                     LaExpanded(
                       child: CupertinoPicker(
                         scrollController: FixedExtentScrollController(initialItem: tempMonth - 1),
-                        itemExtent: 32,
+                        itemExtent: LaSizes.pickerItemExtent,
                         onSelectedItemChanged: (index) {
                           tempMonth = index + 1;
                         },
@@ -134,7 +134,7 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
                     LaExpanded(
                       child: CupertinoPicker(
                         scrollController: FixedExtentScrollController(initialItem: tempDay - 1),
-                        itemExtent: 32,
+                        itemExtent: LaSizes.pickerItemExtent,
                         onSelectedItemChanged: (int index) {
                           tempDay = index + 1;
                         },
@@ -163,9 +163,9 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          shape: LaCornerRadius.medium,
+          shape: LaCornerRadius().dialog,
           child: LaPadding.all(
-            value: 16,
+            value: LaPaddings.medium,
             child: LaColumn(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -226,8 +226,8 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
       itemCount: daysInMonth,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 7, // 7 days in a week
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
+        crossAxisSpacing: LaPaddings.small,
+        mainAxisSpacing: LaPaddings.small,
       ),
       itemBuilder: (BuildContext context, int index) {
         final int day = index + 1;
@@ -242,7 +242,7 @@ class _LaDayMonthPickerState extends State<LaDayMonthPicker> {
           child: LaContainer(
             decoration: BoxDecoration(
               color: isSelected ? LaTheme.primary() : LaTheme.secondaryContainer(),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(LaCornerRadius.small),
             ),
             child: LaCenter(
               child: LaText(

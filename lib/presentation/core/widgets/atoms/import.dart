@@ -3,6 +3,7 @@ export 'la_card.dart';
 export 'la_center.dart';
 export 'la_column.dart';
 export 'la_container.dart';
+export "la_divider.dart";
 export 'la_dot_loader.dart';
 export 'la_expanded.dart';
 export 'la_flexible.dart';

@@ -23,4 +23,4 @@ class LaIcon extends StatelessWidget {
       semanticLabel: semanticLabel,
     );
   }
-} 
+}

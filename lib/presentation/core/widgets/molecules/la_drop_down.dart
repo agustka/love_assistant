@@ -75,8 +75,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
                 LaTapVisual(
                   onTap: () => _showCupertinoPicker(context),
                   child: LaCard(
-                    backgroundColor: LaTheme.secondaryContainer(),
-                    elevation: 0,
+                    type: CardType.secondary,
                     child: LaTextField(
                       fieldId: widget.fieldId,
                       optional: false,
@@ -111,13 +110,12 @@ class _LaDropDownState<T> extends State<LaDropDown> {
               children: [
                 const LaSizedBox(height: LaPaddings.extraSmall),
                 LaCard(
-                  backgroundColor: LaTheme.secondaryContainer(),
-                  elevation: 0,
+                  type: CardType.secondary,
                   child: LaPadding(
                     padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.small),
                     child: DropdownButton<T>(
                       value: _selectedOption,
-                      borderRadius: LaCornerRadius.medium.borderRadius as BorderRadius,
+                      borderRadius: const BorderRadius.all(Radius.circular(LaCornerRadius.medium)),
                       elevation: LaElevation.medium.toInt(),
                       hint: LaText(widget.hint ?? "", style: LaTheme.font.body16.hintText),
                       underline: const LaSizedBox.shrink(),
@@ -188,7 +186,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
     final dynamic result = await showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => LaContainer(
-        height: 250,
+        height: LaSizes.dropdownHeight,
         decoration: BoxDecoration(
           color: LaTheme.surface(),
           borderRadius: const BorderRadius.vertical(
@@ -260,7 +258,7 @@ class _LaDropDownState<T> extends State<LaDropDown> {
               children: [
                 LaText(widget.title, style: LaTheme.font.body14.light),
                 const LaSizedBox(width: LaPaddings.extraSmall),
-                if (widget.explanation != null) LaIcon(LaIcons.information, size: 16, color: LaTheme.hintText()),
+                if (widget.explanation != null) LaIcon(LaIcons.information, size: LaSizes.medium, color: LaTheme.hintText()),
               ],
             ),
           ),

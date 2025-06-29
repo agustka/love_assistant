@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
 
 part 'la_loading_box_details.dart';

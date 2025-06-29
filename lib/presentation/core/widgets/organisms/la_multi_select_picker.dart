@@ -93,7 +93,7 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
                   selectedColor: LaTheme.secondary(),
                   backgroundColor: LaTheme.secondaryContainer(),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(LaCornerRadius.medium),
                   ),
                   side: isSelected ? BorderSide.none : const BorderSide(color: Colors.transparent),
                 );
@@ -139,7 +139,7 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
                       ),
                       decoration: BoxDecoration(
                         color: isSelected ? LaTheme.secondary() : LaTheme.secondaryContainer(),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(LaCornerRadius.medium),
                       ),
                       child: LaText(
                         option.toString(),
@@ -171,7 +171,7 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
               children: [
                 LaText(widget.title, style: LaTheme.font.body14.light),
                 if (widget.explanation != null) const LaSizedBox(width: LaPaddings.extraSmall),
-                if (widget.explanation != null) LaIcon(LaIcons.information, size: 16, color: LaTheme.hintText()),
+                if (widget.explanation != null) LaIcon(LaIcons.information, size: LaSizes.medium, color: LaTheme.hintText()),
               ],
             ),
           ),

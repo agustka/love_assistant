@@ -67,4 +67,4 @@ class Profile extends Equatable {
         createdAt,
         updatedAt,
       ];
-} 
+}

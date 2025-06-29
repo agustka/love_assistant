@@ -104,38 +104,50 @@ class LaButton extends StatelessWidget {
       child = Center(
         child: LaDotLoader(
           color: colors.busyColor,
-          size: 21,
+          size: LaSizes.large,
         ),
       );
     } else {
       final Color textColor = colors.getTextColor(enabled);
       final bool hasText = text?.isNotEmpty ?? false;
-      child = Padding(
-        padding: const EdgeInsets.all(LaPaddings.small),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (icon != null)
-              Icon(
-                icon,
-                size: size.iconSize,
-                color: textColor,
-              ),
-            if (icon != null && hasText) const SizedBox(width: LaPaddings.small),
-            if (hasText)
-              Flexible(
-                child: LaText(
-                  text ?? "",
-                  maxLines: maxLines,
-                  overflow: maxLines != null ? TextOverflow.ellipsis : null,
-                  textAlign: TextAlign.center,
-                  style: size.getTextStyle().copyWith(color: textColor),
+      final bool hasIcon = icon != null;
+
+      if (hasIcon && !hasText) {
+        child = Center(
+          child: Icon(
+            icon,
+            size: size.iconSize,
+            color: textColor,
+          ),
+        );
+      } else {
+        child = Padding(
+          padding: const EdgeInsets.all(LaPaddings.small),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null)
+                Icon(
+                  icon,
+                  size: size.iconSize,
+                  color: textColor,
                 ),
-              ),
-          ],
-        ),
-      );
+              if (icon != null && hasText) const SizedBox(width: LaPaddings.small),
+              if (hasText)
+                Flexible(
+                  child: LaText(
+                    text ?? "",
+                    maxLines: maxLines,
+                    overflow: maxLines != null ? TextOverflow.ellipsis : null,
+                    textAlign: TextAlign.center,
+                    style: size.getTextStyle().copyWith(color: textColor),
+                  ),
+                ),
+            ],
+          ),
+        );
+      }
     }
 
     final VoidCallback onTap = busy ? () {} : ((enabled ? this.onTap : onDisabledTap) ?? () {});
@@ -155,7 +167,8 @@ class LaButton extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onTap,
               style: ElevatedButton.styleFrom(
-                elevation: 0,
+                elevation: LaElevation.minimal,
+                padding: EdgeInsets.zero,
                 side: BorderSide(color: colors.enabledBorderColor),
                 backgroundColor: colors.enabledBackgroundColor,
                 foregroundColor: colors.enabledTextColor,
@@ -245,13 +258,13 @@ extension _IsbButtonSizeX on LaButtonSize {
       };
 
   double get borderRadius => switch (this) {
-        LaButtonSize.normal => 8,
-        LaButtonSize.mini => 4,
+        LaButtonSize.normal => LaCornerRadius.large,
+        LaButtonSize.mini => LaCornerRadius.extraSmall,
       };
 
   double get iconSize => switch (this) {
-        LaButtonSize.normal => 24,
-        LaButtonSize.mini => 16,
+        LaButtonSize.normal => LaSizes.large,
+        LaButtonSize.mini => LaSizes.medium,
       };
 
   TextStyle getTextStyle() => switch (this) {

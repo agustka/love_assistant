@@ -56,19 +56,11 @@ enum _ShimmerDirection { btt, ltr, rtl, ttb }
 @immutable
 class _Shimmer extends StatefulWidget {
   final Widget child;
-  final Duration period;
-  final _ShimmerDirection direction;
   final Gradient gradient;
-  final int loop;
-  final bool enabled;
 
   const _Shimmer({
     required this.child,
     required this.gradient,
-    this.direction = _ShimmerDirection.ltr,
-    this.period = const Duration(milliseconds: 1500),
-    this.loop = 0,
-    this.enabled = true,
   });
 
   ///
@@ -80,10 +72,6 @@ class _Shimmer extends StatefulWidget {
     required this.child,
     required Color baseColor,
     required Color highlightColor,
-    this.period = const Duration(milliseconds: 1500),
-    this.direction = _ShimmerDirection.ltr,
-    this.loop = 0,
-    this.enabled = true,
   }) : gradient = LinearGradient(
     begin: Alignment.topLeft,
     colors: <Color>[baseColor, baseColor, highlightColor, baseColor, baseColor],
@@ -91,15 +79,8 @@ class _Shimmer extends StatefulWidget {
   );
 
   @override
-  _ShimmerInternalState createState() => _ShimmerInternalState();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<Gradient>('gradient', gradient, defaultValue: null));
-    properties.add(EnumProperty<_ShimmerDirection>('direction', direction));
-    properties.add(DiagnosticsProperty<Duration>('period', period, defaultValue: null));
-    properties.add(DiagnosticsProperty<bool>('enabled', enabled, defaultValue: null));
+  _ShimmerInternalState createState() {
+    return _ShimmerInternalState();
   }
 }
 
@@ -111,30 +92,25 @@ class _ShimmerInternalState extends State<_Shimmer> with SingleTickerProviderSta
   void initState() {
     super.initState();
     _count = 0;
-    _controller = AnimationController(vsync: this, duration: widget.period)
+    _controller = AnimationController(vsync: this, duration: 1500.milliseconds)
       ..addStatusListener((AnimationStatus status) {
         if (status != AnimationStatus.completed) {
           return;
         }
         _count++;
-        if (widget.loop <= 0) {
+        if (0 <= 0) {
           _controller.repeat();
-        } else if (_count < widget.loop) {
+        } else if (_count < 0) {
           _controller.forward(from: 0.0);
         }
       });
-    if (widget.enabled) {
-      _controller.forward(from: 0.5);
-    }
+    _controller.forward(from: 0.5);
   }
 
   @override
   void didUpdateWidget(_Shimmer oldWidget) {
-    if (widget.enabled) {
-      _controller.forward();
-    } else {
-      _controller.stop();
-    }
+    _controller.forward();
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -143,7 +119,7 @@ class _ShimmerInternalState extends State<_Shimmer> with SingleTickerProviderSta
     return AnimatedBuilder(
       animation: _controller,
       builder: (BuildContext context, Widget? child) => _ShimmerInternal(
-        direction: widget.direction,
+        direction: _ShimmerDirection.ltr,
         gradient: widget.gradient,
         percent: _controller.value,
         child: child,

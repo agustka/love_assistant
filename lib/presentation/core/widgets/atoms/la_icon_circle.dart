@@ -52,8 +52,8 @@ class LaIconCircle extends StatelessWidget {
             child: ColoredBox(
               color: circleColor ?? defaultCircleColor,
               child: SizedBox(
-                width: size ?? 40 * scale,
-                height: size ?? 40 * scale,
+                width: size ?? LaSizes.huge * scale,
+                height: size ?? LaSizes.huge * scale,
                 child: Icon(
                   icon,
                   color: iconColor ?? LaTheme.onSurface(),
@@ -67,7 +67,7 @@ class LaIconCircle extends StatelessWidget {
 
     if (loading) {
       return LaLoadingBox(
-        customBorderRadius: const BorderRadius.all(Radius.circular(24)),
+        customBorderRadius: const BorderRadius.all(Radius.circular(LaCornerRadius.large)),
         child: widget,
       );
     } else {

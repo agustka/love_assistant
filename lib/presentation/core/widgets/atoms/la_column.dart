@@ -23,4 +23,4 @@ class LaColumn extends StatelessWidget {
       children: children,
     );
   }
-} 
+}

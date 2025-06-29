@@ -92,7 +92,7 @@ class LaBulletPointList extends StatelessWidget {
     if (e.icon != null) {
       return LaIcon(
         e.icon!,
-        size: 24,
+        size: LaSizes.large,
       );
     } else if (e.emoji != null) {
       return LaText(e.emoji ?? "•", style: LaTheme.font.body20);

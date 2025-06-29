@@ -26,6 +26,12 @@ class LaSizes {
   static const double huge = 40;
   static const double extraHuge = 48;
   static const double bottomPadding = 18;
+
+  // Specific UI dimensions
+  static const double pickerHeight = 300;
+  static const double pickerHeaderHeight = 50;
+  static const double dropdownHeight = 250;
+  static const double pickerItemExtent = 32;
 }
 
 class LaElevation {
@@ -34,25 +40,32 @@ class LaElevation {
 }
 
 class LaCornerRadius {
-  static const RoundedRectangleBorder extraSmall = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)));
-  static const RoundedRectangleBorder small = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
-  static const RoundedRectangleBorder mediumSmall = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)));
-  static const RoundedRectangleBorder medium = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)));
-  static const RoundedRectangleBorder large = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(24)));
-  static const RoundedRectangleBorder extraLarge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32)));
-  static const RoundedRectangleBorder huge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40)));
-  static const RoundedRectangleBorder extraHuge = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(48)));
-  static const RoundedRectangleBorder none = RoundedRectangleBorder();
-  static const RoundedRectangleBorder pill = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50)));
-  static const RoundedRectangleBorder card = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12)));
-  static const RoundedRectangleBorder button = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
-  static const RoundedRectangleBorder input = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)));
-  static const RoundedRectangleBorder modal = RoundedRectangleBorder(
-    borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-  );
-  static const RoundedRectangleBorder bottomSheet = RoundedRectangleBorder(
-    borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-  );
+  // Primary radius values
+  static const double extraSmall = 4;
+  static const double small = 8;
+  static const double mediumSmall = 12;
+  static const double medium = 16;
+  static const double large = 24;
+  static const double extraLarge = 32;
+  static const double huge = 40;
+  static const double extraHuge = 48;
+}
+
+extension LaCornerRadiusExtension on LaCornerRadius {
+  RoundedRectangleBorder get drawer {
+    return const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(LaCornerRadius.large),
+        topRight: Radius.circular(LaCornerRadius.large),
+      ),
+    );
+  }
+
+  RoundedRectangleBorder get dialog {
+    return const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(LaCornerRadius.large)),
+    );
+  }
 }
 
 class LaTheme {

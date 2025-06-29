@@ -35,8 +35,8 @@ class LaListTile extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: LaPadding.symmetric(
-        vertical: 12.0,
-        horizontal: 16.0,
+        vertical: LaPaddings.mediumSmall,
+        horizontal: LaPaddings.medium,
         child: LaRow(
           children: [
             if (leading != null) ...[

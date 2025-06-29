@@ -43,15 +43,13 @@ class LaConfirmationDialog {
     required String message,
     String? confirmText,
     String? cancelText,
-    Color? confirmColor,
-    Color? cancelColor,
     IconData? icon,
   }) async {
     return await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: LaCornerRadius.medium,
+          shape: LaCornerRadius().dialog,
           title: LaRow(
             children: [
               if (icon != null) LaIcon(icon, color: LaTheme.onSurface()),
@@ -102,10 +100,10 @@ class LaConfirmationDialog {
       context: context,
       builder: (BuildContext context) {
         return LaContainer(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(LaPaddings.medium),
           decoration: BoxDecoration(
             color: LaTheme.surface(),
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(LaCornerRadius.large)),
           ),
           child: LaColumn(
             mainAxisSize: MainAxisSize.min,
