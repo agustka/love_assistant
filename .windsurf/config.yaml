@@ -1,0 +1,27 @@
+dart:
+  # Enforce explicit typing
+  always_specify_types: true
+  
+  # Enforce double quotes
+  string_literals:
+    prefer_double_quotes: true
+    
+  # Additional Dart-specific rules
+  prefer_const_constructors: true
+  prefer_const_declarations: true
+  prefer_final_fields: true
+  
+  # Formatting preferences
+  formatting:
+    indent: 2
+    line_length: 80
+    prefer_single_quotes: false
+    
+  # Analysis rules
+  analyzer:
+    errors:
+      always_specify_types: error
+      prefer_double_quotes: error
+      prefer_const_constructors: error
+      prefer_const_declarations: error
+      prefer_final_fields: error
