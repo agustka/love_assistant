@@ -14,7 +14,7 @@ dart:
   # Formatting preferences
   formatting:
     indent: 2
-    line_length: 80
+    line_length: 120
     prefer_single_quotes: false
     
   # Analysis rules
