@@ -23,6 +23,7 @@ class LaButton extends StatelessWidget {
   final IconData? icon;
   final bool enabled;
   final bool busy;
+  final bool loading;
   final VoidCallback? onDisabledTap;
   final LaButtonStyle buttonStyle;
   final LaButtonSize size;
@@ -38,6 +39,7 @@ class LaButton extends StatelessWidget {
     IconData? icon,
     bool enabled = true,
     bool busy = false,
+    bool loading = false,
     VoidCallback? onDisabledTap,
     int? maxLines,
     String? semanticLabel,
@@ -50,6 +52,7 @@ class LaButton extends StatelessWidget {
           icon: icon,
           enabled: enabled,
           busy: busy,
+          loading: loading,
           onDisabledTap: onDisabledTap,
           buttonStyle: buttonStyle,
           size: size,
@@ -64,6 +67,7 @@ class LaButton extends StatelessWidget {
     this.icon,
     this.enabled = true,
     this.busy = false,
+    this.loading = false,
     this.onDisabledTap,
     required this.buttonStyle,
     required this.size,

@@ -217,7 +217,9 @@ class LaTheme {
     return ThemeData(
       brightness: brightness,
       useMaterial3: true,
-      textTheme: GoogleFonts.poppinsTextTheme(),
+      textTheme: GoogleFonts.poppinsTextTheme().apply(
+        fontFamily: "Poppins",
+      ),
       scaffoldBackgroundColor: background(brightness: brightness),
       colorScheme: ColorScheme(
         brightness: brightness,
@@ -244,7 +246,9 @@ class LaTheme {
       applyThemeToAll: true,
       textTheme: CupertinoTextThemeData(
         primaryColor: onPrimary(brightness: brightness),
-        textStyle: GoogleFonts.poppins().copyWith(color: onSurface(brightness: brightness)),
+        textStyle: const TextStyle(
+          fontFamily: "Poppins",
+        ).copyWith(color: onSurface(brightness: brightness)),
       ),
     );
   }
