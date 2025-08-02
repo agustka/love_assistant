@@ -8,6 +8,8 @@ class LaTextField extends StatefulWidget {
   final String fieldId;
   final String? title;
   final String hint;
+  final bool obscureText;
+  final TextInputType? keyboardType;
   final bool optional;
   final TextEditingController? controller;
   final bool enabled;
@@ -23,6 +25,8 @@ class LaTextField extends StatefulWidget {
     this.title,
     required this.fieldId,
     required this.hint,
+    this.obscureText = false,
+    this.keyboardType,
     this.optional = true,
     this.showCard = true,
     this.controller,
@@ -67,9 +71,14 @@ class _LaTextField extends State<LaTextField> {
                 onChanged: widget.onChanged,
                 focusNode: widget.focusNode ?? _fallbackFocusNode,
                 textCapitalization: TextCapitalization.sentences,
+                keyboardType: widget.keyboardType,
                 placeholder: widget.hint,
+                obscureText: widget.obscureText,
                 padding: const EdgeInsets.symmetric(vertical: LaPaddings.mediumSmall, horizontal: LaPaddings.medium),
-                decoration: BoxDecoration(color: LaTheme.secondaryContainer(), borderRadius: BorderRadius.circular(LaCornerRadius.mediumSmall)),
+                decoration: BoxDecoration(
+                  color: LaTheme.secondaryContainer(),
+                  borderRadius: BorderRadius.circular(LaCornerRadius.mediumSmall),
+                ),
                 style: LaTheme.font.body16.copyWith(color: LaTheme.onSecondaryContainer()),
                 placeholderStyle: LaTheme.font.body16.copyWith(color: widget.hintColor ?? LaTheme.hintText()),
                 cursorColor: LaTheme.primary(),
@@ -98,6 +107,8 @@ class _LaTextField extends State<LaTextField> {
                 onChanged: widget.onChanged,
                 focusNode: widget.focusNode ?? _fallbackFocusNode,
                 textCapitalization: TextCapitalization.sentences,
+                keyboardType: widget.keyboardType,
+                obscureText: widget.obscureText,
                 decoration: InputDecoration(
                   hintText: widget.hint,
                   hintStyle: TextStyle(color: widget.hintColor ?? LaTheme.hintText()),
@@ -136,7 +147,8 @@ class _LaTextField extends State<LaTextField> {
               LaRow(
                 children: [
                   if (widget.title != null) LaExpanded(child: LaText(widget.title!, style: LaTheme.font.body14.light)),
-                  if (!widget.optional) LaText("*${S.of(context).global_required}", style: LaTheme.font.body12.light.primary),
+                  if (!widget.optional)
+                    LaText("*${S.of(context).global_required}", style: LaTheme.font.body12.light.primary),
                 ],
               ),
               const LaSizedBox(height: LaPaddings.small),

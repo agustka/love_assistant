@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/login_cubit.dart';
 import 'package:la/presentation/auth/signup_page.dart';
+import 'package:la/presentation/core/theme/la_theme.dart';
 import 'package:la/presentation/core/widgets/atoms/la_button.dart';
-import 'package:la/presentation/core/widgets/atoms/la_text.dart';
 import 'package:la/presentation/core/widgets/atoms/la_card.dart';
 import 'package:la/presentation/core/widgets/atoms/la_center.dart';
+import 'package:la/presentation/core/widgets/atoms/la_text.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -37,16 +38,16 @@ class LoginPage extends StatelessWidget {
                     }
                     return Column(
                       children: [
-                        LaButton.icon(
+                        LaButton.mini(
                           icon: Icons.g_mobiledata,
-                          label: 'Sign in with Google',
-                          onPressed: () => context.read<LoginCubit>().loginWithGoogle(),
+                          text: 'Sign in with Google',
+                          onTap: () => context.read<LoginCubit>().loginWithGoogle(),
                         ),
                         const SizedBox(height: 12),
-                        LaButton.icon(
+                        LaButton.mini(
                           icon: Icons.apple,
-                          label: 'Sign in with Apple',
-                          onPressed: () => context.read<LoginCubit>().loginWithApple(),
+                          text: 'Sign in with Apple',
+                          onTap: () => context.read<LoginCubit>().loginWithApple(),
                         ),
                         const SizedBox(height: 24),
                         TextButton(
@@ -56,7 +57,7 @@ class LoginPage extends StatelessWidget {
                               MaterialPageRoute(builder: (_) => const SignupPage()),
                             );
                           },
-                          child: const LaText('Don\'t have an account? Sign up'),
+                          child: LaText("Don't have an account? Sign up", style: LaTheme.font.body16),
                         ),
                       ],
                     );
@@ -69,4 +70,4 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

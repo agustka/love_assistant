@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/signup_cubit.dart';
 import 'package:la/presentation/auth/login_page.dart';
+import 'package:la/presentation/core/theme/la_theme.dart';
 import 'package:la/presentation/core/widgets/atoms/la_button.dart';
-import 'package:la/presentation/core/widgets/atoms/la_text.dart';
 import 'package:la/presentation/core/widgets/atoms/la_card.dart';
 import 'package:la/presentation/core/widgets/atoms/la_center.dart';
+import 'package:la/presentation/core/widgets/atoms/la_text.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -37,16 +38,16 @@ class SignupPage extends StatelessWidget {
                     }
                     return Column(
                       children: [
-                        LaButton.icon(
+                        LaButton.mini(
                           icon: Icons.g_mobiledata,
-                          label: 'Sign up with Google',
-                          onPressed: () => context.read<SignupCubit>().signupWithGoogle(),
+                          text: 'Sign up with Google',
+                          onTap: () => context.read<SignupCubit>().signupWithGoogle(),
                         ),
                         const SizedBox(height: 12),
-                        LaButton.icon(
+                        LaButton.mini(
                           icon: Icons.apple,
-                          label: 'Sign up with Apple',
-                          onPressed: () => context.read<SignupCubit>().signupWithApple(),
+                          text: 'Sign up with Apple',
+                          onTap: () => context.read<SignupCubit>().signupWithApple(),
                         ),
                         const SizedBox(height: 24),
                         TextButton(
@@ -56,7 +57,10 @@ class SignupPage extends StatelessWidget {
                               MaterialPageRoute(builder: (_) => const LoginPage()),
                             );
                           },
-                          child: const LaText('Already have an account? Login'),
+                          child: LaText(
+                            'Already have an account? Login',
+                            style: LaTheme.font.body16,
+                          ),
                         ),
                       ],
                     );
@@ -69,4 +73,4 @@ class SignupPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

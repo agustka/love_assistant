@@ -1,8 +1,8 @@
+import 'package:injectable/injectable.dart';
+import 'package:la/domain/core/repositories/i_auth_repository.dart';
+import 'package:la/infrastructure/core/auth/service/i_auth_service.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:injectable/injectable.dart';
-import '../service/i_auth_service.dart';
-import 'package:la/domain/core/repositories/i_auth_repository.dart';
 
 @LazySingleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
@@ -41,4 +41,4 @@ class AuthRepository implements IAuthRepository {
   Future<void> signupWithEmailAndPassword(String email, String password) async {
     await _authService.signupWithEmailAndPassword(email, password);
   }
-} 
+}

@@ -29,6 +29,8 @@ class LaButton extends StatelessWidget {
   final int? maxLines;
   final String? semanticLabel;
 
+  bool get isIOS => PlatformDetector.isIOS;
+
   const LaButton({
     Key? key,
     required VoidCallback onTap,
@@ -37,9 +39,10 @@ class LaButton extends StatelessWidget {
     bool enabled = true,
     bool busy = false,
     VoidCallback? onDisabledTap,
-    LaButtonStyle buttonStyle = LaButtonStyle.primary,
     int? maxLines,
     String? semanticLabel,
+    LaButtonStyle buttonStyle = LaButtonStyle.primary,
+    LaButtonSize size = LaButtonSize.normal,
   }) : this._(
           key: key,
           onTap: onTap,
@@ -49,7 +52,7 @@ class LaButton extends StatelessWidget {
           busy: busy,
           onDisabledTap: onDisabledTap,
           buttonStyle: buttonStyle,
-          size: LaButtonSize.normal,
+          size: size,
           maxLines: maxLines,
           semanticLabel: semanticLabel,
         );
@@ -92,8 +95,6 @@ class LaButton extends StatelessWidget {
           maxLines: maxLines,
           semanticLabel: semanticLabel,
         );
-
-  bool get isIOS => PlatformDetector.isIOS;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/widgets/atoms/la_text_field.dart';
 import 'package:la/presentation/core/widgets/atoms/la_button.dart';
+import 'package:la/presentation/core/widgets/molecules/import.dart';
 
 class LaEmailPasswordForm extends StatefulWidget {
   final void Function(String email, String password) onSubmit;
@@ -34,7 +34,6 @@ class _LaEmailPasswordFormState extends State<LaEmailPasswordForm> {
             hint: 'Email',
             keyboardType: TextInputType.emailAddress,
             onChanged: (val) => _email = val,
-            validator: (val) => val != null && val.contains('@') ? null : 'Enter a valid email',
           ),
           const SizedBox(height: 12),
           LaTextField(
@@ -42,13 +41,12 @@ class _LaEmailPasswordFormState extends State<LaEmailPasswordForm> {
             hint: 'Password',
             obscureText: true,
             onChanged: (val) => _password = val,
-            validator: (val) => val != null && val.length >= 6 ? null : 'Min 6 characters',
           ),
           const SizedBox(height: 16),
           LaButton(
-            label: widget.submitLabel,
-            onPressed: widget.loading
-                ? null
+            text: widget.submitLabel,
+            onTap: widget.loading
+                ? () {}
                 : () {
                     if (_formKey.currentState?.validate() ?? false) {
                       widget.onSubmit(_email, _password);

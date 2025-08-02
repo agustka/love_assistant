@@ -39,4 +39,4 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginFailure(e.toString()));
     }
   }
-} 
+}
