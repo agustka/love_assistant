@@ -52,32 +52,30 @@ class LaBottomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: LaColumn(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (config.heading.isNotEmpty)
-            LaPadding.only(
-              left: LaPaddings.medium,
-              right: LaPaddings.medium,
-              top: LaPaddings.large,
-              bottom: LaPaddings.small,
-              child: LaText(
-                config.heading,
-                style: LaTheme.font.body20.bold.onSurface,
-              ),
+    return LaColumn(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (config.heading.isNotEmpty)
+          LaPadding.only(
+            left: LaPaddings.medium,
+            right: LaPaddings.medium,
+            top: LaPaddings.large,
+            bottom: LaPaddings.small,
+            child: LaText(
+              config.heading,
+              style: LaTheme.font.body20.bold.onSurface,
             ),
-          LaSeparatedColumn(
-            separatorBuilder: (BuildContext context, int index) => LaPadding.symmetric(
-              horizontal: LaPaddings.medium,
-              child: const LaDivider(),
-            ),
-            children: config.entries.map((BottomDrawerEntry entry) => _getEntry(context, entry)).toList(),
           ),
-          const LaSizedBox(height: LaPaddings.bottomPadding),
-        ],
-      ),
+        LaSeparatedColumn(
+          separatorBuilder: (BuildContext context, int index) => LaPadding.symmetric(
+            horizontal: LaPaddings.medium,
+            child: const LaDivider(),
+          ),
+          children: config.entries.map((BottomDrawerEntry entry) => _getEntry(context, entry)).toList(),
+        ),
+        const LaSizedBox(height: LaPaddings.bottomPadding),
+      ],
     );
   }
 

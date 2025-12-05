@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
-import 'package:la/presentation/core/widgets/atoms/import.dart' hide LaPadding;
+import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 import 'package:la/presentation/core/widgets/molecules/import.dart';
 
@@ -23,7 +23,7 @@ class PickerEntry {
 
 class LaPicker {
   static void showPicker(BuildContext context, {required PickerEntries entries}) {
-    if (PlatformDetector.isIOS) {
+    if (PlatformDetector.isIOS||true) {
       _showCupertinoPicker(context, entries);
     } else {
       _showMaterialPicker(context, entries);
@@ -33,24 +33,27 @@ class LaPicker {
   static void _showCupertinoPicker(BuildContext context, PickerEntries entries) {
     showCupertinoModalPopup(
       context: context,
-      builder: (BuildContext context) => CupertinoActionSheet(
-        title: LaText(entries.title, style: LaTheme.font.body17),
-        actions: entries.entries
-            .map(
-              (PickerEntry e) => CupertinoActionSheetAction(
-                onPressed: () {
-                  Navigator.pop(context);
-                  e.onTap();
-                },
-                child: LaText(e.text, style: LaTheme.font.body20),
-              ),
-            )
-            .toList(),
-        cancelButton: CupertinoActionSheetAction(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: LaText(S.of(context).global_cancel, style: LaTheme.font.body17),
+      builder: (BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: LaPaddings.small),
+        child: CupertinoActionSheet(
+          title: LaText(entries.title, style: LaTheme.font.body17),
+          actions: entries.entries
+              .map(
+                (PickerEntry e) => CupertinoActionSheetAction(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    e.onTap();
+                  },
+                  child: LaText(e.text, style: LaTheme.font.body20),
+                ),
+              )
+              .toList(),
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: LaText(S.of(context).global_cancel, style: LaTheme.font.body17),
+          ),
         ),
       ),
     );
@@ -63,7 +66,7 @@ class LaPicker {
       useSafeArea: true,
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.only(top: LaPaddings.large, bottom: LaPaddings.small),
+          padding: EdgeInsets.only(top: LaPaddings.large, bottom: LaPaddings.small + MediaQuery.of(context).padding.bottom),
           child: Wrap(
             children: entries.entries
                 .map(

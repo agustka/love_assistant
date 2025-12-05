@@ -15,8 +15,8 @@ Future<void> appSetup() async {
 
   try {
     await Supabase.initialize(
-      url: "https://casgiswlxtdekbtnujmq.supabase.co",
-      anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhc2dpc3dseHRkZWtidG51am1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwOTk1MTEsImV4cCI6MjA2NjY3NTUxMX0.Jnap6CcKt7-CIXzIU_1xOCPIiaBhtGAUp1d2gMpKCt8",
+      url: "https://fzxuvrqfwcmtztvehipp.supabase.co",
+      anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ6eHV2cnFmd2NtdHp0dmVoaXBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzcwMjAsImV4cCI6MjA4MDQ1MzAyMH0.lNprMqfzd1BTGI7WyNPa4EPV__Tc006VouRHiHkyZaI",
     );
   } catch (e) {
     err(e, location: "setup.appSetup");

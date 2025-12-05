@@ -3,7 +3,7 @@ import 'package:la/presentation/core/widgets/atoms/import.dart';
 
 final class LaText extends StatelessWidget {
   final String data;
-  final TextStyle style;
+  final TextStyle? style;
   final bool container;
   final bool loading;
   final Color? color;
@@ -33,9 +33,16 @@ final class LaText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle defaultStyle = DefaultTextStyle.of(context).style;
+    final TextStyle effectiveStyle = style ?? defaultStyle;
+    
     final Widget text = Text(
       data,
-      style: style.copyWith(color: color),
+      style: effectiveStyle.copyWith(
+        color: color,
+        fontWeight: fontWeight,
+        letterSpacing: letterSpacing,
+      ),
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,

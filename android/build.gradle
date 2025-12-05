@@ -1,3 +1,7 @@
+plugins {
+    id "com.google.gms.google-services" version "4.4.2" apply false
+}
+
 allprojects {
     repositories {
         google()
@@ -5,22 +9,17 @@ allprojects {
     }
 }
 
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath "com.google.gms:google-services:4.4.2"
-    }
-}
-
 rootProject.buildDir = "../build"
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
     project.evaluationDependsOn(":app")
+
+    // Force Java 17 on all JavaCompile tasks
+    tasks.withType(JavaCompile).configureEach {
+        it.sourceCompatibility = JavaVersion.VERSION_17
+        it.targetCompatibility = JavaVersion.VERSION_17
+    }
 }
 
 tasks.register("clean", Delete) {

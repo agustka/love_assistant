@@ -25,16 +25,8 @@ class SignupPage extends StatelessWidget {
                 const SizedBox(height: 24),
                 BlocBuilder<SignupCubit, SignupState>(
                   builder: (context, state) {
-                    if (state is SignupLoading) {
+                    if (state.status ==  SignupStatus.loading) {
                       return const CircularProgressIndicator();
-                    }
-                    if (state is SignupFailure) {
-                      return Column(
-                        children: [
-                          LaText(state.message, style: const TextStyle(color: Colors.red)),
-                          const SizedBox(height: 12),
-                        ],
-                      );
                     }
                     return Column(
                       children: [
