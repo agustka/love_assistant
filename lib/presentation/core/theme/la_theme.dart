@@ -69,24 +69,9 @@ extension LaCornerRadiusExtension on LaCornerRadius {
 }
 
 class LaTheme {
-  static Brightness? _brightness;
-  static SystemUiOverlayStyle chrome = SystemUiOverlayStyle.dark;
-  static SystemUiOverlayStyle chromeNoSpace = SystemUiOverlayStyle.dark;
+  static Brightness? brightness;
 
-  static LaThemeIllustrations get illustrations => LaThemeIllustrations(isDarkMode: _brightness == Brightness.dark);
-
-  static Brightness? get brightness => _brightness;
-  static set brightness(Brightness? brightness) {
-    _brightness = brightness;
-    chromeNoSpace = (brightness == Brightness.light ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light).copyWith(
-      statusBarColor: LaTheme.surface(),
-      systemNavigationBarColor: LaTheme.background(),
-    );
-    chrome = (brightness == Brightness.light ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark).copyWith(
-      statusBarColor: LaTheme.primary(),
-      systemNavigationBarColor: LaTheme.background(),
-    );
-  }
+  static LaThemeIllustrations get illustrations => LaThemeIllustrations(isDarkMode: brightness == Brightness.dark);
 
   static TextStyle get font => TextStyle(color: LaTheme.onSurface());
 

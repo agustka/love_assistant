@@ -111,7 +111,7 @@ class _WizardPageState extends State<WizardPage> {
                 },
                 child: LaScaffold(
                   appBar: LaAppBar(
-                    title: S.of(context).wizard_title,
+                    style: AppBarStyle.background,
                     showBack: false,
                     action: AppBarActionDefinition(
                       icon: LaIcons.language,

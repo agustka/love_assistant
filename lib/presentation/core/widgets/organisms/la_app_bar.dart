@@ -4,13 +4,18 @@ import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/widgets/atoms/import.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
+enum AppBarStyle {
+  primary,
+  background,
+}
+
 class AppBarActionDefinition {
   final IconData icon;
   final void Function() onTap;
 
   AppBarActionDefinition({required this.icon, required this.onTap});
 
-  Widget toWidget() {
+  Widget toWidget({required AppBarStyle style}) {
     return LaTapVisual(
       onTap: onTap,
       child: LaPadding.all(
@@ -18,7 +23,7 @@ class AppBarActionDefinition {
         child: LaIcon(
           icon,
           size: LaSizes.large,
-          color: LaTheme.onPrimary(),
+          color: style.foregroundColor,
         ),
       ),
     );
@@ -30,6 +35,7 @@ class LaAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBack;
   final bool takesUpSpace;
   final AppBarActionDefinition? action;
+  final AppBarStyle style;
 
   @override
   Size get preferredSize => takesUpSpace ? const Size.fromHeight(kToolbarHeight) : Size.zero;
@@ -40,21 +46,21 @@ class LaAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showBack = true,
     this.takesUpSpace = true,
     this.action,
+    this.style = AppBarStyle.primary,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      systemOverlayStyle: takesUpSpace ? LaTheme.chrome : LaTheme.chromeNoSpace,
-      actions: action != null ? [action!.toWidget()] : [],
+      actions: action != null ? [action!.toWidget(style: style)] : [],
       leading: showBack
           ? InkWell(
               onTap: Navigator.of(context).pop,
-              child: LaIcon(Icons.arrow_back, color: LaTheme.onPrimary()),
+              child: LaIcon(Icons.arrow_back, color: style.foregroundColor),
             )
           : null,
-      title: title == null ? null : LaText(title!, style: TextStyle(color: LaTheme.onPrimary())),
-      backgroundColor: LaTheme.primary(),
+      title: title == null ? null : LaText(title!, style: TextStyle(color: style.foregroundColor)),
+      backgroundColor: style.backgroundColor,
     );
   }
 
@@ -64,6 +70,7 @@ class LaAppBar extends StatelessWidget implements PreferredSizeWidget {
       showBack: showBack,
       takesUpSpace: takesUpSpace,
       action: action,
+      style: style,
     );
   }
 }
@@ -72,6 +79,7 @@ class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredS
   final String? title;
   final bool showBack;
   final bool takesUpSpace;
+  final AppBarStyle style;
   final AppBarActionDefinition? action;
 
   @override
@@ -83,6 +91,7 @@ class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredS
     this.showBack = true,
     this.takesUpSpace = true,
     this.action,
+    this.style = AppBarStyle.primary,
   });
 
   @override
@@ -95,16 +104,36 @@ class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredS
           ? null
           : LaText(
               title!,
-              style: LaTheme.onPrimary().text,
+              style: style.foregroundColor.text,
             ),
-      backgroundColor: LaTheme.primary(),
+      backgroundColor: style.backgroundColor,
       automaticBackgroundVisibility: false,
-      trailing: action?.toWidget(),
+      trailing: action?.toWidget(style: style),
     );
   }
 
   @override
   bool shouldFullyObstruct(BuildContext context) {
     return true;
+  }
+}
+
+extension _AppBarStyleExtension on AppBarStyle {
+  Color get backgroundColor {
+    switch (this) {
+      case AppBarStyle.primary:
+        return LaTheme.primary();
+      case AppBarStyle.background:
+        return LaTheme.background();
+    }
+  }
+
+  Color get foregroundColor {
+    switch (this) {
+      case AppBarStyle.primary:
+        return LaTheme.onPrimary();
+      case AppBarStyle.background:
+        return LaTheme.onBackground();
+    }
   }
 }

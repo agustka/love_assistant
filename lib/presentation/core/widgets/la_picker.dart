@@ -23,7 +23,7 @@ class PickerEntry {
 
 class LaPicker {
   static void showPicker(BuildContext context, {required PickerEntries entries}) {
-    if (PlatformDetector.isIOS||true) {
+    if (PlatformDetector.isIOS) {
       _showCupertinoPicker(context, entries);
     } else {
       _showMaterialPicker(context, entries);
