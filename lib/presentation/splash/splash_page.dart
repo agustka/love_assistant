@@ -52,7 +52,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       child: BlocBuilder<SplashCubit, SplashState>(
         builder: (BuildContext context, SplashState state) {
           return LaScaffold(
-            appBar: const LaAppBar(showBack: false, takesUpSpace: false),
+            appBar: const LaAppBar(showBack: false, takesUpSpace: false, style: AppBarStyle.background),
             child: Center(
               child: ScaleTransition(
                 scale: _scaleAnimation,

@@ -2,13 +2,17 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:la/presentation/core/widgets/atoms/import.dart' hide LaPadding;
 import 'package:la/presentation/core/widgets/atoms/la_padding.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 import 'package:la/presentation/core/widgets/molecules/import.dart';
 import 'package:la/presentation/core/widgets/templates/import.dart';
 
-enum BottomButtonsStyle { sideBySide, sandwich }
+enum BottomButtonsStyle {
+  sideBySide,
+  sandwich,
+}
 
 @immutable
 class BottomButtonsDefinition extends Equatable {
@@ -22,6 +26,7 @@ class BottomButtonsDefinition extends Equatable {
   final bool exit;
   final bool shouldPushOnKeyboard;
   final Color? background;
+  final double bottomPadding;
 
   const BottomButtonsDefinition({
     this.buttons = const [],
@@ -34,7 +39,36 @@ class BottomButtonsDefinition extends Equatable {
     this.loading = false,
     this.exit = false,
     this.shouldPushOnKeyboard = true,
+    this.bottomPadding = 0,
   });
+
+  BottomButtonsDefinition copyWith({
+    String? drawerHeading,
+    BottomButtonsStyle? type,
+    bool? loading,
+    bool? showDropShadow,
+    List<BottomButtonDefinition>? buttons,
+    Widget? aboveButtonsWidget,
+    bool? addBottomPadding,
+    bool? exit,
+    bool? shouldPushOnKeyboard,
+    Color? background,
+    double? bottomPadding,
+  }) {
+    return BottomButtonsDefinition(
+      drawerHeading: drawerHeading ?? this.drawerHeading,
+      type: type ?? this.type,
+      loading: loading ?? this.loading,
+      showDropShadow: showDropShadow ?? this.showDropShadow,
+      buttons: buttons ?? this.buttons,
+      aboveButtonsWidget: aboveButtonsWidget ?? this.aboveButtonsWidget,
+      addBottomPadding: addBottomPadding ?? this.addBottomPadding,
+      exit: exit ?? this.exit,
+      shouldPushOnKeyboard: shouldPushOnKeyboard ?? this.shouldPushOnKeyboard,
+      background: background ?? this.background,
+      bottomPadding: bottomPadding ?? this.bottomPadding,
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -86,7 +120,6 @@ class LaBottomButtons extends StatefulWidget {
   static double bottomPadding = LaPaddings.medium;
 
   final BottomButtonsDefinition buttons;
-
   final bool shouldPushOnKeyboard;
 
   static double getBottomButtonsHeight({BottomButtonsStyle style = BottomButtonsStyle.sideBySide}) {
@@ -113,16 +146,11 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
       return const LaSizedBox.shrink();
     }
 
-    final double padding = MediaQuery.of(context).padding.bottom;
-    if (padding < LaPaddings.extraLarge) {
-      LaBottomButtons.bottomPadding = padding + LaPaddings.medium;
+    if (widget.buttons.bottomPadding < LaPaddings.extraLarge) {
+      LaBottomButtons.bottomPadding = widget.buttons.bottomPadding + LaPaddings.medium;
     } else {
-      LaBottomButtons.bottomPadding = padding + LaPaddings.extraSmall;
+      LaBottomButtons.bottomPadding = widget.buttons.bottomPadding + LaPaddings.extraSmall;
     }
-
-    final bool padBottom =
-        (widget.buttons.buttons.isNotEmpty || widget.buttons.aboveButtonsWidget != null) &&
-        widget.buttons.addBottomPadding;
 
     return Material(
       color: widget.buttons.background ?? LaTheme.background(),
@@ -139,11 +167,10 @@ class _LaBottomButtonsState extends State<LaBottomButtons> with WidgetsBindingOb
               child: LaSizedBox(width: double.infinity, child: _getMainButtonEntries(context)),
             ),
 
-          if (padBottom) LaSizedBox(height: LaBottomButtons.bottomPadding),
+          LaSizedBox(height: LaBottomButtons.bottomPadding),
 
           // Pushes buttons up for keyboard
-          if (widget.shouldPushOnKeyboard && padBottom)
-            LaSizedBox(height: max(0, MediaQuery.of(context).viewInsets.bottom)),
+          if (widget.shouldPushOnKeyboard) LaSizedBox(height: max(0, MediaQuery.of(context).viewInsets.bottom)),
         ],
       ),
     );

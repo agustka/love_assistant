@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:la/presentation/core/theme/la_theme_illustrations.dart';
 
@@ -272,4 +271,13 @@ extension TextStyleExtension on TextStyle {
   TextStyle get onBackground => copyWith(color: LaTheme.onBackground());
   TextStyle get onError => copyWith(color: LaTheme.onError());
   TextStyle get hintText => copyWith(color: LaTheme.hintText());
+}
+
+extension BrightnessExtension on Brightness {
+  Brightness get invert {
+    return switch (this) {
+      Brightness.dark => Brightness.light,
+      Brightness.light => Brightness.dark,
+    };
+  }
 }
