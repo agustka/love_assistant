@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/ui_components/import.dart';
 
 class UserLocale extends Equatable {
   final Locale locale;

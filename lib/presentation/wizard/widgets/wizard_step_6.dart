@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
-import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/ui_components/import.dart';
 
 class WizardStep6 extends StatefulWidget {
   const WizardStep6({super.key});

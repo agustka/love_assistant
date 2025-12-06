@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:la/presentation/core/widgets/atoms/la_button.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_button.dart';
 
 import '../../../../_core/test_setup/test_rig.dart';
 

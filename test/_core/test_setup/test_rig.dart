@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:la/presentation/core/widgets/atoms/la_text.dart';
-import 'package:la/presentation/core/widgets/import.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_text.dart';
+import 'package:la/presentation/core/ui_components/import.dart';
 
 Future<void> setupAppDependencies() async {
   await loadAppFonts();

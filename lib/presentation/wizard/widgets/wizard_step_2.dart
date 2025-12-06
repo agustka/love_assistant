@@ -1,85 +1,47 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:la/application/wizard/wizard_cubit.dart';
-import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
-import 'package:la/presentation/core/widgets/import.dart';
-import 'package:la/presentation/core/widgets/molecules/import.dart';
-import 'package:la/presentation/core/widgets/organisms/import.dart';
+part of "../wizard_page.dart";
 
-class WizardStep2 extends StatefulWidget {
-  static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
-  static const String partnerPronounFieldId = "WizardStep2_partnerPronounFieldId";
-  static const String partnerPronounFreeFormFieldId = "WizardStep2_partnerPronounFreeFormFieldId";
-  static const String partnerBirthdayFieldId = "WizardStep2_partnerBirthdayFieldId";
-  static const String partnerAnniversaryFieldId = "WizardStep2_partnerAnniversaryFieldId";
+class _WizardStep2 extends StatelessWidget {
+  final bool isInitial;
 
-  const WizardStep2({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _WizardStep2State();
-  }
-}
-
-class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+  const _WizardStep2({super.key, required this.isInitial});
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    return LaWizardStepOrganism(
+      ribbon: LaImageAsset(asset: LaTheme.illustrations.womanRunningBanner),
+      title: S.of(context).wizard_partner_profile_title,
+      bulletPoints: [
+        BulletPointEntry(
+          text: isInitial
+              ? S.of(context).wizard_partner_profile_message_1_shortened
+              : S.of(context).wizard_partner_profile_message_1_extended,
+          emoji: "📝",
+          //icon: LaIcons.contact,
+        ),
+        if (!isInitial)
+          BulletPointEntry(
+            text: S.of(context).wizard_partner_profile_message_2,
+            //emoji: "💌",
+            //icon: LaIcons.edit,
+          ),
+      ],
+      textFieldSlot: LaTextFieldDefinition(
+        fieldId: WizardPage.partnerNameFieldId,
+        optional: false,
+        title: S.of(context).wizard_partner_profile_name_title,
+        hint: S.of(context).wizard_partner_profile_name_hint,
+        maxLength: 90,
+        onTextChanged: context.read<WizardCubit>().onNameChanged,
+      ),
+    );
 
+    /*
     return BlocBuilder<WizardCubit, WizardState>(
       builder: (BuildContext context, WizardState state) {
         return SingleChildScrollView(
           child: Column(
             spacing: LaPaddings.large,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: LaPaddings.huge),
-                child: LaBanner(
-                  asset: LaTheme.illustrations.womanRunningBanner,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: LaPaddings.medium,
-                  right: LaPaddings.medium,
-                  top: LaPaddings.large,
-                ),
-                child: LaBulletPointList(
-                  size: BulletPointListSize.small,
-                  title: S.of(context).wizard_partner_profile_title,
-                  entries: [
-                    BulletPointEntry(
-                      text: state.isInitial
-                          ? S.of(context).wizard_partner_profile_message_1_shortened
-                          : S.of(context).wizard_partner_profile_message_1_extended,
-                      emoji: "📝",
-                      //icon: LaIcons.contact,
-                    ),
-                    if (!state.isInitial)
-                      BulletPointEntry(
-                        text: S.of(context).wizard_partner_profile_message_2,
-                        //emoji: "💌",
-                        //icon: LaIcons.edit,
-                      ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                child: LaTextField(
-                  fieldId: WizardStep2.partnerNameFieldId,
-                  optional: false,
-                  title: S.of(context).wizard_partner_profile_name_title,
-                  hint: S.of(context).wizard_partner_profile_name_hint,
-                  maxLength: 90,
-                  onChanged: (String input) {
-                    context.read<WizardCubit>().onNameChanged(input);
-                  },
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
                 child: LaDropDown<Pronoun>(
@@ -135,5 +97,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
         );
       },
     );
+
+     */
   }
 }

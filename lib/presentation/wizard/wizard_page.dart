@@ -7,19 +7,29 @@ import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
-import 'package:la/presentation/core/widgets/import.dart';
-import 'package:la/presentation/core/widgets/molecules/import.dart';
-import 'package:la/presentation/core/widgets/organisms/import.dart';
-import 'package:la/presentation/core/widgets/templates/import.dart';
-import 'package:la/presentation/wizard/widgets/wizard_step_1.dart';
-import 'package:la/presentation/wizard/widgets/wizard_step_2.dart';
+import 'package:la/presentation/core/ui_components/import.dart';
+import 'package:la/presentation/core/ui_components/molecules/import.dart';
+import 'package:la/presentation/core/ui_components/organisms/import.dart';
+import 'package:la/presentation/core/ui_components/templates/import.dart';
+import 'package:la/presentation/core/ui_models/la_image_asset.dart';
+import 'package:la/presentation/core/ui_models/la_text_field_definition.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_3.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_4.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_5.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_6.dart';
 import 'package:la/setup.dart';
 
+part "widgets/wizard_step_1.dart";
+part "widgets/wizard_step_2.dart";
+
 class WizardPage extends StatefulWidget {
+  static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
+  static const String partnerPronounFieldId = "WizardStep2_partnerPronounFieldId";
+  static const String partnerPronounFreeFormFieldId = "WizardStep2_partnerPronounFreeFormFieldId";
+  static const String partnerBirthdayFieldId = "WizardStep2_partnerBirthdayFieldId";
+  static const String partnerAnniversaryFieldId = "WizardStep2_partnerAnniversaryFieldId";
+
+
   const WizardPage({super.key});
 
   @override
@@ -70,14 +80,14 @@ class _WizardPageState extends State<WizardPage> {
                   case WizardEvent.missingName:
                     getIt<EventBus>().fire(
                       LaFormFieldErrorEvent(
-                        fieldId: WizardStep2.partnerNameFieldId,
+                        fieldId: WizardPage.partnerNameFieldId,
                         message: S.of(context).wizard_partner_profile_name_missing,
                       ),
                     );
                   case WizardEvent.missingPronoun:
                     final String fieldId = state.partnerPronoun == Pronoun.custom
-                        ? WizardStep2.partnerPronounFreeFormFieldId
-                        : WizardStep2.partnerPronounFieldId;
+                        ? WizardPage.partnerPronounFreeFormFieldId
+                        : WizardPage.partnerPronounFieldId;
                     getIt<EventBus>().fire(
                       LaFormFieldErrorEvent(
                         fieldId: fieldId,
@@ -87,7 +97,7 @@ class _WizardPageState extends State<WizardPage> {
                   case WizardEvent.missingBirthday:
                     getIt<EventBus>().fire(
                       LaFormFieldErrorEvent(
-                        fieldId: WizardStep2.partnerBirthdayFieldId,
+                        fieldId: WizardPage.partnerBirthdayFieldId,
                         message: S.of(context).wizard_partner_profile_birthday_missing,
                       ),
                     );
@@ -168,9 +178,9 @@ class _WizardPageState extends State<WizardPage> {
 
                           switch (step.type) {
                             case WizardStepType.greetings:
-                              return const WizardStep1();
+                              return const _WizardStep1();
                             case WizardStepType.basicInfo:
-                              return const WizardStep2();
+                              return _WizardStep2(isInitial: state.isInitial);
                             case WizardStepType.dates:
                               return const WizardStep3();
                             case WizardStepType.preferences:

@@ -5,9 +5,9 @@ import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
-import 'package:la/presentation/core/widgets/import.dart';
-import 'package:la/presentation/core/widgets/molecules/import.dart';
-import 'package:la/presentation/core/widgets/organisms/import.dart';
+import 'package:la/presentation/core/ui_components/import.dart';
+import 'package:la/presentation/core/ui_components/molecules/import.dart';
+import 'package:la/presentation/core/ui_components/organisms/import.dart';
 
 class WizardStep3 extends StatefulWidget {
   static const String loveLanguageFieldId = "WizardStep3_loveLanguageFieldId";

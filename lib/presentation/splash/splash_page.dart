@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/splash/splash_cubit.dart';
 import 'package:la/presentation/core/assets/assets.gen.dart';
-import 'package:la/presentation/core/widgets/atoms/import.dart';
-import 'package:la/presentation/core/widgets/organisms/import.dart';
-import 'package:la/presentation/core/widgets/templates/import.dart';
+import 'package:la/presentation/core/ui_components/atoms/import.dart';
+import 'package:la/presentation/core/ui_components/organisms/import.dart';
+import 'package:la/presentation/core/ui_components/templates/import.dart';
 import 'package:la/setup.dart';
 
 class SplashPage extends StatefulWidget {

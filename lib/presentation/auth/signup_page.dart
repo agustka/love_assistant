@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/signup_cubit.dart';
 import 'package:la/presentation/auth/login_page.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
-import 'package:la/presentation/core/widgets/atoms/la_button.dart';
-import 'package:la/presentation/core/widgets/atoms/la_card.dart';
-import 'package:la/presentation/core/widgets/atoms/la_center.dart';
-import 'package:la/presentation/core/widgets/atoms/la_text.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_button.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_card.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_center.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_text.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
