@@ -53,7 +53,7 @@ class _LaPagerState extends State<LaPager> {
             physics: widget.physics,
           ),
         ),
-        const LaSizedBox(height: LaPaddings.medium),
+        const LaSizedBox(height: LaPaddings.extraSmall),
         SmoothPageIndicator(
           controller: widget.controller ?? _controller,
           count: widget.itemCount,

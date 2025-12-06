@@ -49,7 +49,7 @@ class LaEpicImage extends StatelessWidget {
     final Widget image = overrideWidget ?? (isLoading ? LaLoadingBox(child: _getImage(context)) : _getImage(context));
 
     Widget core = LaPadding(
-      padding: EdgeInsets.only(top: shouldAddTopPadding ? LaPaddings.huge : 0),
+      padding: EdgeInsets.only(top: shouldAddTopPadding ? LaPaddings.large : 0),
       child: image,
     );
     if (semantics.isNotEmpty) {

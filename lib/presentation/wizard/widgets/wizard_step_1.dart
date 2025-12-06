@@ -33,8 +33,13 @@ class WizardStep1 extends StatelessWidget {
                 entries: [
                   BulletPointEntry(
                     text: description,
-                    //emoji: "✨",
-                    //icon: LaIcons.personAdd,
+                    emoji: "✨",
+                    // icon: LaIcons.personAdd,
+                  ),
+                  BulletPointEntry(
+                    text: S.of(context).wizard_greetings_message_2,
+                    emoji: "💌",
+                    //icon: LaIcons.edit,
                   ),
                 ],
               ),

@@ -154,7 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Veldu tungumál",
     ),
     "wizard_greetings": MessageLookupByLibrary.simpleMessage(
-      "✨ Þinn eigin Ástar Engill",
+      "Þinn eigin Ástar Engill",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
       "Hæ, ég er hér til að hjálpa þér að rækta sambandið þitt.",
@@ -188,7 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Veldu afmælisdagsetningu",
     ),
     "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
-      "Hvenær á félagi þinn afmæli?",
+      "Afmæli",
     ),
     "wizard_partner_food_and_gifts_message_1": m0,
     "wizard_partner_food_and_gifts_message_2": m1,
@@ -216,10 +216,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "wizard_partner_loves_message_initial_1": m5,
     "wizard_partner_loves_title": m6,
+    "wizard_partner_more_details": MessageLookupByLibrary.simpleMessage(
+      "Örfá atriði í viðbót",
+    ),
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
     "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
-      "Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum.",
+      "Segðu mér aðeins frá félaga þínum eins og nafni og mikilvægum dagsetningum.",
     ),
     "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
       "Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur.",

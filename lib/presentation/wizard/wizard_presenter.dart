@@ -10,7 +10,7 @@ class WizardPresenter {
       case WizardStepType.basicInfo:
         return S.of(context).wizard_partner_profile_title;
       case WizardStepType.dates:
-        return S.of(context).wizard_partner_birthday_title;
+        return S.of(context).wizard_partner_more_details;
       case WizardStepType.preferences:
         return S.of(context).wizard_partner_loves_title(gender ?? "");
       case WizardStepType.hobbies:

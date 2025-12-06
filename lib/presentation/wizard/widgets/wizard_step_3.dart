@@ -61,6 +61,7 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                                 state.partnerPronoun.getThagufall(state.customPronoun).toLowerCase(),
                               )
                           : widget.description,
+                      emoji: "❤️ "
                     ),
                     if (!state.isInitial)
                       BulletPointEntry(

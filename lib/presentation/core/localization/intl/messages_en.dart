@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(gender) => "Which love languages match ${gender}?";
 
   static String m5(gender) =>
-      "Tell me about ${gender} love languages and preferred tone of voice so I can create messages that hit the mark.";
+      "Tell me about the love languages that best fit ${gender}, and preferred tone of voice so I can create messages that hit the mark.";
 
   static String m6(gender) => "What does ${gender} like?";
 
@@ -144,7 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Select language",
     ),
     "wizard_greetings": MessageLookupByLibrary.simpleMessage(
-      "✨ Your Personal Love-Assistant",
+      "Your Personal Love-Assistant",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
       "Hi, I’m here to help you nurture your relationship with your loved one.",
@@ -179,7 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Pick birthday date",
     ),
     "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
-      "When is your partner’s birthday?",
+      "Birthday",
     ),
     "wizard_partner_food_and_gifts_message_1": m0,
     "wizard_partner_food_and_gifts_message_2": m1,
@@ -207,10 +207,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "wizard_partner_loves_message_initial_1": m5,
     "wizard_partner_loves_title": m6,
+    "wizard_partner_more_details": MessageLookupByLibrary.simpleMessage(
+      "A few more details",
+    ),
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Birthday is required"),
     "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
-      "We’ll start with the basics — like their name, pronouns, and important dates.",
+      "Tell me a bit about your partner, like their name, pronouns, and important dates.",
     ),
     "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
       "This helps me personalize reminders and messages just for them.",
@@ -231,7 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_profile_pronoun_missing":
         MessageLookupByLibrary.simpleMessage("Pronoun is required"),
     "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
-      "Tell Me About Your Partner",
+      "Let\'s start with basics",
     ),
     "wizard_partner_pronouns_hint": MessageLookupByLibrary.simpleMessage(
       "Select your partner’s pronouns",

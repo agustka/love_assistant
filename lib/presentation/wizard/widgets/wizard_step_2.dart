@@ -56,7 +56,7 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                   entries: [
                     BulletPointEntry(
                       text: widget.description,
-                      //emoji: "📝",
+                      emoji: "📝",
                       //icon: LaIcons.contact,
                     ),
                     if (!state.isInitial)

@@ -159,10 +159,10 @@ class S {
     );
   }
 
-  /// `✨ Þinn eigin Ástar Engill`
+  /// `Þinn eigin Ástar Engill`
   String get wizard_greetings {
     return Intl.message(
-      '✨ Þinn eigin Ástar Engill',
+      'Þinn eigin Ástar Engill',
       name: 'wizard_greetings',
       desc: '',
       args: [],
@@ -214,10 +214,10 @@ class S {
     );
   }
 
-  /// `Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum.`
+  /// `Segðu mér aðeins frá félaga þínum eins og nafni og mikilvægum dagsetningum.`
   String get wizard_partner_profile_message_1 {
     return Intl.message(
-      'Byrjum á grunnatriðum eins og nafni og mikilvægum dagsetningum.',
+      'Segðu mér aðeins frá félaga þínum eins og nafni og mikilvægum dagsetningum.',
       name: 'wizard_partner_profile_message_1',
       desc: '',
       args: [],
@@ -304,16 +304,6 @@ class S {
     );
   }
 
-  /// `Hvenær á félagi þinn afmæli?`
-  String get wizard_partner_birthday_title {
-    return Intl.message(
-      'Hvenær á félagi þinn afmæli?',
-      name: 'wizard_partner_birthday_title',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Afmæli er nauðsynlegt`
   String get wizard_partner_profile_birthday_missing {
     return Intl.message(
@@ -359,6 +349,26 @@ class S {
     return Intl.message(
       'Gifting, trúlofun osfr.',
       name: 'wizard_partner_anniversary_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Örfá atriði í viðbót`
+  String get wizard_partner_more_details {
+    return Intl.message(
+      'Örfá atriði í viðbót',
+      name: 'wizard_partner_more_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Afmæli`
+  String get wizard_partner_birthday_title {
+    return Intl.message(
+      'Afmæli',
+      name: 'wizard_partner_birthday_title',
       desc: '',
       args: [],
     );

@@ -34,11 +34,10 @@ class LaScaffold extends StatelessWidget {
     }
     return Scaffold(
       appBar: appBar,
-      extendBody: true,
       backgroundColor: LaTheme.background(),
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
-      bottomSheet: AnnotatedRegion<SystemUiOverlayStyle>(
+      bottomNavigationBar: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
           systemNavigationBarColor: LaTheme.background(),
           systemNavigationBarIconBrightness: LaTheme.brightness?.invert,
