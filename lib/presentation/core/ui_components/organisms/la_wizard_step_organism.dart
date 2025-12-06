@@ -6,13 +6,13 @@ import 'package:la/presentation/core/ui_models/la_drop_down_definition.dart';
 import 'package:la/presentation/core/ui_models/la_image_asset.dart';
 import 'package:la/presentation/core/ui_models/la_text_field_definition.dart';
 
-class LaWizardStepOrganism<T> extends StatefulWidget {
+class LaWizardStepOrganism extends StatefulWidget {
   final LaImageAsset? image;
   final LaImageAsset? ribbon;
   final String title;
   final List<BulletPointEntry> bulletPoints;
   final LaTextFieldDefinition? textFieldSlot;
-  final LaDropDownDefinition<T>? dropDownSlot;
+  final LaDropDownDefinition? dropDownSlot;
 
   const LaWizardStepOrganism({
     super.key,
@@ -26,11 +26,11 @@ class LaWizardStepOrganism<T> extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _WizardStep2State<T>();
+    return _WizardStep2State();
   }
 }
 
-class _WizardStep2State<T> extends State<LaWizardStepOrganism> with AutomaticKeepAliveClientMixin {
+class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -76,7 +76,7 @@ class _WizardStep2State<T> extends State<LaWizardStepOrganism> with AutomaticKee
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           if (widget.dropDownSlot != null)
-            LaDropDown<T>(
+            LaDropDown(
               fieldId: widget.dropDownSlot!.fieldId,
               freeFormFieldId: widget.dropDownSlot!.freeFormFieldId,
               optional: widget.dropDownSlot!.optional,
@@ -86,7 +86,9 @@ class _WizardStep2State<T> extends State<LaWizardStepOrganism> with AutomaticKee
               options: widget.dropDownSlot!.options,
               freeFormOption: widget.dropDownSlot!.freeFormOption,
               onChanged: widget.dropDownSlot!.onItemSelected,
+              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
+          const SizedBox(height: LaPaddings.medium),
         ],
       ),
     );

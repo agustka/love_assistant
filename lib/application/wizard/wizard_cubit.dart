@@ -90,10 +90,10 @@ class WizardCubit extends BaseCubit<WizardState> {
     emit(state.copyWith(partnerName: input.trim(), missingName: false));
   }
 
-  void onPronounsChanged(Pronoun pronoun, String? customInput) {
+  void onPronounsChanged(dynamic pronoun, String? customInput) {
     emit(
       state.copyWith(
-        partnerPronoun: pronoun,
+        partnerPronoun: pronoun as Pronoun,
         customPronoun: customInput,
       ),
     );

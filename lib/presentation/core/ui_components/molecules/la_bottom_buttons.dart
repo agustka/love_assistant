@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart' hide LaPadding;
 import 'package:la/presentation/core/ui_components/atoms/la_padding.dart';
 import 'package:la/presentation/core/ui_components/import.dart';

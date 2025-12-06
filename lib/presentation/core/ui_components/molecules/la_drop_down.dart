@@ -16,7 +16,8 @@ class LaDropDown<T> extends StatefulWidget {
   final String? customHint;
   final bool optional;
   final String? explanation;
-  final void Function(dynamic selected, String? customInput) onChanged;
+  final void Function(T selected, String? customInput) onChanged;
+  final EdgeInsets? padding;
 
   const LaDropDown({
     super.key,
@@ -30,6 +31,7 @@ class LaDropDown<T> extends StatefulWidget {
     this.customHint,
     this.optional = true,
     this.explanation,
+    this.padding,
   });
 
   @override
@@ -56,7 +58,10 @@ class _LaDropDownState<T> extends State<LaDropDown> {
       child = _getMaterialPicker(context);
     }
 
-    return LaFormFieldListener(fieldId: widget.fieldId, child: child);
+    return Padding(
+      padding: widget.padding ?? EdgeInsets.zero,
+      child: LaFormFieldListener(fieldId: widget.fieldId, child: child),
+    );
   }
 
   Widget _getCupertinoPicker(BuildContext context) {

@@ -3,7 +3,7 @@ part of "../wizard_page.dart";
 class _WizardStep2 extends StatelessWidget {
   final bool isInitial;
 
-  const _WizardStep2({super.key, required this.isInitial});
+  const _WizardStep2({required this.isInitial});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +33,17 @@ class _WizardStep2 extends StatelessWidget {
         maxLength: 90,
         onTextChanged: context.read<WizardCubit>().onNameChanged,
       ),
+      dropDownSlot: LaDropDownDefinition<Pronoun>(
+        fieldId: WizardPage.partnerPronounFieldId,
+        freeFormFieldId: WizardPage.partnerPronounFreeFormFieldId,
+        optional: false,
+        title: S.of(context).wizard_partner_pronouns_title,
+        hint: S.of(context).wizard_partner_pronouns_hint,
+        customHint: S.of(context).global_enter_custom,
+        options: const [Pronoun.sheHer, Pronoun.heHim, Pronoun.theyThem],
+        freeFormOption: Pronoun.custom,
+        onItemSelected: context.read<WizardCubit>().onPronounsChanged,
+      ),
     );
 
     /*
@@ -42,22 +53,6 @@ class _WizardStep2 extends StatelessWidget {
           child: Column(
             spacing: LaPaddings.large,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                child: LaDropDown<Pronoun>(
-                  fieldId: WizardStep2.partnerPronounFieldId,
-                  freeFormFieldId: WizardStep2.partnerPronounFreeFormFieldId,
-                  optional: false,
-                  title: S.of(context).wizard_partner_pronouns_title,
-                  hint: S.of(context).wizard_partner_pronouns_hint,
-                  customHint: S.of(context).global_enter_custom,
-                  options: const [Pronoun.sheHer, Pronoun.heHim, Pronoun.theyThem],
-                  freeFormOption: Pronoun.custom,
-                  onChanged: (dynamic selected, String? customInput) {
-                    context.read<WizardCubit>().onPronounsChanged(selected as Pronoun, customInput);
-                  },
-                ),
-              ),
               if (!state.isInitial)
                 Padding(
                   padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
