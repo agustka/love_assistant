@@ -32,12 +32,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(gender) => "Which love languages match ${gender}?";
 
-  static String m5(gender) =>
-      "Tell me about the love languages that best fit ${gender}, and preferred tone of voice so I can create messages that hit the mark.";
+  static String m5(name) =>
+      "Share the things ${name} enjoys to help tailor suggestions.";
 
-  static String m6(gender) => "What does ${gender} like?";
+  static String m6(gender) =>
+      "Choose the love languages and tone that fit ${gender} best.";
 
-  static String m7(gender) => "What tone of voice fits ${gender} best?";
+  static String m7(gender) => "What does ${gender} like?";
+
+  static String m8(name) => "How does ${name} feel loved?";
+
+  static String m9(gender) => "What tone of voice fits ${gender} best?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -147,10 +152,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Your Personal Love-Assistant",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
-      "Hi, I’m here to help you nurture your relationship with your loved one.",
+      "Your Love Assistant helps you nurture your relationship with your loved one.",
     ),
     "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
-      "I’ll remind you of special dates, craft personalized messages, and suggest thoughtful ideas.",
+      "It reminds you of special dates, crafts personalized messages, and suggests thoughtful ideas.",
     ),
     "wizard_next": MessageLookupByLibrary.simpleMessage("Next"),
     "wizard_partner_anniversary_explanation": MessageLookupByLibrary.simpleMessage(
@@ -199,22 +204,23 @@ class MessageLookup extends MessageLookupByLibrary {
           "There are said to be five forms of expressions of love.\nQuality Time: Spending undivided, meaningful time together.\nWords of Affirmation: Expressing love and appreciation through kind and affirming words.\nActs of Service: Showing love by doing helpful or thoughtful tasks.\nPhysical Touch: Expressing love through physical gestures like hugs, kisses, and other forms of touch.\nReceiving Gifts: Giving and receiving thoughtful gifts as a symbol of love.",
         ),
     "wizard_partner_love_language_title": m4,
-    "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
-      "Share the things your partner loves to help me craft personalized experiences.",
-    ),
+    "wizard_partner_loves_message_1": m5,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
       "This ensures that my suggestions and messages are truly meaningful.",
     ),
-    "wizard_partner_loves_message_initial_1": m5,
-    "wizard_partner_loves_title": m6,
-    "wizard_partner_more_details": MessageLookupByLibrary.simpleMessage(
-      "A few more details",
-    ),
+    "wizard_partner_loves_message_initial_1": m6,
+    "wizard_partner_loves_title": m7,
+    "wizard_partner_more_details": m8,
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Birthday is required"),
-    "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
-      "Tell me a bit about your partner, like their name, pronouns, and important dates.",
-    ),
+    "wizard_partner_profile_message_1_extended":
+        MessageLookupByLibrary.simpleMessage(
+          "Tell us a bit about your partner, like their name, pronouns and important dates.",
+        ),
+    "wizard_partner_profile_message_1_shortened":
+        MessageLookupByLibrary.simpleMessage(
+          "Tell us a bit about your partner, like their name and pronouns.",
+        ),
     "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
       "This helps me personalize reminders and messages just for them.",
     ),
@@ -234,7 +240,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_profile_pronoun_missing":
         MessageLookupByLibrary.simpleMessage("Pronoun is required"),
     "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
-      "Let\'s start with basics",
+      "Let’s start with basics",
     ),
     "wizard_partner_pronouns_hint": MessageLookupByLibrary.simpleMessage(
       "Select your partner’s pronouns",
@@ -249,7 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Select tone of voice",
     ),
-    "wizard_partner_tone_of_voice_title": m7,
+    "wizard_partner_tone_of_voice_title": m9,
     "wizard_previous": MessageLookupByLibrary.simpleMessage("Previous"),
     "wizard_start": MessageLookupByLibrary.simpleMessage("Begin"),
     "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup"),

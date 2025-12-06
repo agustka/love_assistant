@@ -73,6 +73,9 @@ class WizardCubit extends BaseCubit<WizardState> {
             (state.partnerPronoun != Pronoun.custom ||
                 state.customPronoun.isNotEmpty);
       case 2:
+        if (_config.mode == .initial) {
+          return true;
+        }
         return state.partnerBirthday.year > 1800;
       case 3:
         return true; // Always valid for preferences step

@@ -4,13 +4,8 @@ import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/presentation/core/widgets/import.dart';
 
 class WizardStep5 extends StatefulWidget {
-  final String title;
-  final String description;
-
   const WizardStep5({
     super.key,
-    required this.title,
-    required this.description,
   });
 
   @override
@@ -35,7 +30,7 @@ class _WizardStep4State extends State<WizardStep5> with AutomaticKeepAliveClient
             children: [
               // TODO finish step 5 for detail profile
               SizedBox.shrink(),
-            ]
+            ],
           ),
         );
       },

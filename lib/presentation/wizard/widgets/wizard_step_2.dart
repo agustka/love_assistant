@@ -13,14 +13,7 @@ class WizardStep2 extends StatefulWidget {
   static const String partnerBirthdayFieldId = "WizardStep2_partnerBirthdayFieldId";
   static const String partnerAnniversaryFieldId = "WizardStep2_partnerAnniversaryFieldId";
 
-  final String title;
-  final String description;
-
-  const WizardStep2({
-    super.key,
-    required this.title,
-    required this.description,
-  });
+  const WizardStep2({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -49,22 +42,28 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium, top: LaPaddings.large),
+                padding: const EdgeInsets.only(
+                  left: LaPaddings.medium,
+                  right: LaPaddings.medium,
+                  top: LaPaddings.large,
+                ),
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
-                  title: widget.title,
+                  title: S.of(context).wizard_partner_profile_title,
                   entries: [
                     BulletPointEntry(
-                      text: widget.description,
+                      text: state.isInitial
+                          ? S.of(context).wizard_partner_profile_message_1_shortened
+                          : S.of(context).wizard_partner_profile_message_1_extended,
                       emoji: "📝",
                       //icon: LaIcons.contact,
                     ),
                     if (!state.isInitial)
-                    BulletPointEntry(
-                      text: S.of(context).wizard_partner_profile_message_2,
-                      //emoji: "💌",
-                      //icon: LaIcons.edit,
-                    ),
+                      BulletPointEntry(
+                        text: S.of(context).wizard_partner_profile_message_2,
+                        //emoji: "💌",
+                        //icon: LaIcons.edit,
+                      ),
                   ],
                 ),
               ),
@@ -98,38 +97,38 @@ class _WizardStep2State extends State<WizardStep2> with AutomaticKeepAliveClient
                 ),
               ),
               if (!state.isInitial)
-              Padding(
-                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                child: LaDatePicker(
-                  fieldId: WizardStep2.partnerBirthdayFieldId,
-                  optional: false,
-                  title: S.of(context).wizard_partner_birthday_title,
-                  hint: S.of(context).wizard_partner_birthday_hint,
-                  explanation: S.of(context).wizard_partner_birthday_explanation,
-                  firstDate: DateTime(1900),
-                  defaultDate: DateTime(1990),
-                  lastDate: DateTime.now(),
-                  onDateSelected: (DateTime selectedDate) {
-                    context.read<WizardCubit>().onBirthdayChanged(selectedDate);
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
+                  child: LaDatePicker(
+                    fieldId: WizardStep2.partnerBirthdayFieldId,
+                    optional: false,
+                    title: S.of(context).wizard_partner_birthday_title,
+                    hint: S.of(context).wizard_partner_birthday_hint,
+                    explanation: S.of(context).wizard_partner_birthday_explanation,
+                    firstDate: DateTime(1900),
+                    defaultDate: DateTime(1990),
+                    lastDate: DateTime.now(),
+                    onDateSelected: (DateTime selectedDate) {
+                      context.read<WizardCubit>().onBirthdayChanged(selectedDate);
+                    },
+                  ),
                 ),
-              ),
               if (!state.isInitial)
-              Padding(
-                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                child: LaDatePicker(
-                  fieldId: WizardStep2.partnerAnniversaryFieldId,
-                  title: S.of(context).wizard_partner_anniversary_title,
-                  hint: S.of(context).wizard_partner_anniversary_hint,
-                  explanation: S.of(context).wizard_partner_anniversary_explanation,
-                  defaultDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now(),
-                  onDateSelected: (DateTime selectedDate) {
-                    context.read<WizardCubit>().onAnniversaryChanged(selectedDate);
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
+                  child: LaDatePicker(
+                    fieldId: WizardStep2.partnerAnniversaryFieldId,
+                    title: S.of(context).wizard_partner_anniversary_title,
+                    hint: S.of(context).wizard_partner_anniversary_hint,
+                    explanation: S.of(context).wizard_partner_anniversary_explanation,
+                    defaultDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime.now(),
+                    onDateSelected: (DateTime selectedDate) {
+                      context.read<WizardCubit>().onAnniversaryChanged(selectedDate);
+                    },
+                  ),
                 ),
-              ),
               const SizedBox.shrink(),
             ],
           ),

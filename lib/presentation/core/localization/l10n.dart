@@ -159,30 +159,30 @@ class S {
     );
   }
 
-  /// `Þinn eigin Ástar Engill`
+  /// `Þinn eiginn Ástar Engill`
   String get wizard_greetings {
     return Intl.message(
-      'Þinn eigin Ástar Engill',
+      'Þinn eiginn Ástar Engill',
       name: 'wizard_greetings',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hæ, ég er hér til að hjálpa þér að rækta sambandið þitt.`
+  /// `Ástarengillinn þinn hjálpar þér að næra sambandið við ástvin þinn.`
   String get wizard_greetings_message_1 {
     return Intl.message(
-      'Hæ, ég er hér til að hjálpa þér að rækta sambandið þitt.',
+      'Ástarengillinn þinn hjálpar þér að næra sambandið við ástvin þinn.',
       name: 'wizard_greetings_message_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ég get minnt þig á mikilvægar dagsetningar, samið skilaboð og stungið upp á góðum hugmyndum.`
+  /// `Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.`
   String get wizard_greetings_message_2 {
     return Intl.message(
-      'Ég get minnt þig á mikilvægar dagsetningar, samið skilaboð og stungið upp á góðum hugmyndum.',
+      'Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.',
       name: 'wizard_greetings_message_2',
       desc: '',
       args: [],
@@ -214,11 +214,21 @@ class S {
     );
   }
 
-  /// `Segðu mér aðeins frá félaga þínum eins og nafni og mikilvægum dagsetningum.`
-  String get wizard_partner_profile_message_1 {
+  /// `Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.`
+  String get wizard_partner_profile_message_1_shortened {
     return Intl.message(
-      'Segðu mér aðeins frá félaga þínum eins og nafni og mikilvægum dagsetningum.',
-      name: 'wizard_partner_profile_message_1',
+      'Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.',
+      name: 'wizard_partner_profile_message_1_shortened',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.`
+  String get wizard_partner_profile_message_1_extended {
+    return Intl.message(
+      'Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.',
+      name: 'wizard_partner_profile_message_1_extended',
       desc: '',
       args: [],
     );
@@ -354,13 +364,13 @@ class S {
     );
   }
 
-  /// `Örfá atriði í viðbót`
-  String get wizard_partner_more_details {
+  /// `Hvað dýrkar {name}?`
+  String wizard_partner_more_details(Object name) {
     return Intl.message(
-      'Örfá atriði í viðbót',
+      'Hvað dýrkar $name?',
       name: 'wizard_partner_more_details',
       desc: '',
-      args: [],
+      args: [name],
     );
   }
 
@@ -434,20 +444,20 @@ class S {
     );
   }
 
-  /// `Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun.`
-  String get wizard_partner_loves_message_1 {
+  /// `Deildu því sem {name} hefur gaman af til að hjálpa til við að sérsníða tillögur.`
+  String wizard_partner_loves_message_1(Object name) {
     return Intl.message(
-      'Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun.',
+      'Deildu því sem $name hefur gaman af til að hjálpa til við að sérsníða tillögur.',
       name: 'wizard_partner_loves_message_1',
       desc: '',
-      args: [],
+      args: [name],
     );
   }
 
-  /// `Segðu mér frá ástar-tungumálinu sem passar {gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.`
+  /// `Veldu ástarmálin og tóninn sem henta {gender} best.`
   String wizard_partner_loves_message_initial_1(Object gender) {
     return Intl.message(
-      'Segðu mér frá ástar-tungumálinu sem passar $gender og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.',
+      'Veldu ástarmálin og tóninn sem henta $gender best.',
       name: 'wizard_partner_loves_message_initial_1',
       desc: '',
       args: [gender],

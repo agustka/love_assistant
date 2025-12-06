@@ -4,14 +4,7 @@ import 'package:la/presentation/core/widgets/molecules/import.dart';
 import 'package:la/presentation/core/widgets/organisms/import.dart';
 
 class WizardStep1 extends StatelessWidget {
-  final String title;
-  final String description;
-
-  const WizardStep1({
-    super.key,
-    required this.title,
-    required this.description,
-  });
+  const WizardStep1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +22,10 @@ class WizardStep1 extends StatelessWidget {
               padding: const EdgeInsets.only(top: LaPaddings.large),
               child: LaBulletPointList(
                 size: BulletPointListSize.small,
-                title: title,
+                title: S.of(context).wizard_greetings,
                 entries: [
                   BulletPointEntry(
-                    text: description,
+                    text: S.of(context).wizard_greetings_message_1,
                     emoji: "✨",
                     // icon: LaIcons.personAdd,
                   ),

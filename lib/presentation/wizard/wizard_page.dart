@@ -17,7 +17,6 @@ import 'package:la/presentation/wizard/widgets/wizard_step_3.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_4.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_5.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_6.dart';
-import 'package:la/presentation/wizard/wizard_presenter.dart';
 import 'package:la/setup.dart';
 
 class WizardPage extends StatefulWidget {
@@ -166,26 +165,20 @@ class _WizardPageState extends State<WizardPage> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           final WizardStep step = state.config.visibleSteps[index];
-                          final String stepTitle = WizardPresenter.getStepTitle(
-                            context,
-                            step.type,
-                            gender: state.partnerPronoun.getNefnifall(state.customPronoun),
-                          );
-                          final String stepDescription = WizardPresenter.getStepDescription(context, step.type);
 
                           switch (step.type) {
                             case WizardStepType.greetings:
-                              return WizardStep1(title: stepTitle, description: stepDescription);
+                              return const WizardStep1();
                             case WizardStepType.basicInfo:
-                              return WizardStep2(title: stepTitle, description: stepDescription);
+                              return const WizardStep2();
                             case WizardStepType.dates:
-                              return WizardStep3(title: stepTitle, description: stepDescription);
+                              return const WizardStep3();
                             case WizardStepType.preferences:
-                              return WizardStep4(title: stepTitle, description: stepDescription);
+                              return const WizardStep4();
                             case WizardStepType.anniversary:
-                              return WizardStep5(title: stepTitle, description: stepDescription);
+                              return const WizardStep5();
                             case WizardStepType.hobbies:
-                              return WizardStep6(title: stepTitle, description: stepDescription);
+                              return const WizardStep6();
                           }
                         },
                       );

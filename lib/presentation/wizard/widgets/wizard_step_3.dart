@@ -14,14 +14,7 @@ class WizardStep3 extends StatefulWidget {
   static const String toneOfVoiceFieldId = "WizardStep3_toneOfVoiceFieldId";
   static const String partnerHobbiesFieldId = "WizardStep3_partnerHobbiesFieldId";
 
-  final String title;
-  final String description;
-
-  const WizardStep3({
-    super.key,
-    required this.title,
-    required this.description,
-  });
+  const WizardStep3({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -50,18 +43,24 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium, top: LaPaddings.large),
+                padding: const EdgeInsets.only(
+                  left: LaPaddings.medium,
+                  right: LaPaddings.medium,
+                  top: LaPaddings.large,
+                ),
                 child: LaBulletPointList(
                   size: BulletPointListSize.small,
-                  title: widget.title,
+                  title: S.of(context).wizard_partner_more_details(state.partnerName),
                   entries: [
                     BulletPointEntry(
                       text: state.isInitial
-                          ? S.of(context).wizard_partner_loves_message_initial_1(
-                                state.partnerPronoun.getThagufall(state.customPronoun).toLowerCase(),
-                              )
-                          : widget.description,
-                      emoji: "❤️ "
+                          ? S
+                                .of(context)
+                                .wizard_partner_loves_message_initial_1(
+                                  state.partnerPronoun.getThagufall(state.customPronoun).toLowerCase(),
+                                )
+                          : S.of(context).wizard_partner_birthday_explanation,
+                      emoji: "❤️ ",
                     ),
                     if (!state.isInitial)
                       BulletPointEntry(
@@ -74,7 +73,9 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                 padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
                 child: LaMultiSelectPicker<LoveLanguage>(
                   fieldId: WizardStep3.loveLanguageFieldId,
-                  title: S.of(context).wizard_partner_love_language_title(
+                  title: S
+                      .of(context)
+                      .wizard_partner_love_language_title(
                         state.partnerPronoun.getThagufall(state.customPronoun).toLowerCase(),
                       ),
                   explanation: S.of(context).wizard_partner_love_language_explanation,
@@ -92,7 +93,9 @@ class _WizardStep3State extends State<WizardStep3> with AutomaticKeepAliveClient
                   padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
                   child: LaDropDown<ToneOfVoice>(
                     fieldId: WizardStep3.toneOfVoiceFieldId,
-                    title: S.of(context).wizard_partner_tone_of_voice_title(
+                    title: S
+                        .of(context)
+                        .wizard_partner_tone_of_voice_title(
                           state.partnerPronoun.getTholfall(state.customPronoun).toLowerCase(),
                         ),
                     hint: S.of(context).wizard_partner_tone_of_voice_hint,

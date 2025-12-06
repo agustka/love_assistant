@@ -32,12 +32,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(gender) => "Hvernig ástarmál passar ${gender}?";
 
-  static String m5(gender) =>
-      "Segðu mér frá ástar-tungumálinu sem passar ${gender} og talsmáta svo ég geti samið skilaboð sem hitta beint í mark.";
+  static String m5(name) =>
+      "Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.";
 
-  static String m6(gender) => "Hvað elskar ${gender}?";
+  static String m6(gender) =>
+      "Veldu ástarmálin og tóninn sem henta ${gender} best.";
 
-  static String m7(gender) => "Hvernig talsmáti á best við ${gender}?";
+  static String m7(gender) => "Hvað elskar ${gender}?";
+
+  static String m8(name) => "Hvað dýrkar ${name}?";
+
+  static String m9(gender) => "Hvernig talsmáti á best við ${gender}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -154,13 +159,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Veldu tungumál",
     ),
     "wizard_greetings": MessageLookupByLibrary.simpleMessage(
-      "Þinn eigin Ástar Engill",
+      "Þinn eiginn Ástar Engill",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
-      "Hæ, ég er hér til að hjálpa þér að rækta sambandið þitt.",
+      "Ástarengillinn þinn hjálpar þér að næra sambandið við ástvin þinn.",
     ),
     "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
-      "Ég get minnt þig á mikilvægar dagsetningar, samið skilaboð og stungið upp á góðum hugmyndum.",
+      "Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.",
     ),
     "wizard_next": MessageLookupByLibrary.simpleMessage("Næsta"),
     "wizard_partner_anniversary_explanation": MessageLookupByLibrary.simpleMessage(
@@ -208,22 +213,23 @@ class MessageLookup extends MessageLookupByLibrary {
           "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.",
         ),
     "wizard_partner_love_language_title": m4,
-    "wizard_partner_loves_message_1": MessageLookupByLibrary.simpleMessage(
-      "Segðu mér fá því sem félagi þinn elskar svo ég geti skapað betri upplifun.",
-    ),
+    "wizard_partner_loves_message_1": m5,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
       "Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.",
     ),
-    "wizard_partner_loves_message_initial_1": m5,
-    "wizard_partner_loves_title": m6,
-    "wizard_partner_more_details": MessageLookupByLibrary.simpleMessage(
-      "Örfá atriði í viðbót",
-    ),
+    "wizard_partner_loves_message_initial_1": m6,
+    "wizard_partner_loves_title": m7,
+    "wizard_partner_more_details": m8,
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
-    "wizard_partner_profile_message_1": MessageLookupByLibrary.simpleMessage(
-      "Segðu mér aðeins frá félaga þínum eins og nafni og mikilvægum dagsetningum.",
-    ),
+    "wizard_partner_profile_message_1_extended":
+        MessageLookupByLibrary.simpleMessage(
+          "Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.",
+        ),
+    "wizard_partner_profile_message_1_shortened":
+        MessageLookupByLibrary.simpleMessage(
+          "Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.",
+        ),
     "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
       "Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur.",
     ),
@@ -258,7 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu talsmáta",
     ),
-    "wizard_partner_tone_of_voice_title": m7,
+    "wizard_partner_tone_of_voice_title": m9,
     "wizard_previous": MessageLookupByLibrary.simpleMessage("Fyrri"),
     "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
     "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning"),
