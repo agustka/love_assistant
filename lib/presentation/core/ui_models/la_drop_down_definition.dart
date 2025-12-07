@@ -4,24 +4,26 @@ import 'package:flutter/foundation.dart';
 @immutable
 class LaDropDownDefinition<T> extends Equatable {
   final String fieldId;
-  final String freeFormFieldId;
+  final String? freeFormFieldId;
   final bool optional;
   final String title;
   final String hint;
-  final String customHint;
+  final String? customHint;
+  final String? explanation;
   final List<T> options;
-  final T freeFormOption;
+  final T? freeFormOption;
   final void Function(T selected, String? customOption) onItemSelected;
 
   const LaDropDownDefinition({
     required this.fieldId,
-    required this.freeFormFieldId,
+    this.freeFormFieldId,
     required this.optional,
     required this.title,
     required this.hint,
-    required this.customHint,
+    this.customHint,
+    this.explanation,
     required this.options,
-    required this.freeFormOption,
+    this.freeFormOption,
     required this.onItemSelected,
   });
 
@@ -33,6 +35,7 @@ class LaDropDownDefinition<T> extends Equatable {
     title,
     hint,
     customHint,
+    explanation,
     options,
     freeFormOption,
     onItemSelected,

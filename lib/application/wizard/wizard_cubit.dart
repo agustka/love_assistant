@@ -115,7 +115,7 @@ class WizardCubit extends BaseCubit<WizardState> {
     emit(state.copyWith(partnerToneOfVoice: toneOfVoice));
   }
 
-  void onHobbiesChanged(List<Hobby> selectedOptions) {
-    emit(state.copyWith(partnerHobbies: selectedOptions));
+  void onHobbiesChanged(List<dynamic> selectedOptions) {
+    emit(state.copyWith(partnerHobbies: selectedOptions as List<Hobby>));
   }
 }

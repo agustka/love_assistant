@@ -18,6 +18,7 @@ class LaWizardStepOrganism extends StatefulWidget {
   final LaDatePickerDefinition? datePickerSlot1;
   final LaDatePickerDefinition? datePickerSlot2;
   final LaMultiSelectPickerDefinition? multiSelectPickerSlot1;
+  final LaMultiSelectPickerDefinition? multiSelectPickerSlot2;
 
   const LaWizardStepOrganism({
     super.key,
@@ -30,6 +31,7 @@ class LaWizardStepOrganism extends StatefulWidget {
     this.datePickerSlot1,
     this.datePickerSlot2,
     this.multiSelectPickerSlot1,
+    this.multiSelectPickerSlot2,
   });
 
   @override
@@ -83,19 +85,6 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               onChanged: widget.textFieldSlot!.onTextChanged,
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
-          if (widget.dropDownSlot != null)
-            LaDropDown(
-              fieldId: widget.dropDownSlot!.fieldId,
-              freeFormFieldId: widget.dropDownSlot!.freeFormFieldId,
-              optional: widget.dropDownSlot!.optional,
-              title: widget.dropDownSlot!.title,
-              hint: widget.dropDownSlot!.hint,
-              customHint: widget.dropDownSlot!.customHint,
-              options: widget.dropDownSlot!.options,
-              freeFormOption: widget.dropDownSlot!.freeFormOption,
-              onChanged: widget.dropDownSlot!.onItemSelected,
-              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
-            ),
           if (widget.datePickerSlot1 != null)
             LaDatePicker(
               fieldId: widget.datePickerSlot1!.fieldId,
@@ -130,6 +119,30 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               optional: widget.multiSelectPickerSlot1!.optional,
               options: widget.multiSelectPickerSlot1!.options,
               onSelectionChanged: widget.multiSelectPickerSlot1!.onSelectionChanged,
+              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+            ),
+          if (widget.multiSelectPickerSlot2 != null)
+            LaMultiSelectPicker(
+              fieldId: widget.multiSelectPickerSlot2!.fieldId,
+              title: widget.multiSelectPickerSlot2!.title,
+              explanation: widget.multiSelectPickerSlot2!.explanation,
+              optional: widget.multiSelectPickerSlot2!.optional,
+              options: widget.multiSelectPickerSlot2!.options,
+              onSelectionChanged: widget.multiSelectPickerSlot2!.onSelectionChanged,
+              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+            ),
+          if (widget.dropDownSlot != null)
+            LaDropDown(
+              fieldId: widget.dropDownSlot!.fieldId,
+              freeFormFieldId: widget.dropDownSlot!.freeFormFieldId,
+              optional: widget.dropDownSlot!.optional,
+              title: widget.dropDownSlot!.title,
+              hint: widget.dropDownSlot!.hint,
+              customHint: widget.dropDownSlot!.customHint,
+              explanation: widget.dropDownSlot!.explanation,
+              options: widget.dropDownSlot!.options,
+              freeFormOption: widget.dropDownSlot!.freeFormOption,
+              onChanged: widget.dropDownSlot!.onItemSelected,
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           const SizedBox(height: LaPaddings.medium),
