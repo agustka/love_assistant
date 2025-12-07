@@ -24,7 +24,6 @@
   "wizard_partner_profile_message_1_shortened": "Tell us a bit about your partner, like their name and pronouns.",
   "wizard_partner_profile_message_1_extended": "Tell us a bit about your partner, like their name, pronouns and important dates.",
   "wizard_partner_profile_message_initial_1": "We’ll start with the basics; name and gender.",
-  "wizard_partner_profile_message_2": "This helps me personalize reminders and messages just for them.",
   "wizard_partner_profile_name_title": "What’s your partner’s name?",
   "wizard_partner_profile_name_hint": "Partner name",
   "wizard_partner_profile_name_missing": "Name is required",

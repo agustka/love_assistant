@@ -270,9 +270,6 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.",
         ),
-    "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
-      "Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur.",
-    ),
     "wizard_partner_profile_message_initial_1":
         MessageLookupByLibrary.simpleMessage(
           "Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er.",

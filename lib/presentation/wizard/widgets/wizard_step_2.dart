@@ -17,11 +17,6 @@ class _WizardStep2 extends StatelessWidget {
               : S.of(context).wizard_partner_profile_message_1_extended,
           emoji: "📝",
         ),
-        if (!isInitial)
-          BulletPointEntry(
-            text: S.of(context).wizard_partner_profile_message_2,
-            emoji: "💌",
-          ),
       ],
       textFieldSlot: LaTextFieldDefinition(
         fieldId: WizardPage.partnerNameFieldId,
@@ -42,32 +37,17 @@ class _WizardStep2 extends StatelessWidget {
         freeFormOption: Pronoun.custom,
         onItemSelected: context.read<WizardCubit>().onPronounsChanged,
       ),
-      datePickerSlot1: isInitial
-          ? null
-          : LaDatePickerDefinition(
-              fieldId: WizardPage.partnerBirthdayFieldId,
-              optional: false,
-              title: S.of(context).wizard_partner_birthday_title,
-              hint: S.of(context).wizard_partner_birthday_hint,
-              explanation: S.of(context).wizard_partner_birthday_explanation,
-              firstDate: DateTime(1900),
-              defaultDate: DateTime(1990),
-              lastDate: DateTime.now(),
-              onDateSelected: context.read<WizardCubit>().onBirthdayChanged,
-            ),
-      datePickerSlot2: isInitial
-          ? null
-          : LaDatePickerDefinition(
-              fieldId: WizardPage.partnerAnniversaryFieldId,
-              optional: true,
-              title: S.of(context).wizard_partner_anniversary_title,
-              hint: S.of(context).wizard_partner_anniversary_hint,
-              explanation: S.of(context).wizard_partner_anniversary_explanation,
-              defaultDate: DateTime.now(),
-              firstDate: DateTime(1900),
-              lastDate: DateTime.now(),
-              onDateSelected: context.read<WizardCubit>().onAnniversaryChanged,
-            ),
+      datePickerSlot1: LaDatePickerDefinition(
+        fieldId: WizardPage.partnerBirthdayFieldId,
+        optional: false,
+        title: S.of(context).wizard_partner_birthday_title,
+        hint: S.of(context).wizard_partner_birthday_hint,
+        explanation: S.of(context).wizard_partner_birthday_explanation,
+        firstDate: DateTime(1900),
+        defaultDate: DateTime(1990),
+        lastDate: DateTime.now(),
+        onDateSelected: context.read<WizardCubit>().onBirthdayChanged,
+      ),
     );
   }
 }

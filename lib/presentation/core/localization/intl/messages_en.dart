@@ -261,9 +261,6 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Tell us a bit about your partner, like their name and pronouns.",
         ),
-    "wizard_partner_profile_message_2": MessageLookupByLibrary.simpleMessage(
-      "This helps me personalize reminders and messages just for them.",
-    ),
     "wizard_partner_profile_message_initial_1":
         MessageLookupByLibrary.simpleMessage(
           "We’ll start with the basics; name and gender.",

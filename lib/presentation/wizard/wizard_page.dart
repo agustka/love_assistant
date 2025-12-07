@@ -21,7 +21,6 @@ import 'package:la/presentation/core/ui_models/la_drop_down_definition.dart';
 import 'package:la/presentation/core/ui_models/la_image_asset.dart';
 import 'package:la/presentation/core/ui_models/la_multi_select_picker_definition.dart';
 import 'package:la/presentation/core/ui_models/la_text_field_definition.dart';
-import 'package:la/presentation/wizard/widgets/wizard_step_5.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_6.dart';
 import 'package:la/setup.dart';
 
@@ -29,6 +28,7 @@ part "widgets/wizard_step_1.dart";
 part "widgets/wizard_step_2.dart";
 part "widgets/wizard_step_3.dart";
 part "widgets/wizard_step_4.dart";
+part "widgets/wizard_step_5.dart";
 
 class WizardPage extends StatefulWidget {
   static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
@@ -88,142 +88,146 @@ class _WizardPageState extends State<WizardPage> {
         },
         child: BlocBuilder<WizardCubit, WizardState>(
           builder: (BuildContext context, WizardState state) {
-            return LaEventBusListener<WizardEvent>(
-              onMessage: (WizardEvent event) async {
-                switch (event) {
-                  case WizardEvent.missingName:
-                    getIt<EventBus>().fire(
-                      LaFormFieldErrorEvent(
-                        fieldId: WizardPage.partnerNameFieldId,
-                        message: S.of(context).wizard_partner_profile_name_missing,
-                      ),
+            return WizardTemplate<WizardEvent>(
+              pageCount: state.config.stepCount,
+              pageController: _controller,
+              onMessage: (WizardEvent message) => _onWizardMessage(context, message),
+              appBarAction: _getAppBarAction(),
+              bottomButtons: _getBottomButtons(context),
+              pageBuilder: (BuildContext context, int index) {
+                final WizardStep step = state.config.visibleSteps[index];
+
+                switch (step.type) {
+                  case WizardStepType.greetings:
+                    return const _WizardStep1();
+                  case WizardStepType.basicInfo:
+                    return _WizardStep2(isInitial: state.isInitial);
+                  case WizardStepType.personalPreferences:
+                    return _WizardStep3(
+                      isInitial: state.isInitial,
+                      partnerName: state.partnerName,
+                      partnerPronoun: state.partnerPronoun,
+                      customPronoun: state.customPronoun,
                     );
-                  case WizardEvent.missingPronoun:
-                    final String fieldId = state.partnerPronoun == Pronoun.custom
-                        ? WizardPage.partnerPronounFreeFormFieldId
-                        : WizardPage.partnerPronounFieldId;
-                    getIt<EventBus>().fire(
-                      LaFormFieldErrorEvent(
-                        fieldId: fieldId,
-                        message: S.of(context).wizard_partner_profile_pronoun_missing,
-                      ),
+                  case WizardStepType.foodsAndGifts:
+                    return _WizardStep4(
+                      isInitial: state.isInitial,
+                      partnerName: state.partnerName,
+                      partnerPronoun: state.partnerPronoun,
+                      customPronoun: state.customPronoun,
                     );
-                  case WizardEvent.missingBirthday:
-                    getIt<EventBus>().fire(
-                      LaFormFieldErrorEvent(
-                        fieldId: WizardPage.partnerBirthdayFieldId,
-                        message: S.of(context).wizard_partner_profile_birthday_missing,
-                      ),
+                  case WizardStepType.anniversary:
+                    return _WizardStep5(
+                      isInitial: state.isInitial,
+                      partnerName: state.partnerName,
+                      partnerPronoun: state.partnerPronoun,
+                      customPronoun: state.customPronoun,
                     );
-                  case WizardEvent.confirmNoAnniversary:
-                    final bool result = await LaConfirmationDialog.show(
-                      context: context,
-                      title: S.of(context).wizard_partner_anniversary_skip_title,
-                      message: S.of(context).wizard_partner_anniversary_skip_message,
-                      confirmText: S.of(context).wizard_partner_anniversary_skip_yes_confirm,
-                      cancelText: S.of(context).wizard_partner_anniversary_skip_no_cancel,
-                    );
-                    if (!result && context.mounted) {
-                      context.read<WizardCubit>().next(_controller.page?.round() ?? 0, confirmed: true);
-                    }
+                  case WizardStepType.hobbies:
+                    return const WizardStep6();
                 }
               },
-              child: GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                },
-                child: LaScaffold(
-                  appBar: LaAppBar(
-                    style: AppBarStyle.background,
-                    showBack: false,
-                    action: AppBarActionDefinition(
-                      icon: LaIcons.language,
-                      onTap: () {
-                        LaPicker.showPicker(
-                          context,
-                          entries: PickerEntries(
-                            title: S.of(context).settings_pick_language,
-                            entries: langs
-                                .map(
-                                  (Language e) => PickerEntry(
-                                    text: e.properName,
-                                    svg: e.flagIcon,
-                                    onTap: () => context.read<LanguageCubit>().setLanguage(e),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  bottomButtons: BottomButtonsDefinition(
-                    loading: state.status == WizardStatus.loading,
-                    buttons: [
-                      BottomButtonDefinition(
-                        text: S.of(context).wizard_next,
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          context.read<WizardCubit>().next((_controller.page ?? 0).round());
-                        },
-                      ),
-                      if (_page > 0)
-                        BottomButtonDefinition(
-                          text: S.of(context).wizard_previous,
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            _controller.animateToPage(
-                              (_page - 1).round(),
-                              duration: 300.milliseconds,
-                              curve: Curves.easeIn,
-                            );
-                          },
-                        ),
-                    ],
-                  ),
-                  child: BlocBuilder<WizardCubit, WizardState>(
-                    builder: (BuildContext context, WizardState state) {
-                      return LaPager(
-                        itemCount: state.config.stepCount,
-                        controller: _controller,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          final WizardStep step = state.config.visibleSteps[index];
-
-                          switch (step.type) {
-                            case WizardStepType.greetings:
-                              return const _WizardStep1();
-                            case WizardStepType.basicInfo:
-                              return _WizardStep2(isInitial: state.isInitial);
-                            case WizardStepType.dates:
-                              return _WizardStep3(
-                                isInitial: state.isInitial,
-                                partnerName: state.partnerName,
-                                partnerPronoun: state.partnerPronoun,
-                                customPronoun: state.customPronoun,
-                              );
-                            case WizardStepType.preferences:
-                              return _WizardStep4(
-                                isInitial: state.isInitial,
-                                partnerName: state.partnerName,
-                                partnerPronoun: state.partnerPronoun,
-                                customPronoun: state.customPronoun,
-                              );
-                            case WizardStepType.anniversary:
-                              return const WizardStep5();
-                            case WizardStepType.hobbies:
-                              return const WizardStep6();
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
             );
           },
         ),
       ),
+    );
+  }
+
+  Future<void> _onWizardMessage(BuildContext context, WizardEvent event) async {
+    final WizardState state = context.read<WizardCubit>().state;
+
+    switch (event) {
+      case WizardEvent.missingName:
+        getIt<EventBus>().fire(
+          LaFormFieldErrorEvent(
+            fieldId: WizardPage.partnerNameFieldId,
+            message: S.of(context).wizard_partner_profile_name_missing,
+          ),
+        );
+      case WizardEvent.missingPronoun:
+        final String fieldId = state.partnerPronoun == Pronoun.custom
+            ? WizardPage.partnerPronounFreeFormFieldId
+            : WizardPage.partnerPronounFieldId;
+        getIt<EventBus>().fire(
+          LaFormFieldErrorEvent(
+            fieldId: fieldId,
+            message: S.of(context).wizard_partner_profile_pronoun_missing,
+          ),
+        );
+      case WizardEvent.missingBirthday:
+        getIt<EventBus>().fire(
+          LaFormFieldErrorEvent(
+            fieldId: WizardPage.partnerBirthdayFieldId,
+            message: S.of(context).wizard_partner_profile_birthday_missing,
+          ),
+        );
+      case WizardEvent.confirmNoAnniversary:
+        final bool result = await LaConfirmationDialog.show(
+          context: context,
+          title: S.of(context).wizard_partner_anniversary_skip_title,
+          message: S.of(context).wizard_partner_anniversary_skip_message,
+          confirmText: S.of(context).wizard_partner_anniversary_skip_yes_confirm,
+          cancelText: S.of(context).wizard_partner_anniversary_skip_no_cancel,
+        );
+        if (!result && context.mounted) {
+          context.read<WizardCubit>().next(_controller.page?.round() ?? 0, confirmed: true);
+        }
+    }
+  }
+
+  AppBarActionDefinition _getAppBarAction() {
+    final List<Language> langs = Language.values.toList();
+    langs.removeWhere((Language e) => e == Language.invalid);
+
+    return AppBarActionDefinition(
+      icon: LaIcons.language,
+      onTap: () {
+        LaPicker.showPicker(
+          context,
+          entries: PickerEntries(
+            title: S.of(context).settings_pick_language,
+            entries: langs
+                .map(
+                  (Language e) => PickerEntry(
+                    text: e.properName,
+                    svg: e.flagIcon,
+                    onTap: () => context.read<LanguageCubit>().setLanguage(e),
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      },
+    );
+  }
+
+  BottomButtonsDefinition _getBottomButtons(BuildContext context) {
+    final WizardState state = context.read<WizardCubit>().state;
+
+    return BottomButtonsDefinition(
+      loading: state.status == WizardStatus.loading,
+      buttons: [
+        BottomButtonDefinition(
+          text: S.of(context).wizard_next,
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            context.read<WizardCubit>().next((_controller.page ?? 0).round());
+          },
+        ),
+        if (_page > 0)
+          BottomButtonDefinition(
+            text: S.of(context).wizard_previous,
+            onTap: () {
+              FocusScope.of(context).unfocus();
+              _controller.animateToPage(
+                (_page - 1).round(),
+                duration: 300.milliseconds,
+                curve: Curves.easeIn,
+              );
+            },
+          ),
+      ],
     );
   }
 }

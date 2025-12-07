@@ -9,8 +9,8 @@ enum WizardMode {
 enum WizardStepType {
   greetings,
   basicInfo,
-  dates,
-  preferences,
+  personalPreferences,
+  foodsAndGifts,
   hobbies,
   anniversary,
 }
@@ -78,14 +78,14 @@ class WizardConfig {
       ),
       WizardStep(
         index: 2,
-        type: WizardStepType.dates,
+        type: WizardStepType.personalPreferences,
         required: true,
         visibleInInitial: true,
         visibleInDetailed: true,
       ),
       WizardStep(
         index: 3,
-        type: WizardStepType.preferences,
+        type: WizardStepType.foodsAndGifts,
         required: true,
         visibleInInitial: true,
         visibleInDetailed: true,
@@ -112,14 +112,14 @@ class WizardConfig {
       ),
       WizardStep(
         index: 2,
-        type: WizardStepType.dates,
+        type: WizardStepType.personalPreferences,
         required: true,
         visibleInInitial: true,
         visibleInDetailed: true,
       ),
       WizardStep(
         index: 3,
-        type: WizardStepType.preferences,
+        type: WizardStepType.foodsAndGifts,
         required: true,
         visibleInInitial: true,
         visibleInDetailed: true,

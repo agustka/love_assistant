@@ -244,16 +244,6 @@ class S {
     );
   }
 
-  /// `Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur.`
-  String get wizard_partner_profile_message_2 {
-    return Intl.message(
-      'Þá get ég skipulagt sérstök tilefni og sérsniðið skilaboð betur.',
-      name: 'wizard_partner_profile_message_2',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Hvað heitir sérstaka persónan þín?`
   String get wizard_partner_profile_name_title {
     return Intl.message(

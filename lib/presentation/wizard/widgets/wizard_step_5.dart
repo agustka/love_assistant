@@ -1,39 +1,52 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:la/application/wizard/wizard_cubit.dart';
-import 'package:la/presentation/core/ui_components/import.dart';
+part of "../wizard_page.dart";
 
-class WizardStep5 extends StatefulWidget {
-  const WizardStep5({
-    super.key,
+class _WizardStep5 extends StatelessWidget {
+  final bool isInitial;
+  final String partnerName;
+  final Pronoun partnerPronoun;
+  final String customPronoun;
+
+  const _WizardStep5({
+    required this.isInitial,
+    required this.partnerName,
+    required this.partnerPronoun,
+    required this.customPronoun,
   });
 
   @override
-  State<StatefulWidget> createState() {
-    return _WizardStep4State();
-  }
-}
-
-class _WizardStep4State extends State<WizardStep5> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
-
-    return BlocBuilder<WizardCubit, WizardState>(
-      builder: (BuildContext context, WizardState state) {
-        return const SingleChildScrollView(
-          child: Column(
-            spacing: LaPaddings.large,
-            children: [
-              // TODO finish step 5 for detail profile
-              SizedBox.shrink(),
-            ],
-          ),
-        );
-      },
+    return LaWizardStepOrganism(
+      ribbon: LaImageAsset(asset: LaTheme.illustrations.manLoveBanner),
+      title: S.of(context).wizard_partner_anniversary_title,
+      bulletPoints: [
+        BulletPointEntry(
+          text: "Help me remember the important milestones in your relationship.",
+          emoji: "💞",
+        ),
+        BulletPointEntry(
+          text: " I’ll use this to prepare thoughtful reminders and ideas for celebrating your special day.",
+          emoji: "🎉",
+        ),
+      ],
+      datePickerSlot1: LaDropDownDefinition(
+        fieldId: WizardPage.partnerRelationshipTypeId,
+        optional: true,
+        title: S.of(context).wizard_partner_relationship_type_title,
+        hint: S.of(context).wizard_partner_relationship_type_hint,
+        explanation: S.of(context).wizard_partner_relationship_type_explanation,
+        options: 
+      ),
+      datePickerSlot1: LaDatePickerDefinition(
+        fieldId: WizardPage.partnerAnniversaryFieldId,
+        optional: true,
+        title: S.of(context).wizard_partner_anniversary_title,
+        hint: S.of(context).wizard_partner_anniversary_hint,
+        explanation: S.of(context).wizard_partner_anniversary_explanation,
+        defaultDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now(),
+        onDateSelected: context.read<WizardCubit>().onAnniversaryChanged,
+      ),
     );
   }
 }

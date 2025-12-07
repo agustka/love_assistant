@@ -27,7 +27,7 @@ class _WizardStep3 extends StatelessWidget {
                       partnerPronoun.getThagufall(customPronoun).toLowerCase(),
                     )
               : S.of(context).wizard_partner_birthday_explanation,
-          emoji: "❤️ ",
+          emoji: "❤️",
         ),
         if (!isInitial)
           BulletPointEntry(
