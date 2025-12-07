@@ -18,6 +18,7 @@ class LaDatePicker extends StatefulWidget {
   final bool optional;
   final String? explanation;
   final void Function(DateTime selectedDate) onDateSelected;
+  final EdgeInsets? padding;
 
   const LaDatePicker({
     super.key,
@@ -31,6 +32,7 @@ class LaDatePicker extends StatefulWidget {
     this.lastDate,
     this.optional = true,
     this.explanation,
+    this.padding,
   });
 
   @override
@@ -48,57 +50,60 @@ class _LaDatePickerState extends State<LaDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return LaCard(
-      child: Padding(
-        padding: const EdgeInsets.all(LaPaddings.medium),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: LaPaddings.small,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: LaTapVisual(
-                    onTap: () => LaConfirmationDialog.show(
-                      context: context,
-                      title: widget.title,
-                      message: widget.explanation ?? "",
-                    ),
-                    enabled: widget.explanation != null,
-                    child: Row(
-                      spacing: LaPaddings.extraSmall,
-                      children: [
-                        LaText(widget.title, style: LaTheme.font.body14.light),
-                        if (widget.explanation != null) Icon(LaIcons.information, size: LaSizes.medium, color: LaTheme.hintText()),
-                      ],
+    return Padding(
+      padding: widget.padding ?? EdgeInsets.zero,
+      child: LaCard(
+        child: Padding(
+          padding: const EdgeInsets.all(LaPaddings.medium),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: LaPaddings.small,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: LaTapVisual(
+                      onTap: () => LaConfirmationDialog.show(
+                        context: context,
+                        title: widget.title,
+                        message: widget.explanation ?? "",
+                      ),
+                      enabled: widget.explanation != null,
+                      child: Row(
+                        spacing: LaPaddings.extraSmall,
+                        children: [
+                          LaText(widget.title, style: LaTheme.font.body14.light),
+                          if (widget.explanation != null) Icon(LaIcons.information, size: LaSizes.medium, color: LaTheme.hintText()),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                if (!widget.optional)
-                  LaText(
-                    "*${S.of(context).global_required}",
-                    style: LaTheme.font.body12.light.primary,
-                  ),
-              ],
-            ),
-            LaTapVisual(
-              onTap: () {
-                if (PlatformDetector.isIOS) {
-                  _showCupertinoDatePicker(context);
-                } else {
-                  _showMaterialDatePicker(context);
-                }
-              },
-              child: LaTextField(
-                fieldId: widget.fieldId,
-                enabled: false,
-                showCard: false,
-                actionIcon: LaIcons.calendar,
-                hintColor: _selectedDate == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
-                hint: _selectedDate != null ? DateFormat.yMMMMd().format(_selectedDate!) : widget.hint ?? "",
+                  if (!widget.optional)
+                    LaText(
+                      "*${S.of(context).global_required}",
+                      style: LaTheme.font.body12.light.primary,
+                    ),
+                ],
               ),
-            ),
-          ],
+              LaTapVisual(
+                onTap: () {
+                  if (PlatformDetector.isIOS) {
+                    _showCupertinoDatePicker(context);
+                  } else {
+                    _showMaterialDatePicker(context);
+                  }
+                },
+                child: LaTextField(
+                  fieldId: widget.fieldId,
+                  enabled: false,
+                  showCard: false,
+                  actionIcon: LaIcons.calendar,
+                  hintColor: _selectedDate == null ? LaTheme.hintText() : LaTheme.onSecondaryContainer(),
+                  hint: _selectedDate != null ? DateFormat.yMMMMd().format(_selectedDate!) : widget.hint ?? "",
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

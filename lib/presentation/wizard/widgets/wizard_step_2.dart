@@ -16,13 +16,11 @@ class _WizardStep2 extends StatelessWidget {
               ? S.of(context).wizard_partner_profile_message_1_shortened
               : S.of(context).wizard_partner_profile_message_1_extended,
           emoji: "📝",
-          //icon: LaIcons.contact,
         ),
         if (!isInitial)
           BulletPointEntry(
             text: S.of(context).wizard_partner_profile_message_2,
-            //emoji: "💌",
-            //icon: LaIcons.edit,
+            emoji: "💌",
           ),
       ],
       textFieldSlot: LaTextFieldDefinition(
@@ -44,55 +42,32 @@ class _WizardStep2 extends StatelessWidget {
         freeFormOption: Pronoun.custom,
         onItemSelected: context.read<WizardCubit>().onPronounsChanged,
       ),
+      datePickerSlot1: isInitial
+          ? null
+          : LaDatePickerDefinition(
+              fieldId: WizardPage.partnerBirthdayFieldId,
+              optional: false,
+              title: S.of(context).wizard_partner_birthday_title,
+              hint: S.of(context).wizard_partner_birthday_hint,
+              explanation: S.of(context).wizard_partner_birthday_explanation,
+              firstDate: DateTime(1900),
+              defaultDate: DateTime(1990),
+              lastDate: DateTime.now(),
+              onDateSelected: context.read<WizardCubit>().onBirthdayChanged,
+            ),
+      datePickerSlot2: isInitial
+          ? null
+          : LaDatePickerDefinition(
+              fieldId: WizardPage.partnerAnniversaryFieldId,
+              optional: true,
+              title: S.of(context).wizard_partner_anniversary_title,
+              hint: S.of(context).wizard_partner_anniversary_hint,
+              explanation: S.of(context).wizard_partner_anniversary_explanation,
+              defaultDate: DateTime.now(),
+              firstDate: DateTime(1900),
+              lastDate: DateTime.now(),
+              onDateSelected: context.read<WizardCubit>().onAnniversaryChanged,
+            ),
     );
-
-    /*
-    return BlocBuilder<WizardCubit, WizardState>(
-      builder: (BuildContext context, WizardState state) {
-        return SingleChildScrollView(
-          child: Column(
-            spacing: LaPaddings.large,
-            children: [
-              if (!state.isInitial)
-                Padding(
-                  padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                  child: LaDatePicker(
-                    fieldId: WizardStep2.partnerBirthdayFieldId,
-                    optional: false,
-                    title: S.of(context).wizard_partner_birthday_title,
-                    hint: S.of(context).wizard_partner_birthday_hint,
-                    explanation: S.of(context).wizard_partner_birthday_explanation,
-                    firstDate: DateTime(1900),
-                    defaultDate: DateTime(1990),
-                    lastDate: DateTime.now(),
-                    onDateSelected: (DateTime selectedDate) {
-                      context.read<WizardCubit>().onBirthdayChanged(selectedDate);
-                    },
-                  ),
-                ),
-              if (!state.isInitial)
-                Padding(
-                  padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                  child: LaDatePicker(
-                    fieldId: WizardStep2.partnerAnniversaryFieldId,
-                    title: S.of(context).wizard_partner_anniversary_title,
-                    hint: S.of(context).wizard_partner_anniversary_hint,
-                    explanation: S.of(context).wizard_partner_anniversary_explanation,
-                    defaultDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                    onDateSelected: (DateTime selectedDate) {
-                      context.read<WizardCubit>().onAnniversaryChanged(selectedDate);
-                    },
-                  ),
-                ),
-              const SizedBox.shrink(),
-            ],
-          ),
-        );
-      },
-    );
-
-     */
   }
 }

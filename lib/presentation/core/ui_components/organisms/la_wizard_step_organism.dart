@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/import.dart';
+import 'package:la/presentation/core/ui_models/la_date_picker_definition.dart';
 import 'package:la/presentation/core/ui_models/la_drop_down_definition.dart';
 import 'package:la/presentation/core/ui_models/la_image_asset.dart';
 import 'package:la/presentation/core/ui_models/la_text_field_definition.dart';
@@ -13,6 +14,8 @@ class LaWizardStepOrganism extends StatefulWidget {
   final List<BulletPointEntry> bulletPoints;
   final LaTextFieldDefinition? textFieldSlot;
   final LaDropDownDefinition? dropDownSlot;
+  final LaDatePickerDefinition? datePickerSlot1;
+  final LaDatePickerDefinition? datePickerSlot2;
 
   const LaWizardStepOrganism({
     super.key,
@@ -22,6 +25,8 @@ class LaWizardStepOrganism extends StatefulWidget {
     required this.bulletPoints,
     this.textFieldSlot,
     this.dropDownSlot,
+    this.datePickerSlot1,
+    this.datePickerSlot2,
   });
 
   @override
@@ -52,7 +57,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
             ),
           if (widget.ribbon != null)
             Padding(
-              padding: const EdgeInsets.only(bottom: LaPaddings.large, top: LaPaddings.medium),
+              padding: const EdgeInsets.only(bottom: LaPaddings.medium, top: LaPaddings.extraSmall),
               child: LaBanner(asset: widget.ribbon?.asset ?? AppAssets.icons.icTransparent),
             ),
           LaBulletPointList(
@@ -86,6 +91,32 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               options: widget.dropDownSlot!.options,
               freeFormOption: widget.dropDownSlot!.freeFormOption,
               onChanged: widget.dropDownSlot!.onItemSelected,
+              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+            ),
+          if (widget.datePickerSlot1 != null)
+            LaDatePicker(
+              fieldId: widget.datePickerSlot1!.fieldId,
+              optional: widget.datePickerSlot1!.optional,
+              title: widget.datePickerSlot1!.title,
+              hint: widget.datePickerSlot1!.hint,
+              explanation: widget.datePickerSlot1!.explanation,
+              firstDate: widget.datePickerSlot1!.firstDate,
+              defaultDate: widget.datePickerSlot1!.defaultDate,
+              lastDate: widget.datePickerSlot1!.lastDate,
+              onDateSelected: widget.datePickerSlot1!.onDateSelected,
+              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+            ),
+          if (widget.datePickerSlot2 != null)
+            LaDatePicker(
+              fieldId: widget.datePickerSlot2!.fieldId,
+              optional: widget.datePickerSlot2!.optional,
+              title: widget.datePickerSlot2!.title,
+              hint: widget.datePickerSlot2!.hint,
+              explanation: widget.datePickerSlot2!.explanation,
+              firstDate: widget.datePickerSlot2!.firstDate,
+              defaultDate: widget.datePickerSlot2!.defaultDate,
+              lastDate: widget.datePickerSlot2!.lastDate,
+              onDateSelected: widget.datePickerSlot2!.onDateSelected,
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           const SizedBox(height: LaPaddings.medium),
