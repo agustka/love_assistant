@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
+import 'package:la/domain/core/value_objects/hobby_value_object.dart';
+import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
+import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
@@ -14,8 +17,8 @@ import 'package:la/presentation/core/ui_components/templates/import.dart';
 import 'package:la/presentation/core/ui_models/la_date_picker_definition.dart';
 import 'package:la/presentation/core/ui_models/la_drop_down_definition.dart';
 import 'package:la/presentation/core/ui_models/la_image_asset.dart';
+import 'package:la/presentation/core/ui_models/la_multi_select_picker_definition.dart';
 import 'package:la/presentation/core/ui_models/la_text_field_definition.dart';
-import 'package:la/presentation/wizard/widgets/wizard_step_3.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_4.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_5.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_6.dart';
@@ -23,6 +26,7 @@ import 'package:la/setup.dart';
 
 part "widgets/wizard_step_1.dart";
 part "widgets/wizard_step_2.dart";
+part "widgets/wizard_step_3.dart";
 
 class WizardPage extends StatefulWidget {
   static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
@@ -31,6 +35,9 @@ class WizardPage extends StatefulWidget {
   static const String partnerBirthdayFieldId = "WizardStep2_partnerBirthdayFieldId";
   static const String partnerAnniversaryFieldId = "WizardStep2_partnerAnniversaryFieldId";
 
+  static const String loveLanguageFieldId = "WizardStep3_loveLanguageFieldId";
+  static const String toneOfVoiceFieldId = "WizardStep3_toneOfVoiceFieldId";
+  static const String partnerHobbiesFieldId = "WizardStep3_partnerHobbiesFieldId";
 
   const WizardPage({super.key});
 
@@ -184,7 +191,12 @@ class _WizardPageState extends State<WizardPage> {
                             case WizardStepType.basicInfo:
                               return _WizardStep2(isInitial: state.isInitial);
                             case WizardStepType.dates:
-                              return const WizardStep3();
+                              return _WizardStep3(
+                                isInitial: state.isInitial,
+                                partnerName: state.partnerName,
+                                partnerPronoun: state.partnerPronoun,
+                                customPronoun: state.customPronoun,
+                              );
                             case WizardStepType.preferences:
                               return const WizardStep4();
                             case WizardStepType.anniversary:

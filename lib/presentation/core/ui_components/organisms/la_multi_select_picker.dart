@@ -15,6 +15,7 @@ class LaMultiSelectPicker<T> extends StatefulWidget {
   final String? errorText;
   final String? explanation;
   final void Function(List<T>) onSelectionChanged;
+  final EdgeInsets? padding;
 
   const LaMultiSelectPicker({
     super.key,
@@ -27,6 +28,7 @@ class LaMultiSelectPicker<T> extends StatefulWidget {
     this.errorText,
     this.explanation,
     this.initialSelectedOptions = const [],
+    this.padding,
   });
 
   @override
@@ -51,9 +53,12 @@ class _LaMultiSelectPickerState<T> extends State<LaMultiSelectPicker<T>> {
       child = _buildMaterialPillPicker();
     }
 
-    return LaFormFieldListener(
-      fieldId: widget.fieldId,
-      child: child,
+    return Padding(
+      padding: widget.padding ?? EdgeInsets.zero,
+      child: LaFormFieldListener(
+        fieldId: widget.fieldId,
+        child: child,
+      ),
     );
   }
 

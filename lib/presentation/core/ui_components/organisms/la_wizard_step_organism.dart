@@ -5,6 +5,7 @@ import 'package:la/presentation/core/ui_components/organisms/import.dart';
 import 'package:la/presentation/core/ui_models/la_date_picker_definition.dart';
 import 'package:la/presentation/core/ui_models/la_drop_down_definition.dart';
 import 'package:la/presentation/core/ui_models/la_image_asset.dart';
+import 'package:la/presentation/core/ui_models/la_multi_select_picker_definition.dart';
 import 'package:la/presentation/core/ui_models/la_text_field_definition.dart';
 
 class LaWizardStepOrganism extends StatefulWidget {
@@ -16,6 +17,7 @@ class LaWizardStepOrganism extends StatefulWidget {
   final LaDropDownDefinition? dropDownSlot;
   final LaDatePickerDefinition? datePickerSlot1;
   final LaDatePickerDefinition? datePickerSlot2;
+  final LaMultiSelectPickerDefinition? multiSelectPickerSlot1;
 
   const LaWizardStepOrganism({
     super.key,
@@ -27,6 +29,7 @@ class LaWizardStepOrganism extends StatefulWidget {
     this.dropDownSlot,
     this.datePickerSlot1,
     this.datePickerSlot2,
+    this.multiSelectPickerSlot1,
   });
 
   @override
@@ -117,6 +120,16 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               defaultDate: widget.datePickerSlot2!.defaultDate,
               lastDate: widget.datePickerSlot2!.lastDate,
               onDateSelected: widget.datePickerSlot2!.onDateSelected,
+              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+            ),
+          if (widget.multiSelectPickerSlot1 != null)
+            LaMultiSelectPicker(
+              fieldId: widget.multiSelectPickerSlot1!.fieldId,
+              title: widget.multiSelectPickerSlot1!.title,
+              explanation: widget.multiSelectPickerSlot1!.explanation,
+              optional: widget.multiSelectPickerSlot1!.optional,
+              options: widget.multiSelectPickerSlot1!.options,
+              onSelectionChanged: widget.multiSelectPickerSlot1!.onSelectionChanged,
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           const SizedBox(height: LaPaddings.medium),

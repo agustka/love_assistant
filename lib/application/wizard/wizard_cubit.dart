@@ -107,8 +107,8 @@ class WizardCubit extends BaseCubit<WizardState> {
     emit(state.copyWith(partnerAnniversary: selectedDate));
   }
 
-  void onLoveLanguageChanged(List<LoveLanguage> selectedOptions) {
-    emit(state.copyWith(partnerLoveLanguages: selectedOptions));
+  void onLoveLanguageChanged(List<dynamic> selectedOptions) {
+    emit(state.copyWith(partnerLoveLanguages: selectedOptions as List<LoveLanguage>));
   }
 
   void onToneOfVoiceChanged(ToneOfVoice toneOfVoice) {
