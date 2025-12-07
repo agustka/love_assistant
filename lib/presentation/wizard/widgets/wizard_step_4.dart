@@ -23,44 +23,18 @@ class _WizardStep4 extends StatelessWidget {
         fieldId: WizardPage.foodPreferencesFieldId,
         title: S.of(context).wizard_partner_food_likes_title(partnerName),
         optional: true,
-        options: FavoriteFood.values.toList()
-          ..removeWhere((FavoriteFood e) => e == FavoriteFood.invalid),
+        options: FavoriteFood.values.toList()..removeWhere((FavoriteFood e) => e == FavoriteFood.invalid),
         explanation: S.of(context).wizard_partner_foods_explanation,
         onSelectionChanged: context.read<WizardCubit>().onFavoriteFoodsChanged,
       ),
-    );
-
-    return BlocBuilder<WizardCubit, WizardState>(
-      builder: (BuildContext context, WizardState state) {
-        /*return SingleChildScrollView(
-          child: Column(
-            spacing: LaPaddings.large,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                child: LaMultiSelectPicker(
-                  fieldId: WizardPage.giftPreferencesFieldId,
-                  title: "Which gift types does your partner like?",
-                  options: const [
-                    "Experience",
-                    "Sentimental",
-                    "Practical Gifts",
-                    "Luxury Items",
-                    "Hobbies",
-                    "Food & Drinks",
-                    "Surprise Me",
-                  ],
-                  explanation: S.of(context).wizard_partner_gift_types_explanation,
-                  onSelectionChanged: (List<String> selectedOptions) {
-                    context.read<WizardCubit>();
-                  },
-                ),
-              ),
-              const SizedBox.shrink(),
-            ],
-          ),
-        );*/
-      },
+      multiSelectPickerSlot2: LaMultiSelectPickerDefinition(
+        fieldId: WizardPage.giftPreferencesFieldId,
+        title: S.of(context).wizard_partner_gift_likes_title(partnerPronoun.getNefnifall(customPronoun).toLowerCase()),
+        optional: true,
+        options: GiftCategory.values.toList()..removeWhere((GiftCategory e) => e == GiftCategory.invalid),
+        explanation: S.of(context).wizard_partner_gift_types_explanation,
+        onSelectionChanged: context.read<WizardCubit>().onGiftCategoriesChanged,
+      ),
     );
   }
 

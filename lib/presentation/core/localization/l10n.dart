@@ -574,6 +574,16 @@ class S {
     );
   }
 
+  /// `Hvernig gjafir vill {gender} fá?`
+  String wizard_partner_gift_likes_title(Object gender) {
+    return Intl.message(
+      'Hvernig gjafir vill $gender fá?',
+      name: 'wizard_partner_gift_likes_title',
+      desc: '',
+      args: [gender],
+    );
+  }
+
   /// `Segðu mér aðeins frá {gender} smekk`
   String wizard_partner_food_and_gifts_title(Object gender) {
     return Intl.message(
@@ -1139,6 +1149,86 @@ class S {
     return Intl.message(
       'Eftirréttir',
       name: 'global_food_desserts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upplifanir`
+  String get global_gift_experience {
+    return Intl.message(
+      'Upplifanir',
+      name: 'global_gift_experience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Persónulegar`
+  String get global_gift_sentimental {
+    return Intl.message(
+      'Persónulegar',
+      name: 'global_gift_sentimental',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hagnýtar`
+  String get global_gift_practical_gifts {
+    return Intl.message(
+      'Hagnýtar',
+      name: 'global_gift_practical_gifts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Munaðarvörur`
+  String get global_gift_luxury_items {
+    return Intl.message(
+      'Munaðarvörur',
+      name: 'global_gift_luxury_items',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Áhugamál`
+  String get global_gift_hobbies {
+    return Intl.message(
+      'Áhugamál',
+      name: 'global_gift_hobbies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Matur & drykkur`
+  String get global_gift_food_and_drinks {
+    return Intl.message(
+      'Matur & drykkur',
+      name: 'global_gift_food_and_drinks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vellíðan`
+  String get global_gift_wellness {
+    return Intl.message(
+      'Vellíðan',
+      name: 'global_gift_wellness',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Komdu mér á óvart`
+  String get global_gift_surprise_me {
+    return Intl.message(
+      'Komdu mér á óvart',
+      name: 'global_gift_surprise_me',
       desc: '',
       args: [],
     );

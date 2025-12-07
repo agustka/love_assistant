@@ -34,6 +34,7 @@ class WizardState extends Equatable {
   final ToneOfVoice partnerToneOfVoice;
   final List<Hobby> partnerHobbies;
   final List<FavoriteFood> partnerFavoriteFoods;
+  final List<GiftCategory> partnerGiftCategories;
 
   const WizardState({
     required this.status,
@@ -48,6 +49,7 @@ class WizardState extends Equatable {
     required this.partnerToneOfVoice,
     required this.partnerHobbies,
     required this.partnerFavoriteFoods,
+    required this.partnerGiftCategories,
   });
 
   WizardState.initial()
@@ -64,6 +66,7 @@ class WizardState extends Equatable {
         partnerToneOfVoice: ToneOfVoice.invalid,
         partnerHobbies: [],
         partnerFavoriteFoods: [],
+        partnerGiftCategories: [],
       );
 
   WizardState copyWith({
@@ -80,6 +83,7 @@ class WizardState extends Equatable {
     ToneOfVoice? partnerToneOfVoice,
     List<Hobby>? partnerHobbies,
     List<FavoriteFood>? partnerFavoriteFoods,
+    List<GiftCategory>? partnerGiftCategories,
   }) {
     return WizardState(
       status: status ?? this.status,
@@ -94,6 +98,7 @@ class WizardState extends Equatable {
       partnerToneOfVoice: partnerToneOfVoice ?? this.partnerToneOfVoice,
       partnerHobbies: partnerHobbies ?? this.partnerHobbies,
       partnerFavoriteFoods: partnerFavoriteFoods ?? this.partnerFavoriteFoods,
+      partnerGiftCategories: partnerGiftCategories ?? this.partnerGiftCategories,
     );
   }
 
@@ -111,5 +116,6 @@ class WizardState extends Equatable {
     partnerToneOfVoice,
     partnerHobbies,
     partnerFavoriteFoods,
+    partnerGiftCategories,
   ];
 }

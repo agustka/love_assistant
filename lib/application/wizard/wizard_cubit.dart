@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/application/core/base_cubit.dart';
 import 'package:la/domain/core/value_objects/favorite_food_value_object.dart';
+import 'package:la/domain/core/value_objects/gift_ideas_value_object.dart';
 import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
@@ -71,8 +72,7 @@ class WizardCubit extends BaseCubit<WizardState> {
       case 1:
         return state.partnerName.isNotEmpty &&
             state.partnerPronoun != Pronoun.invalid &&
-            (state.partnerPronoun != Pronoun.custom ||
-                state.customPronoun.isNotEmpty);
+            (state.partnerPronoun != Pronoun.custom || state.customPronoun.isNotEmpty);
       case 2:
         if (_config.mode == .initial) {
           return true;
@@ -109,7 +109,7 @@ class WizardCubit extends BaseCubit<WizardState> {
   }
 
   void onLoveLanguageChanged(List<dynamic> selectedOptions) {
-    emit(state.copyWith(partnerLoveLanguages: selectedOptions as List<LoveLanguage>));
+    emit(state.copyWith(partnerLoveLanguages: selectedOptions.map((dynamic e) => e as LoveLanguage).toList()));
   }
 
   void onToneOfVoiceChanged(ToneOfVoice toneOfVoice) {
@@ -117,10 +117,14 @@ class WizardCubit extends BaseCubit<WizardState> {
   }
 
   void onHobbiesChanged(List<dynamic> selectedOptions) {
-    emit(state.copyWith(partnerHobbies: selectedOptions as List<Hobby>));
+    emit(state.copyWith(partnerHobbies: selectedOptions.map((dynamic e) => e as Hobby).toList()));
   }
 
   void onFavoriteFoodsChanged(List<dynamic> selectedOptions) {
-    emit(state.copyWith(partnerFavoriteFoods: selectedOptions as List<FavoriteFood>));
+    emit(state.copyWith(partnerFavoriteFoods: selectedOptions.map((dynamic e) => e as FavoriteFood).toList()));
+  }
+
+  void onGiftCategoriesChanged(List<dynamic> selectedOptions) {
+    emit(state.copyWith(partnerGiftCategories: selectedOptions.map((dynamic e) => e as GiftCategory).toList()));
   }
 }

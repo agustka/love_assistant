@@ -17,7 +17,7 @@ class FavoriteFoodValueObject extends ValueObject<FavoriteFood> {
   static Failure<String>? _validate(String? input) {
     final FavoriteFood productType = _parse(input);
     if (input == null) {
-      return const Failure("Favorite food language must not be null.");
+      return const Failure("Favorite food must not be null.");
     } else if (productType != FavoriteFood.invalid) {
       return null;
     }

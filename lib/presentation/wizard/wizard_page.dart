@@ -5,6 +5,7 @@ import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/domain/core/value_objects/favorite_food_value_object.dart';
+import 'package:la/domain/core/value_objects/gift_ideas_value_object.dart';
 import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
