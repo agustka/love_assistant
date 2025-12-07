@@ -175,6 +175,20 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "global_pronoun_they_them": MessageLookupByLibrary.simpleMessage("Hán"),
     "global_pronoun_they_tholfall": MessageLookupByLibrary.simpleMessage("Hán"),
+    "global_relationship_type_dating": MessageLookupByLibrary.simpleMessage(
+      "Á föstu",
+    ),
+    "global_relationship_type_engaged": MessageLookupByLibrary.simpleMessage(
+      "Trúlofuð",
+    ),
+    "global_relationship_type_life_partners":
+        MessageLookupByLibrary.simpleMessage("Lífsfélagar"),
+    "global_relationship_type_married": MessageLookupByLibrary.simpleMessage(
+      "Gift",
+    ),
+    "global_relationship_type_other": MessageLookupByLibrary.simpleMessage(
+      "Annað",
+    ),
     "global_required": MessageLookupByLibrary.simpleMessage("Nauðsynlegt"),
     "global_tone_of_voice_casual": MessageLookupByLibrary.simpleMessage(
       "Hversdagslegur",
@@ -294,6 +308,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_pronouns_title": MessageLookupByLibrary.simpleMessage(
       "Hvernig á að ávarpa félaga þinn?",
     ),
+    "wizard_partner_relationship_type_explanation":
+        MessageLookupByLibrary.simpleMessage(
+          "Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.",
+        ),
+    "wizard_partner_relationship_type_hint":
+        MessageLookupByLibrary.simpleMessage("Veldu tegund sambands"),
+    "wizard_partner_relationship_type_title":
+        MessageLookupByLibrary.simpleMessage("Tegund sambands"),
     "wizard_partner_tone_of_voice_explanation":
         MessageLookupByLibrary.simpleMessage(
           "Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.",

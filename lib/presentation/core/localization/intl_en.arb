@@ -57,6 +57,9 @@
   "wizard_partner_hobbies_title": "Does {gender} have any hobbies?",
   "wizard_partner_food_likes_title": "What food does {name} like?",
   "wizard_partner_gift_likes_title": "Which kind of gifts does {gender} like?",
+  "wizard_partner_relationship_type_title": "Relationship type",
+  "wizard_partner_relationship_type_hint": "Select relationship type",
+  "wizard_partner_relationship_type_explanation": "This helps me tailor reminders, messages, and suggestions to match the stage of your relationship",
   "wizard_partner_food_and_gifts_title": "Tell me a bit more about {gender} tastes",
   "wizard_partner_food_and_gifts_message_1": "Please share with me {gender} gift and food preferences.",
   "wizard_partner_food_and_gifts_message_2": "This ensures I recommend things {name} loves and can avoid what {gender} may not like as much.",
@@ -124,5 +127,10 @@
   "global_gift_hobbies": "Hobbies",
   "global_gift_food_and_drinks": "Food & drink",
   "global_gift_wellness": "Wellness",
-  "global_gift_surprise_me": "Surprise me"
+  "global_gift_surprise_me": "Surprise me",
+  "global_relationship_type_dating": "Dating",
+  "global_relationship_type_engaged": "Engaged",
+  "global_relationship_type_married": "Married",
+  "global_relationship_type_life_partners": "Life partners",
+  "global_relationship_type_other": "Other"
 }

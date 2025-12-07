@@ -165,6 +165,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_pronoun_they_tholfall": MessageLookupByLibrary.simpleMessage(
       "Them",
     ),
+    "global_relationship_type_dating": MessageLookupByLibrary.simpleMessage(
+      "Dating",
+    ),
+    "global_relationship_type_engaged": MessageLookupByLibrary.simpleMessage(
+      "Engaged",
+    ),
+    "global_relationship_type_life_partners":
+        MessageLookupByLibrary.simpleMessage("Life partners"),
+    "global_relationship_type_married": MessageLookupByLibrary.simpleMessage(
+      "Married",
+    ),
+    "global_relationship_type_other": MessageLookupByLibrary.simpleMessage(
+      "Other",
+    ),
     "global_required": MessageLookupByLibrary.simpleMessage("Required"),
     "global_tone_of_voice_casual": MessageLookupByLibrary.simpleMessage(
       "Casual",
@@ -285,6 +299,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_pronouns_title": MessageLookupByLibrary.simpleMessage(
       "How should I refer to your partner?",
     ),
+    "wizard_partner_relationship_type_explanation":
+        MessageLookupByLibrary.simpleMessage(
+          "This helps me tailor reminders, messages, and suggestions to match the stage of your relationship",
+        ),
+    "wizard_partner_relationship_type_hint":
+        MessageLookupByLibrary.simpleMessage("Select relationship type"),
+    "wizard_partner_relationship_type_title":
+        MessageLookupByLibrary.simpleMessage("Relationship type"),
     "wizard_partner_tone_of_voice_explanation":
         MessageLookupByLibrary.simpleMessage(
           "Selecting the correct tone of voice helps me craft messages that resonate with your loved one better.",

@@ -8,6 +8,7 @@ import 'package:la/domain/core/value_objects/gift_ideas_value_object.dart';
 import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
+import 'package:la/domain/core/value_objects/relationship_type_value_object.dart';
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
@@ -126,5 +127,9 @@ class WizardCubit extends BaseCubit<WizardState> {
 
   void onGiftCategoriesChanged(List<dynamic> selectedOptions) {
     emit(state.copyWith(partnerGiftCategories: selectedOptions.map((dynamic e) => e as GiftCategory).toList()));
+  }
+
+  void onRelationshipTypeChanged(dynamic relationshipType, String? customInput) {
+    emit(state.copyWith(relationshipType: relationshipType as RelationshipType));
   }
 }

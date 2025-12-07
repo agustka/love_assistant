@@ -35,6 +35,7 @@ class WizardState extends Equatable {
   final List<Hobby> partnerHobbies;
   final List<FavoriteFood> partnerFavoriteFoods;
   final List<GiftCategory> partnerGiftCategories;
+  final RelationshipType relationshipType;
 
   const WizardState({
     required this.status,
@@ -50,6 +51,7 @@ class WizardState extends Equatable {
     required this.partnerHobbies,
     required this.partnerFavoriteFoods,
     required this.partnerGiftCategories,
+    required this.relationshipType,
   });
 
   WizardState.initial()
@@ -67,6 +69,7 @@ class WizardState extends Equatable {
         partnerHobbies: [],
         partnerFavoriteFoods: [],
         partnerGiftCategories: [],
+        relationshipType: RelationshipType.invalid,
       );
 
   WizardState copyWith({
@@ -84,6 +87,7 @@ class WizardState extends Equatable {
     List<Hobby>? partnerHobbies,
     List<FavoriteFood>? partnerFavoriteFoods,
     List<GiftCategory>? partnerGiftCategories,
+    RelationshipType? relationshipType,
   }) {
     return WizardState(
       status: status ?? this.status,
@@ -99,6 +103,7 @@ class WizardState extends Equatable {
       partnerHobbies: partnerHobbies ?? this.partnerHobbies,
       partnerFavoriteFoods: partnerFavoriteFoods ?? this.partnerFavoriteFoods,
       partnerGiftCategories: partnerGiftCategories ?? this.partnerGiftCategories,
+      relationshipType: relationshipType ?? this.relationshipType,
     );
   }
 
@@ -117,5 +122,6 @@ class WizardState extends Equatable {
     partnerHobbies,
     partnerFavoriteFoods,
     partnerGiftCategories,
+    relationshipType,
   ];
 }

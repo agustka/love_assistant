@@ -57,6 +57,9 @@
   "wizard_partner_hobbies_title": "Hefur {gender} einhver áhugamál?",
   "wizard_partner_food_likes_title": "Hvernig mat finnst {name} góður?",
   "wizard_partner_gift_likes_title": "Hvernig gjafir vill {gender} fá?",
+  "wizard_partner_relationship_type_title": "Tegund sambands",
+  "wizard_partner_relationship_type_hint": "Veldu tegund sambands",
+  "wizard_partner_relationship_type_explanation": "Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.",
   "wizard_partner_food_and_gifts_title": "Segðu mér aðeins frá {gender} smekk",
   "wizard_partner_food_and_gifts_message_1": "Segðu mér frá matar og gjafastíl sem á best við {gender}.",
   "wizard_partner_food_and_gifts_message_2": "Þá get ég stungið upp á hlutum sem {name} mun dýrka og forðast þá sem {gender} kýs síður.",
@@ -124,5 +127,10 @@
   "global_gift_hobbies": "Áhugamál",
   "global_gift_food_and_drinks": "Matur & drykkur",
   "global_gift_wellness": "Vellíðan",
-  "global_gift_surprise_me": "Komdu mér á óvart"
+  "global_gift_surprise_me": "Komdu mér á óvart",
+  "global_relationship_type_dating": "Á föstu",
+  "global_relationship_type_engaged": "Trúlofuð",
+  "global_relationship_type_married": "Gift",
+  "global_relationship_type_life_partners": "Lífsfélagar",
+  "global_relationship_type_other": "Annað"
 }

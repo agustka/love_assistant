@@ -28,13 +28,14 @@ class _WizardStep5 extends StatelessWidget {
           emoji: "🎉",
         ),
       ],
-      datePickerSlot1: LaDropDownDefinition(
+      dropDownSlot: LaDropDownDefinition<RelationshipType>(
         fieldId: WizardPage.partnerRelationshipTypeId,
         optional: true,
         title: S.of(context).wizard_partner_relationship_type_title,
         hint: S.of(context).wizard_partner_relationship_type_hint,
         explanation: S.of(context).wizard_partner_relationship_type_explanation,
-        options: 
+        options: RelationshipType.values.toList()..removeWhere((RelationshipType e) => e == RelationshipType.invalid),
+        onItemSelected: context.read<WizardCubit>().onRelationshipTypeChanged,
       ),
       datePickerSlot1: LaDatePickerDefinition(
         fieldId: WizardPage.partnerAnniversaryFieldId,

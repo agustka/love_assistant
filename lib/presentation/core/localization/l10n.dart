@@ -574,6 +574,36 @@ class S {
     );
   }
 
+  /// `Tegund sambands`
+  String get wizard_partner_relationship_type_title {
+    return Intl.message(
+      'Tegund sambands',
+      name: 'wizard_partner_relationship_type_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Veldu tegund sambands`
+  String get wizard_partner_relationship_type_hint {
+    return Intl.message(
+      'Veldu tegund sambands',
+      name: 'wizard_partner_relationship_type_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.`
+  String get wizard_partner_relationship_type_explanation {
+    return Intl.message(
+      'Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.',
+      name: 'wizard_partner_relationship_type_explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Segðu mér aðeins frá {gender} smekk`
   String wizard_partner_food_and_gifts_title(Object gender) {
     return Intl.message(
@@ -1219,6 +1249,56 @@ class S {
     return Intl.message(
       'Komdu mér á óvart',
       name: 'global_gift_surprise_me',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Á föstu`
+  String get global_relationship_type_dating {
+    return Intl.message(
+      'Á föstu',
+      name: 'global_relationship_type_dating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trúlofuð`
+  String get global_relationship_type_engaged {
+    return Intl.message(
+      'Trúlofuð',
+      name: 'global_relationship_type_engaged',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gift`
+  String get global_relationship_type_married {
+    return Intl.message(
+      'Gift',
+      name: 'global_relationship_type_married',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lífsfélagar`
+  String get global_relationship_type_life_partners {
+    return Intl.message(
+      'Lífsfélagar',
+      name: 'global_relationship_type_life_partners',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Annað`
+  String get global_relationship_type_other {
+    return Intl.message(
+      'Annað',
+      name: 'global_relationship_type_other',
       desc: '',
       args: [],
     );
