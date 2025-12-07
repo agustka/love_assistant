@@ -28,21 +28,23 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(gender) => "Tell me a bit more about ${gender} tastes";
 
-  static String m3(gender) => "Does ${gender} have any hobbies?";
+  static String m3(name) => "What food does ${name} like?";
 
-  static String m4(gender) => "Which love languages match ${gender}?";
+  static String m4(gender) => "Does ${gender} have any hobbies?";
 
-  static String m5(name) =>
+  static String m5(gender) => "Which love languages match ${gender}?";
+
+  static String m6(name) =>
       "Share the things ${name} enjoys to help tailor suggestions.";
 
-  static String m6(gender) =>
+  static String m7(gender) =>
       "Choose the love languages and tone that fit ${gender} best.";
 
-  static String m7(gender) => "What does ${gender} like?";
+  static String m8(gender) => "What does ${gender} like?";
 
-  static String m8(name) => "How does ${name} feel loved?";
+  static String m9(name) => "How does ${name} feel loved?";
 
-  static String m9(gender) => "What tone of voice fits ${gender} best?";
+  static String m10(gender) => "What tone of voice fits ${gender} best?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -56,6 +58,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_enter_custom": MessageLookupByLibrary.simpleMessage(
       "Enter custom value",
     ),
+    "global_food_chocolate": MessageLookupByLibrary.simpleMessage("Chocolate"),
+    "global_food_coffee": MessageLookupByLibrary.simpleMessage("Coffee"),
+    "global_food_desserts": MessageLookupByLibrary.simpleMessage("Dessert"),
+    "global_food_home_made": MessageLookupByLibrary.simpleMessage("Home made"),
+    "global_food_noodle_dishes": MessageLookupByLibrary.simpleMessage(
+      "Noodles",
+    ),
+    "global_food_pasta": MessageLookupByLibrary.simpleMessage("Pasta"),
+    "global_food_pizza": MessageLookupByLibrary.simpleMessage("Pizza"),
+    "global_food_salads": MessageLookupByLibrary.simpleMessage("Salat"),
+    "global_food_seafood": MessageLookupByLibrary.simpleMessage("Seafood"),
+    "global_food_spicy_food": MessageLookupByLibrary.simpleMessage("Spicy"),
+    "global_food_street_food": MessageLookupByLibrary.simpleMessage(
+      "Street food",
+    ),
+    "global_food_wine": MessageLookupByLibrary.simpleMessage("Wine"),
     "global_generic_field_error": MessageLookupByLibrary.simpleMessage(
       "This entry is invalid",
     ),
@@ -189,6 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_food_and_gifts_message_1": m0,
     "wizard_partner_food_and_gifts_message_2": m1,
     "wizard_partner_food_and_gifts_title": m2,
+    "wizard_partner_food_likes_title": m3,
     "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
       "Sharing your loved one’s favorite foods will help me select the correct food gifts and restaurant suggestons.",
     ),
@@ -198,19 +217,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
       "Sharing your loved one’s hobbies will help me select a variety of appropriate activities and gifts.",
     ),
-    "wizard_partner_hobbies_title": m3,
+    "wizard_partner_hobbies_title": m4,
     "wizard_partner_love_language_explanation":
         MessageLookupByLibrary.simpleMessage(
           "There are said to be five forms of expressions of love.\nQuality Time: Spending undivided, meaningful time together.\nWords of Affirmation: Expressing love and appreciation through kind and affirming words.\nActs of Service: Showing love by doing helpful or thoughtful tasks.\nPhysical Touch: Expressing love through physical gestures like hugs, kisses, and other forms of touch.\nReceiving Gifts: Giving and receiving thoughtful gifts as a symbol of love.",
         ),
-    "wizard_partner_love_language_title": m4,
-    "wizard_partner_loves_message_1": m5,
+    "wizard_partner_love_language_title": m5,
+    "wizard_partner_loves_message_1": m6,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
       "This ensures that my suggestions and messages are truly meaningful.",
     ),
-    "wizard_partner_loves_message_initial_1": m6,
-    "wizard_partner_loves_title": m7,
-    "wizard_partner_more_details": m8,
+    "wizard_partner_loves_message_initial_1": m7,
+    "wizard_partner_loves_title": m8,
+    "wizard_partner_more_details": m9,
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Birthday is required"),
     "wizard_partner_profile_message_1_extended":
@@ -255,7 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Select tone of voice",
     ),
-    "wizard_partner_tone_of_voice_title": m9,
+    "wizard_partner_tone_of_voice_title": m10,
     "wizard_previous": MessageLookupByLibrary.simpleMessage("Previous"),
     "wizard_start": MessageLookupByLibrary.simpleMessage("Begin"),
     "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup"),

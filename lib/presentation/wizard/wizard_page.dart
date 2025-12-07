@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
+import 'package:la/domain/core/value_objects/favorite_food_value_object.dart';
 import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
@@ -19,7 +20,6 @@ import 'package:la/presentation/core/ui_models/la_drop_down_definition.dart';
 import 'package:la/presentation/core/ui_models/la_image_asset.dart';
 import 'package:la/presentation/core/ui_models/la_multi_select_picker_definition.dart';
 import 'package:la/presentation/core/ui_models/la_text_field_definition.dart';
-import 'package:la/presentation/wizard/widgets/wizard_step_4.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_5.dart';
 import 'package:la/presentation/wizard/widgets/wizard_step_6.dart';
 import 'package:la/setup.dart';
@@ -27,6 +27,7 @@ import 'package:la/setup.dart';
 part "widgets/wizard_step_1.dart";
 part "widgets/wizard_step_2.dart";
 part "widgets/wizard_step_3.dart";
+part "widgets/wizard_step_4.dart";
 
 class WizardPage extends StatefulWidget {
   static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
@@ -38,6 +39,9 @@ class WizardPage extends StatefulWidget {
   static const String loveLanguageFieldId = "WizardStep3_loveLanguageFieldId";
   static const String toneOfVoiceFieldId = "WizardStep3_toneOfVoiceFieldId";
   static const String partnerHobbiesFieldId = "WizardStep3_partnerHobbiesFieldId";
+
+  static const String foodPreferencesFieldId = "WizardStep4_foodPreferencesFieldId";
+  static const String giftPreferencesFieldId = "WizardStep_giftPreferencesFieldId";
 
   const WizardPage({super.key});
 
@@ -198,7 +202,12 @@ class _WizardPageState extends State<WizardPage> {
                                 customPronoun: state.customPronoun,
                               );
                             case WizardStepType.preferences:
-                              return const WizardStep4();
+                              return _WizardStep4(
+                                isInitial: state.isInitial,
+                                partnerName: state.partnerName,
+                                partnerPronoun: state.partnerPronoun,
+                                customPronoun: state.customPronoun,
+                              );
                             case WizardStepType.anniversary:
                               return const WizardStep5();
                             case WizardStepType.hobbies:

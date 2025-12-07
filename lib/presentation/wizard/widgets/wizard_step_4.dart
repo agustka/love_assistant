@@ -1,117 +1,45 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:la/application/wizard/wizard_cubit.dart';
-import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
-import 'package:la/presentation/core/ui_components/import.dart';
-import 'package:la/presentation/core/ui_components/molecules/import.dart';
-import 'package:la/presentation/core/ui_components/organisms/import.dart';
+part of "../wizard_page.dart";
 
-class WizardStep4 extends StatefulWidget {
-  static const String foodPreferencesFieldId = "WizardStep4_foodPreferencesFieldId";
-  static const String giftPreferencesFieldId = "WizardStep_giftPreferencesFieldId";
+class _WizardStep4 extends StatelessWidget {
+  final bool isInitial;
+  final String partnerName;
+  final Pronoun partnerPronoun;
+  final String customPronoun;
 
-  const WizardStep4({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _WizardStep4State();
-  }
-}
-
-class _WizardStep4State extends State<WizardStep4> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+  const _WizardStep4({
+    required this.isInitial,
+    required this.partnerName,
+    required this.partnerPronoun,
+    required this.customPronoun,
+  });
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    return LaWizardStepOrganism(
+      ribbon: LaImageAsset(asset: LaTheme.illustrations.manLoveBanner),
+      title: isInitial ? _getInitialTitle(context) : _getPostSetupTitle(context),
+      bulletPoints: isInitial ? _getInitialBulletPoints(context) : _getPostSetupBulletPoints(context),
+      multiSelectPickerSlot1: LaMultiSelectPickerDefinition(
+        fieldId: WizardPage.foodPreferencesFieldId,
+        title: S.of(context).wizard_partner_food_likes_title(partnerName),
+        optional: true,
+        options: FavoriteFood.values.toList()
+          ..removeWhere((FavoriteFood e) => e == FavoriteFood.invalid),
+        explanation: S.of(context).wizard_partner_foods_explanation,
+        onSelectionChanged: context.read<WizardCubit>().onFavoriteFoodsChanged,
+      ),
+    );
 
     return BlocBuilder<WizardCubit, WizardState>(
       builder: (BuildContext context, WizardState state) {
-        return SingleChildScrollView(
+        /*return SingleChildScrollView(
           child: Column(
             spacing: LaPaddings.large,
             children: [
-              LaBanner(
-                asset: LaTheme.illustrations.manLoveBanner,
-              ),
-              if (state.isInitial)
-                Padding(
-                  padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                  child: LaBulletPointList(
-                    size: BulletPointListSize.small,
-                    title: S
-                        .of(context)
-                        .wizard_partner_loves_title(
-                          state.partnerPronoun.getNefnifall(state.customPronoun).toLowerCase(),
-                        ),
-                    entries: [
-                      BulletPointEntry(
-                        text: S.of(context).wizard_partner_loves_message_1(state.partnerName),
-                        emoji: "💖",
-                      ),
-                    ],
-                  ),
-                ),
-              if (!state.isInitial)
-                Padding(
-                  padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                  child: LaBulletPointList(
-                    size: BulletPointListSize.small,
-                    title: S
-                        .of(context)
-                        .wizard_partner_food_and_gifts_title(
-                          state.partnerPronoun.getEignarfall(state.customPronoun).toLowerCase(),
-                        ),
-                    entries: [
-                      BulletPointEntry(
-                        text: S
-                            .of(context)
-                            .wizard_partner_food_and_gifts_message_1(
-                              state.partnerPronoun.getTholfall(state.customPronoun).toLowerCase(),
-                            ),
-                        emoji: "🎁",
-                      ),
-                      BulletPointEntry(
-                        text: S
-                            .of(context)
-                            .wizard_partner_food_and_gifts_message_2(
-                              state.partnerName,
-                              state.partnerPronoun.getNefnifall(state.customPronoun).toLowerCase(),
-                            ),
-                        emoji: "🎯",
-                      ),
-                    ],
-                  ),
-                ),
               Padding(
                 padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
                 child: LaMultiSelectPicker(
-                  fieldId: WizardStep4.foodPreferencesFieldId,
-                  title: "What food does your partner like?",
-                  options: const [
-                    "Chocolate",
-                    "Coffee",
-                    "Pizza",
-                    "Sushi",
-                    "Tacos",
-                    "Burgers",
-                    "Seafood",
-                    "Salads",
-                    "Pasta",
-                    "Wine",
-                    "Desserts",
-                  ],
-                  explanation: S.of(context).wizard_partner_foods_explanation,
-                  onSelectionChanged: (List<String> selectedOptions) {
-                    context.read<WizardCubit>();
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
-                child: LaMultiSelectPicker(
-                  fieldId: WizardStep4.giftPreferencesFieldId,
+                  fieldId: WizardPage.giftPreferencesFieldId,
                   title: "Which gift types does your partner like?",
                   options: const [
                     "Experience",
@@ -131,8 +59,55 @@ class _WizardStep4State extends State<WizardStep4> with AutomaticKeepAliveClient
               const SizedBox.shrink(),
             ],
           ),
-        );
+        );*/
       },
     );
+  }
+
+  List<BulletPointEntry> _getInitialBulletPoints(BuildContext context) {
+    return [
+      BulletPointEntry(
+        text: S.of(context).wizard_partner_loves_message_1(partnerName),
+        emoji: "💖",
+      ),
+    ];
+  }
+
+  String _getInitialTitle(BuildContext context) {
+    return S
+        .of(context)
+        .wizard_partner_loves_title(
+          partnerPronoun.getNefnifall(customPronoun).toLowerCase(),
+        );
+  }
+
+  String _getPostSetupTitle(BuildContext context) {
+    return S
+        .of(context)
+        .wizard_partner_food_and_gifts_title(
+          partnerPronoun.getEignarfall(customPronoun).toLowerCase(),
+        );
+  }
+
+  List<BulletPointEntry> _getPostSetupBulletPoints(BuildContext context) {
+    return [
+      BulletPointEntry(
+        text: S
+            .of(context)
+            .wizard_partner_food_and_gifts_message_1(
+              partnerPronoun.getTholfall(customPronoun).toLowerCase(),
+            ),
+        emoji: "🎁",
+      ),
+      BulletPointEntry(
+        text: S
+            .of(context)
+            .wizard_partner_food_and_gifts_message_2(
+              partnerName,
+              partnerPronoun.getNefnifall(customPronoun).toLowerCase(),
+            ),
+        emoji: "🎯",
+      ),
+    ];
   }
 }

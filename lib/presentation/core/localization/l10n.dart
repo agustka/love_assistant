@@ -564,6 +564,16 @@ class S {
     );
   }
 
+  /// `Hvernig mat finnst {name} góður?`
+  String wizard_partner_food_likes_title(Object name) {
+    return Intl.message(
+      'Hvernig mat finnst $name góður?',
+      name: 'wizard_partner_food_likes_title',
+      desc: '',
+      args: [name],
+    );
+  }
+
   /// `Segðu mér aðeins frá {gender} smekk`
   String wizard_partner_food_and_gifts_title(Object gender) {
     return Intl.message(
@@ -1019,6 +1029,116 @@ class S {
     return Intl.message(
       'Íþróttir og sport',
       name: 'global_hobby_sports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Súkkulaði`
+  String get global_food_chocolate {
+    return Intl.message(
+      'Súkkulaði',
+      name: 'global_food_chocolate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kaffi`
+  String get global_food_coffee {
+    return Intl.message(
+      'Kaffi',
+      name: 'global_food_coffee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pítsur`
+  String get global_food_pizza {
+    return Intl.message(
+      'Pítsur',
+      name: 'global_food_pizza',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pasta`
+  String get global_food_pasta {
+    return Intl.message('Pasta', name: 'global_food_pasta', desc: '', args: []);
+  }
+
+  /// `Núðlur`
+  String get global_food_noodle_dishes {
+    return Intl.message(
+      'Núðlur',
+      name: 'global_food_noodle_dishes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sjávarmeti`
+  String get global_food_seafood {
+    return Intl.message(
+      'Sjávarmeti',
+      name: 'global_food_seafood',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Salöt`
+  String get global_food_salads {
+    return Intl.message(
+      'Salöt',
+      name: 'global_food_salads',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sterkur`
+  String get global_food_spicy_food {
+    return Intl.message(
+      'Sterkur',
+      name: 'global_food_spicy_food',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Götumatur`
+  String get global_food_street_food {
+    return Intl.message(
+      'Götumatur',
+      name: 'global_food_street_food',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Heimagert`
+  String get global_food_home_made {
+    return Intl.message(
+      'Heimagert',
+      name: 'global_food_home_made',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vín`
+  String get global_food_wine {
+    return Intl.message('Vín', name: 'global_food_wine', desc: '', args: []);
+  }
+
+  /// `Eftirréttir`
+  String get global_food_desserts {
+    return Intl.message(
+      'Eftirréttir',
+      name: 'global_food_desserts',
       desc: '',
       args: [],
     );

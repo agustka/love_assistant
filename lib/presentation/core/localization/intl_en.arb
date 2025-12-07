@@ -56,6 +56,7 @@
   "wizard_partner_gift_types_explanation": "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.",
   "wizard_partner_love_language_title": "Which love languages match {gender}?",
   "wizard_partner_hobbies_title": "Does {gender} have any hobbies?",
+  "wizard_partner_food_likes_title": "What food does {name} like?",
   "wizard_partner_food_and_gifts_title": "Tell me a bit more about {gender} tastes",
   "wizard_partner_food_and_gifts_message_1": "Please share with me {gender} gift and food preferences.",
   "wizard_partner_food_and_gifts_message_2": "This ensures I recommend things {name} loves and can avoid what {gender} may not like as much.",
@@ -103,5 +104,17 @@
   "global_hobby_gardening": "Gardening",
   "global_hobby_movies_and_tv": "Movies & TV",
   "global_hobby_fishing_and_hunting": "Fishing and hunting",
-  "global_hobby_sports": "Sports"
+  "global_hobby_sports": "Sports",
+  "global_food_chocolate": "Chocolate",
+  "global_food_coffee": "Coffee",
+  "global_food_pizza": "Pizza",
+  "global_food_pasta": "Pasta",
+  "global_food_noodle_dishes": "Noodles",
+  "global_food_seafood": "Seafood",
+  "global_food_salads": "Salat",
+  "global_food_spicy_food": "Spicy",
+  "global_food_street_food": "Street food",
+  "global_food_home_made": "Home made",
+  "global_food_wine": "Wine",
+  "global_food_desserts": "Dessert"
 }

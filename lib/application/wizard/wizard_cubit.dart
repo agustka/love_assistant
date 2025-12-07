@@ -3,6 +3,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/application/core/base_cubit.dart';
+import 'package:la/domain/core/value_objects/favorite_food_value_object.dart';
 import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
@@ -117,5 +118,9 @@ class WizardCubit extends BaseCubit<WizardState> {
 
   void onHobbiesChanged(List<dynamic> selectedOptions) {
     emit(state.copyWith(partnerHobbies: selectedOptions as List<Hobby>));
+  }
+
+  void onFavoriteFoodsChanged(List<dynamic> selectedOptions) {
+    emit(state.copyWith(partnerFavoriteFoods: selectedOptions as List<FavoriteFood>));
   }
 }

@@ -17,7 +17,7 @@ enum WizardEvent {
 enum WizardStatus {
   loading,
   loaded,
-  error;
+  error,
 }
 
 @immutable
@@ -33,6 +33,7 @@ class WizardState extends Equatable {
   final List<LoveLanguage> partnerLoveLanguages;
   final ToneOfVoice partnerToneOfVoice;
   final List<Hobby> partnerHobbies;
+  final List<FavoriteFood> partnerFavoriteFoods;
 
   const WizardState({
     required this.status,
@@ -46,22 +47,24 @@ class WizardState extends Equatable {
     required this.partnerLoveLanguages,
     required this.partnerToneOfVoice,
     required this.partnerHobbies,
+    required this.partnerFavoriteFoods,
   });
 
   WizardState.initial()
-      : this(
-          status: WizardStatus.loading,
-          isInitial: true,
-          config: WizardConfig.initial,
-          partnerName: "",
-          partnerPronoun: Pronoun.invalid,
-          customPronoun: "",
-          partnerBirthday: DateTime(1800),
-          partnerAnniversary: DateTime(1800),
-          partnerLoveLanguages: [],
-          partnerToneOfVoice: ToneOfVoice.invalid,
-          partnerHobbies: [],
-        );
+    : this(
+        status: WizardStatus.loading,
+        isInitial: true,
+        config: WizardConfig.initial,
+        partnerName: "",
+        partnerPronoun: Pronoun.invalid,
+        customPronoun: "",
+        partnerBirthday: DateTime(1800),
+        partnerAnniversary: DateTime(1800),
+        partnerLoveLanguages: [],
+        partnerToneOfVoice: ToneOfVoice.invalid,
+        partnerHobbies: [],
+        partnerFavoriteFoods: [],
+      );
 
   WizardState copyWith({
     WizardStatus? status,
@@ -76,6 +79,7 @@ class WizardState extends Equatable {
     List<LoveLanguage>? partnerLoveLanguages,
     ToneOfVoice? partnerToneOfVoice,
     List<Hobby>? partnerHobbies,
+    List<FavoriteFood>? partnerFavoriteFoods,
   }) {
     return WizardState(
       status: status ?? this.status,
@@ -89,21 +93,23 @@ class WizardState extends Equatable {
       partnerLoveLanguages: partnerLoveLanguages ?? this.partnerLoveLanguages,
       partnerToneOfVoice: partnerToneOfVoice ?? this.partnerToneOfVoice,
       partnerHobbies: partnerHobbies ?? this.partnerHobbies,
+      partnerFavoriteFoods: partnerFavoriteFoods ?? this.partnerFavoriteFoods,
     );
   }
 
   @override
   List<Object?> get props => [
-        status,
-        isInitial,
-        config,
-        partnerName,
-        partnerPronoun,
-        customPronoun,
-        partnerBirthday,
-        partnerAnniversary,
-        partnerLoveLanguages,
-        partnerToneOfVoice,
-        partnerHobbies,
-      ];
+    status,
+    isInitial,
+    config,
+    partnerName,
+    partnerPronoun,
+    customPronoun,
+    partnerBirthday,
+    partnerAnniversary,
+    partnerLoveLanguages,
+    partnerToneOfVoice,
+    partnerHobbies,
+    partnerFavoriteFoods,
+  ];
 }

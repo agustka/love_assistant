@@ -28,21 +28,23 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(gender) => "Segðu mér aðeins frá ${gender} smekk";
 
-  static String m3(gender) => "Hefur ${gender} einhver áhugamál?";
+  static String m3(name) => "Hvernig mat finnst ${name} góður?";
 
-  static String m4(gender) => "Hvernig ástarmál passar ${gender}?";
+  static String m4(gender) => "Hefur ${gender} einhver áhugamál?";
 
-  static String m5(name) =>
+  static String m5(gender) => "Hvernig ástarmál passar ${gender}?";
+
+  static String m6(name) =>
       "Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.";
 
-  static String m6(gender) =>
+  static String m7(gender) =>
       "Veldu ástarmálin og tóninn sem henta ${gender} best.";
 
-  static String m7(gender) => "Hvað elskar ${gender}?";
+  static String m8(gender) => "Hvað elskar ${gender}?";
 
-  static String m8(name) => "Hvað dýrkar ${name}?";
+  static String m9(name) => "Hvað dýrkar ${name}?";
 
-  static String m9(gender) => "Hvernig talsmáti á best við ${gender}?";
+  static String m10(gender) => "Hvernig talsmáti á best við ${gender}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -54,6 +56,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_confirm": MessageLookupByLibrary.simpleMessage("Staðfesta"),
     "global_done": MessageLookupByLibrary.simpleMessage("Búið"),
     "global_enter_custom": MessageLookupByLibrary.simpleMessage("Þín eigin"),
+    "global_food_chocolate": MessageLookupByLibrary.simpleMessage("Súkkulaði"),
+    "global_food_coffee": MessageLookupByLibrary.simpleMessage("Kaffi"),
+    "global_food_desserts": MessageLookupByLibrary.simpleMessage("Eftirréttir"),
+    "global_food_home_made": MessageLookupByLibrary.simpleMessage("Heimagert"),
+    "global_food_noodle_dishes": MessageLookupByLibrary.simpleMessage("Núðlur"),
+    "global_food_pasta": MessageLookupByLibrary.simpleMessage("Pasta"),
+    "global_food_pizza": MessageLookupByLibrary.simpleMessage("Pítsur"),
+    "global_food_salads": MessageLookupByLibrary.simpleMessage("Salöt"),
+    "global_food_seafood": MessageLookupByLibrary.simpleMessage("Sjávarmeti"),
+    "global_food_spicy_food": MessageLookupByLibrary.simpleMessage("Sterkur"),
+    "global_food_street_food": MessageLookupByLibrary.simpleMessage(
+      "Götumatur",
+    ),
+    "global_food_wine": MessageLookupByLibrary.simpleMessage("Vín"),
     "global_generic_field_error": MessageLookupByLibrary.simpleMessage(
       "Þetta atriði þarf að vera útfyllt",
     ),
@@ -198,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_food_and_gifts_message_1": m0,
     "wizard_partner_food_and_gifts_message_2": m1,
     "wizard_partner_food_and_gifts_title": m2,
+    "wizard_partner_food_likes_title": m3,
     "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
       "Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.",
     ),
@@ -207,19 +224,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
       "Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.",
     ),
-    "wizard_partner_hobbies_title": m3,
+    "wizard_partner_hobbies_title": m4,
     "wizard_partner_love_language_explanation":
         MessageLookupByLibrary.simpleMessage(
           "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.",
         ),
-    "wizard_partner_love_language_title": m4,
-    "wizard_partner_loves_message_1": m5,
+    "wizard_partner_love_language_title": m5,
+    "wizard_partner_loves_message_1": m6,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
       "Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.",
     ),
-    "wizard_partner_loves_message_initial_1": m6,
-    "wizard_partner_loves_title": m7,
-    "wizard_partner_more_details": m8,
+    "wizard_partner_loves_message_initial_1": m7,
+    "wizard_partner_loves_title": m8,
+    "wizard_partner_more_details": m9,
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
     "wizard_partner_profile_message_1_extended":
@@ -264,7 +281,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu talsmáta",
     ),
-    "wizard_partner_tone_of_voice_title": m9,
+    "wizard_partner_tone_of_voice_title": m10,
     "wizard_previous": MessageLookupByLibrary.simpleMessage("Fyrri"),
     "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
     "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning"),
