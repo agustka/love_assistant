@@ -34,7 +34,7 @@ class InitializationService {
     );
 
     flutterLocalNotificationsPlugin?.initialize(
-      initializationSettings,
+      settings: initializationSettings,
       onDidReceiveNotificationResponse: (NotificationResponse details) {},
     );
   }

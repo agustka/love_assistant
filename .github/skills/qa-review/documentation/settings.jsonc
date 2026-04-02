@@ -1,0 +1,39 @@
+// This settings.jsonc file contains terminal auto-approvals and hook settings for the
+// qa-review skill to reduce permission prompts during review automation.
+//
+// Copy these entries into workspace or user VS Code settings.json when needed.
+{
+    "chat.useCustomAgentHooks": true,
+    "chat.tools.terminal.autoApprove": {
+        "bash": true,
+        "cat": true,
+        "cut": true,
+        "echo": true,
+        "find": true,
+        "git": true,
+        "grep": true,
+        "head": true,
+        "mkdir": true,
+        "printf": true,
+        "pwd": true,
+        "rm": true,
+        "sed": true,
+        "sort": true,
+        "test": true,
+        "tr": true,
+        "wc": true,
+        "/^(\\.\\/)?(\\.github|copilot)\\/skills\\/qa-review\\/scripts\\/[a-z_]+\\.sh(\\s+.*)?$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^bash\\s+(\\.\\/)?(\\.github|copilot)\\/skills\\/qa-review\\/scripts\\/[a-z_]+\\.sh(\\s+.*)?$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    },
+    "files.watcherExclude": {
+        "api_contracts/**": true
+    },
+    "search.followSymlinks": true,
+    "github.copilot.chat.codesearch.enabled": true
+}

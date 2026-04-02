@@ -1,0 +1,55 @@
+// This settings.jsonc file contains all terminal command auto-approvals needed to run the
+// code-review skill as autonomously as possible without repeated permission prompts.
+//
+// Copy these entries into workspace or user VS Code settings.json when needed.
+{
+    "chat.tools.terminal.autoApprove": {
+        "diff": true,
+        "mv": true,
+        "mkdir": true,
+        "chmod": true,
+        "bash": true,
+        "cat": true,
+        "test": true,
+        "awk": true,
+        "grep": true,
+        "sed": true,
+        "sort": true,
+        "head": true,
+        "cut": true,
+        "wc": true,
+        "tr": true,
+        "printf": true,
+        "rm": true,
+        "echo": true,
+        "git": true,
+        "git checkout": true,
+        "git pull": true,
+        "pwd": true,
+        "git rev-parse --show-toplevel 2>/dev/null || pwd": true,
+        "git diff": true,
+        "/^(\\.\\/)?(\\.github|copilot)\\/skills\\/code-review\\/scripts\\/[a-z_]+\\.sh(\\s+.*)?$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^bash\\s+(\\.\\/)?(\\.github|copilot)\\/skills\\/code-review\\/scripts\\/[a-z_]+\\.sh(\\s+.*)?$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "cd ../API.Contracts": true,
+        "cd -": true,
+        "/^(\\.\\/)?(\\.github)\\/skills\\/git-diff\\/scripts\\/[a-z_]+\\.sh(\\s+.*)?$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^bash\\s+(\\.\\/)?(\\.github)\\/skills\\/git-diff\\/scripts\\/[a-z_]+\\.sh(\\s+.*)?$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    },
+    "files.watcherExclude": {
+        "api_contracts/**": true
+    },
+    "search.followSymlinks": true,
+    "github.copilot.chat.codesearch.enabled": true
+}

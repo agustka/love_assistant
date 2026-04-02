@@ -50,7 +50,7 @@ class WizardPage extends StatefulWidget {
   const WizardPage({super.key});
 
   @override
-  _WizardPageState createState() => _WizardPageState();
+  State<WizardPage> createState() => _WizardPageState();
 }
 
 class _WizardPageState extends State<WizardPage> {
@@ -78,12 +78,13 @@ class _WizardPageState extends State<WizardPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Language> langs = Language.values.toList();
-    langs.removeWhere((Language e) => e == Language.invalid);
-
     return LaEventBusListener<WizardEventGoToPage>(
       onMessage: (WizardEventGoToPage event) {
-        _controller.animateToPage(event.page, duration: 300.milliseconds, curve: Curves.easeInOut);
+        _controller.animateToPage(
+          event.page,
+          duration: 300.milliseconds,
+          curve: Curves.easeInOut,
+        );
       },
       child: BlocProvider<WizardCubit>(
         create: (BuildContext context) {
@@ -91,50 +92,58 @@ class _WizardPageState extends State<WizardPage> {
         },
         child: BlocBuilder<WizardCubit, WizardState>(
           builder: (BuildContext context, WizardState state) {
-            return WizardTemplate<WizardEvent>(
-              pageCount: state.config.stepCount,
-              pageController: _controller,
+            return LaEventBusListener<WizardEvent>(
               onMessage: (WizardEvent message) => _onWizardMessage(context, message),
-              appBarAction: _getAppBarAction(),
-              bottomButtons: _getBottomButtons(context),
-              pageBuilder: (BuildContext context, int index) {
-                final WizardStep step = state.config.visibleSteps[index];
-
-                switch (step.type) {
-                  case WizardStepType.greetings:
-                    return const _WizardStep1();
-                  case WizardStepType.basicInfo:
-                    return _WizardStep2(isInitial: state.isInitial);
-                  case WizardStepType.personalPreferences:
-                    return _WizardStep3(
-                      isInitial: state.isInitial,
-                      partnerName: state.partnerName,
-                      partnerPronoun: state.partnerPronoun,
-                      customPronoun: state.customPronoun,
-                    );
-                  case WizardStepType.foodsAndGifts:
-                    return _WizardStep4(
-                      isInitial: state.isInitial,
-                      partnerName: state.partnerName,
-                      partnerPronoun: state.partnerPronoun,
-                      customPronoun: state.customPronoun,
-                    );
-                  case WizardStepType.anniversary:
-                    return _WizardStep5(
-                      isInitial: state.isInitial,
-                      partnerName: state.partnerName,
-                      partnerPronoun: state.partnerPronoun,
-                      customPronoun: state.customPronoun,
-                    );
-                  case WizardStepType.hobbies:
-                    return const WizardStep6();
-                }
-              },
+              child: WizardTemplate(
+                pageCount: state.config.stepCount,
+                pageController: _controller,
+                appBarAction: _getAppBarAction(),
+                bottomButtons: _getBottomButtons(context, state),
+                pageBuilder: (BuildContext context, int index) => _buildStep(state, index),
+              ),
             );
           },
         ),
       ),
     );
+  }
+
+  List<Language> get _availableLanguages {
+    return Language.values.where((Language language) => language != Language.invalid).toList();
+  }
+
+  Widget _buildStep(WizardState state, int index) {
+    final WizardStep step = state.config.visibleSteps[index];
+
+    switch (step.type) {
+      case WizardStepType.greetings:
+        return const _WizardStep1();
+      case WizardStepType.basicInfo:
+        return _WizardStep2(isInitial: state.isInitial);
+      case WizardStepType.personalPreferences:
+        return _WizardStep3(
+          isInitial: state.isInitial,
+          partnerName: state.partnerName,
+          partnerPronoun: state.partnerPronoun,
+          customPronoun: state.customPronoun,
+        );
+      case WizardStepType.foodsAndGifts:
+        return _WizardStep4(
+          isInitial: state.isInitial,
+          partnerName: state.partnerName,
+          partnerPronoun: state.partnerPronoun,
+          customPronoun: state.customPronoun,
+        );
+      case WizardStepType.anniversary:
+        return _WizardStep5(
+          isInitial: state.isInitial,
+          partnerName: state.partnerName,
+          partnerPronoun: state.partnerPronoun,
+          customPronoun: state.customPronoun,
+        );
+      case WizardStepType.hobbies:
+        return const WizardStep6();
+    }
   }
 
   Future<void> _onWizardMessage(BuildContext context, WizardEvent event) async {
@@ -174,15 +183,15 @@ class _WizardPageState extends State<WizardPage> {
           cancelText: S.of(context).wizard_partner_anniversary_skip_no_cancel,
         );
         if (!result && context.mounted) {
-          context.read<WizardCubit>().next(_controller.page?.round() ?? 0, confirmed: true);
+          context.read<WizardCubit>().next(
+            _controller.page?.round() ?? 0,
+            confirmed: true,
+          );
         }
     }
   }
 
   AppBarActionDefinition _getAppBarAction() {
-    final List<Language> langs = Language.values.toList();
-    langs.removeWhere((Language e) => e == Language.invalid);
-
     return AppBarActionDefinition(
       icon: LaIcons.language,
       onTap: () {
@@ -190,7 +199,7 @@ class _WizardPageState extends State<WizardPage> {
           context,
           entries: PickerEntries(
             title: S.of(context).settings_pick_language,
-            entries: langs
+            entries: _availableLanguages
                 .map(
                   (Language e) => PickerEntry(
                     text: e.properName,
@@ -205,9 +214,10 @@ class _WizardPageState extends State<WizardPage> {
     );
   }
 
-  BottomButtonsDefinition _getBottomButtons(BuildContext context) {
-    final WizardState state = context.read<WizardCubit>().state;
-
+  BottomButtonsDefinition _getBottomButtons(
+    BuildContext context,
+    WizardState state,
+  ) {
     return BottomButtonsDefinition(
       loading: state.status == WizardStatus.loading,
       buttons: [
