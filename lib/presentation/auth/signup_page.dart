@@ -21,7 +21,6 @@ class SignupPage extends StatelessWidget {
     return BlocProvider<SignupCubit>(
       create: (BuildContext context) => getIt<SignupCubit>(),
       child: LaDefaultPageTemplate(
-        centerContent: true,
         child: BlocBuilder<SignupCubit, SignupState>(
           builder: (BuildContext context, SignupState state) {
             return LaAuthActionsOrganism(

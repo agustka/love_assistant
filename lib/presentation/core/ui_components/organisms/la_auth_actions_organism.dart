@@ -40,44 +40,54 @@ class LaAuthActionsOrganism extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LaCardAtom(
-      child: LaPaddingAtom.all(
-        value: LaPadding.large,
-        child: LaColumnAtom(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _AuthHeader(
-              title: definition.title,
-              subtitle: definition.subtitle,
-            ),
-            const LaSizedBoxAtom(height: LaPadding.large),
-            if (definition.errorMessage case final String errorMessage) ...[
-              LaTextAtom(
-                errorMessage,
-                style: LaTextAtomStyle.body14.onError,
-                textAlign: TextAlign.center,
-              ),
-              const LaSizedBoxAtom(height: LaPadding.mediumSmall),
-            ],
-            if (definition.isLoading)
-              const LaCenterAtom(child: LaCircularProgressAtom())
-            else ...[
-              _ProviderButtons(
-                googleText: definition.googleText,
-                appleText: definition.appleText,
-                onGoogleTap: definition.onGoogleTap,
-                onAppleTap: definition.onAppleTap,
-              ),
-              const LaSizedBoxAtom(height: LaPadding.large),
-              _SwitchModeButton(
-                prompt: definition.prompt,
-                actionText: definition.actionText,
-                onTap: definition.onSwitchTap,
-              ),
-            ],
-          ],
+    return LaColumnAtom(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const _AuthIllustration(),
+        const LaSizedBoxAtom(height: LaPadding.extraLarge),
+        _AuthHeader(
+          title: definition.title,
+          subtitle: definition.subtitle,
         ),
+        const LaSizedBoxAtom(height: LaPadding.extraHuge),
+        if (definition.errorMessage case final String errorMessage) ...[
+          LaTextAtom(
+            errorMessage,
+            style: LaTextAtomStyle.body14.onError,
+            textAlign: TextAlign.center,
+          ),
+          const LaSizedBoxAtom(height: LaPadding.mediumSmall),
+        ],
+        _ProviderButtons(
+          googleText: definition.googleText,
+          appleText: definition.appleText,
+          onGoogleTap: definition.onGoogleTap,
+          onAppleTap: definition.onAppleTap,
+          isLoading: definition.isLoading,
+        ),
+        const LaSizedBoxAtom(height: LaPadding.large),
+        _SwitchModeButton(
+          prompt: definition.prompt,
+          actionText: definition.actionText,
+          onTap: definition.onSwitchTap,
+        ),
+      ],
+    );
+  }
+}
+
+class _AuthIllustration extends StatelessWidget {
+  const _AuthIllustration();
+
+  @override
+  Widget build(BuildContext context) {
+    final double size = MediaQuery.sizeOf(context).width * 0.60;
+    return LaCenterAtom(
+      child: LaImageAtom(
+        imageLink: LaTheme.illustrations.manLove,
+        width: size,
+        height: size,
+        fit: BoxFit.contain,
       ),
     );
   }
@@ -99,13 +109,13 @@ class _AuthHeader extends StatelessWidget {
       children: [
         LaTextAtom(
           title,
-          style: LaTextAtomStyle.body24.bold,
+          style: LaTextAtomStyle.body28.bold,
           textAlign: TextAlign.center,
         ),
         const LaSizedBoxAtom(height: LaPadding.small),
         LaTextAtom(
           subtitle,
-          style: LaTextAtomStyle.body16.light,
+          style: LaTextAtomStyle.body16.light.hintText,
           textAlign: TextAlign.center,
         ),
       ],
@@ -118,28 +128,33 @@ class _ProviderButtons extends StatelessWidget {
   final String appleText;
   final VoidCallback onGoogleTap;
   final VoidCallback onAppleTap;
+  final bool isLoading;
 
   const _ProviderButtons({
     required this.googleText,
     required this.appleText,
     required this.onGoogleTap,
     required this.onAppleTap,
+    required this.isLoading,
   });
 
   @override
   Widget build(BuildContext context) {
     return LaColumnAtom(
       children: [
-        LaButtonAtom.mini(
+        LaButtonAtom(
           icon: Icons.g_mobiledata,
           text: googleText,
           onTap: onGoogleTap,
+          busy: isLoading,
         ),
         const LaSizedBoxAtom(height: LaPadding.mediumSmall),
-        LaButtonAtom.mini(
+        LaButtonAtom(
           icon: Icons.apple,
           text: appleText,
           onTap: onAppleTap,
+          busy: isLoading,
+          buttonStyle: LaButtonStyle.secondary,
         ),
       ],
     );

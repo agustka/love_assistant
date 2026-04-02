@@ -21,7 +21,6 @@ class LoginPage extends StatelessWidget {
     return BlocProvider<LoginCubit>(
       create: (BuildContext context) => getIt<LoginCubit>(),
       child: LaDefaultPageTemplate(
-        centerContent: true,
         child: BlocBuilder<LoginCubit, LoginState>(
           builder: (BuildContext context, LoginState state) {
             return LaAuthActionsOrganism(
