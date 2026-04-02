@@ -78,32 +78,24 @@ class _WizardPageState extends State<WizardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return LaEventBusListener<WizardEventGoToPage>(
-      onMessage: (WizardEventGoToPage event) {
-        _controller.animateToPage(
-          event.page,
-          duration: 300.milliseconds,
-          curve: Curves.easeInOut,
-        );
+    return BlocProvider<WizardCubit>(
+      create: (BuildContext context) {
+        return getIt<WizardCubit>()..init();
       },
-      child: BlocProvider<WizardCubit>(
-        create: (BuildContext context) {
-          return getIt<WizardCubit>()..init();
+      child: BlocBuilder<WizardCubit, WizardState>(
+        builder: (BuildContext context, WizardState state) {
+          return _WizardPageEventListener(
+            pageController: _controller,
+            onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
+            child: WizardTemplate(
+              pageCount: state.config.stepCount,
+              pageController: _controller,
+              appBarAction: _getAppBarAction(),
+              bottomButtons: _getBottomButtons(context, state),
+              pageBuilder: (BuildContext context, int index) => _buildStep(state, index),
+            ),
+          );
         },
-        child: BlocBuilder<WizardCubit, WizardState>(
-          builder: (BuildContext context, WizardState state) {
-            return LaEventBusListener<WizardEvent>(
-              onMessage: (WizardEvent message) => _onWizardMessage(context, message),
-              child: WizardTemplate(
-                pageCount: state.config.stepCount,
-                pageController: _controller,
-                appBarAction: _getAppBarAction(),
-                bottomButtons: _getBottomButtons(context, state),
-                pageBuilder: (BuildContext context, int index) => _buildStep(state, index),
-              ),
-            );
-          },
-        ),
       ),
     );
   }
@@ -214,10 +206,7 @@ class _WizardPageState extends State<WizardPage> {
     );
   }
 
-  BottomButtonsDefinition _getBottomButtons(
-    BuildContext context,
-    WizardState state,
-  ) {
+  BottomButtonsDefinition _getBottomButtons(BuildContext context, WizardState state) {
     return BottomButtonsDefinition(
       loading: state.status == WizardStatus.loading,
       buttons: [
@@ -241,6 +230,35 @@ class _WizardPageState extends State<WizardPage> {
             },
           ),
       ],
+    );
+  }
+}
+
+class _WizardPageEventListener extends StatelessWidget {
+  final PageController pageController;
+  final Future<void> Function(WizardEvent event) onWizardMessage;
+  final Widget child;
+
+  const _WizardPageEventListener({
+    required this.pageController,
+    required this.onWizardMessage,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LaEventBusListener<WizardEventGoToPage>(
+      onMessage: (WizardEventGoToPage event) {
+        pageController.animateToPage(
+          event.page,
+          duration: 300.milliseconds,
+          curve: Curves.easeInOut,
+        );
+      },
+      child: LaEventBusListener<WizardEvent>(
+        onMessage: onWizardMessage,
+        child: child,
+      ),
     );
   }
 }
