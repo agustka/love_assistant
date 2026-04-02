@@ -51,8 +51,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
+    "auth_email_hint": MessageLookupByLibrary.simpleMessage("Email"),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Sign in with Apple",
+    ),
+    "auth_login_email": MessageLookupByLibrary.simpleMessage(
+      "Sign in with email",
     ),
     "auth_login_google": MessageLookupByLibrary.simpleMessage(
       "Sign in with Google",
@@ -65,8 +69,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in to continue.",
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Welcome back"),
+    "auth_password_hint": MessageLookupByLibrary.simpleMessage("Password"),
     "auth_signup_apple": MessageLookupByLibrary.simpleMessage(
       "Sign up with Apple",
+    ),
+    "auth_signup_email": MessageLookupByLibrary.simpleMessage(
+      "Sign up with email",
     ),
     "auth_signup_google": MessageLookupByLibrary.simpleMessage(
       "Sign up with Google",

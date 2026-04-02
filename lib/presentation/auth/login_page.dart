@@ -27,10 +27,16 @@ class LoginPage extends StatelessWidget {
               definition: LaAuthActionsDefinition(
                 title: S.of(context).auth_login_title,
                 subtitle: S.of(context).auth_login_subtitle,
+                emailHint: S.of(context).auth_email_hint,
+                passwordHint: S.of(context).auth_password_hint,
+                emailSubmitText: S.of(context).auth_login_email,
                 googleText: S.of(context).auth_login_google,
                 appleText: S.of(context).auth_login_apple,
                 prompt: S.of(context).auth_login_signup_prompt,
                 actionText: S.of(context).auth_login_signup_action,
+                onEmailSubmit: (String email, String password) {
+                  context.read<LoginCubit>().loginWithEmailAndPassword(email, password);
+                },
                 onGoogleTap: () => context.read<LoginCubit>().loginWithGoogle(),
                 onAppleTap: () => context.read<LoginCubit>().loginWithApple(),
                 onSwitchTap: () {
@@ -41,8 +47,8 @@ class LoginPage extends StatelessWidget {
                     ),
                   );
                 },
-                isLoading: state is LoginLoading,
-                errorMessage: state is LoginFailure ? state.message : null,
+                isLoading: state.status == LoginStatus.loading,
+                errorMessage: state.status == LoginStatus.failure ? state.errorMessage : null,
               ),
             );
           },

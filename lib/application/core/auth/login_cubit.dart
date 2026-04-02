@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/domain/core/repositories/i_auth_repository.dart';
 
@@ -8,35 +9,35 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final IAuthRepository _authRepository;
 
-  LoginCubit(this._authRepository) : super(LoginInitial());
+  LoginCubit(this._authRepository) : super(const LoginState.initial());
 
   Future<void> loginWithGoogle() async {
-    emit(LoginLoading());
+    emit(state.copyWith(status: LoginStatus.loading));
     try {
       await _authRepository.signInWithGoogle();
-      emit(LoginSuccess());
+      emit(state.copyWith(status: LoginStatus.success));
     } catch (e) {
-      emit(LoginFailure(e.toString()));
+      emit(state.copyWith(status: LoginStatus.failure, errorMessage: e.toString()));
     }
   }
 
   Future<void> loginWithApple() async {
-    emit(LoginLoading());
+    emit(state.copyWith(status: LoginStatus.loading));
     try {
       await _authRepository.signInWithApple();
-      emit(LoginSuccess());
+      emit(state.copyWith(status: LoginStatus.success));
     } catch (e) {
-      emit(LoginFailure(e.toString()));
+      emit(state.copyWith(status: LoginStatus.failure, errorMessage: e.toString()));
     }
   }
 
   Future<void> loginWithEmailAndPassword(String email, String password) async {
-    emit(LoginLoading());
+    emit(state.copyWith(status: LoginStatus.loading));
     try {
       await _authRepository.signInWithEmailAndPassword(email, password);
-      emit(LoginSuccess());
+      emit(state.copyWith(status: LoginStatus.success));
     } catch (e) {
-      emit(LoginFailure(e.toString()));
+      emit(state.copyWith(status: LoginStatus.failure, errorMessage: e.toString()));
     }
   }
 }

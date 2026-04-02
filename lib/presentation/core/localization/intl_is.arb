@@ -144,5 +144,9 @@
   "auth_login_google": "Innskraning med Google",
   "auth_login_apple": "Innskraning med Apple",
   "auth_login_signup_prompt": "Ert thu ekki med adgang?",
-  "auth_login_signup_action": "Skraning"
+  "auth_login_signup_action": "Skraning",
+  "auth_email_hint": "Netfang",
+  "auth_password_hint": "Lykilord",
+  "auth_signup_email": "Skraning med netfangi",
+  "auth_login_email": "Innskraning med netfangi"
 }

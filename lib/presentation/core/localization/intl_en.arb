@@ -144,5 +144,9 @@
   "auth_login_google": "Sign in with Google",
   "auth_login_apple": "Sign in with Apple",
   "auth_login_signup_prompt": "Don't have an account?",
-  "auth_login_signup_action": "Sign up"
+  "auth_login_signup_action": "Sign up",
+  "auth_email_hint": "Email",
+  "auth_password_hint": "Password",
+  "auth_signup_email": "Sign up with email",
+  "auth_login_email": "Sign in with email"
 }

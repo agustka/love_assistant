@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
+import 'package:la/presentation/core/ui_components/organisms/la_email_password_form_organism.dart';
 
 class LaAuthActionsDefinition {
   final String title;
   final String subtitle;
+  final String emailHint;
+  final String passwordHint;
+  final String emailSubmitText;
   final String googleText;
   final String appleText;
   final String prompt;
   final String actionText;
+  final void Function(String email, String password) onEmailSubmit;
   final VoidCallback onGoogleTap;
   final VoidCallback onAppleTap;
   final VoidCallback onSwitchTap;
@@ -18,10 +23,14 @@ class LaAuthActionsDefinition {
   const LaAuthActionsDefinition({
     required this.title,
     required this.subtitle,
+    required this.emailHint,
+    required this.passwordHint,
+    required this.emailSubmitText,
     required this.googleText,
     required this.appleText,
     required this.prompt,
     required this.actionText,
+    required this.onEmailSubmit,
     required this.onGoogleTap,
     required this.onAppleTap,
     required this.onSwitchTap,
@@ -58,6 +67,16 @@ class LaAuthActionsOrganism extends StatelessWidget {
           ),
           const LaSizedBoxAtom(height: LaPadding.mediumSmall),
         ],
+        LaEmailPasswordFormOrganism(
+          onSubmit: definition.onEmailSubmit,
+          emailHint: definition.emailHint,
+          passwordHint: definition.passwordHint,
+          submitLabel: definition.emailSubmitText,
+          loading: definition.isLoading,
+        ),
+        const LaSizedBoxAtom(height: LaPadding.large),
+        const LaDividerAtom(),
+        const LaSizedBoxAtom(height: LaPadding.large),
         _ProviderButtons(
           googleText: definition.googleText,
           appleText: definition.appleText,

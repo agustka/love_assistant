@@ -5,12 +5,16 @@ import 'package:la/presentation/core/ui_components/molecules/import.dart';
 
 class LaEmailPasswordFormOrganism extends StatefulWidget {
   final void Function(String email, String password) onSubmit;
+  final String emailHint;
+  final String passwordHint;
   final String submitLabel;
   final bool loading;
 
   const LaEmailPasswordFormOrganism({
     super.key,
     required this.onSubmit,
+    required this.emailHint,
+    required this.passwordHint,
     required this.submitLabel,
     this.loading = false,
   });
@@ -24,6 +28,8 @@ class _LaEmailPasswordFormOrganismState extends State<LaEmailPasswordFormOrganis
   String _email = '';
   String _password = '';
 
+  bool get _canSubmit => _email.trim().isNotEmpty && _password.isNotEmpty && !widget.loading;
+
   @override
   Widget build(BuildContext context) {
     return LaFormAtom(
@@ -32,27 +38,23 @@ class _LaEmailPasswordFormOrganismState extends State<LaEmailPasswordFormOrganis
         children: [
           LaTextField(
             fieldId: "email",
-            hint: "Email",
+            hint: widget.emailHint,
             keyboardType: TextInputType.emailAddress,
-            onChanged: (val) => _email = val,
+            onChanged: (String val) => setState(() => _email = val),
           ),
           const LaSizedBoxAtom(height: LaPadding.mediumSmall),
           LaTextField(
             fieldId: "password",
-            hint: "Password",
+            hint: widget.passwordHint,
             obscureText: true,
-            onChanged: (val) => _password = val,
+            onChanged: (String val) => setState(() => _password = val),
           ),
           const LaSizedBoxAtom(height: LaPadding.medium),
           LaButtonAtom(
             text: widget.submitLabel,
-            onTap: widget.loading
-                ? () {}
-                : () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      widget.onSubmit(_email, _password);
-                    }
-                  },
+            busy: widget.loading,
+            enabled: _canSubmit,
+            onTap: () => widget.onSubmit(_email.trim(), _password),
           ),
         ],
       ),

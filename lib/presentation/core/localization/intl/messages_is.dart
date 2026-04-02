@@ -51,8 +51,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
+    "auth_email_hint": MessageLookupByLibrary.simpleMessage("Netfang"),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Innskraning med Apple",
+    ),
+    "auth_login_email": MessageLookupByLibrary.simpleMessage(
+      "Innskraning med netfangi",
     ),
     "auth_login_google": MessageLookupByLibrary.simpleMessage(
       "Innskraning med Google",
@@ -67,8 +71,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Skradu inn til ad halda afram.",
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Velkomin aftur"),
+    "auth_password_hint": MessageLookupByLibrary.simpleMessage("Lykilord"),
     "auth_signup_apple": MessageLookupByLibrary.simpleMessage(
       "Skraning med Apple",
+    ),
+    "auth_signup_email": MessageLookupByLibrary.simpleMessage(
+      "Skraning med netfangi",
     ),
     "auth_signup_google": MessageLookupByLibrary.simpleMessage(
       "Skraning med Google",

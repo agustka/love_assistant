@@ -27,10 +27,16 @@ class SignupPage extends StatelessWidget {
               definition: LaAuthActionsDefinition(
                 title: S.of(context).auth_signup_title,
                 subtitle: S.of(context).auth_signup_subtitle,
+                emailHint: S.of(context).auth_email_hint,
+                passwordHint: S.of(context).auth_password_hint,
+                emailSubmitText: S.of(context).auth_signup_email,
                 googleText: S.of(context).auth_signup_google,
                 appleText: S.of(context).auth_signup_apple,
                 prompt: S.of(context).auth_signup_login_prompt,
                 actionText: S.of(context).auth_signup_login_action,
+                onEmailSubmit: (String email, String password) {
+                  context.read<SignupCubit>().signupWithEmailAndPassword(email, password);
+                },
                 onGoogleTap: () => context.read<SignupCubit>().signupWithGoogle(),
                 onAppleTap: () => context.read<SignupCubit>().signupWithApple(),
                 onSwitchTap: () {

@@ -5,6 +5,7 @@ enum SignupMessage {
 }
 
 enum SignupStatus {
+  idle,
   loading,
   success,
   failure,
@@ -15,7 +16,7 @@ class SignupState extends Equatable {
 
   const SignupState({required this.status});
 
-  const SignupState.initial() : status = SignupStatus.loading;
+  const SignupState.initial() : status = SignupStatus.idle;
 
   SignupState copyWith({SignupStatus? status}) {
     return SignupState(

@@ -1423,6 +1423,41 @@ class S {
       args: [],
     );
   }
+
+  /// `Netfang`
+  String get auth_email_hint {
+    return Intl.message('Netfang', name: 'auth_email_hint', desc: '', args: []);
+  }
+
+  /// `Lykilord`
+  String get auth_password_hint {
+    return Intl.message(
+      'Lykilord',
+      name: 'auth_password_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skraning med netfangi`
+  String get auth_signup_email {
+    return Intl.message(
+      'Skraning med netfangi',
+      name: 'auth_signup_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Innskraning med netfangi`
+  String get auth_login_email {
+    return Intl.message(
+      'Innskraning med netfangi',
+      name: 'auth_login_email',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
