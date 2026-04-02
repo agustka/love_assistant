@@ -29,6 +29,7 @@ import 'package:la/infrastructure/core/cache/i_hive_cache.dart' as _i339;
 import 'package:la/infrastructure/core/event/event_bus_module.dart' as _i16;
 import 'package:la/infrastructure/core/initialization/initialization_service.dart'
     as _i984;
+import 'package:la/infrastructure/core/supabase/supabase_module.dart' as _i1048;
 import 'package:la/infrastructure/core/time/i_poll_and_debounce.dart' as _i651;
 import 'package:la/infrastructure/core/time/poll_and_debounce.dart' as _i187;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
@@ -41,6 +42,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final eventBusModule = _$EventBusModule();
+    final supabaseModule = _$SupabaseModule();
     gh.factory<_i953.LanguageCubit>(() => _i953.LanguageCubit());
     gh.factory<_i247.SplashCubit>(() => _i247.SplashCubit());
     gh.factory<_i167.WizardCubit>(() => _i167.WizardCubit());
@@ -48,6 +50,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i984.InitializationService>(
       () => _i984.InitializationService(),
     );
+    gh.lazySingleton<_i454.SupabaseClient>(() => supabaseModule.supabaseClient);
     gh.lazySingleton<_i339.IHiveCache>(() => const _i681.HiveCache());
     gh.factory<_i651.IPollAndDebounce>(() => _i187.PollAndDebounce());
     gh.lazySingleton<_i663.IAuthService>(
@@ -70,3 +73,5 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$EventBusModule extends _i16.EventBusModule {}
+
+class _$SupabaseModule extends _i1048.SupabaseModule {}
