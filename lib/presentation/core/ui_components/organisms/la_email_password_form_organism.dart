@@ -36,14 +36,14 @@ class _LaEmailPasswordFormOrganismState extends State<LaEmailPasswordFormOrganis
             keyboardType: TextInputType.emailAddress,
             onChanged: (val) => _email = val,
           ),
-          const SizedBox(height: LaPaddings.mediumSmall),
+          const SizedBox(height: LaPadding.mediumSmall),
           LaTextField(
             fieldId: 'password',
             hint: 'Password',
             obscureText: true,
             onChanged: (val) => _password = val,
           ),
-          const SizedBox(height: LaPaddings.medium),
+          const SizedBox(height: LaPadding.medium),
           LaButtonAtom(
             text: widget.submitLabel,
             onTap: widget.loading

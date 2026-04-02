@@ -67,16 +67,16 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
   Widget _getCupertinoPicker(BuildContext context) {
     return LaCardAtom(
       child: LaPaddingAtom.all(
-        value: LaPaddings.medium,
+        value: LaPadding.medium,
         child: LaColumnAtom(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _getTitle(context),
-            const LaSizedBoxAtom(height: LaPaddings.small),
+            const LaSizedBoxAtom(height: LaPadding.small),
             LaColumnAtom(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LaSizedBoxAtom(height: LaPaddings.extraSmall),
+                const LaSizedBoxAtom(height: LaPadding.extraSmall),
                 LaTapVisualAtom(
                   onTap: () => _showCupertinoPicker(context),
                   child: LaCardAtom(
@@ -104,25 +104,25 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
   Widget _getMaterialPicker(BuildContext context) {
     return LaCardAtom(
       child: LaPaddingAtom.all(
-        value: LaPaddings.medium,
+        value: LaPadding.medium,
         child: LaColumnAtom(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _getTitle(context),
-            const LaSizedBoxAtom(height: LaPaddings.small),
+            const LaSizedBoxAtom(height: LaPadding.small),
             LaColumnAtom(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const LaSizedBoxAtom(height: LaPaddings.extraSmall),
+                const LaSizedBoxAtom(height: LaPadding.extraSmall),
                 LaCardAtom(
                   type: CardType.secondary,
                   child: LaPaddingAtom(
-                    padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.small),
+                    padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.small),
                     child: DropdownButton<T>(
                       value: _selectedOption,
                       borderRadius: const BorderRadius.all(Radius.circular(LaCornerRadius.medium)),
                       elevation: LaElevation.medium.toInt(),
-                      hint: LaTextAtom(widget.hint ?? "", style: LaTheme.font.body16.hintText),
+                      hint: LaTextAtom(widget.hint ?? "", style: LaTextAtomStyle.body16.hintText),
                       underline: const LaSizedBoxAtom.shrink(),
                       isExpanded: true,
                       onChanged: (T? value) {
@@ -144,13 +144,13 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
                         ...widget.options.map((dynamic option) {
                           return DropdownMenuItem<T>(
                             value: option as T,
-                            child: LaTextAtom(option.toString(), style: LaTheme.font.body16),
+                            child: LaTextAtom(option.toString(), style: LaTextAtomStyle.body16),
                           );
                         }),
                         if (widget.freeFormOption != null)
                           DropdownMenuItem<T>(
                             value: widget.freeFormOption as T,
-                            child: LaTextAtom(widget.freeFormOption!.toString(), style: LaTheme.font.body16),
+                            child: LaTextAtom(widget.freeFormOption!.toString(), style: LaTextAtomStyle.body16),
                           ),
                       ],
                     ),
@@ -168,7 +168,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
   Widget _getFreeFormOption(BuildContext context) {
     if (_selectedOption == widget.freeFormOption && widget.freeFormOption != null && widget.freeFormFieldId != null) {
       return LaPaddingAtom(
-        padding: const EdgeInsets.only(top: LaPaddings.mediumSmall),
+        padding: const EdgeInsets.only(top: LaPadding.mediumSmall),
         child: LaTextField(
           fieldId: widget.freeFormFieldId!,
           showCard: false,
@@ -191,7 +191,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
     final dynamic result = await showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => LaContainerAtom(
-        height: LaSizes.dropdownHeight,
+        height: LaSize.dropdownHeight,
         decoration: BoxDecoration(
           color: LaTheme.surface(),
           borderRadius: const BorderRadius.vertical(
@@ -203,7 +203,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
             LaAlignAtom(
               alignment: Alignment.topRight,
               child: CupertinoButton(
-                child: LaTextAtom(S.of(context).global_done, style: LaTheme.font.body16.primary),
+                child: LaTextAtom(S.of(context).global_done, style: LaTextAtomStyle.body16.primary),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -226,10 +226,11 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
                 },
                 children: [
                   ...widget.options.map(
-                    (dynamic option) => LaCenterAtom(child: LaTextAtom((option as T).toString(), style: LaTheme.font.body16)),
+                    (dynamic option) =>
+                        LaCenterAtom(child: LaTextAtom((option as T).toString(), style: LaTextAtomStyle.body16)),
                   ),
                   if (widget.freeFormOption != null)
-                    LaCenterAtom(child: LaTextAtom(widget.freeFormOption!.toString(), style: LaTheme.font.body16)),
+                    LaCenterAtom(child: LaTextAtom(widget.freeFormOption!.toString(), style: LaTextAtomStyle.body16)),
                 ],
               ),
             ),
@@ -261,9 +262,9 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
             enabled: widget.explanation != null,
             child: LaRow(
               children: [
-                LaTextAtom(widget.title, style: LaTheme.font.body14.light),
-                const LaSizedBoxAtom(width: LaPaddings.extraSmall),
-                if (widget.explanation != null) LaIconAtom(LaIcons.information, size: LaSizes.medium, color: LaTheme.hintText()),
+                LaTextAtom(widget.title, style: LaTextAtomStyle.body14.light),
+                const LaSizedBoxAtom(width: LaPadding.extraSmall),
+                if (widget.explanation != null) LaIconAtom(LaIcons.information, size: LaSize.medium, color: LaTheme.hintText()),
               ],
             ),
           ),
@@ -271,7 +272,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
         if (!widget.optional)
           LaTextAtom(
             "*${S.of(context).global_required}",
-            style: LaTheme.font.body12.light.primary,
+            style: LaTextAtomStyle.body12.light.primary,
           ),
       ],
     );

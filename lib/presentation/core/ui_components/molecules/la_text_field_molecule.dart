@@ -76,7 +76,7 @@ class _LaTextField extends State<LaTextField> {
                 keyboardType: widget.keyboardType,
                 placeholder: widget.hint,
                 obscureText: widget.obscureText,
-                padding: const EdgeInsets.symmetric(vertical: LaPaddings.mediumSmall, horizontal: LaPaddings.medium),
+                padding: const EdgeInsets.symmetric(vertical: LaPadding.mediumSmall, horizontal: LaPadding.medium),
                 decoration: BoxDecoration(
                   color: LaTheme.secondaryContainer(),
                   borderRadius: BorderRadius.circular(LaCornerRadius.mediumSmall),
@@ -89,9 +89,9 @@ class _LaTextField extends State<LaTextField> {
             ),
             if (widget.actionIcon != null)
               LaPaddingAtom(
-                padding: const EdgeInsets.only(right: LaPaddings.mediumSmall),
+                padding: const EdgeInsets.only(right: LaPadding.mediumSmall),
                 child: LaCenterAtom(
-                  child: LaIconAtom(widget.actionIcon!, size: LaSizes.large, color: widget.hintColor),
+                  child: LaIconAtom(widget.actionIcon!, size: LaSize.large, color: widget.hintColor),
                 ),
               ),
           ],
@@ -116,8 +116,8 @@ class _LaTextField extends State<LaTextField> {
                   hintStyle: TextStyle(color: widget.hintColor ?? LaTheme.hintText()),
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(
-                    vertical: LaPaddings.mediumSmall,
-                    horizontal: LaPaddings.medium,
+                    vertical: LaPadding.mediumSmall,
+                    horizontal: LaPadding.medium,
                   ),
                   counterText: "",
                 ),
@@ -128,9 +128,9 @@ class _LaTextField extends State<LaTextField> {
             ),
             if (widget.actionIcon != null)
               LaPaddingAtom(
-                padding: const EdgeInsets.only(right: LaPaddings.mediumSmall),
+                padding: const EdgeInsets.only(right: LaPadding.mediumSmall),
                 child: LaCenterAtom(
-                  child: LaIconAtom(widget.actionIcon!, size: LaSizes.large, color: widget.hintColor),
+                  child: LaIconAtom(widget.actionIcon!, size: LaSize.large, color: widget.hintColor),
                 ),
               ),
           ],
@@ -142,18 +142,19 @@ class _LaTextField extends State<LaTextField> {
     if (widget.showCard) {
       finalWidget = LaCardAtom(
         child: LaPaddingAtom.all(
-          value: LaPaddings.medium,
+          value: LaPadding.medium,
           child: LaColumnAtom(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               LaRow(
                 children: [
-                  if (widget.title != null) LaExpandedAtom(child: LaTextAtom(widget.title!, style: LaTheme.font.body14.light)),
+                  if (widget.title != null)
+                    LaExpandedAtom(child: LaTextAtom(widget.title!, style: LaTextAtomStyle.body14.light)),
                   if (!widget.optional)
-                    LaTextAtom("*${S.of(context).global_required}", style: LaTheme.font.body12.light.primary),
+                    LaTextAtom("*${S.of(context).global_required}", style: LaTextAtomStyle.body12.light.primary),
                 ],
               ),
-              const LaSizedBoxAtom(height: LaPaddings.small),
+              const LaSizedBoxAtom(height: LaPadding.small),
               finalWidget,
             ],
           ),

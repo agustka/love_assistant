@@ -50,11 +50,11 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
 
     return SingleChildScrollView(
       child: Column(
-        spacing: LaPaddings.large,
+        spacing: LaPadding.large,
         children: [
           if (widget.image != null)
             Padding(
-              padding: const EdgeInsets.only(bottom: LaPaddings.large),
+              padding: const EdgeInsets.only(bottom: LaPadding.large),
               child: LaEpicImageOrganism(
                 asset: widget.image?.asset ?? LaTheme.illustrations.manGreetings,
                 widthAsPercentageOfScreen: 0.5,
@@ -62,7 +62,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
             ),
           if (widget.ribbon != null)
             Padding(
-              padding: const EdgeInsets.only(bottom: LaPaddings.medium, top: LaPaddings.extraSmall),
+              padding: const EdgeInsets.only(bottom: LaPadding.medium, top: LaPadding.extraSmall),
               child: LaBannerOrganism(asset: widget.ribbon?.asset ?? AppAssets.icons.icTransparent),
             ),
           LaBulletPointListMolecule(
@@ -70,9 +70,9 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
             title: widget.title,
             entries: widget.bulletPoints,
             padding: const EdgeInsets.only(
-              left: LaPaddings.medium,
-              right: LaPaddings.medium,
-              bottom: LaPaddings.small,
+              left: LaPadding.medium,
+              right: LaPadding.medium,
+              bottom: LaPadding.small,
             ),
           ),
           if (widget.textFieldSlot != null)
@@ -83,7 +83,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               hint: widget.textFieldSlot!.hint,
               maxLength: widget.textFieldSlot!.maxLength,
               onChanged: widget.textFieldSlot!.onTextChanged,
-              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+              padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
             ),
           if (widget.datePickerSlot1 != null)
             LaDatePickerMolecule(
@@ -96,7 +96,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               defaultDate: widget.datePickerSlot1!.defaultDate,
               lastDate: widget.datePickerSlot1!.lastDate,
               onDateSelected: widget.datePickerSlot1!.onDateSelected,
-              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+              padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
             ),
           if (widget.datePickerSlot2 != null)
             LaDatePickerMolecule(
@@ -109,7 +109,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               defaultDate: widget.datePickerSlot2!.defaultDate,
               lastDate: widget.datePickerSlot2!.lastDate,
               onDateSelected: widget.datePickerSlot2!.onDateSelected,
-              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+              padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
             ),
           if (widget.multiSelectPickerSlot1 != null)
             LaMultiSelectPickerOrganism(
@@ -119,7 +119,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               optional: widget.multiSelectPickerSlot1!.optional,
               options: widget.multiSelectPickerSlot1!.options,
               onSelectionChanged: widget.multiSelectPickerSlot1!.onSelectionChanged,
-              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+              padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
             ),
           if (widget.multiSelectPickerSlot2 != null)
             LaMultiSelectPickerOrganism(
@@ -129,7 +129,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               optional: widget.multiSelectPickerSlot2!.optional,
               options: widget.multiSelectPickerSlot2!.options,
               onSelectionChanged: widget.multiSelectPickerSlot2!.onSelectionChanged,
-              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+              padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
             ),
           if (widget.dropDownSlot != null)
             LaDropDownMolecule(
@@ -143,9 +143,9 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               options: widget.dropDownSlot!.options,
               freeFormOption: widget.dropDownSlot!.freeFormOption,
               onChanged: widget.dropDownSlot!.onItemSelected,
-              padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+              padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
             ),
-          const SizedBox(height: LaPaddings.medium),
+          const SizedBox(height: LaPadding.medium),
         ],
       ),
     );

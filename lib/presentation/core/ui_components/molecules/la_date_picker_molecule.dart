@@ -54,10 +54,9 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
       padding: widget.padding ?? EdgeInsets.zero,
       child: LaCardAtom(
         child: LaPaddingAtom.all(
-          value: LaPaddings.medium,
+          value: LaPadding.medium,
           child: LaColumnAtom(
             crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: LaPaddings.small,
             children: [
               LaRow(
                 children: [
@@ -70,10 +69,10 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
                       ),
                       enabled: widget.explanation != null,
                       child: LaRow(
-                        spacing: LaPaddings.extraSmall,
                         children: [
-                          LaTextAtom(widget.title, style: LaTheme.font.body14.light),
-                          if (widget.explanation != null) LaIconAtom(LaIcons.information, size: LaSizes.medium, color: LaTheme.hintText()),
+                          LaTextAtom(widget.title, style: LaTextAtomStyle.body14.light),
+                          if (widget.explanation != null) const LaSizedBoxAtom(width: LaPadding.extraSmall),
+                          if (widget.explanation != null) LaIconAtom(LaIcons.information, size: LaSize.medium, color: LaTheme.hintText()),
                         ],
                       ),
                     ),
@@ -81,10 +80,11 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
                   if (!widget.optional)
                     LaTextAtom(
                       "*${S.of(context).global_required}",
-                      style: LaTheme.font.body12.light.primary,
+                      style: LaTextAtomStyle.body12.light.primary,
                     ),
                 ],
               ),
+                  const LaSizedBoxAtom(height: LaPadding.small),
               LaTapVisualAtom(
                 onTap: () {
                   if (PlatformDetector.isIOS) {
@@ -146,7 +146,7 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
     await showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => LaContainerAtom(
-        height: LaSizes.pickerHeight,
+        height: LaSize.pickerHeight,
         decoration: BoxDecoration(
           color: LaTheme.surface(),
           borderRadius: const BorderRadius.vertical(top: Radius.circular(LaCornerRadius.large)),
@@ -154,7 +154,7 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
         child: LaColumnAtom(
           children: [
             LaContainerAtom(
-              height: LaSizes.pickerHeaderHeight,
+              height: LaSize.pickerHeaderHeight,
               decoration: BoxDecoration(
                 color: LaTheme.surface(),
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(LaCornerRadius.large)),
@@ -165,7 +165,7 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
                   CupertinoButton(
                     child: LaTextAtom(
                       S.of(context).global_done,
-                      style: LaTheme.font.body16.primary,
+                      style: LaTextAtomStyle.body16.primary,
                     ),
                     onPressed: () {
                       Navigator.pop(context);

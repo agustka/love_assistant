@@ -109,7 +109,7 @@ class LaButtonAtom extends StatelessWidget {
       child = Center(
         child: LaDotLoaderAtom(
           color: colors.busyColor,
-          size: LaSizes.large,
+          size: LaSize.large,
         ),
       );
     } else {
@@ -127,7 +127,7 @@ class LaButtonAtom extends StatelessWidget {
         );
       } else {
         child = Padding(
-          padding: const EdgeInsets.all(LaPaddings.small),
+          padding: const EdgeInsets.all(LaPadding.small),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -138,7 +138,7 @@ class LaButtonAtom extends StatelessWidget {
                   size: size.iconSize,
                   color: textColor,
                 ),
-              if (icon != null && hasText) const SizedBox(width: LaPaddings.small),
+              if (icon != null && hasText) const SizedBox(width: LaPadding.small),
               if (hasText)
                 Flexible(
                   child: LaTextAtom(
@@ -146,7 +146,7 @@ class LaButtonAtom extends StatelessWidget {
                     maxLines: maxLines,
                     overflow: maxLines != null ? TextOverflow.ellipsis : null,
                     textAlign: TextAlign.center,
-                    style: size.getTextStyle().copyWith(color: textColor),
+                    style: size.getTextStyle(buttonStyle: buttonStyle, enabled: enabled),
                   ),
                 ),
             ],
@@ -268,12 +268,23 @@ extension _IsbButtonSizeX on LaButtonSize {
       };
 
   double get iconSize => switch (this) {
-        LaButtonSize.normal => LaSizes.large,
-        LaButtonSize.mini => LaSizes.medium,
+        LaButtonSize.normal => LaSize.large,
+        LaButtonSize.mini => LaSize.medium,
       };
 
-  TextStyle getTextStyle() => switch (this) {
-        LaButtonSize.normal => LaTheme.font.body16,
-        LaButtonSize.mini => LaTheme.font.body14,
-      };
+  LaTextAtomStyle getTextStyle({required LaButtonStyle buttonStyle, required bool enabled}) {
+    final LaTextAtomStyle sizeStyle = switch (this) {
+      LaButtonSize.normal => LaTextAtomStyle.body16,
+      LaButtonSize.mini => LaTextAtomStyle.body14,
+    };
+
+    if (!enabled) {
+      return sizeStyle.hintText;
+    }
+
+    return switch (buttonStyle) {
+      LaButtonStyle.primary => sizeStyle.onSecondary,
+      LaButtonStyle.secondary => sizeStyle.onTertiaryContainer,
+    };
+  }
 }

@@ -42,7 +42,7 @@ class LoginFormOrganism extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: LaTextAtom(
               errorMessage!,
-              style: const TextStyle(color: Colors.red),
+              style: LaTextAtomStyle.body14.onError,
               textAlign: TextAlign.center,
             ),
           ),
@@ -53,7 +53,7 @@ class LoginFormOrganism extends StatelessWidget {
              text: googleButtonText,
              onTap: onGoogleLogin!,
            ),
-           const SizedBox(height: LaPaddings.mediumSmall),
+           const SizedBox(height: LaPadding.mediumSmall),
          },
          if (onAppleLogin != null) ...{
            LaButtonAtom.mini(
@@ -61,7 +61,7 @@ class LoginFormOrganism extends StatelessWidget {
              text: appleButtonText,
              onTap: onAppleLogin!,
            ),
-           const SizedBox(height: LaPaddings.large),
+           const SizedBox(height: LaPadding.large),
          },
          if (onSignUp != null) ...{
            Row(
@@ -70,18 +70,15 @@ class LoginFormOrganism extends StatelessWidget {
                if (signUpText != null) ...{
                  LaTextAtom(
                    signUpText!,
-                   style: Theme.of(context).textTheme.bodyMedium,
+                   style: LaTextAtomStyle.body16.onSurface,
                  ),
-                 const SizedBox(width: LaPaddings.extraSmall),
+                 const SizedBox(width: LaPadding.extraSmall),
                },
               TextButton(
                 onPressed: onSignUp,
                 child: LaTextAtom(
                   signUpButtonText!,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: LaTextAtomStyle.body16.bold.primary,
                 ),
               ),
             ],

@@ -116,15 +116,15 @@ class BottomButtonDefinition extends Equatable {
 
 class LaBottomButtonsMolecule extends StatefulWidget {
   static const Key bottomButtonsMoreButtonKey = Key("bottomButtonsMoreButtonKey");
-  static double bottomPadding = LaPaddings.medium;
+  static double bottomPadding = LaPadding.medium;
 
   final BottomButtonsDefinition buttons;
   final bool shouldPushOnKeyboard;
 
   static double getBottomButtonsHeight({BottomButtonsStyle style = BottomButtonsStyle.sideBySide}) {
     return switch (style) {
-      BottomButtonsStyle.sideBySide => LaButtonAtom.buttonHeight + LaPaddings.bottomPadding + bottomPadding,
-      BottomButtonsStyle.sandwich => (LaButtonAtom.buttonHeight * 2) + (LaPaddings.bottomPadding * 3) + bottomPadding,
+      BottomButtonsStyle.sideBySide => LaButtonAtom.buttonHeight + LaPadding.bottomPadding + bottomPadding,
+      BottomButtonsStyle.sandwich => (LaButtonAtom.buttonHeight * 2) + (LaPadding.bottomPadding * 3) + bottomPadding,
     };
   }
 
@@ -145,10 +145,10 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
       return const LaSizedBoxAtom.shrink();
     }
 
-    if (widget.buttons.bottomPadding < LaPaddings.extraLarge) {
-      LaBottomButtonsMolecule.bottomPadding = widget.buttons.bottomPadding + LaPaddings.medium;
+    if (widget.buttons.bottomPadding < LaPadding.extraLarge) {
+      LaBottomButtonsMolecule.bottomPadding = widget.buttons.bottomPadding + LaPadding.medium;
     } else {
-      LaBottomButtonsMolecule.bottomPadding = widget.buttons.bottomPadding + LaPaddings.extraSmall;
+      LaBottomButtonsMolecule.bottomPadding = widget.buttons.bottomPadding + LaPadding.extraSmall;
     }
 
     return LaMaterialAtom(
@@ -156,13 +156,13 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
       child: LaColumnAtom(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (widget.buttons.aboveButtonsWidget == null) const LaSizedBoxAtom(height: LaPaddings.small),
+          if (widget.buttons.aboveButtonsWidget == null) const LaSizedBoxAtom(height: LaPadding.small),
 
           widget.buttons.aboveButtonsWidget ?? const LaSizedBoxAtom.shrink(),
 
           if (widget.buttons.buttons.isNotEmpty)
             LaPaddingAtom(
-              padding: const EdgeInsets.only(left: LaPaddings.medium, right: LaPaddings.medium),
+              padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
               child: LaSizedBoxAtom(width: double.infinity, child: _getMainButtonEntries(context)),
             ),
 
@@ -184,7 +184,7 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
       case BottomButtonsStyle.sandwich:
         return LaSeparatedColumnMolecule(
           separatorBuilder: (BuildContext context, int index) {
-            return const LaSizedBoxAtom(height: LaPaddings.medium);
+            return const LaSizedBoxAtom(height: LaPadding.medium);
           },
           mainAxisSize: MainAxisSize.min,
           children: [..._getSandwichButtons(context)],
@@ -235,7 +235,7 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
         break;
       }
       if (cnt > 0) {
-        entries.add(const LaSizedBoxAtom(width: LaPaddings.small));
+        entries.add(const LaSizedBoxAtom(width: LaPadding.small));
       }
       cnt++;
       entries.add(
@@ -259,7 +259,7 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
     final bool shouldDisplayMoreButton =
         _buttons.buttons.length > 2 || (Accessibility.of(context).isInAccessibilityMode && _buttons.buttons.length > 1);
     if (shouldDisplayMoreButton) {
-      entries.add(const LaSizedBoxAtom(width: LaPaddings.small));
+      entries.add(const LaSizedBoxAtom(width: LaPadding.small));
       entries.add(
         LaFlexibleAtom(
           flex: overflowFlex,

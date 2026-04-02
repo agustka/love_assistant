@@ -53,7 +53,7 @@ class _LaPagerOrganismState extends State<LaPagerOrganism> {
             physics: widget.physics,
           ),
         ),
-        const LaSizedBoxAtom(height: LaPaddings.extraSmall),
+        const LaSizedBoxAtom(height: LaPadding.extraSmall),
         SmoothPageIndicator(
           controller: widget.controller ?? _controller,
           count: widget.itemCount,

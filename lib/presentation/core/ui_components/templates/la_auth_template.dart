@@ -28,7 +28,7 @@ class LaAuthTemplate extends StatelessWidget {
           child: SingleChildScrollView(
              child: LaCardAtom(
                child: Padding(
-                 padding: const EdgeInsets.all(LaPaddings.large),
+                 padding: const EdgeInsets.all(LaPadding.large),
                  child: Column(
                    mainAxisSize: MainAxisSize.min,
                    crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -41,17 +41,17 @@ class LaAuthTemplate extends StatelessWidget {
                        textAlign: TextAlign.center,
                      ),
                      if (subtitle != null) ...{
-                       const SizedBox(height: LaPaddings.small),
+                       const SizedBox(height: LaPadding.small),
                        Text(
                          subtitle!,
                          style: Theme.of(context).textTheme.bodyMedium,
                          textAlign: TextAlign.center,
                        ),
                      },
-                     const SizedBox(height: LaPaddings.extraLarge),
+                     const SizedBox(height: LaPadding.extraLarge),
                      child,
                      if (footer != null) ...{
-                       const SizedBox(height: LaPaddings.large),
+                       const SizedBox(height: LaPadding.large),
                        footer!,
                      },
                    ],

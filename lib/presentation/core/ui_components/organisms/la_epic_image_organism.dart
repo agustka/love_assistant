@@ -49,7 +49,7 @@ class LaEpicImageOrganism extends StatelessWidget {
     final Widget image = overrideWidget ?? (isLoading ? LaLoadingBoxAtom(child: _getImage(context)) : _getImage(context));
 
     Widget core = LaPaddingAtom(
-      padding: EdgeInsets.only(top: shouldAddTopPadding ? LaPaddings.large : 0),
+      padding: EdgeInsets.only(top: shouldAddTopPadding ? LaPadding.large : 0),
       child: image,
     );
     if (semantics.isNotEmpty) {
@@ -62,7 +62,7 @@ class LaEpicImageOrganism extends StatelessWidget {
     }
 
     if (type == LaEpicImageType.avatar) {
-      const double backgroundPadding = LaPaddings.large;
+      const double backgroundPadding = LaPadding.large;
       final double size = _getSize(context);
       final double backgroundSize = size + backgroundPadding;
       core = Stack(
@@ -99,17 +99,17 @@ class LaEpicImageOrganism extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           core,
-          const LaSizedBoxAtom(height: LaPaddings.extraHuge),
+          const LaSizedBoxAtom(height: LaPadding.extraHuge),
           LaTextAtom(
             title!,
-            style: LaTheme.font.body28.bold,
+            style: LaTextAtomStyle.body28.bold,
             textAlign: TextAlign.center,
           ),
           if (message != null) ...[
-            const LaSizedBoxAtom(height: LaPaddings.medium),
+            const LaSizedBoxAtom(height: LaPadding.medium),
             LaTextAtom(
               message!,
-              style: LaTheme.font.body16.light,
+              style: LaTextAtomStyle.body16.light,
               textAlign: TextAlign.center,
             ),
           ],
@@ -120,10 +120,10 @@ class LaEpicImageOrganism extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           core,
-          const LaSizedBoxAtom(height: LaPaddings.extraHuge),
+          const LaSizedBoxAtom(height: LaPadding.extraHuge),
           LaTextAtom(
             message!,
-            style: LaTheme.font.body16.light,
+            style: LaTextAtomStyle.body16.light,
             textAlign: TextAlign.center,
           ),
         ],
@@ -133,10 +133,10 @@ class LaEpicImageOrganism extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           core,
-          const LaSizedBoxAtom(height: LaPaddings.extraHuge),
+          const LaSizedBoxAtom(height: LaPadding.extraHuge),
           LaTextAtom(
             title!,
-            style: LaTheme.font.body28.bold,
+            style: LaTextAtomStyle.body28.bold,
             textAlign: TextAlign.center,
           ),
         ],

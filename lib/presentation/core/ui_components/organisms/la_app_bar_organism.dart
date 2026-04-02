@@ -19,10 +19,10 @@ class AppBarActionDefinition {
     return LaTapVisualAtom(
       onTap: onTap,
       child: LaPaddingAtom.all(
-        value: PlatformDetector.isIOS ? 0 : LaPaddings.medium,
+        value: PlatformDetector.isIOS ? 0 : LaPadding.medium,
         child: LaIconAtom(
           icon,
-          size: LaSizes.large,
+          size: LaSize.large,
           color: style.foregroundColor,
         ),
       ),
@@ -59,7 +59,7 @@ class LaAppBarOrganism extends StatelessWidget implements PreferredSizeWidget {
               child: LaIconAtom(Icons.arrow_back, color: style.foregroundColor),
             )
           : null,
-      title: title == null ? null : LaTextAtom(title!, style: TextStyle(color: style.foregroundColor)),
+      title: title == null ? null : LaTextAtom(title!, style: style.materialTitleTextStyle),
       backgroundColor: style.backgroundColor,
     );
   }
@@ -104,7 +104,7 @@ class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredS
           ? null
           : LaTextAtom(
               title!,
-              style: style.foregroundColor.text,
+              style: style.cupertinoTitleTextStyle,
             ),
       backgroundColor: style.backgroundColor,
       automaticBackgroundVisibility: false,
@@ -119,6 +119,20 @@ class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredS
 }
 
 extension _AppBarStyleExtension on AppBarStyle {
+  LaTextAtomStyle get materialTitleTextStyle {
+    return switch (this) {
+      AppBarStyle.primary => LaTextAtomStyle.body20.onPrimary,
+      AppBarStyle.background => LaTextAtomStyle.body20.onBackground,
+    };
+  }
+
+  LaTextAtomStyle get cupertinoTitleTextStyle {
+    return switch (this) {
+      AppBarStyle.primary => LaTextAtomStyle.body17.onPrimary,
+      AppBarStyle.background => LaTextAtomStyle.body17.onBackground,
+    };
+  }
+
   Color get backgroundColor {
     switch (this) {
       case AppBarStyle.primary:

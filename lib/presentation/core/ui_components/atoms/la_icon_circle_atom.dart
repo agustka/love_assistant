@@ -52,8 +52,8 @@ class LaIconCircleAtom extends StatelessWidget {
             child: ColoredBox(
               color: circleColor ?? defaultCircleColor,
               child: SizedBox(
-                width: size ?? LaSizes.huge * scale,
-                height: size ?? LaSizes.huge * scale,
+                width: size ?? LaSize.huge * scale,
+                height: size ?? LaSize.huge * scale,
                 child: Icon(
                   icon,
                   color: iconColor ?? LaTheme.onSurface(),

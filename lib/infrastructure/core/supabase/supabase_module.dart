@@ -6,4 +6,3 @@ abstract class SupabaseModule {
   @lazySingleton
   SupabaseClient get supabaseClient => Supabase.instance.client;
 }
-

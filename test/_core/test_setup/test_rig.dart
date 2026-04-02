@@ -24,7 +24,7 @@ class LabelGoldenBuilder {
   LabelGoldenBuilder.column({this.wrap, this.darkMode = false});
 
   void addScenario(String name, Widget widget) {
-    _children.add(LaTextAtom(name, style: LaTheme.font.body16));
+    _children.add(LaTextAtom(name, style: LaTextAtomStyle.body16));
     _children.add(const SizedBox(height: 8));
     _children.add(wrap?.call(widget) ?? widget);
     _children.add(const SizedBox(height: 16));

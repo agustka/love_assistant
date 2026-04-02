@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:la/presentation/core/theme/la_theme_illustrations.dart';
 
-class LaPaddings {
+class LaPadding {
   static const double extraSmall = 4;
   static const double small = 8;
   static const double mediumSmall = 12;
@@ -15,7 +15,7 @@ class LaPaddings {
   static const double bottomPadding = 18;
 }
 
-class LaSizes {
+class LaSize {
   static const double extraSmall = 4;
   static const double small = 8;
   static const double mediumSmall = 12;
@@ -268,6 +268,7 @@ extension TextStyleExtension on TextStyle {
   TextStyle get onSecondary => copyWith(color: LaTheme.onSecondary());
   TextStyle get onSurface => copyWith(color: LaTheme.onSurface());
   TextStyle get onSecondaryContainer => copyWith(color: LaTheme.onSecondaryContainer());
+  TextStyle get onTertiaryContainer => copyWith(color: LaTheme.onTertiaryContainer());
   TextStyle get onBackground => copyWith(color: LaTheme.onBackground());
   TextStyle get onError => copyWith(color: LaTheme.onError());
   TextStyle get hintText => copyWith(color: LaTheme.hintText());

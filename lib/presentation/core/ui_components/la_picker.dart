@@ -34,9 +34,9 @@ class LaPicker {
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: LaPaddings.small),
+        padding: const EdgeInsets.only(bottom: LaPadding.small),
         child: CupertinoActionSheet(
-          title: LaTextAtom(entries.title, style: LaTheme.font.body17),
+          title: LaTextAtom(entries.title, style: LaTextAtomStyle.body17),
           actions: entries.entries
               .map(
                 (PickerEntry e) => CupertinoActionSheetAction(
@@ -44,7 +44,7 @@ class LaPicker {
                     Navigator.pop(context);
                     e.onTap();
                   },
-                  child: LaTextAtom(e.text, style: LaTheme.font.body20),
+                  child: LaTextAtom(e.text, style: LaTextAtomStyle.body20),
                 ),
               )
               .toList(),
@@ -52,7 +52,7 @@ class LaPicker {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: LaTextAtom(S.of(context).global_cancel, style: LaTheme.font.body17),
+            child: LaTextAtom(S.of(context).global_cancel, style: LaTextAtomStyle.body17),
           ),
         ),
       ),
@@ -66,7 +66,7 @@ class LaPicker {
       useSafeArea: true,
       builder: (BuildContext context) {
         return Padding(
-          padding: EdgeInsets.only(top: LaPaddings.large, bottom: LaPaddings.small + MediaQuery.of(context).padding.bottom),
+          padding: EdgeInsets.only(top: LaPadding.large, bottom: LaPadding.small + MediaQuery.of(context).padding.bottom),
           child: Wrap(
             children: entries.entries
                 .map(
@@ -74,11 +74,11 @@ class LaPicker {
                     leading: e.icon == null
                         ? LaSvgAtom(
                             e.svg ?? AppAssets.icons.icTransparent,
-                            width: LaSizes.large,
-                            height: LaSizes.large,
+                            width: LaSize.large,
+                            height: LaSize.large,
                           )
                         : Icon(e.icon),
-                    title: LaTextAtom(e.text, style: LaTheme.font.body16),
+                    title: LaTextAtom(e.text, style: LaTextAtomStyle.body16),
                     onTap: () {
                       Navigator.pop(context);
                       e.onTap();

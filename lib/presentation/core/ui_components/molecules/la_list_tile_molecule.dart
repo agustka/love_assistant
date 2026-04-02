@@ -34,13 +34,13 @@ class LaListTileMolecule extends StatelessWidget {
     return LaTapVisualAtom(
       onTap: onTap,
       child: LaPaddingAtom.symmetric(
-        vertical: LaPaddings.mediumSmall,
-        horizontal: LaPaddings.medium,
+        vertical: LaPadding.mediumSmall,
+        horizontal: LaPadding.medium,
         child: LaRow(
           children: [
             if (leading != null) ...[
               leading!,
-              const LaSizedBoxAtom(width: LaPaddings.medium),
+              const LaSizedBoxAtom(width: LaPadding.medium),
             ],
             // Title and Subtitle (expanded to fill space)
             LaExpandedAtom(

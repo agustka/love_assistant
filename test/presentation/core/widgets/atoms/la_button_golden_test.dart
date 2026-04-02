@@ -33,7 +33,7 @@ void main() {
         );
       });
 
-      await screenMatchesGolden(tester, "isb_card_mini_light_mode");
+      await screenMatchesGolden(tester, "la_card_mini_light_mode");
     });
 
     testGoldens("LaButton - normal", (WidgetTester tester) async {
@@ -53,7 +53,7 @@ void main() {
         );
       });
 
-      await screenMatchesGolden(tester, "isb_card_mini_light_mode_2");
+      await screenMatchesGolden(tester, "la_card_mini_light_mode_2");
     });
   });
 }

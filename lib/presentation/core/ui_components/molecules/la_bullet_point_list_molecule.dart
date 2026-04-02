@@ -9,39 +9,39 @@ enum BulletPointListSize {
 }
 
 extension _BulletPointListSizeExtension on BulletPointListSize {
-  TextStyle get titleSize {
+  LaTextAtomStyle get titleStyle {
     switch (this) {
       case BulletPointListSize.normal:
-        return LaTheme.font.body24;
+        return LaTextAtomStyle.body24;
       case BulletPointListSize.small:
-        return LaTheme.font.body20;
+        return LaTextAtomStyle.body20;
     }
   }
 
-  TextStyle get entrySize {
+  LaTextAtomStyle get entryStyle {
     switch (this) {
       case BulletPointListSize.normal:
-        return LaTheme.font.body16;
+        return LaTextAtomStyle.body16;
       case BulletPointListSize.small:
-        return LaTheme.font.body14;
+        return LaTextAtomStyle.body14;
     }
   }
 
-  TextStyle get bulletSize {
+  LaTextAtomStyle get bulletStyle {
     switch (this) {
       case BulletPointListSize.normal:
-        return LaTheme.font.body28;
+        return LaTextAtomStyle.body28;
       case BulletPointListSize.small:
-        return LaTheme.font.body24;
+        return LaTextAtomStyle.body24;
     }
   }
 
   double get titlePadding {
     switch (this) {
       case BulletPointListSize.normal:
-        return LaPaddings.medium;
+        return LaPadding.medium;
       case BulletPointListSize.small:
-        return LaPaddings.small;
+        return LaPadding.small;
     }
   }
 }
@@ -74,16 +74,16 @@ class LaBulletPointListMolecule extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       child: LaCardAtom(
         child: LaPaddingAtom.all(
-          value: LaPaddings.medium,
+          value: LaPadding.medium,
           child: LaColumnAtom(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              LaTextAtom(title, style: size.titleSize),
+              LaTextAtom(title, style: size.titleStyle),
               LaSizedBoxAtom(height: size.titlePadding),
               ...entries.map(
                 (BulletPointEntry e) => LaListTileMolecule(
                   leading: _getLeading(e),
-                  title: LaTextAtom(e.text, style: size.entrySize),
+                  title: LaTextAtom(e.text, style: size.entryStyle),
                 ),
               ),
             ],
@@ -97,11 +97,11 @@ class LaBulletPointListMolecule extends StatelessWidget {
     if (e.icon != null) {
       return LaIconAtom(
         e.icon!,
-        size: LaSizes.large,
+        size: LaSize.large,
       );
     } else if (e.emoji != null) {
-      return LaTextAtom(e.emoji ?? "•", style: LaTheme.font.body20);
+      return LaTextAtom(e.emoji ?? "•", style: LaTextAtomStyle.body20);
     }
-    return LaTextAtom("•", style: size.bulletSize);
+    return LaTextAtom("•", style: size.bulletStyle);
   }
 }

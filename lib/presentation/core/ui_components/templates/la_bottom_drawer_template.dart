@@ -58,23 +58,23 @@ class LaBottomDrawerTemplate extends StatelessWidget {
       children: [
         if (config.heading.isNotEmpty)
           LaPaddingAtom.only(
-            left: LaPaddings.medium,
-            right: LaPaddings.medium,
-            top: LaPaddings.large,
-            bottom: LaPaddings.small,
+            left: LaPadding.medium,
+            right: LaPadding.medium,
+            top: LaPadding.large,
+            bottom: LaPadding.small,
             child: LaTextAtom(
               config.heading,
-              style: LaTheme.font.body20.bold.onSurface,
+              style: LaTextAtomStyle.body20.bold.onSurface,
             ),
           ),
         LaSeparatedColumnMolecule(
           separatorBuilder: (BuildContext context, int index) => LaPaddingAtom.symmetric(
-            horizontal: LaPaddings.medium,
+            horizontal: LaPadding.medium,
             child: const LaDividerAtom(),
           ),
           children: config.entries.map((BottomDrawerEntry entry) => _getEntry(context, entry)).toList(),
         ),
-        const LaSizedBoxAtom(height: LaPaddings.bottomPadding),
+        const LaSizedBoxAtom(height: LaPadding.bottomPadding),
       ],
     );
   }
@@ -93,29 +93,27 @@ class LaBottomDrawerTemplate extends StatelessWidget {
       child: LaContainerAtom(
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(
-          top: LaPaddings.medium,
-          bottom: LaPaddings.medium,
+          top: LaPadding.medium,
+          bottom: LaPadding.medium,
         ),
         child: LaRow(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const LaSizedBoxAtom(width: LaPaddings.medium),
+            const LaSizedBoxAtom(width: LaPadding.medium),
             if (entry.icon != null) ...[
               LaIconAtom(
                 entry.icon!,
-                size: LaSizes.large,
+                size: LaSize.large,
                 color: entry.enabled ? LaTheme.onSurface() : LaTheme.onSurface().withValues(alpha: 155),
               ),
-              const LaSizedBoxAtom(width: LaPaddings.medium),
+              const LaSizedBoxAtom(width: LaPadding.medium),
             ],
             LaExpandedAtom(
               child: LaTextAtom(
                 entry.text,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: LaTheme.font.body16.bold.copyWith(
-                  color: entry.enabled ? LaTheme.onSurface() : LaTheme.onSurface().withValues(alpha: 155),
-                ),
+                style: entry.enabled ? LaTextAtomStyle.body16.bold.onSurface : LaTextAtomStyle.body16.bold.hintText,
               ),
             ),
           ],

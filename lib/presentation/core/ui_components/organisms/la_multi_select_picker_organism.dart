@@ -65,23 +65,23 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
   Widget _buildMaterialPillPicker() {
     return LaCardAtom(
       child: LaPaddingAtom.all(
-        value: LaPaddings.medium,
+        value: LaPadding.medium,
         child: LaColumnAtom(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _getTitle(context),
-            const LaSizedBoxAtom(height: LaPaddings.small),
+            const LaSizedBoxAtom(height: LaPadding.small),
             Wrap(
-              spacing: LaPaddings.small,
-              runSpacing: LaPaddings.extraSmall,
+              spacing: LaPadding.small,
+              runSpacing: LaPadding.extraSmall,
               children: widget.options.map((T option) {
                 final bool isSelected = _selectedOptions.contains(option);
                 return FilterChip(
                   label: LaTextAtom(
                     option.toString(),
                     style: isSelected
-                        ? LaTheme.font.body14.onSecondary.light
-                        : LaTheme.font.body14.onSecondaryContainer.light,
+                        ? LaTextAtomStyle.body14.onSecondary.light
+                        : LaTextAtomStyle.body14.onSecondaryContainer.light,
                   ),
                   selected: isSelected,
                   checkmarkColor: LaTheme.onSecondary(),
@@ -114,16 +114,16 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
   Widget _buildCupertinoPillPicker() {
     return LaCardAtom(
       child: LaPaddingAtom.all(
-        value: LaPaddings.medium,
+        value: LaPadding.medium,
         child: LaColumnAtom(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _getTitle(context),
             LaPaddingAtom(
-              padding: const EdgeInsets.only(top: LaPaddings.small),
+              padding: const EdgeInsets.only(top: LaPadding.small),
               child: Wrap(
-                spacing: LaPaddings.small,
-                runSpacing: LaPaddings.small,
+                spacing: LaPadding.small,
+                runSpacing: LaPadding.small,
                 children: widget.options.map((T option) {
                   final bool isSelected = _selectedOptions.contains(option);
                   return GestureDetector(
@@ -139,8 +139,8 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
                     },
                     child: LaContainerAtom(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: LaPaddings.mediumSmall,
-                        vertical: LaPaddings.small,
+                        horizontal: LaPadding.mediumSmall,
+                        vertical: LaPadding.small,
                       ),
                       decoration: BoxDecoration(
                         color: isSelected ? LaTheme.secondary() : LaTheme.secondaryContainer(),
@@ -149,8 +149,8 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
                       child: LaTextAtom(
                         option.toString(),
                         style: isSelected
-                            ? LaTheme.font.body16.onSecondary.light
-                            : LaTheme.font.body16.onSecondaryContainer.light,
+                            ? LaTextAtomStyle.body16.onSecondary.light
+                            : LaTextAtomStyle.body16.onSecondaryContainer.light,
                       ),
                     ),
                   );
@@ -174,10 +174,10 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
             enabled: widget.explanation != null,
             child: LaRow(
               children: [
-                LaTextAtom(widget.title, style: LaTheme.font.body14.light),
-                if (widget.explanation != null) const LaSizedBoxAtom(width: LaPaddings.extraSmall),
+                LaTextAtom(widget.title, style: LaTextAtomStyle.body14.light),
+                if (widget.explanation != null) const LaSizedBoxAtom(width: LaPadding.extraSmall),
                 if (widget.explanation != null)
-                  LaIconAtom(LaIcons.information, size: LaSizes.medium, color: LaTheme.hintText()),
+                  LaIconAtom(LaIcons.information, size: LaSize.medium, color: LaTheme.hintText()),
               ],
             ),
           ),
@@ -185,7 +185,7 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
         if (!widget.optional)
           LaTextAtom(
             "*${S.of(context).global_required}",
-            style: LaTheme.font.body12.light.primary,
+            style: LaTextAtomStyle.body12.light.primary,
           ),
       ],
     );
@@ -193,14 +193,14 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
 
   Widget _getError(BuildContext context) {
     return LaPaddingAtom(
-      padding: const EdgeInsets.only(left: LaPaddings.small),
+      padding: const EdgeInsets.only(left: LaPadding.small),
       child: AnimatedCrossFade(
         duration: 300.milliseconds,
         crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         firstChild: const LaSizedBoxAtom.shrink(),
         secondChild: LaTextAtom(
           widget.errorText ?? S.of(context).global_generic_field_error,
-          style: LaTheme.font.body14.primary,
+          style: LaTextAtomStyle.body14.primary,
         ),
       ),
     );

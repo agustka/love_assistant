@@ -45,18 +45,18 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
   Widget build(BuildContext context) {
     return LaCardAtom(
       child: LaPaddingAtom.all(
-        value: LaPaddings.medium,
+        value: LaPadding.medium,
         child: LaColumnAtom(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             LaRow(
               children: [
-                LaExpandedAtom(child: LaTextAtom(widget.title, style: LaTheme.font.body14.light)),
+                LaExpandedAtom(child: LaTextAtom(widget.title, style: LaTextAtomStyle.body14.light)),
                 if (!widget.optional)
-                  LaTextAtom("*${S.of(context).global_required}", style: LaTheme.font.body12.light.primary),
+                  LaTextAtom("*${S.of(context).global_required}", style: LaTextAtomStyle.body12.light.primary),
               ],
             ),
-            const LaSizedBoxAtom(height: LaPaddings.small),
+            const LaSizedBoxAtom(height: LaPadding.small),
             LaTapVisualAtom(
               onTap: () {
                 if (PlatformDetector.isIOS) {
@@ -88,7 +88,7 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
       context: context,
       builder: (BuildContext context) {
         return LaContainerAtom(
-          height: LaSizes.pickerHeight,
+          height: LaSize.pickerHeight,
           decoration: const BoxDecoration(
             color: CupertinoColors.systemBackground,
             borderRadius: BorderRadius.vertical(top: Radius.circular(LaCornerRadius.large)),
@@ -97,9 +97,9 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
             children: [
               // Done button
               LaContainerAtom(
-                height: LaSizes.pickerHeaderHeight,
+                height: LaSize.pickerHeaderHeight,
                 alignment: Alignment.centerRight,
-                padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
+                padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
                 child: CupertinoButton(
                   onPressed: () {
                     setState(() {
@@ -109,7 +109,7 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
                     widget.onDateSelected(_selectedMonth!, _selectedDay!);
                     Navigator.pop(context);
                   },
-                  child: const LaTextAtom("Done", style: TextStyle(color: CupertinoColors.activeBlue)),
+                  child: LaTextAtom("Done", style: LaTextAtomStyle.body16.primary),
                 ),
               ),
               // Day-Month Picker
@@ -120,13 +120,14 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
                     LaExpandedAtom(
                       child: CupertinoPicker(
                         scrollController: FixedExtentScrollController(initialItem: tempMonth - 1),
-                        itemExtent: LaSizes.pickerItemExtent,
+                        itemExtent: LaSize.pickerItemExtent,
                         onSelectedItemChanged: (index) {
                           tempMonth = index + 1;
                         },
                         children: List.generate(
                           12,
-                          (int index) => LaCenterAtom(child: LaTextAtom(_getMonthName(index + 1), style: LaTheme.font.body14)),
+                          (int index) =>
+                              LaCenterAtom(child: LaTextAtom(_getMonthName(index + 1), style: LaTextAtomStyle.body14)),
                         ),
                       ),
                     ),
@@ -134,13 +135,13 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
                     LaExpandedAtom(
                       child: CupertinoPicker(
                         scrollController: FixedExtentScrollController(initialItem: tempDay - 1),
-                        itemExtent: LaSizes.pickerItemExtent,
+                        itemExtent: LaSize.pickerItemExtent,
                         onSelectedItemChanged: (int index) {
                           tempDay = index + 1;
                         },
                         children: List.generate(
                           31,
-                          (index) => LaCenterAtom(child: LaTextAtom("${index + 1}", style: LaTheme.font.body14)),
+                          (index) => LaCenterAtom(child: LaTextAtom("${index + 1}", style: LaTextAtomStyle.body14)),
                         ),
                       ),
                     ),
@@ -165,13 +166,13 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
         return LaDialogAtom(
           shape: LaCornerRadius().dialog,
           child: LaPaddingAtom.all(
-            value: LaPaddings.medium,
+            value: LaPadding.medium,
             child: LaColumnAtom(
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Title
-                LaTextAtom(widget.title, style: LaTheme.font.body18.bold),
-                const LaSizedBoxAtom(height: LaPaddings.medium),
+                LaTextAtom(widget.title, style: LaTextAtomStyle.body18.bold),
+                const LaSizedBoxAtom(height: LaPadding.medium),
 
                 // Month Dropdown
                 DropdownButton<int>(
@@ -180,7 +181,7 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
                   items: List.generate(12, (int index) {
                     return DropdownMenuItem<int>(
                       value: index + 1,
-                      child: LaTextAtom(_getMonthName(index + 1), style: LaTheme.font.body14),
+                      child: LaTextAtom(_getMonthName(index + 1), style: LaTextAtomStyle.body14),
                     );
                   }),
                   onChanged: (int? value) {
@@ -190,13 +191,13 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
                     });
                   },
                 ),
-                const LaSizedBoxAtom(height: LaPaddings.medium),
+                const LaSizedBoxAtom(height: LaPadding.medium),
 
                 // Day Grid
                 _buildDayGrid(),
 
                 // Confirm Button
-                const LaSizedBoxAtom(height: LaPaddings.medium),
+                const LaSizedBoxAtom(height: LaPadding.medium),
                 LaButtonAtom(
                   onTap: () {
                     if (_selectedDay != null) {
@@ -204,7 +205,7 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
                       Navigator.pop(context);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: LaTextAtom(S.of(context).global_pick_date, style: LaTheme.font.body14)),
+                        SnackBar(content: LaTextAtom(S.of(context).global_pick_date, style: LaTextAtomStyle.body14)),
                       );
                     }
                   },
@@ -226,8 +227,8 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
       itemCount: daysInMonth,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 7,
-        crossAxisSpacing: LaPaddings.small,
-        mainAxisSpacing: LaPaddings.small,
+        crossAxisSpacing: LaPadding.small,
+        mainAxisSpacing: LaPadding.small,
       ),
       itemBuilder: (BuildContext context, int index) {
         final int day = index + 1;
@@ -247,10 +248,9 @@ class _LaDayMonthPickerMoleculeState extends State<LaDayMonthPickerMolecule> {
             child: LaCenterAtom(
               child: LaTextAtom(
                 _getMonthName(index + 1),
-                style: TextStyle(
-                  color: isSelected ? LaTheme.onPrimary() : LaTheme.onSecondaryContainer(),
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
+                style: isSelected
+                    ? LaTextAtomStyle.body14.bold.onPrimary
+                    : LaTextAtomStyle.body14.onSecondaryContainer,
               ),
             ),
           ),

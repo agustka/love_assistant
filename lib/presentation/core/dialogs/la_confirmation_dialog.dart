@@ -53,13 +53,13 @@ class LaConfirmationDialog {
           title: LaRow(
             children: [
               if (icon != null) LaIconAtom(icon, color: LaTheme.onSurface()),
-              if (icon != null) const LaSizedBoxAtom(width: LaPaddings.mediumSmall),
-              LaTextAtom(title, style: LaTheme.font.body24.bold.onSurface),
+              if (icon != null) const LaSizedBoxAtom(width: LaPadding.mediumSmall),
+              LaTextAtom(title, style: LaTextAtomStyle.body24.bold.onSurface),
             ],
           ),
           content: LaTextAtom(
             message,
-            style: LaTheme.font.body16.light.onSurface,
+            style: LaTextAtomStyle.body16.light.onSurface,
           ),
           actions: [
             TextButton(
@@ -69,7 +69,7 @@ class LaConfirmationDialog {
               },
               child: LaTextAtom(
                 confirmText ?? S.of(context).global_confirm,
-                style: LaTheme.font.body16.primary,
+                style: LaTextAtomStyle.body16.primary,
               ),
             ),
             TextButton(
@@ -79,7 +79,7 @@ class LaConfirmationDialog {
               },
               child: LaTextAtom(
                 cancelText ?? S.of(context).global_cancel,
-                style: LaTheme.font.body16.primary,
+                style: LaTextAtomStyle.body16.primary,
               ),
             ),
           ],
@@ -100,7 +100,7 @@ class LaConfirmationDialog {
       context: context,
       builder: (BuildContext context) {
         return LaContainerAtom(
-          padding: const EdgeInsets.all(LaPaddings.medium),
+          padding: const EdgeInsets.all(LaPadding.medium),
           decoration: BoxDecoration(
             color: LaTheme.surface(),
             borderRadius: const BorderRadius.vertical(top: Radius.circular(LaCornerRadius.large)),
@@ -108,23 +108,23 @@ class LaConfirmationDialog {
           child: LaColumnAtom(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (icon != null) LaIconAtom(icon, size: LaSizes.huge, color: LaTheme.primary()),
-              if (icon != null) const LaSizedBoxAtom(height: LaSizes.small),
+              if (icon != null) LaIconAtom(icon, size: LaSize.huge, color: LaTheme.primary()),
+              if (icon != null) const LaSizedBoxAtom(height: LaSize.small),
               LaTextAtom(
                 title,
-                style: LaTheme.font.body20.bold.onSurface,
+                style: LaTextAtomStyle.body20.bold.onSurface,
               ),
-              const LaSizedBoxAtom(height: LaPaddings.medium),
+              const LaSizedBoxAtom(height: LaPadding.medium),
               LaTextAtom(
                 message,
-                style: LaTheme.font.body16.onSurface,
+                style: LaTextAtomStyle.body16.onSurface,
                 textAlign: TextAlign.center,
               ),
-              const LaSizedBoxAtom(height: LaPaddings.large),
+              const LaSizedBoxAtom(height: LaPadding.large),
               LaRow(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const LaSizedBoxAtom(width: LaPaddings.large),
+                  const LaSizedBoxAtom(width: LaPadding.large),
                   LaExpandedAtom(
                     child: LaButtonAtom(
                       onTap: () {
@@ -134,7 +134,7 @@ class LaConfirmationDialog {
                       text: confirmText ?? S.of(context).global_confirm,
                     ),
                   ),
-                  const LaSizedBoxAtom(width: LaPaddings.medium),
+                  const LaSizedBoxAtom(width: LaPadding.medium),
                   LaExpandedAtom(
                     child: LaButtonAtom(
                       onTap: () {
@@ -144,10 +144,10 @@ class LaConfirmationDialog {
                       text: cancelText ?? S.of(context).global_cancel,
                     ),
                   ),
-                  const LaSizedBoxAtom(width: LaPaddings.large),
+                  const LaSizedBoxAtom(width: LaPadding.large),
                 ],
               ),
-              const LaSizedBoxAtom(height: LaPaddings.medium),
+              const LaSizedBoxAtom(height: LaPadding.medium),
             ],
           ),
         );
