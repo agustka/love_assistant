@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
@@ -51,10 +50,10 @@ class LaAppBarOrganism extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return LaAppBarAtom(
       actions: action != null ? [action!.toWidget(style: style)] : [],
       leading: showBack
-          ? InkWell(
+          ? LaTapVisualAtom(
               onTap: Navigator.of(context).pop,
               child: LaIconAtom(Icons.arrow_back, color: style.foregroundColor),
             )
@@ -64,42 +63,9 @@ class LaAppBarOrganism extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  LaCupertinoAppBar toCupertino() {
-    return LaCupertinoAppBar(
-      title: title,
-      showBack: showBack,
-      takesUpSpace: takesUpSpace,
-      action: action,
-      style: style,
-    );
-  }
-}
-
-class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredSizeWidget {
-  final String? title;
-  final bool showBack;
-  final bool takesUpSpace;
-  final AppBarStyle style;
-  final AppBarActionDefinition? action;
-
-  @override
-  Size get preferredSize => takesUpSpace ? const Size.fromHeight(44) : Size.zero;
-
-  const LaCupertinoAppBar({
-    super.key,
-    this.title,
-    this.showBack = true,
-    this.takesUpSpace = true,
-    this.action,
-    this.style = AppBarStyle.primary,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (!takesUpSpace) {
-      return const LaSizedBoxAtom.shrink();
-    }
-    return CupertinoNavigationBar(
+  LaCupertinoNavigationBarAtom? toCupertino() {
+    if (!takesUpSpace) return null;
+    return LaCupertinoNavigationBarAtom(
       middle: title == null
           ? null
           : LaTextAtom(
@@ -110,11 +76,6 @@ class LaCupertinoAppBar extends StatelessWidget implements ObstructingPreferredS
       automaticBackgroundVisibility: false,
       trailing: action?.toWidget(style: style),
     );
-  }
-
-  @override
-  bool shouldFullyObstruct(BuildContext context) {
-    return true;
   }
 }
 

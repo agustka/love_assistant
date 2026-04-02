@@ -53,7 +53,7 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
       child = _buildMaterialPillPicker();
     }
 
-    return Padding(
+    return LaPaddingAtom(
       padding: widget.padding ?? EdgeInsets.zero,
       child: LaFormFieldListener(
         fieldId: widget.fieldId,
@@ -71,12 +71,12 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
           children: [
             _getTitle(context),
             const LaSizedBoxAtom(height: LaPadding.small),
-            Wrap(
+            LaWrapAtom(
               spacing: LaPadding.small,
               runSpacing: LaPadding.extraSmall,
               children: widget.options.map((T option) {
                 final bool isSelected = _selectedOptions.contains(option);
-                return FilterChip(
+                return LaFilterChipAtom(
                   label: LaTextAtom(
                     option.toString(),
                     style: isSelected
@@ -121,12 +121,12 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
             _getTitle(context),
             LaPaddingAtom(
               padding: const EdgeInsets.only(top: LaPadding.small),
-              child: Wrap(
+              child: LaWrapAtom(
                 spacing: LaPadding.small,
                 runSpacing: LaPadding.small,
                 children: widget.options.map((T option) {
                   final bool isSelected = _selectedOptions.contains(option);
-                  return GestureDetector(
+                  return LaTapVisualAtom(
                     onTap: () {
                       setState(() {
                         if (isSelected) {
@@ -194,7 +194,7 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
   Widget _getError(BuildContext context) {
     return LaPaddingAtom(
       padding: const EdgeInsets.only(left: LaPadding.small),
-      child: AnimatedCrossFade(
+      child: LaAnimatedCrossFadeAtom(
         duration: 300.milliseconds,
         crossFadeState: widget.error ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         firstChild: const LaSizedBoxAtom.shrink(),

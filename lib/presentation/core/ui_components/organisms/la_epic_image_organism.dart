@@ -53,9 +53,9 @@ class LaEpicImageOrganism extends StatelessWidget {
       child: image,
     );
     if (semantics.isNotEmpty) {
-      core = Semantics(
+      core = LaSemanticsAtom(
         label: semantics,
-        child: ExcludeSemantics(
+        child: LaExcludeSemanticsAtom(
           child: core,
         ),
       );
@@ -65,7 +65,7 @@ class LaEpicImageOrganism extends StatelessWidget {
       const double backgroundPadding = LaPadding.large;
       final double size = _getSize(context);
       final double backgroundSize = size + backgroundPadding;
-      core = Stack(
+      core = LaStackAtom(
         alignment: Alignment.center,
         children: [
           LaSvgAtom(
@@ -74,13 +74,13 @@ class LaEpicImageOrganism extends StatelessWidget {
             height: backgroundSize,
             color: LaTheme.secondary(),
           ),
-          Align(
+          LaAlignAtom(
             child: LaContainerAtom(
               margin: const EdgeInsets.only(left: backgroundPadding),
               height: size,
               width: size,
               decoration: const BoxDecoration(shape: BoxShape.circle),
-              child: ClipRRect(
+              child: LaClipRRectAtom(
                 borderRadius: BorderRadius.circular(size / 2),
                 child: core,
               ),

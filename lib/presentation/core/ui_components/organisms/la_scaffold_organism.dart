@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/import.dart';
@@ -27,23 +27,23 @@ class LaScaffoldOrganism extends StatelessWidget {
     final double bottomSafe = MediaQuery.of(context).padding.bottom;
 
     if (PlatformDetector.isIOS) {
-      return CupertinoPageScaffold(
+      return LaCupertinoPageScaffoldAtom(
         navigationBar: appBar?.toCupertino(),
         child: _cupertinoChild(child),
       );
     }
-    return Scaffold(
+    return LaScaffoldAtom(
       appBar: appBar,
       backgroundColor: LaTheme.background(),
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
-      bottomNavigationBar: AnnotatedRegion<SystemUiOverlayStyle>(
+      bottomNavigationBar: LaAnnotatedRegionAtom<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
           systemNavigationBarColor: LaTheme.background(),
           systemNavigationBarIconBrightness: LaTheme.brightness?.invert,
         ),
         child: bottomButtons == null
-            ? Container(
+            ? LaContainerAtom(
                 color: LaTheme.background(),
                 height: MediaQuery.of(context).padding.bottom,
               )
@@ -60,9 +60,9 @@ class LaScaffoldOrganism extends StatelessWidget {
     if (bottomButtons == null) {
       return child;
     }
-    return Column(
+    return LaColumnAtom(
       children: [
-        Expanded(child: child),
+        LaExpandedAtom(child: child),
         LaBottomButtonsMolecule(
           buttons: bottomButtons!,
           shouldPushOnKeyboard: bottomButtons?.shouldPushOnKeyboard ?? true,

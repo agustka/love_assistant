@@ -41,9 +41,9 @@ class LaAuthActionsOrganism extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LaCardAtom(
-      child: Padding(
-        padding: const EdgeInsets.all(LaPadding.large),
-        child: Column(
+      child: LaPaddingAtom.all(
+        value: LaPadding.large,
+        child: LaColumnAtom(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -51,17 +51,17 @@ class LaAuthActionsOrganism extends StatelessWidget {
               title: definition.title,
               subtitle: definition.subtitle,
             ),
-            const SizedBox(height: LaPadding.large),
+            const LaSizedBoxAtom(height: LaPadding.large),
             if (definition.errorMessage case final String errorMessage) ...[
               LaTextAtom(
                 errorMessage,
                 style: LaTextAtomStyle.body14.onError,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: LaPadding.mediumSmall),
+              const LaSizedBoxAtom(height: LaPadding.mediumSmall),
             ],
             if (definition.isLoading)
-              const Center(child: CircularProgressIndicator())
+              const LaCenterAtom(child: LaCircularProgressAtom())
             else ...[
               _ProviderButtons(
                 googleText: definition.googleText,
@@ -69,7 +69,7 @@ class LaAuthActionsOrganism extends StatelessWidget {
                 onGoogleTap: definition.onGoogleTap,
                 onAppleTap: definition.onAppleTap,
               ),
-              const SizedBox(height: LaPadding.large),
+              const LaSizedBoxAtom(height: LaPadding.large),
               _SwitchModeButton(
                 prompt: definition.prompt,
                 actionText: definition.actionText,
@@ -94,7 +94,7 @@ class _AuthHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return LaColumnAtom(
       mainAxisSize: MainAxisSize.min,
       children: [
         LaTextAtom(
@@ -102,7 +102,7 @@ class _AuthHeader extends StatelessWidget {
           style: LaTextAtomStyle.body24.bold,
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: LaPadding.small),
+        const LaSizedBoxAtom(height: LaPadding.small),
         LaTextAtom(
           subtitle,
           style: LaTextAtomStyle.body16.light,
@@ -128,14 +128,14 @@ class _ProviderButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return LaColumnAtom(
       children: [
         LaButtonAtom.mini(
           icon: Icons.g_mobiledata,
           text: googleText,
           onTap: onGoogleTap,
         ),
-        const SizedBox(height: LaPadding.mediumSmall),
+        const LaSizedBoxAtom(height: LaPadding.mediumSmall),
         LaButtonAtom.mini(
           icon: Icons.apple,
           text: appleText,
@@ -159,9 +159,9 @@ class _SwitchModeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onTap,
-      child: RichText(
+    return LaTapVisualAtom(
+      onTap: onTap,
+      child: LaRichTextAtom(
         textAlign: TextAlign.center,
         text: TextSpan(
           text: "$prompt ",

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/theme/la_theme.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_button_atom.dart';
+import 'package:la/presentation/core/ui_components/atoms/import.dart';
+import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 
 class LaEmailPasswordFormOrganism extends StatefulWidget {
@@ -26,24 +26,24 @@ class _LaEmailPasswordFormOrganismState extends State<LaEmailPasswordFormOrganis
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
+    return LaFormAtom(
+      formKey: _formKey,
+      child: LaColumnAtom(
         children: [
           LaTextField(
-            fieldId: 'email',
-            hint: 'Email',
+            fieldId: "email",
+            hint: "Email",
             keyboardType: TextInputType.emailAddress,
             onChanged: (val) => _email = val,
           ),
-          const SizedBox(height: LaPadding.mediumSmall),
+          const LaSizedBoxAtom(height: LaPadding.mediumSmall),
           LaTextField(
-            fieldId: 'password',
-            hint: 'Password',
+            fieldId: "password",
+            hint: "Password",
             obscureText: true,
             onChanged: (val) => _password = val,
           ),
-          const SizedBox(height: LaPadding.medium),
+          const LaSizedBoxAtom(height: LaPadding.medium),
           LaButtonAtom(
             text: widget.submitLabel,
             onTap: widget.loading

@@ -46,7 +46,7 @@ class _LaPagerOrganismState extends State<LaPagerOrganism> {
     return LaColumnAtom(
       children: [
         LaExpandedAtom(
-          child: PageView.builder(
+          child: LaPageViewAtom(
             controller: widget.controller ?? _controller,
             itemCount: widget.itemCount,
             itemBuilder: widget.itemBuilder,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/import.dart';
@@ -48,12 +49,12 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
   Widget build(BuildContext context) {
     super.build(context);
 
-    return SingleChildScrollView(
-      child: Column(
+    return LaSingleChildScrollViewAtom(
+      child: LaColumnAtom(
         spacing: LaPadding.large,
         children: [
           if (widget.image != null)
-            Padding(
+            LaPaddingAtom(
               padding: const EdgeInsets.only(bottom: LaPadding.large),
               child: LaEpicImageOrganism(
                 asset: widget.image?.asset ?? LaTheme.illustrations.manGreetings,
@@ -61,7 +62,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               ),
             ),
           if (widget.ribbon != null)
-            Padding(
+            LaPaddingAtom(
               padding: const EdgeInsets.only(bottom: LaPadding.medium, top: LaPadding.extraSmall),
               child: LaBannerOrganism(asset: widget.ribbon?.asset ?? AppAssets.icons.icTransparent),
             ),
@@ -145,7 +146,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               onChanged: widget.dropDownSlot!.onItemSelected,
               padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium),
             ),
-          const SizedBox(height: LaPadding.medium),
+          const LaSizedBoxAtom(height: LaPadding.medium),
         ],
       ),
     );
