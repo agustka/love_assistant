@@ -7,6 +7,7 @@ import 'package:la/presentation/auth/widgets/atoms/la_auth_header_text_atom.dart
 import 'package:la/presentation/auth/widgets/molecules/la_auth_provider_buttons_molecule.dart';
 import 'package:la/presentation/auth/widgets/molecules/la_auth_switch_mode_button_molecule.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
+import 'package:la/presentation/core/theme/la_theme.dart';
 
 class LaSignupActionsOrganism extends StatelessWidget {
   final UserPartnerProfile? partnerProfile;
@@ -25,7 +26,7 @@ class LaSignupActionsOrganism extends StatelessWidget {
           title: S.of(context).auth_signup_title,
           subtitle: S.of(context).auth_signup_subtitle,
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: LaPaddings.large),
         BlocBuilder<SignupCubit, SignupState>(
           builder: (BuildContext context, SignupState state) {
             if (state.status == SignupStatus.loading) {
@@ -40,7 +41,7 @@ class LaSignupActionsOrganism extends StatelessWidget {
                   onGoogleTap: () => context.read<SignupCubit>().signupWithGoogle(),
                   onAppleTap: () => context.read<SignupCubit>().signupWithApple(),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: LaPaddings.large),
                 LaAuthSwitchModeButtonMolecule(
                   prompt: S.of(context).auth_signup_login_prompt,
                   actionText: S.of(context).auth_signup_login_action,

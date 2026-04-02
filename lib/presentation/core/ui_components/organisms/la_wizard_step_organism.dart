@@ -55,7 +55,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
           if (widget.image != null)
             Padding(
               padding: const EdgeInsets.only(bottom: LaPaddings.large),
-              child: LaEpicImage(
+              child: LaEpicImageOrganism(
                 asset: widget.image?.asset ?? LaTheme.illustrations.manGreetings,
                 widthAsPercentageOfScreen: 0.5,
               ),
@@ -63,9 +63,9 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
           if (widget.ribbon != null)
             Padding(
               padding: const EdgeInsets.only(bottom: LaPaddings.medium, top: LaPaddings.extraSmall),
-              child: LaBanner(asset: widget.ribbon?.asset ?? AppAssets.icons.icTransparent),
+              child: LaBannerOrganism(asset: widget.ribbon?.asset ?? AppAssets.icons.icTransparent),
             ),
-          LaBulletPointList(
+          LaBulletPointListMolecule(
             size: BulletPointListSize.small,
             title: widget.title,
             entries: widget.bulletPoints,
@@ -86,7 +86,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           if (widget.datePickerSlot1 != null)
-            LaDatePicker(
+            LaDatePickerMolecule(
               fieldId: widget.datePickerSlot1!.fieldId,
               optional: widget.datePickerSlot1!.optional,
               title: widget.datePickerSlot1!.title,
@@ -99,7 +99,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           if (widget.datePickerSlot2 != null)
-            LaDatePicker(
+            LaDatePickerMolecule(
               fieldId: widget.datePickerSlot2!.fieldId,
               optional: widget.datePickerSlot2!.optional,
               title: widget.datePickerSlot2!.title,
@@ -112,7 +112,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           if (widget.multiSelectPickerSlot1 != null)
-            LaMultiSelectPicker(
+            LaMultiSelectPickerOrganism(
               fieldId: widget.multiSelectPickerSlot1!.fieldId,
               title: widget.multiSelectPickerSlot1!.title,
               explanation: widget.multiSelectPickerSlot1!.explanation,
@@ -122,7 +122,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           if (widget.multiSelectPickerSlot2 != null)
-            LaMultiSelectPicker(
+            LaMultiSelectPickerOrganism(
               fieldId: widget.multiSelectPickerSlot2!.fieldId,
               title: widget.multiSelectPickerSlot2!.title,
               explanation: widget.multiSelectPickerSlot2!.explanation,
@@ -132,7 +132,7 @@ class _WizardStep2State extends State<LaWizardStepOrganism> with AutomaticKeepAl
               padding: const EdgeInsets.symmetric(horizontal: LaPaddings.medium),
             ),
           if (widget.dropDownSlot != null)
-            LaDropDown(
+            LaDropDownMolecule(
               fieldId: widget.dropDownSlot!.fieldId,
               freeFormFieldId: widget.dropDownSlot!.freeFormFieldId,
               optional: widget.dropDownSlot!.optional,

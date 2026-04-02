@@ -18,7 +18,7 @@ class LaFormFieldListener extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               shape: LaCornerRadius().drawer,
-              content: LaText(event.message, style: LaTheme.font.body14.onError),
+              content: LaTextAtom(event.message, style: LaTheme.font.body14.onError),
               behavior: SnackBarBehavior.floating,
               backgroundColor: LaTheme.error(),
             ),

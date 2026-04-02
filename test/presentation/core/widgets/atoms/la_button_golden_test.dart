@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_button.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_button_atom.dart';
 
 import '../../../../_core/test_setup/test_rig.dart';
 
@@ -20,11 +20,11 @@ void main() {
       );
       builder.addScenario(
         "Standard",
-        LaButton(text: "Standard", onTap: () {}),
+        LaButtonAtom(text: "Standard", onTap: () {}),
       );
       builder.addScenario(
         "Loading",
-        LaButton(text: "Loading", loading: true, onTap: () {}),
+        LaButtonAtom(text: "Loading", loading: true, onTap: () {}),
       );
 
       await tester.runAsync(() async {
@@ -40,11 +40,11 @@ void main() {
       final LabelGoldenBuilder builder = LabelGoldenBuilder.column();
       builder.addScenario(
         "Default",
-        LaButton(text: "Standard", onTap: () {}),
+        LaButtonAtom(text: "Standard", onTap: () {}),
       );
       builder.addScenario(
         "Loading",
-        LaButton(text: "Loading", loading: true, onTap: () {}),
+        LaButtonAtom(text: "Loading", loading: true, onTap: () {}),
       );
 
       await tester.runAsync(() async {

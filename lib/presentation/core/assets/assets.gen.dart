@@ -1,3 +1,5 @@
+// dart format width=120
+
 /// GENERATED CODE - DO NOT MODIFY BY HAND
 /// *****************************************************
 ///  FlutterGen
@@ -5,7 +7,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: deprecated_member_use,directives_ordering,implicit_dynamic_list_literal,unnecessary_import
 
 import 'package:flutter/widgets.dart';
 
@@ -17,6 +19,90 @@ class $AssetsAnimationsGen {
 
   /// List of all assets
   List<String> get values => [progress];
+}
+
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/Poppins-Black.ttf
+  String get poppinsBlack => 'assets/fonts/Poppins-Black.ttf';
+
+  /// File path: assets/fonts/Poppins-BlackItalic.ttf
+  String get poppinsBlackItalic => 'assets/fonts/Poppins-BlackItalic.ttf';
+
+  /// File path: assets/fonts/Poppins-Bold.ttf
+  String get poppinsBold => 'assets/fonts/Poppins-Bold.ttf';
+
+  /// File path: assets/fonts/Poppins-BoldItalic.ttf
+  String get poppinsBoldItalic => 'assets/fonts/Poppins-BoldItalic.ttf';
+
+  /// File path: assets/fonts/Poppins-ExtraBold.ttf
+  String get poppinsExtraBold => 'assets/fonts/Poppins-ExtraBold.ttf';
+
+  /// File path: assets/fonts/Poppins-ExtraBoldItalic.ttf
+  String get poppinsExtraBoldItalic => 'assets/fonts/Poppins-ExtraBoldItalic.ttf';
+
+  /// File path: assets/fonts/Poppins-ExtraLight.ttf
+  String get poppinsExtraLight => 'assets/fonts/Poppins-ExtraLight.ttf';
+
+  /// File path: assets/fonts/Poppins-ExtraLightItalic.ttf
+  String get poppinsExtraLightItalic => 'assets/fonts/Poppins-ExtraLightItalic.ttf';
+
+  /// File path: assets/fonts/Poppins-Italic.ttf
+  String get poppinsItalic => 'assets/fonts/Poppins-Italic.ttf';
+
+  /// File path: assets/fonts/Poppins-Light.ttf
+  String get poppinsLight => 'assets/fonts/Poppins-Light.ttf';
+
+  /// File path: assets/fonts/Poppins-LightItalic.ttf
+  String get poppinsLightItalic => 'assets/fonts/Poppins-LightItalic.ttf';
+
+  /// File path: assets/fonts/Poppins-Medium.ttf
+  String get poppinsMedium => 'assets/fonts/Poppins-Medium.ttf';
+
+  /// File path: assets/fonts/Poppins-MediumItalic.ttf
+  String get poppinsMediumItalic => 'assets/fonts/Poppins-MediumItalic.ttf';
+
+  /// File path: assets/fonts/Poppins-Regular.ttf
+  String get poppinsRegular => 'assets/fonts/Poppins-Regular.ttf';
+
+  /// File path: assets/fonts/Poppins-SemiBold.ttf
+  String get poppinsSemiBold => 'assets/fonts/Poppins-SemiBold.ttf';
+
+  /// File path: assets/fonts/Poppins-SemiBoldItalic.ttf
+  String get poppinsSemiBoldItalic => 'assets/fonts/Poppins-SemiBoldItalic.ttf';
+
+  /// File path: assets/fonts/Poppins-Thin.ttf
+  String get poppinsThin => 'assets/fonts/Poppins-Thin.ttf';
+
+  /// File path: assets/fonts/Poppins-ThinItalic.ttf
+  String get poppinsThinItalic => 'assets/fonts/Poppins-ThinItalic.ttf';
+
+  /// File path: assets/fonts/Roboto-Regular.ttf
+  String get robotoRegular => 'assets/fonts/Roboto-Regular.ttf';
+
+  /// List of all assets
+  List<String> get values => [
+    poppinsBlack,
+    poppinsBlackItalic,
+    poppinsBold,
+    poppinsBoldItalic,
+    poppinsExtraBold,
+    poppinsExtraBoldItalic,
+    poppinsExtraLight,
+    poppinsExtraLightItalic,
+    poppinsItalic,
+    poppinsLight,
+    poppinsLightItalic,
+    poppinsMedium,
+    poppinsMediumItalic,
+    poppinsRegular,
+    poppinsSemiBold,
+    poppinsSemiBoldItalic,
+    poppinsThin,
+    poppinsThinItalic,
+    robotoRegular,
+  ];
 }
 
 class $AssetsIconsGen {
@@ -855,272 +941,272 @@ class $AssetsIconsFlagsGen {
 
   /// List of all assets
   List<String> get values => [
-        flagAc,
-        flagAd,
-        flagAe,
-        flagAf,
-        flagAg,
-        flagAi,
-        flagAl,
-        flagAm,
-        flagAo,
-        flagAq,
-        flagAr,
-        flagAs,
-        flagAt,
-        flagAu,
-        flagAw,
-        flagAx,
-        flagAz,
-        flagBa,
-        flagBb,
-        flagBd,
-        flagBe,
-        flagBf,
-        flagBg,
-        flagBh,
-        flagBi,
-        flagBj,
-        flagBl,
-        flagBm,
-        flagBn,
-        flagBo,
-        flagBq,
-        flagBr,
-        flagBs,
-        flagBt,
-        flagBv,
-        flagBw,
-        flagBy,
-        flagBz,
-        flagCa,
-        flagCc,
-        flagCd,
-        flagCf,
-        flagCg,
-        flagCh,
-        flagCi,
-        flagCk,
-        flagCl,
-        flagCm,
-        flagCn,
-        flagCo,
-        flagCp,
-        flagCr,
-        flagCu,
-        flagCv,
-        flagCw,
-        flagCx,
-        flagCy,
-        flagCz,
-        flagDe,
-        flagDg,
-        flagDj,
-        flagDk,
-        flagDm,
-        flagDo,
-        flagDz,
-        flagEa,
-        flagEc,
-        flagEe,
-        flagEg,
-        flagEh,
-        flagEr,
-        flagEsCt,
-        flagEsGa,
-        flagEs,
-        flagEt,
-        flagEu,
-        flagFi,
-        flagFj,
-        flagFk,
-        flagFm,
-        flagFo,
-        flagFr,
-        flagGa,
-        flagGbEng,
-        flagGbNir,
-        flagGbSct,
-        flagGbWls,
-        flagGb,
-        flagGd,
-        flagGe,
-        flagGf,
-        flagGg,
-        flagGh,
-        flagGi,
-        flagGl,
-        flagGm,
-        flagGn,
-        flagGp,
-        flagGq,
-        flagGr,
-        flagGs,
-        flagGt,
-        flagGu,
-        flagGw,
-        flagGy,
-        flagHk,
-        flagHm,
-        flagHn,
-        flagHr,
-        flagHt,
-        flagHu,
-        flagIc,
-        flagId,
-        flagIe,
-        flagIl,
-        flagIm,
-        flagIn,
-        flagIo,
-        flagIq,
-        flagIr,
-        flagIs,
-        flagIt,
-        flagJe,
-        flagJm,
-        flagJo,
-        flagJp,
-        flagKe,
-        flagKg,
-        flagKh,
-        flagKi,
-        flagKm,
-        flagKn,
-        flagKp,
-        flagKr,
-        flagKw,
-        flagKy,
-        flagKz,
-        flagLa,
-        flagLb,
-        flagLc,
-        flagLi,
-        flagLk,
-        flagLr,
-        flagLs,
-        flagLt,
-        flagLu,
-        flagLv,
-        flagLy,
-        flagMa,
-        flagMc,
-        flagMd,
-        flagMe,
-        flagMf,
-        flagMg,
-        flagMh,
-        flagMk,
-        flagMl,
-        flagMm,
-        flagMn,
-        flagMo,
-        flagMp,
-        flagMq,
-        flagMr,
-        flagMs,
-        flagMt,
-        flagMu,
-        flagMv,
-        flagMw,
-        flagMx,
-        flagMy,
-        flagMz,
-        flagNa,
-        flagNc,
-        flagNe,
-        flagNf,
-        flagNg,
-        flagNi,
-        flagNl,
-        flagNo,
-        flagNp,
-        flagNr,
-        flagNu,
-        flagNz,
-        flagOm,
-        flagPa,
-        flagPe,
-        flagPf,
-        flagPg,
-        flagPh,
-        flagPk,
-        flagPl,
-        flagPm,
-        flagPn,
-        flagPr,
-        flagPs,
-        flagPt,
-        flagPw,
-        flagPy,
-        flagQa,
-        flagRe,
-        flagRo,
-        flagRs,
-        flagRu,
-        flagRw,
-        flagSa,
-        flagSb,
-        flagSc,
-        flagSd,
-        flagSe,
-        flagSg,
-        flagSh,
-        flagSi,
-        flagSj,
-        flagSk,
-        flagSl,
-        flagSm,
-        flagSn,
-        flagSo,
-        flagSr,
-        flagSs,
-        flagSt,
-        flagSv,
-        flagSx,
-        flagSy,
-        flagSz,
-        flagTa,
-        flagTc,
-        flagTd,
-        flagTf,
-        flagTg,
-        flagTh,
-        flagTj,
-        flagTk,
-        flagTl,
-        flagTm,
-        flagTn,
-        flagTo,
-        flagTr,
-        flagTt,
-        flagTv,
-        flagTw,
-        flagTz,
-        flagUa,
-        flagUg,
-        flagUm,
-        flagUn,
-        flagUs,
-        flagUy,
-        flagUz,
-        flagVa,
-        flagVc,
-        flagVe,
-        flagVg,
-        flagVi,
-        flagVn,
-        flagVu,
-        flagWf,
-        flagWs,
-        flagXk,
-        flagXx,
-        flagYe,
-        flagYt,
-        flagZa,
-        flagZm,
-        flagZw
-      ];
+    flagAc,
+    flagAd,
+    flagAe,
+    flagAf,
+    flagAg,
+    flagAi,
+    flagAl,
+    flagAm,
+    flagAo,
+    flagAq,
+    flagAr,
+    flagAs,
+    flagAt,
+    flagAu,
+    flagAw,
+    flagAx,
+    flagAz,
+    flagBa,
+    flagBb,
+    flagBd,
+    flagBe,
+    flagBf,
+    flagBg,
+    flagBh,
+    flagBi,
+    flagBj,
+    flagBl,
+    flagBm,
+    flagBn,
+    flagBo,
+    flagBq,
+    flagBr,
+    flagBs,
+    flagBt,
+    flagBv,
+    flagBw,
+    flagBy,
+    flagBz,
+    flagCa,
+    flagCc,
+    flagCd,
+    flagCf,
+    flagCg,
+    flagCh,
+    flagCi,
+    flagCk,
+    flagCl,
+    flagCm,
+    flagCn,
+    flagCo,
+    flagCp,
+    flagCr,
+    flagCu,
+    flagCv,
+    flagCw,
+    flagCx,
+    flagCy,
+    flagCz,
+    flagDe,
+    flagDg,
+    flagDj,
+    flagDk,
+    flagDm,
+    flagDo,
+    flagDz,
+    flagEa,
+    flagEc,
+    flagEe,
+    flagEg,
+    flagEh,
+    flagEr,
+    flagEsCt,
+    flagEsGa,
+    flagEs,
+    flagEt,
+    flagEu,
+    flagFi,
+    flagFj,
+    flagFk,
+    flagFm,
+    flagFo,
+    flagFr,
+    flagGa,
+    flagGbEng,
+    flagGbNir,
+    flagGbSct,
+    flagGbWls,
+    flagGb,
+    flagGd,
+    flagGe,
+    flagGf,
+    flagGg,
+    flagGh,
+    flagGi,
+    flagGl,
+    flagGm,
+    flagGn,
+    flagGp,
+    flagGq,
+    flagGr,
+    flagGs,
+    flagGt,
+    flagGu,
+    flagGw,
+    flagGy,
+    flagHk,
+    flagHm,
+    flagHn,
+    flagHr,
+    flagHt,
+    flagHu,
+    flagIc,
+    flagId,
+    flagIe,
+    flagIl,
+    flagIm,
+    flagIn,
+    flagIo,
+    flagIq,
+    flagIr,
+    flagIs,
+    flagIt,
+    flagJe,
+    flagJm,
+    flagJo,
+    flagJp,
+    flagKe,
+    flagKg,
+    flagKh,
+    flagKi,
+    flagKm,
+    flagKn,
+    flagKp,
+    flagKr,
+    flagKw,
+    flagKy,
+    flagKz,
+    flagLa,
+    flagLb,
+    flagLc,
+    flagLi,
+    flagLk,
+    flagLr,
+    flagLs,
+    flagLt,
+    flagLu,
+    flagLv,
+    flagLy,
+    flagMa,
+    flagMc,
+    flagMd,
+    flagMe,
+    flagMf,
+    flagMg,
+    flagMh,
+    flagMk,
+    flagMl,
+    flagMm,
+    flagMn,
+    flagMo,
+    flagMp,
+    flagMq,
+    flagMr,
+    flagMs,
+    flagMt,
+    flagMu,
+    flagMv,
+    flagMw,
+    flagMx,
+    flagMy,
+    flagMz,
+    flagNa,
+    flagNc,
+    flagNe,
+    flagNf,
+    flagNg,
+    flagNi,
+    flagNl,
+    flagNo,
+    flagNp,
+    flagNr,
+    flagNu,
+    flagNz,
+    flagOm,
+    flagPa,
+    flagPe,
+    flagPf,
+    flagPg,
+    flagPh,
+    flagPk,
+    flagPl,
+    flagPm,
+    flagPn,
+    flagPr,
+    flagPs,
+    flagPt,
+    flagPw,
+    flagPy,
+    flagQa,
+    flagRe,
+    flagRo,
+    flagRs,
+    flagRu,
+    flagRw,
+    flagSa,
+    flagSb,
+    flagSc,
+    flagSd,
+    flagSe,
+    flagSg,
+    flagSh,
+    flagSi,
+    flagSj,
+    flagSk,
+    flagSl,
+    flagSm,
+    flagSn,
+    flagSo,
+    flagSr,
+    flagSs,
+    flagSt,
+    flagSv,
+    flagSx,
+    flagSy,
+    flagSz,
+    flagTa,
+    flagTc,
+    flagTd,
+    flagTf,
+    flagTg,
+    flagTh,
+    flagTj,
+    flagTk,
+    flagTl,
+    flagTm,
+    flagTn,
+    flagTo,
+    flagTr,
+    flagTt,
+    flagTv,
+    flagTw,
+    flagTz,
+    flagUa,
+    flagUg,
+    flagUm,
+    flagUn,
+    flagUs,
+    flagUy,
+    flagUz,
+    flagVa,
+    flagVc,
+    flagVe,
+    flagVg,
+    flagVi,
+    flagVn,
+    flagVu,
+    flagWf,
+    flagWs,
+    flagXk,
+    flagXx,
+    flagYe,
+    flagYt,
+    flagZa,
+    flagZm,
+    flagZw,
+  ];
 }
 
 class $AssetsIllustrationsDarkGen {
@@ -1149,14 +1235,14 @@ class $AssetsIllustrationsDarkGen {
 
   /// List of all assets
   List<String> get values => [
-        manGreetings,
-        manLove,
-        manLoveBanner,
-        roundPictureBackground,
-        womanFloatingBanner,
-        womanReading,
-        womanRunningBanner
-      ];
+    manGreetings,
+    manLove,
+    manLoveBanner,
+    roundPictureBackground,
+    womanFloatingBanner,
+    womanReading,
+    womanRunningBanner,
+  ];
 }
 
 class $AssetsIllustrationsLightGen {
@@ -1185,36 +1271,34 @@ class $AssetsIllustrationsLightGen {
 
   /// List of all assets
   List<String> get values => [
-        manGreetings,
-        manLove,
-        manLoveBanner,
-        roundPictureBackground,
-        womanFloatingBanner,
-        womanReading,
-        womanRunningBanner
-      ];
+    manGreetings,
+    manLove,
+    manLoveBanner,
+    roundPictureBackground,
+    womanFloatingBanner,
+    womanReading,
+    womanRunningBanner,
+  ];
 }
 
 class AppAssets {
-  AppAssets._();
+  const AppAssets._();
 
   static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsIllustrationsGen illustrations = $AssetsIllustrationsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}, this.animation});
 
   final String _assetName;
 
   final Size? size;
   final Set<String> flavors;
+  final AssetGenImageAnimation? animation;
 
   Image image({
     Key? key,
@@ -1237,7 +1321,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -1269,18 +1353,19 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
 
   String get keyName => _assetName;
+}
+
+class AssetGenImageAnimation {
+  const AssetGenImageAnimation({required this.isAnimation, required this.duration, required this.frames});
+
+  final bool isAnimation;
+  final Duration duration;
+  final int frames;
 }

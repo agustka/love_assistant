@@ -4,7 +4,7 @@ import 'package:la/application/splash/splash_cubit.dart';
 import 'package:la/presentation/core/assets/assets.gen.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/import.dart';
-import 'package:la/presentation/core/ui_components/templates/import.dart';
+import 'package:la/presentation/core/ui_components/organisms/la_scaffold_organism.dart';
 import 'package:la/setup.dart';
 
 class SplashPage extends StatefulWidget {
@@ -51,12 +51,12 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       },
       child: BlocBuilder<SplashCubit, SplashState>(
         builder: (BuildContext context, SplashState state) {
-          return LaScaffold(
-            appBar: const LaAppBar(showBack: false, takesUpSpace: false, style: AppBarStyle.background),
+          return LaScaffoldOrganism(
+            appBar: const LaAppBarOrganism(showBack: false, takesUpSpace: false, style: AppBarStyle.background),
             child: Center(
               child: ScaleTransition(
                 scale: _scaleAnimation,
-                child: LaSvg(
+                child: LaSvgAtom(
                   AppAssets.icons.loveAssistantLogo,
                   width: MediaQuery.sizeOf(context).width * 0.25,
                   height: MediaQuery.sizeOf(context).width * 0.25,

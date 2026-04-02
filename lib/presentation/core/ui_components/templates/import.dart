@@ -1,3 +1,2 @@
-export 'la_bottom_drawer.dart';
-export 'la_scaffold.dart';
+export 'la_bottom_drawer_template.dart';
 export 'wizard_template.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_card.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_center.dart';
+import 'package:la/presentation/core/theme/la_theme.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_card_atom.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_center_atom.dart';
 
 class LaAuthCardTemplate extends StatelessWidget {
   final Widget child;
@@ -13,13 +14,13 @@ class LaAuthCardTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LaCenter(
-        child: LaCard(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: child,
-          ),
-        ),
+      body: LaCenterAtom(
+         child: LaCardAtom(
+           child: Padding(
+             padding: const EdgeInsets.all(LaPaddings.large),
+             child: child,
+           ),
+         ),
       ),
     );
   }

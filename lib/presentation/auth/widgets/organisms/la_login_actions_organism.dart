@@ -7,7 +7,8 @@ import 'package:la/presentation/auth/widgets/atoms/la_auth_header_text_atom.dart
 import 'package:la/presentation/auth/widgets/molecules/la_auth_provider_buttons_molecule.dart';
 import 'package:la/presentation/auth/widgets/molecules/la_auth_switch_mode_button_molecule.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_text.dart';
+import 'package:la/presentation/core/theme/la_theme.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_text_atom.dart';
 
 class LaLoginActionsOrganism extends StatelessWidget {
   final UserPartnerProfile? partnerProfile;
@@ -26,7 +27,7 @@ class LaLoginActionsOrganism extends StatelessWidget {
           title: S.of(context).auth_login_title,
           subtitle: S.of(context).auth_login_subtitle,
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: LaPaddings.large),
         BlocBuilder<LoginCubit, LoginState>(
           builder: (BuildContext context, LoginState state) {
             if (state is LoginLoading) {
@@ -36,8 +37,8 @@ class LaLoginActionsOrganism extends StatelessWidget {
             if (state is LoginFailure) {
               return Column(
                 children: [
-                  LaText(state.message, style: const TextStyle(color: Colors.red)),
-                  const SizedBox(height: 12),
+                  LaTextAtom(state.message, style: const TextStyle(color: Colors.red)),
+                  const SizedBox(height: LaPaddings.mediumSmall),
                 ],
               );
             }
@@ -50,7 +51,7 @@ class LaLoginActionsOrganism extends StatelessWidget {
                   onGoogleTap: () => context.read<LoginCubit>().loginWithGoogle(),
                   onAppleTap: () => context.read<LoginCubit>().loginWithApple(),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: LaPaddings.large),
                 LaAuthSwitchModeButtonMolecule(
                   prompt: S.of(context).auth_login_signup_prompt,
                   actionText: S.of(context).auth_login_signup_action,

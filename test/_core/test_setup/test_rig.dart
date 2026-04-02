@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_text.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_text_atom.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 
 Future<void> setupAppDependencies() async {
@@ -24,7 +24,7 @@ class LabelGoldenBuilder {
   LabelGoldenBuilder.column({this.wrap, this.darkMode = false});
 
   void addScenario(String name, Widget widget) {
-    _children.add(LaText(name, style: LaTheme.font.body16));
+    _children.add(LaTextAtom(name, style: LaTheme.font.body16));
     _children.add(const SizedBox(height: 8));
     _children.add(wrap?.call(widget) ?? widget);
     _children.add(const SizedBox(height: 16));

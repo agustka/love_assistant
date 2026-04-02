@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_button.dart';
+import 'package:la/presentation/core/theme/la_theme.dart';
+import 'package:la/presentation/core/ui_components/atoms/la_button_atom.dart';
 
 class LaAuthProviderButtonsMolecule extends StatelessWidget {
   final String googleText;
@@ -19,13 +20,13 @@ class LaAuthProviderButtonsMolecule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        LaButton.mini(
+        LaButtonAtom.mini(
           icon: Icons.g_mobiledata,
           text: googleText,
           onTap: onGoogleTap,
         ),
-        const SizedBox(height: 12),
-        LaButton.mini(
+        const SizedBox(height: LaPaddings.mediumSmall),
+        LaButtonAtom.mini(
           icon: Icons.apple,
           text: appleText,
           onTap: onAppleTap,

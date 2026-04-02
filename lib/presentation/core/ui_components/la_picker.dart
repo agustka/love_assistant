@@ -36,7 +36,7 @@ class LaPicker {
       builder: (BuildContext context) => Padding(
         padding: const EdgeInsets.only(bottom: LaPaddings.small),
         child: CupertinoActionSheet(
-          title: LaText(entries.title, style: LaTheme.font.body17),
+          title: LaTextAtom(entries.title, style: LaTheme.font.body17),
           actions: entries.entries
               .map(
                 (PickerEntry e) => CupertinoActionSheetAction(
@@ -44,7 +44,7 @@ class LaPicker {
                     Navigator.pop(context);
                     e.onTap();
                   },
-                  child: LaText(e.text, style: LaTheme.font.body20),
+                  child: LaTextAtom(e.text, style: LaTheme.font.body20),
                 ),
               )
               .toList(),
@@ -52,7 +52,7 @@ class LaPicker {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: LaText(S.of(context).global_cancel, style: LaTheme.font.body17),
+            child: LaTextAtom(S.of(context).global_cancel, style: LaTheme.font.body17),
           ),
         ),
       ),
@@ -70,15 +70,15 @@ class LaPicker {
           child: Wrap(
             children: entries.entries
                 .map(
-                  (PickerEntry e) => LaListTile(
+                  (PickerEntry e) => LaListTileMolecule(
                     leading: e.icon == null
-                        ? LaSvg(
+                        ? LaSvgAtom(
                             e.svg ?? AppAssets.icons.icTransparent,
                             width: LaSizes.large,
                             height: LaSizes.large,
                           )
                         : Icon(e.icon),
-                    title: LaText(e.text, style: LaTheme.font.body16),
+                    title: LaTextAtom(e.text, style: LaTheme.font.body16),
                     onTap: () {
                       Navigator.pop(context);
                       e.onTap();
