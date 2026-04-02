@@ -92,11 +92,18 @@ class _WizardPageState extends State<WizardPage> {
             onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
             onInitialSetupCompleted: (UserPartnerProfile profile) => _onInitialSetupCompleted(context, profile),
             child: LaWizardTemplate(
-              pageCount: state.config.stepCount,
-              pageController: _controller,
-              appBarAction: _getAppBarAction(),
+              appBar: LaAppBarOrganism(
+                style: AppBarStyle.background,
+                showBack: false,
+                action: _getAppBarAction(),
+              ),
               bottomButtons: _getBottomButtons(context, state),
-              pageBuilder: (BuildContext context, int index) => _buildStep(state, index),
+              body: LaPagerOrganism(
+                itemCount: state.config.stepCount,
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) => _buildStep(state, index),
+              ),
             ),
           );
         },

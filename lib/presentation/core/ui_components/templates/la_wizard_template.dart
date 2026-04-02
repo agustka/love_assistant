@@ -1,43 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
-import 'package:la/presentation/core/ui_components/organisms/import.dart';
+import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_scaffold_organism.dart';
 
 class LaWizardTemplate extends StatelessWidget {
-  final int pageCount;
-  final Widget Function(BuildContext context, int index) pageBuilder;
-  final PageController? pageController;
-  final AppBarActionDefinition? appBarAction;
+  final Widget body;
+  final LaAppBarOrganism? appBar;
   final BottomButtonsDefinition? bottomButtons;
 
   const LaWizardTemplate({
     super.key,
-    required this.pageCount,
-    required this.pageBuilder,
-    this.pageController,
-    this.appBarAction,
+    required this.body,
+    this.appBar,
     this.bottomButtons,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
+    return LaGestureDetectorAtom(
+      onTap: () => FocusScope.of(context).unfocus(),
       child: LaScaffoldOrganism(
-        appBar: LaAppBarOrganism(
-          style: AppBarStyle.background,
-          showBack: false,
-          action: appBarAction,
-        ),
+        appBar: appBar,
         bottomButtons: bottomButtons,
-        child: LaPagerOrganism(
-          itemCount: pageCount,
-          controller: pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: pageBuilder,
-        ),
+        child: body,
       ),
     );
   }

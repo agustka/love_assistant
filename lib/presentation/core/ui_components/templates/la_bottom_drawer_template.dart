@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
-import 'package:la/presentation/core/ui_components/molecules/import.dart';
 
 class BottomDrawerEntry {
   final String text;
@@ -67,12 +66,17 @@ class LaBottomDrawerTemplate extends StatelessWidget {
               style: LaTextAtomStyle.body20.bold.onSurface,
             ),
           ),
-        LaSeparatedColumnMolecule(
-          separatorBuilder: (BuildContext context, int index) => LaPaddingAtom.symmetric(
-            horizontal: LaPadding.medium,
-            child: const LaDividerAtom(),
-          ),
-          children: config.entries.map((BottomDrawerEntry entry) => _getEntry(context, entry)).toList(),
+        LaColumnAtom(
+          children: [
+            for (int i = 0; i < config.entries.length; i++) ...[
+              _getEntry(context, config.entries[i]),
+              if (i < config.entries.length - 1)
+                LaPaddingAtom.symmetric(
+                  horizontal: LaPadding.medium,
+                  child: const LaDividerAtom(),
+                ),
+            ],
+          ],
         ),
         const LaSizedBoxAtom(height: LaPadding.bottomPadding),
       ],

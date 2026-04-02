@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/theme/la_theme.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_card_atom.dart';
-import 'package:la/presentation/core/ui_components/atoms/la_center_atom.dart';
+import 'package:la/presentation/core/ui_components/atoms/import.dart';
+import 'package:la/presentation/core/ui_components/import.dart';
 
 class LaAuthTemplate extends StatelessWidget {
   final Widget child;
@@ -21,43 +20,41 @@ class LaAuthTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return LaScaffoldAtom(
       body: LaCenterAtom(
-        child: ConstrainedBox(
+        child: LaConstrainedBoxAtom(
           constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
-          child: SingleChildScrollView(
-             child: LaCardAtom(
-               child: Padding(
-                 padding: const EdgeInsets.all(LaPadding.large),
-                 child: Column(
-                   mainAxisSize: MainAxisSize.min,
-                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                   children: [
-                     Text(
-                       title,
-                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                         fontWeight: FontWeight.bold,
-                       ),
-                       textAlign: TextAlign.center,
-                     ),
-                     if (subtitle != null) ...{
-                       const SizedBox(height: LaPadding.small),
-                       Text(
-                         subtitle!,
-                         style: Theme.of(context).textTheme.bodyMedium,
-                         textAlign: TextAlign.center,
-                       ),
-                     },
-                     const SizedBox(height: LaPadding.extraLarge),
-                     child,
-                     if (footer != null) ...{
-                       const SizedBox(height: LaPadding.large),
-                       footer!,
-                     },
-                   ],
-                 ),
-               ),
-             ),
+          child: LaSingleChildScrollViewAtom(
+            child: LaCardAtom(
+              child: LaPaddingAtom.all(
+                value: LaPadding.large,
+                child: LaColumnAtom(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    LaTextAtom(
+                      title,
+                      style: LaTextAtomStyle.body24.bold,
+                      textAlign: TextAlign.center,
+                    ),
+                    if (subtitle != null) ...{
+                      const LaSizedBoxAtom(height: LaPadding.small),
+                      LaTextAtom(
+                        subtitle!,
+                        style: LaTextAtomStyle.body16.light,
+                        textAlign: TextAlign.center,
+                      ),
+                    },
+                    const LaSizedBoxAtom(height: LaPadding.extraLarge),
+                    child,
+                    if (footer != null) ...{
+                      const LaSizedBoxAtom(height: LaPadding.large),
+                      footer!,
+                    },
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),
