@@ -10,6 +10,7 @@ import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/domain/core/value_objects/relationship_type_value_object.dart';
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
+import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/setup.dart';
@@ -18,9 +19,7 @@ part 'wizard_state.dart';
 
 @Injectable()
 class WizardCubit extends BaseCubit<WizardState> {
-  final WizardConfig _config;
-
-  WizardCubit() : _config = WizardConfig.initial, super(WizardState.initial());
+  WizardCubit() : super(WizardState.initial());
 
   Future init() async {
     final bool isInitial = !getIt<InitializationService>().profileCreated;
@@ -29,11 +28,14 @@ class WizardCubit extends BaseCubit<WizardState> {
   }
 
   void next(int currentPage, {bool confirmed = false}) {
-    final WizardStep currentStep = _config.visibleSteps[currentPage];
+    final WizardConfig config = state.config;
+    final WizardStep currentStep = config.visibleSteps[currentPage];
     final int nextStepIndex = currentPage + 1;
 
-    if (nextStepIndex >= _config.visibleSteps.length) {
-      // Handle completion
+    if (nextStepIndex >= config.visibleSteps.length) {
+      if (state.isInitial) {
+        getIt<EventBus>().fire(WizardInitialSetupCompletedEvent(profile: _buildPartnerProfile()));
+      }
       return;
     }
 
@@ -66,6 +68,19 @@ class WizardCubit extends BaseCubit<WizardState> {
     getIt<EventBus>().fire(WizardEventGoToPage(page: nextStepIndex));
   }
 
+  UserPartnerProfile _buildPartnerProfile() {
+    return UserPartnerProfile(
+      partnerName: state.partnerName,
+      partnerPronoun: state.partnerPronoun,
+      customPronoun: state.customPronoun,
+      partnerBirthday: state.partnerBirthday.year > 1800 ? state.partnerBirthday : null,
+      partnerLoveLanguages: state.partnerLoveLanguages,
+      partnerToneOfVoice: state.partnerToneOfVoice,
+      partnerFavoriteFoods: state.partnerFavoriteFoods,
+      partnerGiftCategories: state.partnerGiftCategories,
+    );
+  }
+
   bool _validateCurrentStep(WizardStep step) {
     switch (step.index) {
       case 0:
@@ -75,7 +90,7 @@ class WizardCubit extends BaseCubit<WizardState> {
             state.partnerPronoun != Pronoun.invalid &&
             (state.partnerPronoun != Pronoun.custom || state.customPronoun.isNotEmpty);
       case 2:
-        if (_config.mode == .initial) {
+        if (state.config.mode == WizardMode.initial) {
           return true;
         }
         return state.partnerBirthday.year > 1800;

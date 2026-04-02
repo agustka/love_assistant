@@ -11,7 +11,9 @@ import 'package:la/domain/core/value_objects/love_language_value_object.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/domain/core/value_objects/relationship_type_value_object.dart';
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
+import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
+import 'package:la/presentation/auth/signup_page.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
@@ -87,6 +89,7 @@ class _WizardPageState extends State<WizardPage> {
           return _WizardPageEventListener(
             pageController: _controller,
             onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
+            onInitialSetupCompleted: (UserPartnerProfile profile) => _onInitialSetupCompleted(context, profile),
             child: WizardTemplate(
               pageCount: state.config.stepCount,
               pageController: _controller,
@@ -96,6 +99,18 @@ class _WizardPageState extends State<WizardPage> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Future<void> _onInitialSetupCompleted(BuildContext context, UserPartnerProfile profile) async {
+    if (!context.mounted) {
+      return;
+    }
+
+    await Navigator.of(context).pushReplacement(
+      MaterialPageRoute<SignupPage>(
+        builder: (BuildContext context) => SignupPage(partnerProfile: profile),
       ),
     );
   }
@@ -237,11 +252,13 @@ class _WizardPageState extends State<WizardPage> {
 class _WizardPageEventListener extends StatelessWidget {
   final PageController pageController;
   final Future<void> Function(WizardEvent event) onWizardMessage;
+  final Future<void> Function(UserPartnerProfile profile) onInitialSetupCompleted;
   final Widget child;
 
   const _WizardPageEventListener({
     required this.pageController,
     required this.onWizardMessage,
+    required this.onInitialSetupCompleted,
     required this.child,
   });
 
@@ -257,7 +274,10 @@ class _WizardPageEventListener extends StatelessWidget {
       },
       child: LaEventBusListener<WizardEvent>(
         onMessage: onWizardMessage,
-        child: child,
+        child: LaEventBusListener<WizardInitialSetupCompletedEvent>(
+          onMessage: (WizardInitialSetupCompletedEvent event) => onInitialSetupCompleted(event.profile),
+          child: child,
+        ),
       ),
     );
   }

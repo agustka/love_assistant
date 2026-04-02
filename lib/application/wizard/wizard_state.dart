@@ -7,6 +7,13 @@ class WizardEventGoToPage {
   const WizardEventGoToPage({required this.page});
 }
 
+@immutable
+class WizardInitialSetupCompletedEvent {
+  final UserPartnerProfile profile;
+
+  const WizardInitialSetupCompletedEvent({required this.profile});
+}
+
 enum WizardEvent {
   missingName,
   missingPronoun,
