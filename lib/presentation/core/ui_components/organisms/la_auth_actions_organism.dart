@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
 
-class LaAuthActionsCard extends StatelessWidget {
+class LaAuthActionsDefinition {
   final String title;
   final String subtitle;
   final String googleText;
@@ -15,8 +15,7 @@ class LaAuthActionsCard extends StatelessWidget {
   final bool isLoading;
   final String? errorMessage;
 
-  const LaAuthActionsCard({
-    super.key,
+  const LaAuthActionsDefinition({
     required this.title,
     required this.subtitle,
     required this.googleText,
@@ -29,6 +28,15 @@ class LaAuthActionsCard extends StatelessWidget {
     this.isLoading = false,
     this.errorMessage,
   });
+}
+
+class LaAuthActionsOrganism extends StatelessWidget {
+  final LaAuthActionsDefinition definition;
+
+  const LaAuthActionsOrganism({
+    super.key,
+    required this.definition,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +47,12 @@ class LaAuthActionsCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _AuthHeader(title: title, subtitle: subtitle),
+            _AuthHeader(
+              title: definition.title,
+              subtitle: definition.subtitle,
+            ),
             const SizedBox(height: LaPadding.large),
-            if (errorMessage case final String errorMessage) ...[
+            if (definition.errorMessage case final String errorMessage) ...[
               LaTextAtom(
                 errorMessage,
                 style: LaTextAtomStyle.body14.onError,
@@ -49,20 +60,20 @@ class LaAuthActionsCard extends StatelessWidget {
               ),
               const SizedBox(height: LaPadding.mediumSmall),
             ],
-            if (isLoading)
+            if (definition.isLoading)
               const Center(child: CircularProgressIndicator())
             else ...[
               _ProviderButtons(
-                googleText: googleText,
-                appleText: appleText,
-                onGoogleTap: onGoogleTap,
-                onAppleTap: onAppleTap,
+                googleText: definition.googleText,
+                appleText: definition.appleText,
+                onGoogleTap: definition.onGoogleTap,
+                onAppleTap: definition.onAppleTap,
               ),
               const SizedBox(height: LaPadding.large),
               _SwitchModeButton(
-                prompt: prompt,
-                actionText: actionText,
-                onTap: onSwitchTap,
+                prompt: definition.prompt,
+                actionText: definition.actionText,
+                onTap: definition.onSwitchTap,
               ),
             ],
           ],

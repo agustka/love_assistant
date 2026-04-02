@@ -1,4 +1,5 @@
 export "la_app_bar_organism.dart";
+export "la_auth_actions_organism.dart";
 export "la_banner_organism.dart";
 export "la_email_password_form_organism.dart";
 export "la_epic_image_organism.dart";

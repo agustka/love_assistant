@@ -9,7 +9,6 @@ class LaDefaultPageTemplate extends StatelessWidget {
   final bool showBack;
   final AppBarActionDefinition? appBarAction;
   final EdgeInsetsGeometry padding;
-  final double? maxContentWidth;
   final bool centerContent;
   final bool scrollable;
 
@@ -20,7 +19,6 @@ class LaDefaultPageTemplate extends StatelessWidget {
     this.showBack = false,
     this.appBarAction,
     this.padding = const EdgeInsets.all(LaPadding.large),
-    this.maxContentWidth,
     this.centerContent = false,
     this.scrollable = true,
   });
@@ -48,13 +46,6 @@ class LaDefaultPageTemplate extends StatelessWidget {
                 padding: padding,
                 child: child,
               );
-
-              if (maxContentWidth != null) {
-                content = ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: maxContentWidth!),
-                  child: content,
-                );
-              }
 
               content = centerContent
                   ? Center(child: content)
