@@ -504,15 +504,23 @@ Accessibility is non-negotiable. You enforce:
 
 Names must reflect purpose, not implementation.
 
-| Layer    | Pattern                       | Examples                                           |
-|----------|-------------------------------|----------------------------------------------------|
-| Atom     | `App{Concept}`                | `AppText`, `AppButton`, `AppIcon`                  |
-| Molecule | `{Description}{Noun}`         | `LabeledTextField`, `IconTextRow`                  |
-| Organism | `{Feature}{Section}Organism`  | `TransferFormOrganism`, `AccountSummaryOrganism`   |
-| Template | `{Screen}Template`            | `TransferSetupTemplate`, `AccountOverviewTemplate` |
-| Page     | `{Screen}Page`                | `TransferSetupPage`, `AccountOverviewPage`         |
+| Layer    | Pattern                          | Examples                                               |
+|----------|----------------------------------|--------------------------------------------------------|
+| Atom     | `La{Concept}Atom`                | `LaTextAtom`, `LaButtonAtom`, `LaIconAtom`             |
+| Molecule | `La{Description}{Noun}Molecule`  | `LaLabeledTextFieldMolecule`, `LaIconTextRowMolecule`  |
+| Organism | `La{Feature}{Section}Organism`   | `LaTransferFormOrganism`, `LaAccountSummaryOrganism`   |
+| Template | `La{Screen}Template`             | `LaTransferSetupTemplate`, `LaAccountOverviewTemplate` |
+| Page     | `{Screen}Page`                   | `WizardSetupPage`, `AccountOverviewPage`               |
+| Drawer   | `{Screen}Drawer`                 | `TransferSetupDrawer`, `CurrencySelectionDrawer`       |
+| Dialog   | `{Screen}Dialog`                 | `TransferSetupDialog`, `BirthdayReminderDialog`        |
 
 Forbidden names: `WidgetHelper`, `CommonSection`, `CustomContainer`, `ReusableWidget`, `BaseWidget`, `GenericCard`. These communicate nothing.
+
+Any name missing the `La` prefix or the layer suffix is invalid - except for pages, drawers and dialogs, regardless
+of how descriptive it is. `TransferForm`, `AccountSummaryCard`, and
+`IconRow` are all rejected — `LaTransferFormOrganism` is correct.
+
+Drawers, Dialogs and Pages are on the same layer, they are all "Pages" in terms of composition rules, but they have different naming conventions to distinguish their purpose.
 
 ---
 
@@ -532,18 +540,19 @@ When unsure, leave it. Premature extraction is harder to undo than delayed extra
 
 # Anti-Patterns to Eliminate
 
-| Anti-pattern                                      | Layer violation              |
-|---------------------------------------------------|------------------------------|
-| Page with 200+ lines of layout code              | Template not extracted       |
-| `MediaQuery` orientation check inside a page     | Template responsibility      |
-| `context.router.push` inside an organism         | Page responsibility          |
-| `repository.fetch()` inside a widget             | Should be in BLoC/Cubit      |
-| Hardcoded `Color(0xFF...)` inside any widget     | Design system violation      |
-| Magic number spacing (`SizedBox(height: 32)`)    | Spacing token missing        |
-| Identical `Row(children: [Icon, Text])` in 4+   | Molecule not extracted       |
-| `BlocProvider` inside an organism                | Page responsibility          |
-| Template directly composing `AppText` atoms      | Slot principle violated      |
-| Page passing raw data into template constructor  | Page should pass organisms   |
+| Anti-pattern                                                                               | Layer violation              |
+|--------------------------------------------------------------------------------------------|------------------------------|
+| Page with 200+ lines of layout code                                                        | Template not extracted       |
+| `MediaQuery` orientation check inside a page                                               | Template responsibility      |
+| `context.router.push` inside an organism                                                   | Page responsibility          |
+| `repository.fetch()` inside a widget                                                       | Should be in BLoC/Cubit      |
+| Hardcoded `Color(0xFF...)` inside any widget                                               | Design system violation      |
+| Magic number spacing (`SizedBox(height: 32)`)                                              | Spacing token missing        |
+| Identical `Row(children: [Icon, Text])` in 4+                                              | Molecule not extracted       |
+| `BlocProvider` inside an organism                                                          | Page responsibility          |
+| Template directly composing `AppText` atoms                                                | Slot principle violated      |
+| Page passing raw data into template constructor                                            | Page should pass organisms   |
+| Missing `La` prefix or layer suffix on any component except for Pages, Drawers and Dialogs | Naming convention violation |
 
 ---
 

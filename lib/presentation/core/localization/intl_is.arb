@@ -132,5 +132,17 @@
   "global_relationship_type_engaged": "Trúlofuð",
   "global_relationship_type_married": "Gift",
   "global_relationship_type_life_partners": "Lífsfélagar",
-  "global_relationship_type_other": "Annað"
+  "global_relationship_type_other": "Annað",
+  "auth_signup_title": "Bua til adgang",
+  "auth_signup_subtitle": "Skradu thig inn til ad vista uppsetningu og halda afram.",
+  "auth_signup_google": "Skraning med Google",
+  "auth_signup_apple": "Skraning med Apple",
+  "auth_signup_login_prompt": "Ertu med adgang?",
+  "auth_signup_login_action": "Innskraning",
+  "auth_login_title": "Velkomin aftur",
+  "auth_login_subtitle": "Skradu inn til ad halda afram.",
+  "auth_login_google": "Innskraning med Google",
+  "auth_login_apple": "Innskraning med Apple",
+  "auth_login_signup_prompt": "Ert thu ekki med adgang?",
+  "auth_login_signup_action": "Skraning"
 }

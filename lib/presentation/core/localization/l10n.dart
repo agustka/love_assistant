@@ -1303,6 +1303,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Bua til adgang`
+  String get auth_signup_title {
+    return Intl.message(
+      'Bua til adgang',
+      name: 'auth_signup_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skradu thig inn til ad vista uppsetningu og halda afram.`
+  String get auth_signup_subtitle {
+    return Intl.message(
+      'Skradu thig inn til ad vista uppsetningu og halda afram.',
+      name: 'auth_signup_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skraning med Google`
+  String get auth_signup_google {
+    return Intl.message(
+      'Skraning med Google',
+      name: 'auth_signup_google',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skraning med Apple`
+  String get auth_signup_apple {
+    return Intl.message(
+      'Skraning med Apple',
+      name: 'auth_signup_apple',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ertu med adgang?`
+  String get auth_signup_login_prompt {
+    return Intl.message(
+      'Ertu med adgang?',
+      name: 'auth_signup_login_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Innskraning`
+  String get auth_signup_login_action {
+    return Intl.message(
+      'Innskraning',
+      name: 'auth_signup_login_action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Velkomin aftur`
+  String get auth_login_title {
+    return Intl.message(
+      'Velkomin aftur',
+      name: 'auth_login_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skradu inn til ad halda afram.`
+  String get auth_login_subtitle {
+    return Intl.message(
+      'Skradu inn til ad halda afram.',
+      name: 'auth_login_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Innskraning med Google`
+  String get auth_login_google {
+    return Intl.message(
+      'Innskraning med Google',
+      name: 'auth_login_google',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Innskraning med Apple`
+  String get auth_login_apple {
+    return Intl.message(
+      'Innskraning med Apple',
+      name: 'auth_login_apple',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ert thu ekki med adgang?`
+  String get auth_login_signup_prompt {
+    return Intl.message(
+      'Ert thu ekki med adgang?',
+      name: 'auth_login_signup_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skraning`
+  String get auth_login_signup_action {
+    return Intl.message(
+      'Skraning',
+      name: 'auth_login_signup_action',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -51,6 +51,36 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
+    "auth_login_apple": MessageLookupByLibrary.simpleMessage(
+      "Sign in with Apple",
+    ),
+    "auth_login_google": MessageLookupByLibrary.simpleMessage(
+      "Sign in with Google",
+    ),
+    "auth_login_signup_action": MessageLookupByLibrary.simpleMessage("Sign up"),
+    "auth_login_signup_prompt": MessageLookupByLibrary.simpleMessage(
+      "Don\'t have an account?",
+    ),
+    "auth_login_subtitle": MessageLookupByLibrary.simpleMessage(
+      "Sign in to continue.",
+    ),
+    "auth_login_title": MessageLookupByLibrary.simpleMessage("Welcome back"),
+    "auth_signup_apple": MessageLookupByLibrary.simpleMessage(
+      "Sign up with Apple",
+    ),
+    "auth_signup_google": MessageLookupByLibrary.simpleMessage(
+      "Sign up with Google",
+    ),
+    "auth_signup_login_action": MessageLookupByLibrary.simpleMessage("Login"),
+    "auth_signup_login_prompt": MessageLookupByLibrary.simpleMessage(
+      "Already have an account?",
+    ),
+    "auth_signup_subtitle": MessageLookupByLibrary.simpleMessage(
+      "Sign up to save your setup and continue.",
+    ),
+    "auth_signup_title": MessageLookupByLibrary.simpleMessage(
+      "Create your account",
+    ),
     "date_format_month_and_day": MessageLookupByLibrary.simpleMessage(
       "MMMM dd",
     ),

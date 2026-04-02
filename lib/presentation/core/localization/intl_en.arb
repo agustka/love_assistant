@@ -132,5 +132,17 @@
   "global_relationship_type_engaged": "Engaged",
   "global_relationship_type_married": "Married",
   "global_relationship_type_life_partners": "Life partners",
-  "global_relationship_type_other": "Other"
+  "global_relationship_type_other": "Other",
+  "auth_signup_title": "Create your account",
+  "auth_signup_subtitle": "Sign up to save your setup and continue.",
+  "auth_signup_google": "Sign up with Google",
+  "auth_signup_apple": "Sign up with Apple",
+  "auth_signup_login_prompt": "Already have an account?",
+  "auth_signup_login_action": "Login",
+  "auth_login_title": "Welcome back",
+  "auth_login_subtitle": "Sign in to continue.",
+  "auth_login_google": "Sign in with Google",
+  "auth_login_apple": "Sign in with Apple",
+  "auth_login_signup_prompt": "Don't have an account?",
+  "auth_login_signup_action": "Sign up"
 }

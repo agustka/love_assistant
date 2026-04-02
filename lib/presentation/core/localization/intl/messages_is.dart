@@ -51,6 +51,38 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
+    "auth_login_apple": MessageLookupByLibrary.simpleMessage(
+      "Innskraning med Apple",
+    ),
+    "auth_login_google": MessageLookupByLibrary.simpleMessage(
+      "Innskraning med Google",
+    ),
+    "auth_login_signup_action": MessageLookupByLibrary.simpleMessage(
+      "Skraning",
+    ),
+    "auth_login_signup_prompt": MessageLookupByLibrary.simpleMessage(
+      "Ert thu ekki med adgang?",
+    ),
+    "auth_login_subtitle": MessageLookupByLibrary.simpleMessage(
+      "Skradu inn til ad halda afram.",
+    ),
+    "auth_login_title": MessageLookupByLibrary.simpleMessage("Velkomin aftur"),
+    "auth_signup_apple": MessageLookupByLibrary.simpleMessage(
+      "Skraning med Apple",
+    ),
+    "auth_signup_google": MessageLookupByLibrary.simpleMessage(
+      "Skraning med Google",
+    ),
+    "auth_signup_login_action": MessageLookupByLibrary.simpleMessage(
+      "Innskraning",
+    ),
+    "auth_signup_login_prompt": MessageLookupByLibrary.simpleMessage(
+      "Ertu med adgang?",
+    ),
+    "auth_signup_subtitle": MessageLookupByLibrary.simpleMessage(
+      "Skradu thig inn til ad vista uppsetningu og halda afram.",
+    ),
+    "auth_signup_title": MessageLookupByLibrary.simpleMessage("Bua til adgang"),
     "date_format_month_and_day": MessageLookupByLibrary.simpleMessage(
       "dd. MMMM",
     ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/import.dart';
 import 'package:la/presentation/core/ui_components/templates/la_scaffold.dart';
