@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
@@ -67,7 +66,7 @@ class _LaTextField extends State<LaTextField> {
         child: LaRow(
           children: [
             LaExpandedAtom(
-              child: CupertinoTextField(
+              child: LaCupertinoTextFieldAtom(
                 enabled: widget.enabled,
                 controller: widget.controller,
                 onChanged: widget.onChanged,
@@ -103,7 +102,7 @@ class _LaTextField extends State<LaTextField> {
         child: LaRow(
           children: [
             LaExpandedAtom(
-              child: TextField(
+              child: LaMaterialTextFieldAtom(
                 enabled: widget.enabled,
                 controller: widget.controller,
                 onChanged: widget.onChanged,

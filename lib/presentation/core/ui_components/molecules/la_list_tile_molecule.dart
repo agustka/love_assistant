@@ -22,7 +22,7 @@ class LaListTileMolecule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (PlatformDetector.isAndroid) {
-      return ListTile(
+      return LaListTileAtom(
         leading: leading,
         trailing: trailing,
         title: title,

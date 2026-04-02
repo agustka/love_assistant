@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/dialogs/import.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
@@ -118,7 +117,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
                   type: CardType.secondary,
                   child: LaPaddingAtom(
                     padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.small),
-                    child: DropdownButton<T>(
+                    child: LaDropdownButtonAtom<T>(
                       value: _selectedOption,
                       borderRadius: const BorderRadius.all(Radius.circular(LaCornerRadius.medium)),
                       elevation: LaElevation.medium.toInt(),
@@ -142,13 +141,13 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
                       },
                       items: [
                         ...widget.options.map((dynamic option) {
-                          return DropdownMenuItem<T>(
+                          return LaDropdownMenuItemAtom<T>(
                             value: option as T,
                             child: LaTextAtom(option.toString(), style: LaTextAtomStyle.body16),
                           );
                         }),
                         if (widget.freeFormOption != null)
-                          DropdownMenuItem<T>(
+                          LaDropdownMenuItemAtom<T>(
                             value: widget.freeFormOption as T,
                             child: LaTextAtom(widget.freeFormOption!.toString(), style: LaTextAtomStyle.body16),
                           ),
@@ -202,7 +201,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
           children: [
             LaAlignAtom(
               alignment: Alignment.topRight,
-              child: CupertinoButton(
+              child: LaCupertinoButtonAtom(
                 child: LaTextAtom(S.of(context).global_done, style: LaTextAtomStyle.body16.primary),
                 onPressed: () {
                   Navigator.pop(context);
@@ -210,7 +209,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
               ),
             ),
             LaExpandedAtom(
-              child: CupertinoPicker(
+              child: LaCupertinoPickerAtom(
                 scrollController: scrollController,
                 backgroundColor: LaTheme.surface(),
                 itemExtent: 40,
@@ -264,7 +263,8 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
               children: [
                 LaTextAtom(widget.title, style: LaTextAtomStyle.body14.light),
                 const LaSizedBoxAtom(width: LaPadding.extraSmall),
-                if (widget.explanation != null) LaIconAtom(LaIcons.information, size: LaSize.medium, color: LaTheme.hintText()),
+                if (widget.explanation != null)
+                  LaIconAtom(LaIcons.information, size: LaSize.medium, color: LaTheme.hintText()),
               ],
             ),
           ),

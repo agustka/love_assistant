@@ -72,7 +72,8 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
                         children: [
                           LaTextAtom(widget.title, style: LaTextAtomStyle.body14.light),
                           if (widget.explanation != null) const LaSizedBoxAtom(width: LaPadding.extraSmall),
-                          if (widget.explanation != null) LaIconAtom(LaIcons.information, size: LaSize.medium, color: LaTheme.hintText()),
+                          if (widget.explanation != null)
+                            LaIconAtom(LaIcons.information, size: LaSize.medium, color: LaTheme.hintText()),
                         ],
                       ),
                     ),
@@ -84,7 +85,7 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
                     ),
                 ],
               ),
-                  const LaSizedBoxAtom(height: LaPadding.small),
+              const LaSizedBoxAtom(height: LaPadding.small),
               LaTapVisualAtom(
                 onTap: () {
                   if (PlatformDetector.isIOS) {
@@ -117,7 +118,7 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
       lastDate: widget.lastDate ?? DateTime(2100),
       builder: (BuildContext context, Widget? child) {
         // Customizing the Material date picker
-        return Theme(
+        return LaThemeAtom(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
               surface: LaTheme.surface(),
@@ -162,7 +163,7 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
               child: LaRow(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CupertinoButton(
+                  LaCupertinoButtonAtom(
                     child: LaTextAtom(
                       S.of(context).global_done,
                       style: LaTextAtomStyle.body16.primary,
@@ -178,7 +179,7 @@ class _LaDatePickerMoleculeState extends State<LaDatePickerMolecule> {
               ),
             ),
             LaExpandedAtom(
-              child: CupertinoDatePicker(
+              child: LaCupertinoDatePickerAtom(
                 initialDateTime: widget.initialDate ?? widget.defaultDate ?? DateTime(DateTime.now().year),
                 minimumDate: widget.firstDate,
                 maximumDate: widget.lastDate,
