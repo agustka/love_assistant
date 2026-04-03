@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Local Supabase / environment config (never commit — use config.json.example as template)
+assets/keys/config.json
+
