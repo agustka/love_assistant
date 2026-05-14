@@ -51,6 +51,18 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
+    "auth_email_confirmation_confirmed": MessageLookupByLibrary.simpleMessage(
+      "I\'ve confirmed my email",
+    ),
+    "auth_email_confirmation_message": MessageLookupByLibrary.simpleMessage(
+      "We sent you a confirmation email. Open it, tap the confirmation link, return to the app, and then tap \"I\'ve confirmed my email\".",
+    ),
+    "auth_email_confirmation_pending_error": MessageLookupByLibrary.simpleMessage(
+      "We couldn\'t detect a confirmed session yet. Please check your email and try again.",
+    ),
+    "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
+      "Confirm your email",
+    ),
     "auth_email_hint": MessageLookupByLibrary.simpleMessage("Email"),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Sign in with Apple",
@@ -230,6 +242,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_tone_of_voice_romantic": MessageLookupByLibrary.simpleMessage(
       "Romantic",
     ),
+    "landing_subtitle": MessageLookupByLibrary.simpleMessage(
+      "Choose how you want to continue.",
+    ),
+    "landing_title": MessageLookupByLibrary.simpleMessage("Welcome"),
+    "main_title": MessageLookupByLibrary.simpleMessage("Main App"),
     "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("st"),
     "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("th"),
     "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
+import 'package:la/presentation/core/ui_components/molecules/la_auth_illustration_molecule.dart';
+import 'package:la/presentation/core/ui_components/molecules/la_feature_heading_molecule.dart';
+import 'package:la/presentation/core/ui_components/molecules/la_link_prompt_molecule.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_email_password_form_organism.dart';
 
 class LaAuthActionsDefinition {
@@ -52,13 +55,16 @@ class LaAuthActionsOrganism extends StatelessWidget {
     return LaColumnAtom(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const _AuthIllustration(),
+        LaAuthIllustrationMolecule(
+          illustration: LaTheme.illustrations.manLove,
+          size: LaAuthIllustrationSize.medium,
+        ),
         const LaSizedBoxAtom(height: LaPadding.extraLarge),
-        _AuthHeader(
+        LaFeatureHeadingMolecule(
           title: definition.title,
           subtitle: definition.subtitle,
         ),
-        const LaSizedBoxAtom(height: LaPadding.extraHuge),
+        const LaSizedBoxAtom(height: LaPadding.huge),
         if (definition.errorMessage case final String errorMessage) ...[
           LaTextAtom(
             errorMessage,
@@ -75,67 +81,23 @@ class LaAuthActionsOrganism extends StatelessWidget {
           loading: definition.isLoading,
         ),
         const LaSizedBoxAtom(height: LaPadding.large),
-        const LaDividerAtom(),
+        LaLinkPromptMolecule(
+          prompt: definition.prompt,
+          actionText: definition.actionText,
+          onTap: definition.onSwitchTap,
+        ),
         const LaSizedBoxAtom(height: LaPadding.large),
+        const LaPaddingAtom(
+          padding: EdgeInsets.symmetric(horizontal: LaPadding.large),
+          child: LaDividerAtom(),
+        ),
+        const LaSizedBoxAtom(height: LaPadding.medium),
         _ProviderButtons(
           googleText: definition.googleText,
           appleText: definition.appleText,
           onGoogleTap: definition.onGoogleTap,
           onAppleTap: definition.onAppleTap,
           isLoading: definition.isLoading,
-        ),
-        const LaSizedBoxAtom(height: LaPadding.large),
-        _SwitchModeButton(
-          prompt: definition.prompt,
-          actionText: definition.actionText,
-          onTap: definition.onSwitchTap,
-        ),
-      ],
-    );
-  }
-}
-
-class _AuthIllustration extends StatelessWidget {
-  const _AuthIllustration();
-
-  @override
-  Widget build(BuildContext context) {
-    final double size = MediaQuery.sizeOf(context).width * 0.60;
-    return LaCenterAtom(
-      child: LaImageAtom(
-        imageLink: LaTheme.illustrations.manLove,
-        width: size,
-        height: size,
-        fit: BoxFit.contain,
-      ),
-    );
-  }
-}
-
-class _AuthHeader extends StatelessWidget {
-  final String title;
-  final String subtitle;
-
-  const _AuthHeader({
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return LaColumnAtom(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        LaTextAtom(
-          title,
-          style: LaTextAtomStyle.body28.bold,
-          textAlign: TextAlign.center,
-        ),
-        const LaSizedBoxAtom(height: LaPadding.small),
-        LaTextAtom(
-          subtitle,
-          style: LaTextAtomStyle.body16.light.hintText,
-          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -176,38 +138,6 @@ class _ProviderButtons extends StatelessWidget {
           buttonStyle: LaButtonStyle.secondary,
         ),
       ],
-    );
-  }
-}
-
-class _SwitchModeButton extends StatelessWidget {
-  final String prompt;
-  final String actionText;
-  final VoidCallback onTap;
-
-  const _SwitchModeButton({
-    required this.prompt,
-    required this.actionText,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return LaTapVisualAtom(
-      onTap: onTap,
-      child: LaRichTextAtom(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          text: "$prompt ",
-          style: LaTheme.font.body16,
-          children: <InlineSpan>[
-            TextSpan(
-              text: actionText,
-              style: LaTheme.font.body16.copyWith(fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

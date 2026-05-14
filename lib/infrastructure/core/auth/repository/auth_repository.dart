@@ -38,7 +38,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> signupWithEmailAndPassword(String email, String password) async {
-    await _authService.signupWithEmailAndPassword(email, password);
+  Future<bool> signupWithEmailAndPassword(String email, String password) async {
+    return _authService.signupWithEmailAndPassword(email, password);
   }
 }

@@ -1458,6 +1458,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Stadfestu netfangid`
+  String get auth_email_confirmation_title {
+    return Intl.message(
+      'Stadfestu netfangid',
+      name: 'auth_email_confirmation_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á "Ég hef stadfest netfangid mitt".`
+  String get auth_email_confirmation_message {
+    return Intl.message(
+      'Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á "Ég hef stadfest netfangid mitt".',
+      name: 'auth_email_confirmation_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ég hef stadfest netfangid mitt`
+  String get auth_email_confirmation_confirmed {
+    return Intl.message(
+      'Ég hef stadfest netfangid mitt',
+      name: 'auth_email_confirmation_confirmed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.`
+  String get auth_email_confirmation_pending_error {
+    return Intl.message(
+      'Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.',
+      name: 'auth_email_confirmation_pending_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Velkomin`
+  String get landing_title {
+    return Intl.message('Velkomin', name: 'landing_title', desc: '', args: []);
+  }
+
+  /// `Veldu hvernig þú vilt halda áfram.`
+  String get landing_subtitle {
+    return Intl.message(
+      'Veldu hvernig þú vilt halda áfram.',
+      name: 'landing_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aðalforrit`
+  String get main_title {
+    return Intl.message('Aðalforrit', name: 'main_title', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

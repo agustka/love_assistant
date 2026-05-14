@@ -13,7 +13,7 @@ abstract class IAuthRepository {
 
   Future<void> signInWithEmailAndPassword(String email, String password);
 
-  Future<void> signupWithEmailAndPassword(String email, String password);
+  Future<bool> signupWithEmailAndPassword(String email, String password);
 
   Future<void> signOut();
 }

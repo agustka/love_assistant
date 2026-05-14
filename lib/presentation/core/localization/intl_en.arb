@@ -148,5 +148,12 @@
   "auth_email_hint": "Email",
   "auth_password_hint": "Password",
   "auth_signup_email": "Sign up with email",
-  "auth_login_email": "Sign in with email"
+  "auth_login_email": "Sign in with email",
+  "auth_email_confirmation_title": "Confirm your email",
+  "auth_email_confirmation_message": "We sent you a confirmation email. Open it, tap the confirmation link, return to the app, and then tap \"I've confirmed my email\".",
+  "auth_email_confirmation_confirmed": "I've confirmed my email",
+  "auth_email_confirmation_pending_error": "We couldn't detect a confirmed session yet. Please check your email and try again.",
+  "landing_title": "Welcome",
+  "landing_subtitle": "Choose how you want to continue.",
+  "main_title": "Main App"
 }

@@ -1,48 +1,148 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:event_bus/event_bus.dart';
 import 'package:injectable/injectable.dart';
+import 'package:la/application/core/base_cubit.dart';
 import 'package:la/domain/core/repositories/i_auth_repository.dart';
-import 'package:la/setup.dart';
 
 part 'signup_state.dart';
 
 @injectable
-class SignupCubit extends Cubit<SignupState> {
+class SignupCubit extends BaseCubit<SignupState> {
+  static const String emailConfirmationPendingErrorCode = "email_confirmation_pending";
+
   final IAuthRepository _authRepository;
 
   SignupCubit(this._authRepository) : super(const SignupState.initial());
 
   Future<void> signupWithGoogle() async {
-    emit(state.copyWith(status: SignupStatus.loading));
+    emit(
+      state.copyWith(
+        status: SignupStatus.loading,
+        clearErrorMessage: true,
+        isCheckingEmailConfirmation: false,
+      ),
+    );
 
     try {
       await _authRepository.signInWithGoogle();
-      emit(state.copyWith(status: SignupStatus.success));
+      emit(
+        state.copyWith(
+          status: SignupStatus.sessionEstablished,
+          clearErrorMessage: true,
+          isCheckingEmailConfirmation: false,
+        ),
+      );
     } catch (e) {
-      getIt<EventBus>().fire(SignupMessage.errorLoggingIn);
+      emit(
+        state.copyWith(
+          status: SignupStatus.failure,
+          errorMessage: e.toString(),
+          isCheckingEmailConfirmation: false,
+        ),
+      );
     }
   }
 
   Future<void> signupWithApple() async {
-    emit(state.copyWith(status: SignupStatus.loading));
+    emit(
+      state.copyWith(
+        status: SignupStatus.loading,
+        clearErrorMessage: true,
+        isCheckingEmailConfirmation: false,
+      ),
+    );
 
     try {
       await _authRepository.signInWithApple();
-      emit(state.copyWith(status: SignupStatus.success));
+      emit(
+        state.copyWith(
+          status: SignupStatus.sessionEstablished,
+          clearErrorMessage: true,
+          isCheckingEmailConfirmation: false,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(status: SignupStatus.failure));
+      emit(
+        state.copyWith(
+          status: SignupStatus.failure,
+          errorMessage: e.toString(),
+          isCheckingEmailConfirmation: false,
+        ),
+      );
     }
   }
 
   Future<void> signupWithEmailAndPassword(String email, String password) async {
-    emit(state.copyWith(status: SignupStatus.loading));
+    emit(
+      state.copyWith(
+        status: SignupStatus.loading,
+        clearErrorMessage: true,
+        isCheckingEmailConfirmation: false,
+      ),
+    );
 
     try {
-      await _authRepository.signupWithEmailAndPassword(email, password);
-      emit(state.copyWith(status: SignupStatus.success));
+      final bool hasActiveSession = await _authRepository.signupWithEmailAndPassword(email, password);
+
+      if (hasActiveSession) {
+        emit(
+          state.copyWith(
+            status: SignupStatus.sessionEstablished,
+            clearErrorMessage: true,
+            isCheckingEmailConfirmation: false,
+          ),
+        );
+        return;
+      }
+
+      emit(
+        state.copyWith(
+          status: SignupStatus.emailConfirmationRequired,
+          clearErrorMessage: true,
+          isCheckingEmailConfirmation: false,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(status: SignupStatus.failure));
+      emit(
+        state.copyWith(
+          status: SignupStatus.failure,
+          errorMessage: e.toString(),
+          isCheckingEmailConfirmation: false,
+        ),
+      );
     }
+  }
+
+  Future<void> checkEmailConfirmed() async {
+    emit(
+      state.copyWith(
+        status: SignupStatus.emailConfirmationRequired,
+        clearErrorMessage: true,
+        isCheckingEmailConfirmation: true,
+      ),
+    );
+
+    final user = _authRepository.user$.valueOrNull;
+    if (user != null) {
+      emit(
+        state.copyWith(
+          status: SignupStatus.sessionEstablished,
+          clearErrorMessage: true,
+          isCheckingEmailConfirmation: false,
+        ),
+      );
+      return;
+    }
+
+    emit(
+      state.copyWith(
+        status: SignupStatus.emailConfirmationRequired,
+        errorMessage: emailConfirmationPendingErrorCode,
+        isCheckingEmailConfirmation: false,
+      ),
+    );
+  }
+
+  void cancelConfirmation() {
+    emit(const SignupState.initial());
   }
 }

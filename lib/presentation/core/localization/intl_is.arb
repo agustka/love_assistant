@@ -148,5 +148,12 @@
   "auth_email_hint": "Netfang",
   "auth_password_hint": "Lykilord",
   "auth_signup_email": "Skraning med netfangi",
-  "auth_login_email": "Innskraning med netfangi"
+  "auth_login_email": "Innskraning med netfangi",
+  "auth_email_confirmation_title": "Stadfestu netfangid",
+  "auth_email_confirmation_message": "Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á \"Ég hef stadfest netfangid mitt\".",
+  "auth_email_confirmation_confirmed": "Ég hef stadfest netfangid mitt",
+  "auth_email_confirmation_pending_error": "Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.",
+  "landing_title": "Velkomin",
+  "landing_subtitle": "Veldu hvernig þú vilt halda áfram.",
+  "main_title": "Aðalforrit"
 }

@@ -10,14 +10,18 @@ import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
+import 'package:la/presentation/landing/landing_page.dart';
+import 'package:la/presentation/main/main_page.dart';
 import 'package:la/presentation/splash/splash_page.dart';
 import 'package:la/presentation/wizard/wizard_page.dart';
 import 'package:la/setup.dart';
 
 enum PageName {
   splash("/"),
+  landing("/landing"),
   wizard("/wizard"),
-  main("/main");
+  main("/main")
+  ;
 
   final String route;
 
@@ -71,6 +75,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             navigatorKey: App.navigatorKey,
             routes: {
               PageName.splash.route: (BuildContext context) => const SplashPage(),
+              PageName.landing.route: (BuildContext context) => const LandingPage(),
+              PageName.main.route: (BuildContext context) => const MainPage(),
               PageName.wizard.route: (BuildContext context) => const WizardPage(),
             },
             initialRoute: PageName.splash.route,
@@ -90,6 +96,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
             navigatorKey: App.navigatorKey,
             routes: {
               PageName.splash.route: (BuildContext context) => const SplashPage(),
+              PageName.landing.route: (BuildContext context) => const LandingPage(),
+              PageName.main.route: (BuildContext context) => const MainPage(),
               PageName.wizard.route: (BuildContext context) => const WizardPage(),
             },
             initialRoute: PageName.splash.route,

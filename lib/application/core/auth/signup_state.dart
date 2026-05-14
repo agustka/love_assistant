@@ -1,31 +1,43 @@
 part of 'signup_cubit.dart';
 
-enum SignupMessage {
-  errorLoggingIn,
-}
-
 enum SignupStatus {
   idle,
   loading,
-  success,
+  emailConfirmationRequired,
+  sessionEstablished,
   failure,
 }
 
 class SignupState extends Equatable {
   final SignupStatus status;
+  final String? errorMessage;
+  final bool isCheckingEmailConfirmation;
 
-  const SignupState({required this.status});
+  const SignupState({
+    required this.status,
+    this.errorMessage,
+    required this.isCheckingEmailConfirmation,
+  });
 
-  const SignupState.initial() : status = SignupStatus.idle;
+  const SignupState.initial() : status = SignupStatus.idle, errorMessage = null, isCheckingEmailConfirmation = false;
 
-  SignupState copyWith({SignupStatus? status}) {
+  SignupState copyWith({
+    SignupStatus? status,
+    String? errorMessage,
+    bool clearErrorMessage = false,
+    bool? isCheckingEmailConfirmation,
+  }) {
     return SignupState(
       status: status ?? this.status,
+      errorMessage: clearErrorMessage ? null : errorMessage ?? this.errorMessage,
+      isCheckingEmailConfirmation: isCheckingEmailConfirmation ?? this.isCheckingEmailConfirmation,
     );
   }
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
     status,
+    errorMessage,
+    isCheckingEmailConfirmation,
   ];
 }

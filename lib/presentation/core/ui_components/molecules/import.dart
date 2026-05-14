@@ -1,8 +1,11 @@
+export 'la_auth_illustration_molecule.dart';
 export 'la_bottom_buttons_molecule.dart';
 export 'la_bullet_point_list_molecule.dart';
 export 'la_date_picker_molecule.dart';
 export 'la_day_month_picker_molecule.dart';
 export 'la_drop_down_molecule.dart';
+export 'la_feature_heading_molecule.dart';
+export 'la_link_prompt_molecule.dart';
 export 'la_list_tile_molecule.dart';
 export 'la_separated_column_molecule.dart';
 export 'la_text_field_molecule.dart';

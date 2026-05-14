@@ -51,6 +51,18 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
+    "auth_email_confirmation_confirmed": MessageLookupByLibrary.simpleMessage(
+      "Ég hef stadfest netfangid mitt",
+    ),
+    "auth_email_confirmation_message": MessageLookupByLibrary.simpleMessage(
+      "Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á \"Ég hef stadfest netfangid mitt\".",
+    ),
+    "auth_email_confirmation_pending_error": MessageLookupByLibrary.simpleMessage(
+      "Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.",
+    ),
+    "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
+      "Stadfestu netfangid",
+    ),
     "auth_email_hint": MessageLookupByLibrary.simpleMessage("Netfang"),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Innskraning med Apple",
@@ -242,6 +254,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_tone_of_voice_romantic": MessageLookupByLibrary.simpleMessage(
       "Rómantískur",
     ),
+    "landing_subtitle": MessageLookupByLibrary.simpleMessage(
+      "Veldu hvernig þú vilt halda áfram.",
+    ),
+    "landing_title": MessageLookupByLibrary.simpleMessage("Velkomin"),
+    "main_title": MessageLookupByLibrary.simpleMessage("Aðalforrit"),
     "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
     "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
     "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
