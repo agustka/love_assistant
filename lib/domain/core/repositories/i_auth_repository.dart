@@ -1,19 +1,7 @@
-import 'package:meta/meta.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:la/infrastructure/core/auth/auth_event_type.dart';
 
 abstract class IAuthRepository {
-  ValueStream<User?> get user$;
+  void subscribeToAuthEvents({required Future<dynamic> Function(AuthEventType event) listener});
 
-  @experimental
-  Future<void> signInWithGoogle();
-
-  @experimental
-  Future<void> signInWithApple();
-
-  Future<void> signInWithEmailAndPassword(String email, String password);
-
-  Future<bool> signupWithEmailAndPassword(String email, String password);
-
-  Future<void> signOut();
+  Future<void> logout();
 }

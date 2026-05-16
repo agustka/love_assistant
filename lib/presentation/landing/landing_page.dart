@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:la/presentation/auth/login_page.dart';
-import 'package:la/presentation/auth/signup_page.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/presentation/landing/widgets/landing_actions_organism.dart';
@@ -19,18 +17,10 @@ class LandingPage extends StatelessWidget {
         signupText: S.of(context).auth_login_signup_action,
         loginText: S.of(context).auth_signup_login_action,
         onSignupTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<SignupPage>(
-              builder: (BuildContext context) => const SignupPage(),
-            ),
-          );
+
         },
         onLoginTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<LoginPage>(
-              builder: (BuildContext context) => const LoginPage(),
-            ),
-          );
+
         },
       ),
     );

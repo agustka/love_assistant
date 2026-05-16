@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp -r /Users/agustka/repos/love_assistant/.ai/skills /Users/agustka/repos/love_assistant/.claude/skills)",
+      "Bash(cp -r /Users/agustka/repos/love_assistant/.ai/instructions /Users/agustka/repos/love_assistant/.claude/instructions)",
+      "Bash(cp -r /Users/agustka/repos/love_assistant/.ai/specs /Users/agustka/repos/love_assistant/.claude/specs)",
+      "Bash(sed -i '' 's/ALWAYS extend IsbCubit \\(no exceptions\\)/ALWAYS extend BaseCubit \\(no exceptions\\)/' /Users/agustka/repos/love_assistant/lib/application/CLAUDE.md /Users/agustka/repos/love_assistant/.claude/instructions/application-layer-rules.instructions.md)",
+      "Bash(sed -i '' 's/Direct getIt<T>\\(\\) is only acceptable for cross-cutting singletons \\(EventBus, Navigation, IPollAndDebounce, IShareProvider\\)/Direct getIt<T>\\(\\) is only acceptable for cross-cutting singletons \\(EventBus, IPollAndDebounce\\)/' /Users/agustka/repos/love_assistant/lib/application/CLAUDE.md /Users/agustka/repos/love_assistant/.claude/instructions/application-layer-rules.instructions.md)",
+      "Bash(timeout 90 dart run build_runner build --delete-conflicting-outputs)",
+      "Bash(dart run *)",
+      "Bash(git *)",
+      "Bash(dart analyze *)"
+    ]
+  }
+}

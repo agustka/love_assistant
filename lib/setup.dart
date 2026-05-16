@@ -20,8 +20,17 @@ Future<void> appSetup() async {
   await _configureInjection();
 }
 
+class InjectableEnv {
+  static Environment? current;
+
+  const InjectableEnv._();
+
+  static const Environment offline = Environment("offline");
+  static const Environment online = Environment("online");
+}
+
 final GetIt getIt = GetIt.instance;
 @injectableInit
 Future<void> _configureInjection() async {
-  getIt.init();
+  await getIt.init();
 }

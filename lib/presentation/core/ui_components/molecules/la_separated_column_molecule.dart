@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:la/domain/core/extensions/common_extensions.dart';
+import 'package:la/presentation/core/extensions/spaced_widgets.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
 
 class LaSeparatedColumnMolecule extends StatelessWidget {

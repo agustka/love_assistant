@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
@@ -31,6 +30,11 @@ extension IntExtension on int {
   Duration get minutes => Duration(minutes: this);
   Duration get hours => Duration(hours: this);
   Duration get days => Duration(days: this);
+  Duration get months => Duration(days: this * 30);
+  Duration get years => Duration(days: this * 365);
+
+  /// Converts seconds to a digital clock 120 => 2:00, 66 => 1:06 etc...
+  String get timeString => "${this ~/ 60}:${(this % 60).toString().padLeft(2, '0')}";
 }
 
 extension DoubleExtension on double {
@@ -45,6 +49,8 @@ extension DoubleExtension on double {
     return (this - min) / (max - min);
   }
 
+  /// Linearly interpolates between [startValue] and [endValue] by this value (treated as t).
+  /// Example: 0.5.lerp(10, 20) == 15
   double lerp(double startValue, double endValue) {
     return startValue + this * (endValue - startValue);
   }
@@ -57,6 +63,13 @@ extension DoubleExtension on double {
 }
 
 extension StringExtensions on String {
+  String get removeEndingSlash {
+    if (endsWith("/")) {
+      return substring(0, length - 1);
+    }
+    return this;
+  }
+
   String get superTrim {
     return trim().replaceAll("\u200B", "").replaceAll("\u200C", "").replaceAll("\u200D", "");
   }
@@ -74,6 +87,10 @@ extension StringExtensions on String {
       return toUpperCase();
     }
     return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
+  }
+
+  String get capitalizeWords {
+    return split(" ").map((String word) => word.capitalized).join(" ");
   }
 
   bool get isNumeric {
@@ -96,15 +113,7 @@ extension StringExtensions on String {
   }
 
   String get digitsAndSeparatorsOnly {
-    final StringBuffer buffer = StringBuffer();
-
-    for (int i = 0; i < length; i++) {
-      final String character = this[i];
-      if (_isDigit(character) || _isNumericSeparator(character)) {
-        buffer.write(character);
-      }
-    }
-    return buffer.toString();
+    return replaceAll(RegExp("[^0-9.,-]"), "");
   }
 
   String charAt(int index) {
@@ -115,8 +124,6 @@ extension StringExtensions on String {
   }
 
   bool _isDigit(String char) => (char.codeUnitAt(0) ^ 0x30) <= 9;
-
-  bool _isNumericSeparator(String char) => char == "." || char == ",";
 
   String get noIcelandicChars {
     return replaceAll("í", "i")
@@ -131,6 +138,27 @@ extension StringExtensions on String {
         .replaceAll("ú", "u");
   }
 
+  /// Converts the string into a dash-separated, uppercase identifier with letters only.
+  String toEventIdentifier() {
+    // 1) Truncate first (to avoid processing unnecessarily long strings)
+    final String truncated = length > 100 ? substring(0, 100) : this;
+
+    // 2) Convert Icelandic characters
+    String result = truncated.noIcelandicChars;
+
+    // 3) Convert to uppercase
+    result = result.toUpperCase();
+
+    // 4) Replace non-letters with a dash
+    result = result.replaceAll(RegExp("[^A-Z]+"), "-");
+
+    // 5) Remove leading/trailing/duplicate dashes
+    result = result.replaceAll(RegExp("^-+|-+\$"), "");
+    result = result.replaceAll(RegExp("-+"), "-");
+
+    return result;
+  }
+
   String get toBase64 {
     return base64.encode(utf8.encode(this));
   }
@@ -140,15 +168,67 @@ extension StringExtensions on String {
   }
 
   String get withoutMarkupTags {
-    return replaceAll(RegExp(r"<[^>]+>((.|\n)*<\/[^>]+>)?"), "");
+    return replaceAll(RegExp(r"<[^>]+>((.|\n)*</[^>]+>)?"), "");
   }
 
   String get withoutHyperlinks {
     final RegExp urlRegExp = RegExp(
-      r"((https?:\/\/)?([\w\-]+\.)+[a-zA-Z]{2,6}(:\d+)?(\/\S*)?)",
+      r"((https?://)?([\w\-]+\.)+[a-zA-Z]{2,6}(:\d+)?(/\S*)?)",
       caseSensitive: false,
     );
-    return replaceAll(urlRegExp, '');
+    return replaceAll(urlRegExp, "");
+  }
+
+  String get escapeNonLatin1 {
+    final StringBuffer buffer = StringBuffer();
+    for (final int codeUnit in runes) {
+      if (codeUnit <= 0xFF) {
+        buffer.write(String.fromCharCode(codeUnit));
+      } else {
+        buffer.write("&#$codeUnit;");
+      }
+    }
+    return buffer.toString();
+  }
+
+  int get latin1AlphabeticCharactersCount {
+    int count = 0;
+
+    for (final int codeUnit in codeUnits) {
+      final bool isAsciiUpperCaseLetter = codeUnit >= 0x41 && codeUnit <= 0x5A;
+      final bool isAsciiLowerCaseLetter = codeUnit >= 0x61 && codeUnit <= 0x7A;
+      final bool isLatin1UpperCaseLetter = codeUnit >= 0xC0 && codeUnit <= 0xD6;
+      final bool isLatin1MiddleLetterRange = codeUnit >= 0xD8 && codeUnit <= 0xF6;
+      final bool isLatin1LowerCaseLetter = codeUnit >= 0xF8 && codeUnit <= 0xFF;
+
+      if (isAsciiUpperCaseLetter ||
+          isAsciiLowerCaseLetter ||
+          isLatin1UpperCaseLetter ||
+          isLatin1MiddleLetterRange ||
+          isLatin1LowerCaseLetter) {
+        count++;
+      }
+    }
+
+    return count;
+  }
+
+  bool get isJson {
+    final String trimmed = trim();
+    return startsWith("{") && trimmed.endsWith("}");
+  }
+
+  /// Converts all non-ASCII characters to their HTML escaped form (e.g., 😀 → &#x1f600;).
+  String get toHtmlEscapedAsciiSafe {
+    final StringBuffer buffer = StringBuffer();
+    for (final int rune in runes) {
+      if (rune <= 0x7F) {
+        buffer.writeCharCode(rune);
+      } else {
+        buffer.write("&#x${rune.toRadixString(16)};");
+      }
+    }
+    return buffer.toString();
   }
 }
 
@@ -169,28 +249,22 @@ extension FileExtension on File {
 }
 
 extension ImageExtendsion on Image {
-  Future<Color?> calculateDominantColor() async {
-    String src = "";
-    if (this.image is NetworkImage) {
-      src = (this.image as NetworkImage).url;
-    } else if (this.image is AssetImage) {
-      src = (this.image as AssetImage).assetName;
-    }
-    if (!src.endsWith("png")) {
-      // Not supported
-      return null;
-    }
-
-    final Uint8List? imageBytes = await getImageBytes(ui.ImageByteFormat.png);
+  Future<Color?> calculateDominantColor({Color? fallback}) async {
+    final ImageProvider imageProvider = this.image;
+    final Uint8List? imageBytes = imageProvider is MemoryImage
+        ? imageProvider.bytes
+        : await getImageBytes(ui.ImageByteFormat.png);
     if (imageBytes == null) {
-      return null;
+      return fallback;
     }
 
     final Image image = Image.memory(imageBytes);
 
     final Completer<Map<Color, int>> completer = Completer<Map<Color, int>>();
 
-    image.image.resolve(ImageConfiguration.empty).addListener(
+    image.image
+        .resolve(ImageConfiguration.empty)
+        .addListener(
       ImageStreamListener((ImageInfo info, bool _) async {
         final Map<Color, int> pixelMap = <Color, int>{};
 
@@ -241,7 +315,9 @@ extension ImageExtendsion on Image {
 
     final Completer<Uint8List?> work = Completer<Uint8List>();
 
-    image.resolve(ImageConfiguration.empty).addListener(
+    image
+        .resolve(ImageConfiguration.empty)
+        .addListener(
       ImageStreamListener((ImageInfo info, bool _) async {
         try {
           canvas.drawImageRect(
@@ -319,8 +395,8 @@ extension FutureFunctionX<T extends Object> on Future<T> Function() {
         throw Exception("Max tries reached");
       }
 
-      final T value = await call();
-      final bool evaluation = await condition(value);
+      final value = await call();
+      final evaluation = await condition(value);
       if (evaluation) {
         return value;
       }
@@ -330,18 +406,11 @@ extension FutureFunctionX<T extends Object> on Future<T> Function() {
   }
 }
 
-typedef SpacedWithIndexedBuilder = Widget Function(int index);
-
-extension SpacedWidgets on Iterable<Widget> {
-  List<Widget> spacedWith(Widget spacer) => expand((Widget widget) sync* {
-    yield spacer;
-    yield widget;
-  }).skip(1).toList();
-
-  List<Widget> spaced(double gap) => spacedWith(SizedBox(width: gap, height: gap));
-
-  List<Widget> spacedWithIndexed(SpacedWithIndexedBuilder builder) => expandIndexed((int index, Widget widget) sync* {
-    yield builder(index);
-    yield widget;
-  }).skip(1).toList();
+extension SizeExtension on Size {
+  Size swapSizeValues({bool swap = true}) {
+    if (!swap) {
+      return this;
+    }
+    return Size(height, width);
+  }
 }

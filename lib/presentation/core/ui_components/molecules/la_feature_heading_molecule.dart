@@ -32,5 +32,3 @@ class LaFeatureHeadingMolecule extends StatelessWidget {
     );
   }
 }
-
-

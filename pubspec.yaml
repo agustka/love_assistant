@@ -5,7 +5,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=3.11.4 <4.0.0"
-  flutter: ">=3.41.5"
+  flutter: ">=3.41.9"
 
 dependencies:
   cupertino_icons: 1.0.9
@@ -27,6 +27,7 @@ dependencies:
   intl: 0.20.2
   logger: 2.7.0
   lottie: 3.3.2
+  rxdart: 0.28.0
   shared_preferences: 2.5.5
   smooth_page_indicator: 2.0.1
   supabase_flutter: 2.12.2
@@ -46,7 +47,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/keys/config.json
     - assets/animations/
     - assets/icons/
     - assets/icons/flags/
@@ -90,3 +90,4 @@ flutter_intl:
   arb_dir: lib/presentation/core/localization
   output_dir: lib/presentation/core/localization
   # to generate manually: dart run intl_utils:generate
+  # Build runner: dart run build_runner build --delete-conflicting-outputs

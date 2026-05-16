@@ -13,7 +13,6 @@ import 'package:la/domain/core/value_objects/relationship_type_value_object.dart
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
-import 'package:la/presentation/auth/signup_page.dart';
 import 'package:la/presentation/core/dialogs/import.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
@@ -116,11 +115,7 @@ class _WizardPageState extends State<WizardPage> {
       return;
     }
 
-    await Navigator.of(context).pushReplacement(
-      MaterialPageRoute<SignupPage>(
-        builder: (BuildContext context) => SignupPage(partnerProfile: profile),
-      ),
-    );
+    // TODO Navigator.pushReplacement to signup page
   }
 
   List<Language> get _availableLanguages {

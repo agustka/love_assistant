@@ -42,6 +42,7 @@ class HiveCache implements IHiveCache {
         stale: stale,
         hasCache: true,
         expires: DateTime.fromMillisecondsSinceEpoch(data.expiresTimeStamp),
+        timeStamp: DateTime.now(),
       );
     } catch (ex) {
       err(ex, location: "HiveCache.get");
