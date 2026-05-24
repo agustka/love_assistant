@@ -304,6 +304,7 @@ As of writing, no streaming repositories exist yet — `SessionManager._repos` i
 |---|---|
 | Streaming repos extend `ICacheLifecycleRepository` | Required for lifecycle management |
 | Mutation-only repos do NOT extend `ICacheLifecycleRepository` | Only expose `Future<Payload<T>>` methods |
+| Boundaries never throw | Every method catches its errors and returns `Payload.failure(Failure(...))` (or emits `StreamPayload.failure(...)`); never propagate exceptions. Applies to repos **and** local stores/datasources. Construct failures as `Failure("message", {reference})`. |
 | `subscribe()` returns `Stream<>` in interface | Decoupled from rxdart; concrete returns `BehaviorSubject` directly |
 | `@LazySingleton` | Repositories are singletons — they own the `BehaviorSubject` |
 | Register in `session_manager.dart` | Required for every `ICacheLifecycleRepository` implementation |

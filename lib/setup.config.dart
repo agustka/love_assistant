@@ -46,6 +46,8 @@ import 'package:la/infrastructure/core/time/i_poll_and_debounce.dart' as _i651;
 import 'package:la/infrastructure/core/time/poll_and_debounce.dart' as _i187;
 import 'package:la/infrastructure/wizard/store/i_partner_profile_local_store.dart'
     as _i667;
+import 'package:la/infrastructure/wizard/store/offline/offline_partner_profile_local_store.dart'
+    as _i261;
 import 'package:la/infrastructure/wizard/store/partner_profile_local_store.dart'
     as _i1018;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
@@ -77,6 +79,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i339.IHiveCache>(() => const _i681.HiveCache());
     gh.factory<_i651.IPollAndDebounce>(() => _i187.PollAndDebounce());
+    gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
+      () => _i261.OfflinePartnerProfileLocalStore(),
+      registerFor: {_offline},
+    );
     gh.lazySingleton<_i1013.ILoggingRepository>(
       () => _i845.LoggingRepository(),
       dispose: (i) => i.dispose(),
@@ -96,22 +102,23 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i784.SharedPrefsWrapper(gh<_i460.SharedPreferences>()),
       registerFor: {_online},
     );
+    gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
+      () => _i1018.PartnerProfileLocalStore(gh<_i306.ISharedPrefsWrapper>()),
+      registerFor: {_online},
+    );
     gh.lazySingleton<_i742.IAuthRepository>(
       () => _i755.AuthRepository(gh<_i663.IAuthService>()),
     );
-    gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
-      () => _i1018.PartnerProfileLocalStore(gh<_i306.ISharedPrefsWrapper>()),
+    gh.factory<_i1010.SaveLocalPartnerProfileUseCase>(
+      () => _i1010.SaveLocalPartnerProfileUseCase(
+        gh<_i667.IPartnerProfileLocalStore>(),
+      ),
     );
     gh.singleton<_i693.SessionManager>(
       () => _i693.SessionManager(
         gh<_i306.ISharedPrefsWrapper>(),
         gh<_i742.IAuthRepository>(),
         gh<_i339.IHiveCache>(),
-      ),
-    );
-    gh.factory<_i1010.SaveLocalPartnerProfileUseCase>(
-      () => _i1010.SaveLocalPartnerProfileUseCase(
-        gh<_i667.IPartnerProfileLocalStore>(),
       ),
     );
     gh.factory<_i167.WizardCubit>(

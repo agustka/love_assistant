@@ -21,6 +21,7 @@
 - UI components, widgets, cubits, or state management
 - Business logic, domain rules, or application workflow logic
 - Domain entity creation with business rules
+- Inline serialization or entity-to-map logic inside service/repository/store classes (no `_toJson(entity)` helpers, no hand-built `Map<String, dynamic>`). Serialization lives on Model DTOs (`toJson`/`fromJson`); entity ↔ model conversion lives on the entity (`fromModel`/`toModel`). Serialize via `entity.toModel().toJson()`; deserialize via `Model.fromJson(...)` → `Entity.fromModel(...)`.
 
 ## Repository Implementation Rules
 
@@ -56,10 +57,18 @@
 
 ## Error Handling
 
-### Repository Layer
-- Log with `err(ex, location: "ClassName.methodName")` including stack traces: `err(e, trace: st, location: "...")`
-- Use specific Failure types (e.g., `Failure.invalidValue()`, `Failure.notAuthorized()`)
+**Boundaries never throw — they return a domain result.** Every infrastructure boundary reachable from the application/domain layers (repositories, services, and local stores/datasources) must catch its own errors and return a result rather than propagating an exception:
+- `Future`-returning methods return `Payload.success(value)` / `Payload.failure(Failure(...))` — never `void`, never a raw value that can throw past the boundary.
+- Streaming repositories emit `StreamPayload.success(...)` / `StreamPayload.failure(...)`.
+- `Failure` is constructed as `Failure("message", {reference})` — it has no named variants (`Failure.invalidValue()` etc. do not exist).
+- Always `err(ex, trace: st, location: "ClassName.methodName")` before returning the failure.
+
+This keeps error handling consistent and safe across the whole codebase: upstream layers (use cases, cubits) branch on `Payload`/`StreamPayload` rather than wrapping infrastructure calls in try-catch.
+
+### Repository / Store Layer
+- Wrap every method body in try-catch; on error, log via `err(...)` then return `Payload.failure(Failure(...))` (or emit `StreamPayload.failure(...)` for streaming repos)
 - Transform service Payloads using `.fold()` to propagate or handle failures
+- Local stores/datasources (shared-preferences/Hive-backed, platform stores) follow the same contract — `Future<Payload<T>>`, never `Future<void>`/raw returns
 
 ### Service Layer
 - Use `BaseService` mixin methods: `handleResponse()` and `handleException()`

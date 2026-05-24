@@ -27,7 +27,10 @@
       "Bash(sed -n '45,75p' lib/domain/core/value_objects/favorite_food_value_object.dart)",
       "Bash(flutter test *)",
       "Bash(grep -iB2 -A8 \"exception\\\\|error\\\\|assert\\\\|thrown\\\\|failed to\")",
-      "Bash(grep -iB1 -A6 \"EXCEPTION\\\\|Bad state\\\\|not registered\\\\|+0 -1\\\\|+1 \\\\|All tests\")"
+      "Bash(grep -iB1 -A6 \"EXCEPTION\\\\|Bad state\\\\|not registered\\\\|+0 -1\\\\|+1 \\\\|All tests\")",
+      "Bash(python3 scripts/build.py jsons)",
+      "Bash(dart format *)",
+      "Bash(dart pub *)"
     ]
   }
 }

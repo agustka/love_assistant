@@ -130,6 +130,29 @@ Key rules:
 
 ---
 
+## toModel Pattern
+
+The reverse of `fromModel`: when an entity needs to be serialized or sent outward, the entity **owns** the conversion to its infrastructure model via a `toModel()` method. The entity never carries `toJson()` itself — serialization lives on the model. This keeps the entity as the single place that knows the value-object ↔ primitive mapping in both directions, and keeps serialization (`toJson`/`fromJson`) on the DTO where it belongs.
+
+```dart
+UserPartnerProfileModel toModel() {
+  return UserPartnerProfileModel(
+    partnerName: partnerName,
+    partnerPronoun: partnerPronoun.name,
+    partnerBirthday: partnerBirthday?.toIso8601String(),
+    partnerLoveLanguages: partnerLoveLanguages.map((LoveLanguage e) => e.name).toList(),
+  );
+}
+```
+
+Key rules:
+- The entity unwraps value objects to the primitives the model holds (`pronoun.name`, `date?.toIso8601String()`), mirroring how `fromModel` wraps them back.
+- The model is a plain DTO of primitives annotated `@JsonSerializable()`; it owns `toJson()`/`fromJson()` (generated into `<model>.g.dart`). The entity owns `toModel()`/`fromModel()`.
+- Never place `toJson()` (or any JSON map building) on the entity. If an infrastructure class is hand-rolling a `Map<String, dynamic>` from an entity, that logic is misplaced — move it to a model `toJson()` reached via `entity.toModel()`.
+- Only add `toModel()` when an entity is actually serialized/persisted/sent outward — do not add it speculatively.
+
+---
+
 ## Structural Rules
 
 | Rule | Detail |
@@ -142,6 +165,7 @@ Key rules:
 | `.invalid()` factory | Const named constructor — all fields set to their `.invalid()` defaults, `valid = false` |
 | `.empty()` factory | Optional — for valid-but-empty state (e.g. empty list entity) |
 | `fromModel` factory | Required — constructs domain entity from infrastructure model |
+| `toModel()` method | Required **only when the entity is serialized/persisted/sent outward** — converts the entity to its infrastructure model (which owns `toJson`). Never put `toJson` on the entity. |
 | `props` override | List all fields including `valid` for correct equality |
 | Single responsibility | One entity per business concept |
 | Domain logic in entity | Computed properties, business methods, eligibility checks, filtering |
