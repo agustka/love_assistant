@@ -8,8 +8,7 @@ Usage:
     python3 scripts/build.py [command]
 
 Commands:
-    build      Run build_runner once (injectable + flutter_gen assets).  [default]
-    jsons      Alias of `build` (kept for documented compatibility).
+    build      Run build_runner once (injectable + json_serializable + flutter_gen assets).  [default]
     watch      Run build_runner in watch mode.
     clean      Delete build_runner's cached outputs.
     intl       Regenerate localization (S class) via intl_utils.
@@ -30,7 +29,6 @@ INTL = ["dart", "run", "intl_utils:generate"]
 
 COMMANDS = {
     "build": [BUILD],
-    "jsons": [BUILD],
     "watch": [WATCH],
     "clean": [CLEAN],
     "intl": [INTL],

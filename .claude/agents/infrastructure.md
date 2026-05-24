@@ -28,7 +28,7 @@ It does not define business logic, user behavior, or UI.
 The handoff must contain:
 
 - summary
-- artifacts
+- artifacts (list each interface with **both** its online and offline implementation; flag any boundary missing an offline variant)
 - invariants
 - gaps
 - status (complete | incomplete | failed)
@@ -49,6 +49,7 @@ The agent must:
 - implement streaming repositories if required
 - handle errors consistently
 - expose data in a format suitable for downstream layers
+- **create an offline counterpart for every infrastructure boundary it produces** (see Offline Implementations below) — this is mandatory, not optional
 - document all assumptions and gaps
 
 ---
@@ -59,12 +60,42 @@ The agent must:
 - Do not infer behavior beyond the API contract
 - Do not invent endpoints, fields, or flows
 - Do not implement business logic
+- **Do not put serialization or field-mapping logic inside service, repository, or store classes** (no inline `toJson`/`fromJson`, no private `_toJson(entity)` helpers, no hand-built `Map<String, dynamic>` from an entity). Serialization belongs on a Model DTO (`*_model.dart`, with `toJson`/`fromJson`); entity ↔ model conversion belongs on the entity (`fromModel` / `toModel`). A service/store serializes via `entity.toModel().toJson()` and deserializes via `Model.fromJson(...)` → `Entity.fromModel(...)`.
 - Do not modify domain, application, or UI layers
 - Inter-agent communication is allowed only through `.claude/handoff/*.handoff.md`
 - Do not create or update `.md`/`.txt` artifacts outside `.claude/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - Follow existing project conventions strictly
 - **Scope guard**: Only create or modify files within the current feature's own directory (`lib/infrastructure/<feature>/`). Never modify a pre-existing file that belongs to another feature or a shared layer, even if doing so appears to fix a test failure or compilation error. If such a modification seems necessary, stop and report it as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`. Do not proceed until a human resolves it.
+
+---
+
+## Offline Implementations (mandatory)
+
+Every infrastructure boundary this agent produces **must** ship with both:
+
+1. A **production (online)** implementation, annotated `@InjectableEnv.online` + `@LazySingleton(as: I<Name>)`.
+2. An **offline** implementation, annotated `@InjectableEnv.offline` + `@LazySingleton(as: I<Name>)`, placed in an `offline/` subdirectory next to the production file and named with an `Offline` prefix (e.g. `lib/infrastructure/<feature>/store/offline/offline_<name>.dart`).
+
+This applies to **all** infrastructure boundaries behind an interface — services, repositories, local stores/datasources, platform/device services, and SDK bridges — not just networked ones.
+
+**Why both must be annotated**: an implementation with no `@InjectableEnv` registers in *every* environment. Adding an offline variant without also constraining the production one to `@InjectableEnv.online` produces two registrations for the same interface in the offline environment — a DI conflict. So when adding an offline variant to an existing unscoped production class, you must also add `@InjectableEnv.online` to the production class.
+
+### Choosing the offline shape by boundary type
+
+- **Networked services (REST / Chopper, GraphQL / Ferry)** — do **not** write an offline *service*. Instead provide an **offline client** (`BaseOfflineClient` + `OfflineHelper`, under `client/offline/`, annotated `@InjectableEnv.offline @LazySingleton(as: IClientProvider)`) that pattern-matches URL/operation and returns fixture-backed responses. The production service runs unchanged on top of it.
+- **Non-networked boundaries (local stores, shared-preferences-backed stores, platform/device services, SDK bridges)** — write an offline implementation of the interface that keeps state **in memory** (static or instance fields), seeded/inspected by tests. Follow the `OfflineSharedPrefsWrapper` precedent (`lib/infrastructure/core/prefs/offline/`).
+
+### Test-boundary controls (builder pattern)
+
+Tests inject data and force conditions at the infrastructure boundary via the builder pattern. The offline implementation must expose the surface needed for this:
+
+- A **readable field** capturing what was written, so tests can assert persistence (e.g. `UserPartnerProfile? savedProfile;`).
+- **Configurable behavior toggles** for failure/edge scenarios named in `bdd.md` (e.g. `bool throwOnSave = false;` to exercise a best-effort-save-failure path). Prefer public mutable fields / nullable response properties over hard-coded data so a builder can configure them per test.
+
+Reference: see `lib/infrastructure/CLAUDE.md` → "Offline Implementations" for the canonical annotations and folder rules.
+
+> Note on Supabase-backed boundaries: the offline strategy for Supabase services is not yet finalized. If a boundary is implemented directly against Supabase with no interface seam, record it as a gap (`"offline variant pending: Supabase boundary <name> — strategy TBD"`) rather than guessing.
 
 ---
 
@@ -83,6 +114,7 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 - If domain entities are not yet available → stop at step 6 (before repository-pattern), status incomplete, gap: `"repository pending domain entities"`
 - If all required infrastructure is implemented without blocking gaps → status complete
 - If data needs local persistence but not cache semantics (latency reduction/freshness policy) → implement it in repository/local datasource, not `*CacheSupport`
+- If any produced boundary lacks an offline counterpart (and is not an unresolved Supabase seam recorded as a gap) → **not** complete; mark `incomplete` with gap `"offline variant missing: <interface>"`
 
 ---
 
@@ -93,14 +125,14 @@ Follow this order when generating infrastructure:
 1. **Convention baseline** — read `.claude/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the infrastructure conventions (model class shape, chopper/graphql service definition, repository implementation, caching pattern, DI registration). If the handoff does not cover infrastructure conventions or is missing, call the know-the-code agent as a fallback with: `"What are the model, service, and repository conventions for the <feature> area? Show me a complete precedent: model class shape, chopper/graphql service definition, repository implementation, caching pattern if present, and DI registration."`
 2. **api-parsing** — extract endpoints, schemas, enums from .claude/specs/api.yaml
    - If parsing detects placeholder/no-op content, stop here and emit no-op `complete` handoff
-3. **model-generation** — generate model classes + register in converter → run `python3 scripts/build.py json`
+3. **model-generation** — generate model classes (`*_model.dart`): plain DTOs of primitives annotated `@JsonSerializable()` + `@immutable` (do NOT extend Equatable), with `part '<name>.g.dart';` and `fromJson`/`toJson` delegating to the generated `_$...FromJson` / `_$...ToJson` functions → run `python3 scripts/build.py jsons` to generate the part. `json_serializable` is enabled in `build.yaml` for `lib/infrastructure/**/models/**.dart`. Any entity that gets persisted or serialized must reach JSON through its model — add `toModel()` on the entity (domain agent); never hand-roll serialization inside a service/store.
 4. **chopper-generation** or **graphql-generation** — define service endpoints → run `python3 scripts/build.py chopper` or `python3 scripts/build.py graphql`
 5. **service-generation** — implement service class wrapping chopper/graphql
 6. **caching (optional)** — create cache support class only when cache semantics are required
 
 **⛔ Checkpoint: Domain entity dependency**
 
-Steps 7–8 require domain entities with `fromModel` factories (produced by the domain agent). If the domain entities **do not yet exist**:
+Steps 7–9 require domain entities with `fromModel` factories (produced by the domain agent). If the domain entities **do not yet exist**:
 
 - **STOP here** — do not generate the repository
 - Set handoff status to `incomplete`
@@ -110,7 +142,8 @@ Steps 7–8 require domain entities with `fromModel` factories (produced by the 
 If domain entities **already exist**, continue:
 
 7. **repository-pattern** — implement repository with streaming, caching, and domain conversion
-8. **DI registration** — register repository in `session_manager.dart` → run `python3 scripts/build.py getit`
+8. **offline variants** — for every boundary produced in steps 3–7 (services, repositories, local stores), create its offline counterpart per Offline Implementations (offline client for networked services; in-memory implementation for non-networked boundaries). Ensure each production boundary is `@InjectableEnv.online` so the offline registration does not collide.
+9. **DI registration** — register repository in `session_manager.dart` → run `python3 scripts/build.py getit`
 
 Always run the relevant build command after each generation step before proceeding to the next. **If any build command returns a non-zero exit code or produces errors → stop immediately, do not proceed to the next step, mark status as `failed`, and record the exact error output in the handoff gaps section.**
 

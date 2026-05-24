@@ -12,6 +12,7 @@ import 'package:la/domain/core/value_objects/relationship_type_value_object.dart
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
+import 'package:la/domain/wizard/use_cases/save_local_partner_profile_use_case.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/setup.dart';
 
@@ -19,7 +20,9 @@ part 'wizard_state.dart';
 
 @Injectable()
 class WizardCubit extends BaseCubit<WizardState> {
-  WizardCubit() : super(WizardState.initial());
+  final SaveLocalPartnerProfileUseCase _saveLocalPartnerProfileUseCase;
+
+  WizardCubit(this._saveLocalPartnerProfileUseCase) : super(WizardState.initial());
 
   Future init() async {
     final bool isInitial = !getIt<InitializationService>().profileCreated;
@@ -27,14 +30,14 @@ class WizardCubit extends BaseCubit<WizardState> {
     emit(state.copyWith(status: WizardStatus.loaded, isInitial: isInitial, config: config));
   }
 
-  void next(int currentPage, {bool confirmed = false}) {
+  Future<void> next(int currentPage, {bool confirmed = false}) async {
     final WizardConfig config = state.config;
     final WizardStep currentStep = config.visibleSteps[currentPage];
     final int nextStepIndex = currentPage + 1;
 
     if (nextStepIndex >= config.visibleSteps.length) {
       if (state.isInitial) {
-        getIt<EventBus>().fire(WizardInitialSetupCompletedEvent(profile: _buildPartnerProfile()));
+        await _completeInitialSetup();
       }
       return;
     }
@@ -66,6 +69,12 @@ class WizardCubit extends BaseCubit<WizardState> {
     }
 
     getIt<EventBus>().fire(WizardEventGoToPage(page: nextStepIndex));
+  }
+
+  Future<void> _completeInitialSetup() async {
+    final UserPartnerProfile profile = _buildPartnerProfile();
+    await _saveLocalPartnerProfileUseCase.execute(profile);
+    getIt<EventBus>().fire(WizardInitialSetupCompletedEvent(profile: profile));
   }
 
   UserPartnerProfile _buildPartnerProfile() {

@@ -16,6 +16,8 @@ import 'package:la/application/core/language/language_cubit.dart' as _i953;
 import 'package:la/application/splash/splash_cubit.dart' as _i247;
 import 'package:la/application/wizard/wizard_cubit.dart' as _i167;
 import 'package:la/domain/core/repositories/i_auth_repository.dart' as _i742;
+import 'package:la/domain/wizard/use_cases/save_local_partner_profile_use_case.dart'
+    as _i1010;
 import 'package:la/infrastructure/core/analytics/repository/i_logging_repository.dart'
     as _i1013;
 import 'package:la/infrastructure/core/analytics/repository/logging_repository.dart'
@@ -42,6 +44,12 @@ import 'package:la/infrastructure/core/prefs/shared_prefs_wrapper.dart'
 import 'package:la/infrastructure/core/supabase/supabase_module.dart' as _i1048;
 import 'package:la/infrastructure/core/time/i_poll_and_debounce.dart' as _i651;
 import 'package:la/infrastructure/core/time/poll_and_debounce.dart' as _i187;
+import 'package:la/infrastructure/wizard/store/i_partner_profile_local_store.dart'
+    as _i667;
+import 'package:la/infrastructure/wizard/store/offline/offline_partner_profile_local_store.dart'
+    as _i261;
+import 'package:la/infrastructure/wizard/store/partner_profile_local_store.dart'
+    as _i1018;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
@@ -60,7 +68,6 @@ extension GetItInjectableX on _i174.GetIt {
     final sharedPreferencesModule = _$SharedPreferencesModule();
     gh.factory<_i953.LanguageCubit>(() => _i953.LanguageCubit());
     gh.factory<_i247.SplashCubit>(() => _i247.SplashCubit());
-    gh.factory<_i167.WizardCubit>(() => _i167.WizardCubit());
     gh.singleton<_i1017.EventBus>(() => eventBusModule.eventBus);
     gh.singleton<_i984.InitializationService>(
       () => _i984.InitializationService(),
@@ -72,6 +79,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i339.IHiveCache>(() => const _i681.HiveCache());
     gh.factory<_i651.IPollAndDebounce>(() => _i187.PollAndDebounce());
+    gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
+      () => _i261.OfflinePartnerProfileLocalStore(),
+      registerFor: {_offline},
+    );
     gh.lazySingleton<_i1013.ILoggingRepository>(
       () => _i845.LoggingRepository(),
       dispose: (i) => i.dispose(),
@@ -91,8 +102,17 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i784.SharedPrefsWrapper(gh<_i460.SharedPreferences>()),
       registerFor: {_online},
     );
+    gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
+      () => _i1018.PartnerProfileLocalStore(gh<_i306.ISharedPrefsWrapper>()),
+      registerFor: {_online},
+    );
     gh.lazySingleton<_i742.IAuthRepository>(
       () => _i755.AuthRepository(gh<_i663.IAuthService>()),
+    );
+    gh.factory<_i1010.SaveLocalPartnerProfileUseCase>(
+      () => _i1010.SaveLocalPartnerProfileUseCase(
+        gh<_i667.IPartnerProfileLocalStore>(),
+      ),
     );
     gh.singleton<_i693.SessionManager>(
       () => _i693.SessionManager(
@@ -100,6 +120,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i742.IAuthRepository>(),
         gh<_i339.IHiveCache>(),
       ),
+    );
+    gh.factory<_i167.WizardCubit>(
+      () => _i167.WizardCubit(gh<_i1010.SaveLocalPartnerProfileUseCase>()),
     );
     return this;
   }

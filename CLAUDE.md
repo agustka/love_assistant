@@ -246,12 +246,14 @@ Best practices from [Effective Dart](https://dart.dev/effective-dart) and [Flutt
 - Example:
 
 ```bash
-python3 scripts/build.py <parameter>
+python3 scripts/build.py <command>
 ```
 
-Example:
+Commands: `build` (default — injectable + json_serializable + flutter_gen), `watch`, `clean`, `intl` (localization), `all` (`intl` then `build`).
+
+Examples:
 
 ```bash
-python3 scripts/build.py jsons
-python3 scripts/build.py graphql
+python3 scripts/build.py
+python3 scripts/build.py intl
 ```

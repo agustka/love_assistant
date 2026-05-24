@@ -1,5 +1,3 @@
-global_options:
-
 targets:
   $default:
     sources:
@@ -9,44 +7,3 @@ targets:
         - $package$
       exclude:
         - lib/**/tmp__tmp/**.dart
-
-    builders:
-      chopper_generator|chopper_generator:
-        enabled: false
-        generate_for:
-          include:
-            - lib/infrastructure/**/**_chopper_**.dart
-
-      json_serializable:
-        enabled: false
-        generate_for:
-          include:
-            - lib/infrastructure/**/models/**.dart
-            - lib/domain/**/entities/**.dart
-
-      injectable_generator|injectable_builder:
-        generate_for:
-          include:
-            - lib/setup.dart
-            - lib/application/**/**.dart
-            - lib/domain/**/**.dart
-            - lib/infrastructure/**/**.dart
-            - lib/infrastructure/core/geolocator/**/**.dart
-            - lib/presentation/core/route_observer_provider.dart
-            - lib/presentation/core/localization/rb_codes/rb_code_getter.dart
-            - lib/presentation/core/global_navigator_key.dart
-            - lib/presentation/core/isb/molecules/image/cached_image/**
-            - lib/presentation/core/isb/atoms/theme/**
-
-      injectable_generator|injectable_config_builder:
-        generate_for:
-          include:
-            - lib/setup.dart
-            - lib/application/**/**.dart
-            - lib/domain/**/**.dart
-            - lib/infrastructure/**/**.dart
-            - lib/presentation/core/route_observer_provider.dart
-            - lib/presentation/core/localization/rb_codes/rb_code_getter.dart
-            - lib/presentation/core/global_navigator_key.dart
-            - lib/presentation/core/isb/molecules/image/cached_image/**
-            - lib/presentation/core/isb/atoms/theme/**
