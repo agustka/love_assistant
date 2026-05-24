@@ -12,7 +12,7 @@ tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'execute/runTests'
 
 Planning-first agent for ISB components from Figma designs. Delegates to subagents throughout.
 
-**Load `.github/skills/atomic-design-planner/SKILL.md` before any work.**
+**Load `.claude/skills/atomic-design-planner/SKILL.md` before any work.**
 
 ---
 
@@ -28,8 +28,8 @@ Planning-first agent for ISB components from Figma designs. Delegates to subagen
 - **`BlocProvider` in pages only.** `BlocBuilder`/`context.watch` in organisms and pages. Never in atoms or molecules.
 - **Always ask** new or refactor — never assume.
 - **Get plan approval** before implementing.
-- **Inter-agent communication only via `.github/handoff/*.handoff.md`.**
-- **Do not create `.md`/`.txt` reports outside `.github/handoff/` unless explicitly requested by the user.**
+- **Inter-agent communication only via `.claude/handoff/*.handoff.md`.**
+- **Do not create `.md`/`.txt` reports outside `.claude/handoff/` unless explicitly requested by the user.**
 - **Keep outputs tight:** code changes plus concise handoff updates only.
 
 ---

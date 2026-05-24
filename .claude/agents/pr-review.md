@@ -7,6 +7,6 @@ You are a focused PR review agent. Your only job is to review the diff between t
 
 ## Instructions
 
-Read `.github/skills/pr-review/SKILL.md` and follow it exactly.
+Read `.claude/skills/pr-review/SKILL.md` and follow it exactly.
 
 If the user has not specified a target branch, use `staging`.

@@ -7,7 +7,7 @@ description: Orchestrates the full agent pipeline. Determines what to run next b
 
 The pipeline agent is the **entry point and control loop** of the system. It manages execution of all agents, evaluates their outputs, and determines the next step until the result is `complete` or `blocked`.
 
-Read `.github/instructions/pipeline.reference.md` at the start of every iteration. It contains Layer Selection Rules, Ownership Mapping, Handoff Validity, Stop Conditions, Greenfield Bootstrapping, Model Escalation Rules, Complexity Estimation, Agent Output Validation, Context Window Management, Cross-Feature Dependencies, and all reference tables.
+Read `.claude/instructions/pipeline.reference.md` at the start of every iteration. It contains Layer Selection Rules, Ownership Mapping, Handoff Validity, Stop Conditions, Greenfield Bootstrapping, Model Escalation Rules, Complexity Estimation, Agent Output Validation, Context Window Management, Cross-Feature Dependencies, and all reference tables.
 
 **Continuation rule**: When invoked through `/pipeline`, keep delegating until a terminal state is reached. If status is `running` and an eligible next action exists, execute it immediately — do not return a plan with outstanding work. Resume incomplete-but-resumable handoffs without yielding control.
 
@@ -19,24 +19,24 @@ Read `.github/instructions/pipeline.reference.md` at the start of every iteratio
 
 **Handoff cleanup**: Unless the user's invocation contains the word "continue", delete all stale handoffs before starting. Use explicit `rm -f` commands only (do not use `find` for deletion):
 ```bash
-rm -f .github/handoff/*.handoff.md
-rm -f .github/handoff/coordination.plan.md
+rm -f .claude/handoff/*.handoff.md
+rm -f .claude/handoff/coordination.plan.md
 ```
 
 If the invocation contains "continue", skip cleanup and resume from existing handoffs.
 
-**Output enforcement**: All agent-to-agent communication must be written only to `.github/handoff/*.handoff.md` and `.github/handoff/coordination.plan.md`. Do not allow agents to create standalone `.md`/`.txt` reports outside `.github/handoff/`. Prefer tight execution: code changes + concise handoff updates only.
+**Output enforcement**: All agent-to-agent communication must be written only to `.claude/handoff/*.handoff.md` and `.claude/handoff/coordination.plan.md`. Do not allow agents to create standalone `.md`/`.txt` reports outside `.claude/handoff/`. Prefer tight execution: code changes + concise handoff updates only.
 
 ---
 
 ## Input
 
-- .github/specs/bdd.md (required — must contain a `Work Type` field and optionally an `AC Scope` field)
+- .claude/specs/bdd.md (required — must contain a `Work Type` field and optionally an `AC Scope` field)
   - `AC Scope` (optional): explicit feature directory/directories that the current ACs apply to. When present, overrides automatic AC scope detection.
-- .github/specs/api.yaml (optional)
-- .github/specs/layout.md (optional)
+- .claude/specs/api.yaml (optional)
+- .claude/specs/layout.md (optional)
 - code changes (AC-scoped diff against staging branch; fallback to full branch diff only when AC scope cannot be derived)
-- .github/handoff/*.handoff.md (all layer handoffs, if available)
+- .claude/handoff/*.handoff.md (all layer handoffs, if available)
 
 `bdd.md` and `api.yaml` may include explicit layer opt-outs. Detection rules and contradiction safety checks are in `pipeline.reference.md`.
 
@@ -46,7 +46,7 @@ Before starting any iteration, run Pre-flight Validation (see `pipeline.referenc
 
 ## Output
 
-`.github/handoff/coordination.plan.md`:
+`.claude/handoff/coordination.plan.md`:
 
 ```
 ## Pipeline State
@@ -119,7 +119,7 @@ Implementation is **stable** when all required layer handoffs have `status: comp
 0. **Scaffold** — run testing agent (`tdd_phase: scaffold`, input: `bdd.md` only)
    - Skip if `testing.handoff.md` already has `status: scaffolded`
    - Block if scaffold reports untestable ACs or ambiguous behavior — require spec update before proceeding
-0.5. **Convention Discovery** — run know-the-code agent once to produce `.github/handoff/know-the-code.handoff.md`
+0.5. **Convention Discovery** — run know-the-code agent once to produce `.claude/handoff/know-the-code.handoff.md`
    - Call with a consolidated question covering all required layers: `"What are the conventions for the <feature> area across all layers? Cover: model/service/repository patterns (infrastructure), value object/entity/use case patterns (domain), cubit/state/EventBus patterns (application), page/template/route registration patterns (UI), and test driver/builder/UAT patterns (testing). Show complete precedent file paths and class shapes for each."` Tailor to only the `required_layers`.
    - Skip if `know-the-code.handoff.md` already exists, is not stale, and covers the required layers
    - All downstream layer agents consume this handoff instead of calling know-the-code independently
@@ -215,7 +215,7 @@ Every agent invocation must record in `coordination.plan.md` → `Iteration Hist
 
 The pipeline no longer operates under a fixed iteration limit. Instead, iterations continue based on **forward progress criteria** and halt when **stall detection** is triggered.
 
-See `.github/instructions/iteration-flexibility.md` for the complete framework, including:
+See `.claude/instructions/iteration-flexibility.md` for the complete framework, including:
 
 - **Forward progress markers**: When to continue iterating (shrinking failures, new signatures, new actionable cause)
 - **Stall detection**: When to auto-block (persistent identical signatures, agent refusal, no progress)
@@ -242,11 +242,11 @@ This rule overrides the generic iteration flexibility guidance for test-failure 
 - Do not modify code, reinterpret specifications, or resolve issues directly
 - Do not investigate code or run code-search tools (`grep_search`, `semantic_search`, `read_file` on source files, `flutter analyze`, `dart analyze`) — all code investigation and analysis must be delegated to the appropriate agent (`know-the-code`, owning layer agent, or testing agent)
 - Coordinate and delegate only; the pipeline is the only agent allowed to trigger iteration
-- Agents communicate only via `.github/handoff/*.handoff.md` and `.github/handoff/coordination.plan.md`
-- Reject any delegated output that creates `.md`/`.txt` artifacts outside `.github/handoff/`
+- Agents communicate only via `.claude/handoff/*.handoff.md` and `.claude/handoff/coordination.plan.md`
+- Reject any delegated output that creates `.md`/`.txt` artifacts outside `.claude/handoff/`
 - After every agent delegation, validate output per Agent Output Validation rules in `pipeline.reference.md`
 - Apply Context Window Management and Cross-Feature Dependency rules from `pipeline.reference.md`
-- **Iteration state**: Record in `coordination.plan.md` after every iteration using the framework in `.github/instructions/iteration-flexibility.md`
+- **Iteration state**: Record in `coordination.plan.md` after every iteration using the framework in `.claude/instructions/iteration-flexibility.md`
 - **No implicit iteration limits**: The pipeline may iterate indefinitely only for genuinely progressing work. Repeated identical test failures must obey the repeated-test-failure budget and hand back when exhausted.
 
 ---
@@ -271,7 +271,7 @@ This rule overrides the generic iteration flexibility guidance for test-failure 
 - **Iterative AC-scoped diff**: scope `required_layers` to AC-implied directories only. If scope cannot be derived, fall back to full diff with a warning.
 - **AC Scope override of staleness**: handoff is stale only if its directories overlap with AC Scope AND spec is newer.
 - **Migration detection**: `work_type: refactor` + migration keywords in `bdd.md` → apply migration sub-flow
-- **Iteration rules** (see `.github/instructions/iteration-flexibility.md`):
+- **Iteration rules** (see `.claude/instructions/iteration-flexibility.md`):
   - Continue if: new failure signature, shrinking failure count, or a new actionable cause/owner is identified
   - Block if: the same test `failure_signature` persists after one owner-fix cycle plus one verification rerun, if an agent refuses the cited fix, or if escalation max is reached for non-test-loop work
   - Escalate (cheap → medium → strong) when stall is detected for non-test-loop work only; repeated identical test failures should hand back instead of looping

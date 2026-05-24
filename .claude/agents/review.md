@@ -26,14 +26,14 @@ It acts as a **gatekeeper** before code is accepted or further processing contin
 ## Input
 
 - uncommitted diff (new and modified files not yet checked in, obtained via `git-diff` skill against the staging branch)
-- .github/specs/bdd.md
-- .github/specs/api.yaml
-- .github/specs/layout.md (when present — used to validate UI layout correctness)
-- .github/handoff/coordination.plan.md (required — provides `required_layers` and `work_type` to scope review)
-- .github/handoff/infrastructure.handoff.md
-- .github/handoff/domain.handoff.md
-- .github/handoff/application.handoff.md
-- .github/handoff/ui.handoff.md
+- .claude/specs/bdd.md
+- .claude/specs/api.yaml
+- .claude/specs/layout.md (when present — used to validate UI layout correctness)
+- .claude/handoff/coordination.plan.md (required — provides `required_layers` and `work_type` to scope review)
+- .claude/handoff/infrastructure.handoff.md
+- .claude/handoff/domain.handoff.md
+- .claude/handoff/application.handoff.md
+- .claude/handoff/ui.handoff.md
 
 Only handoffs for layers listed in `required_layers` from the coordination plan are reviewed. Non-required layers are ignored.
 
@@ -41,7 +41,7 @@ Only handoffs for layers listed in `required_layers` from the coordination plan 
 
 ## Output
 
-- .github/handoff/review.handoff.md
+- .claude/handoff/review.handoff.md
 
 The output must be a structured contract that:
 - lists all findings
@@ -80,8 +80,8 @@ The agent must:
 - Treat missing or unclear specification as a failure condition
 - If API usage is detected in code but not defined in `api.yaml` → flag as violation
 - **Only evaluate files present in the diff. Do not read beyond the diff boundary.**
-- Inter-agent communication is allowed only through `.github/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.github/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `.claude/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `.claude/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 
 ---
@@ -132,7 +132,7 @@ The agent must combine results from all applicable skills into a single, structu
 - **If an AC is covered only by non-UAT tests** (for example domain/unit/golden) and has no corresponding scenario in `test/user_acceptance_tests/` → **blocking violation**: `"missing user acceptance tests: <scenario>"`.
 - **Never downgrade missing user acceptance tests to warning/note/risk**. This finding is always blocking for `feature`, `refactor`, and `bug` work types.
 - **If test files exist in scratch/temp directories** instead of correct suite paths (`test/user_acceptance_tests/`, `test/domain/`, `test/presentation/`) → **blocking violation**: `"test not in correct suite: <file path>"`.
-- **If application/domain/infrastructure business logic resolves dependencies via `getIt<T>()` instead of constructor injection** — except `getIt<Navigation>()` and `getIt<EventBus>()` — → **blocking violation**: `"dependency injection violation: <file path>"`. Cite `.github/skills/dependency-injection/SKILL.md` and the relevant layer rules in the finding.
+- **If application/domain/infrastructure business logic resolves dependencies via `getIt<T>()` instead of constructor injection** — except `getIt<Navigation>()` and `getIt<EventBus>()` — → **blocking violation**: `"dependency injection violation: <file path>"`. Cite `.claude/skills/dependency-injection/SKILL.md` and the relevant layer rules in the finding.
 - **If the diff contains modifications to a pre-existing file outside the current feature's directory scope** → record a **note** or **risk** only: `"out-of-scope modification present: <file path>"`. This is non-blocking because the user may be working on unrelated changes concurrently. Only escalate it if that exact file introduces an independent spec, architecture, test, or safety violation.
 - **When a blocking finding is fixable and the owning layer is clear**, the required action must name that owner explicitly (for example `application`, `domain`, `ui`, `testing`) rather than saying human intervention is required.
 
@@ -165,4 +165,4 @@ failure_signature: "<stable identifier>" | null
 suggested_tier: cheap | medium | strong | null
 ```
 
-See `.github/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.
+See `.claude/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.

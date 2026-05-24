@@ -23,11 +23,11 @@ The UI layer renders state and forwards user interactions. It contains no busine
 
 ## Input
 
-- .github/specs/layout.md (required)
-- .github/specs/bdd.md (required)
-- .github/handoff/application.handoff.md (required)
-- .github/handoff/review.handoff.md (optional — consumed during iterations when the review agent reports UI-layer violations)
-- .github/handoff/testing.handoff.md (optional — consumed during iterations when tests report UI behavior failures)
+- .claude/specs/layout.md (required)
+- .claude/specs/bdd.md (required)
+- .claude/handoff/application.handoff.md (required)
+- .claude/handoff/review.handoff.md (optional — consumed during iterations when the review agent reports UI-layer violations)
+- .claude/handoff/testing.handoff.md (optional — consumed during iterations when tests report UI behavior failures)
 
 ---
 
@@ -38,7 +38,7 @@ The UI layer renders state and forwards user interactions. It contains no busine
     - dialogs
     - drawers
 
-- .github/handoff/ui.handoff.md
+- .claude/handoff/ui.handoff.md
 
 ---
 
@@ -67,7 +67,7 @@ The agent must:
 ### Iteration Rules
 
 - If `review.handoff.md` reports UI-layer violations → fix the cited issues
-- If `testing.handoff.md` reports UI behavior failures → read diagnostic evidence (see `.github/skills/test-diagnostics/SKILL.md`):
+- If `testing.handoff.md` reports UI behavior failures → read diagnostic evidence (see `.claude/skills/test-diagnostics/SKILL.md`):
   - Use `actual_issue`, `evidence: file:line`, and `expected_fix` to guide targeted fixes
   - Apply only the specific widget/key additions suggested — not full page rewrites
   - Document any rejection with reason in handoff gaps
@@ -110,8 +110,8 @@ The agent must:
 - Must not introduce independent state outside cubit-driven state
 - Must not create, modify, or delete test artifacts under `test/**` (including acceptance, unit, golden, driver, builder, and use-case tests)
 - If UI changes imply test updates, record a testing-owned gap and do not edit tests
-- Inter-agent communication is allowed only through `.github/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.github/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `.claude/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `.claude/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - **Scope guard**: Work in the current feature directory by default. Navigation registration required to make newly introduced pages/drawers/dialogs routable is also in-scope UI work (not a gap). Any other cross-feature/shared-layer modification remains out-of-scope and must be reported as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`.
 
@@ -127,7 +127,7 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 
 Follow this order when generating UI layer code:
 
-1. **Convention baseline** — read `.github/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the UI conventions (template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern, PageName/NamedRoute/RouteLink registration). If the handoff does not cover UI conventions or is missing, call the know-the-code agent as a fallback with: `"What are the page, template, and route registration conventions for the <feature> area? Show me a complete precedent page file: template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern (part of), and PageName/NamedRoute/RouteLink registration."`
+1. **Convention baseline** — read `.claude/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the UI conventions (template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern, PageName/NamedRoute/RouteLink registration). If the handoff does not cover UI conventions or is missing, call the know-the-code agent as a fallback with: `"What are the page, template, and route registration conventions for the <feature> area? Show me a complete precedent page file: template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern (part of), and PageName/NamedRoute/RouteLink registration."`
 2. **ui-components-catalog** — discover available organisms and templates that match the layout requirements
 3. **atomic-design-composition** — plan the composition: choose template, identify organisms, define Definition objects
 4. **ui-setup** — scaffold page/drawer files, create route registrations (PageName, NamedRoute, RouteLink), create keys file
@@ -195,7 +195,7 @@ Blocking component gaps cause the agent to stop and mark status as `failed`.
 
 ## Handoff Contract
 
-Produce `.github/handoff/ui.handoff.md` with:
+Produce `.claude/handoff/ui.handoff.md` with:
 
 - summary
 - artifacts (pages, drawers, dialogs created or modified)
@@ -262,5 +262,5 @@ failure_signature: "<stable identifier>" | null
 suggested_tier: cheap | medium | strong | null
 ```
 
-See `.github/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.
+See `.claude/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.
 

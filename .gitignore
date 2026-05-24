@@ -48,7 +48,7 @@ app.*.map.json
 assets/keys/config.json
 
 # Agent input documents
-.github/specs/api.yaml
-.github/specs/bdd.md
-.github/specs/layout.md
-.github/handoff/*.md
+.claude/specs/api.yaml
+.claude/specs/bdd.md
+.claude/specs/layout.md
+.claude/handoff/*.md

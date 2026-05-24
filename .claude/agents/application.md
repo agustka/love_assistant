@@ -23,11 +23,11 @@ This layer orchestrates domain use cases via constructor-injected use case class
 
 ## Input
 
-- .github/specs/bdd.md (required)
-- .github/handoff/domain.handoff.md (required)
-- .github/handoff/ui.handoff.md (optional — consumed during iterations when the UI agent reports gaps such as missing cubit methods, missing state fields, or missing event messages that the presentation layer requires)
-- .github/handoff/review.handoff.md (optional — consumed during iterations when the review agent reports application-layer violations)
-- .github/handoff/testing.handoff.md (optional — consumed during iterations when tests report state/flow failures)
+- .claude/specs/bdd.md (required)
+- .claude/handoff/domain.handoff.md (required)
+- .claude/handoff/ui.handoff.md (optional — consumed during iterations when the UI agent reports gaps such as missing cubit methods, missing state fields, or missing event messages that the presentation layer requires)
+- .claude/handoff/review.handoff.md (optional — consumed during iterations when the review agent reports application-layer violations)
+- .claude/handoff/testing.handoff.md (optional — consumed during iterations when tests report state/flow failures)
 
 ---
 
@@ -38,7 +38,7 @@ This layer orchestrates domain use cases via constructor-injected use case class
     - states
     - event messages (when needed)
 
-- .github/handoff/application.handoff.md
+- .claude/handoff/application.handoff.md
 
 ---
 
@@ -81,7 +81,7 @@ See the `application-event-handling` skill for full patterns and rules.
 
 - If `ui.handoff.md` reports gaps (missing state fields, cubit methods, or event messages) → address them if justified by BDD; else report back as an application gap
 - If `review.handoff.md` reports application-layer violations → fix the cited issues
-- If `testing.handoff.md` reports state/flow failures → read diagnostic evidence (see `.github/skills/test-diagnostics/SKILL.md`):
+- If `testing.handoff.md` reports state/flow failures → read diagnostic evidence (see `.claude/skills/test-diagnostics/SKILL.md`):
   - Use `actual_issue`, `evidence: file:line`, and `expected_fix` to guide targeted fixes
   - Apply only the specific change suggested (add one emit, add one field) — not full rewrites
   - Document any rejection with reason in handoff gaps
@@ -102,8 +102,8 @@ See the `application-event-handling` skill for full patterns and rules.
 - Must not introduce UI components
 - Must not implement business logic that belongs in domain
 - Input validation occurs only on user actions, not during typing (see `application-input-handling` skill)
-- Inter-agent communication is allowed only through `.github/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.github/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `.claude/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `.claude/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - **Scope guard**: Only create or modify files within the current feature's own directory (`lib/application/<feature>/`). Never modify a pre-existing file that belongs to another feature or a shared layer, even if doing so appears to fix a test failure or compilation error. If such a modification seems necessary, stop and report it as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`. Do not proceed until a human resolves it.
 
@@ -119,7 +119,7 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 
 Follow this order when generating application layer code:
 
-1. **Convention baseline** — read `.github/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the application conventions (DI annotations, IsbCubit base class, state shape, copyWith, EventBus or ScopedEventBus usage, stream subscription patterns). If the handoff does not cover application conventions or is missing, call the know-the-code agent as a fallback with: `"What is the cubit and state convention for the <feature> area? Show me a complete precedent cubit file: DI annotations, IsbCubit base class, state shape, copyWith, EventBus or ScopedEventBus usage, and any stream subscription patterns."`
+1. **Convention baseline** — read `.claude/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the application conventions (DI annotations, IsbCubit base class, state shape, copyWith, EventBus or ScopedEventBus usage, stream subscription patterns). If the handoff does not cover application conventions or is missing, call the know-the-code agent as a fallback with: `"What is the cubit and state convention for the <feature> area? Show me a complete precedent cubit file: DI annotations, IsbCubit base class, state shape, copyWith, EventBus or ScopedEventBus usage, and any stream subscription patterns."`
 2. **application-state-modeling** — derive state class and status enum from BDD scenarios + domain handoff
 3. **cubit-generation** — build cubit class that orchestrates domain use cases and emits state transitions
 4. **application-event-handling** — define messages for one-shot events (errors, success, navigation, scroll)
@@ -151,7 +151,7 @@ Gaps must be recorded in the handoff under the `gaps` section with enough detail
 
 ## Handoff Contract
 
-Produce `.github/handoff/application.handoff.md` with:
+Produce `.claude/handoff/application.handoff.md` with:
 
 - summary
 - artifacts (cubits, states, and message files created or modified)
@@ -198,4 +198,4 @@ failure_signature: "<stable identifier>" | null
 suggested_tier: cheap | medium | strong | null
 ```
 
-See `.github/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.
+See `.claude/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.

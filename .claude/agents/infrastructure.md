@@ -1,6 +1,6 @@
 ---
 name: infrastructure-agent
-description: Implements the infrastructure layer from .github/specs/api.yaml. Generates models, services, repositories, caching, and streaming. Produces infrastructure.handoff.md.
+description: Implements the infrastructure layer from .claude/specs/api.yaml. Generates models, services, repositories, caching, and streaming. Produces infrastructure.handoff.md.
 ---
 
 ## Purpose
@@ -15,15 +15,15 @@ It does not define business logic, user behavior, or UI.
 
 ## Input
 
-- `.github/specs/api.yaml` — the API contract (required)
-- `.github/handoff/domain.handoff.md` — if available, confirms domain entities exist (optional; determines whether steps 6–7 can proceed)
+- `.claude/specs/api.yaml` — the API contract (required)
+- `.claude/handoff/domain.handoff.md` — if available, confirms domain entities exist (optional; determines whether steps 6–7 can proceed)
 
 ---
 
 ## Output
 
 - infrastructure layer code (models, services, repositories, caching, streaming)
-- .github/handoff/infrastructure.handoff.md
+- .claude/handoff/infrastructure.handoff.md
 
 The handoff must contain:
 
@@ -41,7 +41,7 @@ The handoff must stay concise: only changed code paths, blocking/non-blocking ga
 
 The agent must:
 
-- parse .github/specs/api.yaml
+- parse .claude/specs/api.yaml
 - generate API models based on schemas
 - generate service layer (REST or GraphQL)
 - implement repositories following project patterns
@@ -55,13 +55,13 @@ The agent must:
 
 ## Constraints
 
-- Do not use .github/specs/bdd.md
+- Do not use .claude/specs/bdd.md
 - Do not infer behavior beyond the API contract
 - Do not invent endpoints, fields, or flows
 - Do not implement business logic
 - Do not modify domain, application, or UI layers
-- Inter-agent communication is allowed only through `.github/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.github/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `.claude/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `.claude/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - Follow existing project conventions strictly
 - **Scope guard**: Only create or modify files within the current feature's own directory (`lib/infrastructure/<feature>/`). Never modify a pre-existing file that belongs to another feature or a shared layer, even if doing so appears to fix a test failure or compilation error. If such a modification seems necessary, stop and report it as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`. Do not proceed until a human resolves it.
@@ -90,8 +90,8 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 
 Follow this order when generating infrastructure:
 
-1. **Convention baseline** — read `.github/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the infrastructure conventions (model class shape, chopper/graphql service definition, repository implementation, caching pattern, DI registration). If the handoff does not cover infrastructure conventions or is missing, call the know-the-code agent as a fallback with: `"What are the model, service, and repository conventions for the <feature> area? Show me a complete precedent: model class shape, chopper/graphql service definition, repository implementation, caching pattern if present, and DI registration."`
-2. **api-parsing** — extract endpoints, schemas, enums from .github/specs/api.yaml
+1. **Convention baseline** — read `.claude/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the infrastructure conventions (model class shape, chopper/graphql service definition, repository implementation, caching pattern, DI registration). If the handoff does not cover infrastructure conventions or is missing, call the know-the-code agent as a fallback with: `"What are the model, service, and repository conventions for the <feature> area? Show me a complete precedent: model class shape, chopper/graphql service definition, repository implementation, caching pattern if present, and DI registration."`
+2. **api-parsing** — extract endpoints, schemas, enums from .claude/specs/api.yaml
    - If parsing detects placeholder/no-op content, stop here and emit no-op `complete` handoff
 3. **model-generation** — generate model classes + register in converter → run `python3 scripts/build.py json`
 4. **chopper-generation** or **graphql-generation** — define service endpoints → run `python3 scripts/build.py chopper` or `python3 scripts/build.py graphql`
@@ -153,4 +153,4 @@ failure_signature: "<stable identifier>" | null
 suggested_tier: cheap | medium | strong | null
 ```
 
-See `.github/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.
+See `.claude/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.

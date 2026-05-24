@@ -19,7 +19,8 @@
       "Bash(python3 scripts/build.py --help)",
       "Bash(python3 scripts/build.py build)",
       "Bash(awk '/flutter_launcher_icons:/{f=1} f&&/android|ios|web|windows|macos/{print} /^[a-z]/&&f&&!/flutter_launcher_icons/{f=0}' pubspec.yaml)",
-      "Bash(awk '/dependencies:/{d=1} d&&NF&&!/^#/{print}' pubspec.yaml)"
+      "Bash(awk '/dependencies:/{d=1} d&&NF&&!/^#/{print}' pubspec.yaml)",
+      "Bash(echo \"exit=$? \\(1=none found, good\\)\")"
     ]
   }
 }
