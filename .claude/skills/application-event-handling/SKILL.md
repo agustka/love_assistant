@@ -2,14 +2,13 @@
 name: application-event-handling
 description: >-
   Define and fire one-shot events (messages) from cubits to the presentation
-  layer via the EventBus. Covers both global EventBus and scoped EventBus
-  patterns, message class design, and UI consumption.
+  layer via the EventBus. Covers message class design and UI consumption.
 tools: []
 ---
 
 ## Purpose
 
-Use this skill to implement one-shot event communication from the application layer to the presentation layer. Events (called "messages") represent transient signals — error toasts, success banners, navigation triggers, or UI commands — that must not live in the state because they are not part of the current UI snapshot.
+Use this skill to implement one-shot event communication from the application layer to the presentation layer. Events (called "messages") represent transient signals — error toasts, success banners, navigation triggers, UI commands — that must not live in the state because they are not part of the current UI snapshot.
 
 ---
 
@@ -19,56 +18,20 @@ Use this skill to implement one-shot event communication from the application la
 |---|---|---|
 | Persistent UI data | State field via `emit(state.copyWith(...))` | loading status, form values, entity data |
 | One-shot notification | EventBus `.fire(...)` | error toast, success banner, navigation command |
-| Request from cubit to parent cubit | EventBus `.fire(...)` | `RegisterTransfer`, `StartAuthentication` |
 
 **Rule of thumb:** if the UI should react once and not re-render the same message on rebuild, use the EventBus.
 
 ---
 
-## EventBus Types
+## EventBus
 
-### Global EventBus (`EventBus`)
+The project uses a single global `EventBus` from the `event_bus` package, registered as a singleton via `EventBusModule` (`lib/infrastructure/core/event/event_bus_module.dart`). Accessed via `getIt<EventBus>()`.
 
-- Registered as `@singleton` in DI
-- Accessed via `getIt<EventBus>()`
-- Lives for the entire app session
-- Use for **cross-feature** or **app-wide** messages
+There is **no** scoped EventBus pattern in this project.
 
 ```dart
-getIt<EventBus>().fire(SomeMessage.errorOccurred);
+getIt<EventBus>().fire(WizardEvent.missingName);
 ```
-
-### Scoped EventBus (`ScopedEventBus`)
-
-- Registered as `@injectable` in DI (new instance per injection)
-- Injected via constructor into the cubit
-- Disposed in the cubit's `close()` method
-- Use for **feature-scoped** messages between a cubit and its own page/parent
-
-```dart
-// In cubit constructor
-final ScopedEventBus eventBus;
-
-// Fire
-eventBus.fire(const ErrorRejectingPaymentRequest());
-
-// Cleanup
-@override
-Future<void> close() {
-  eventBus.dispose();
-  return super.close();
-}
-```
-
-### Which to Choose
-
-| Scenario | EventBus type |
-|---|---|
-| Error/success toast on the same page | global `getIt<EventBus>()` or scoped, depending on feature isolation |
-| Cubit communicating to a parent page (e.g. transfer flow) | Scoped — injected and disposed with the cubit |
-| Cross-feature event (e.g. logout, authentication start) | Global `getIt<EventBus>()` |
-| Simple enum messages (no payload) | Global — simpler wiring |
-| Sealed class messages with data | Scoped or global, depends on scope |
 
 ---
 
@@ -79,124 +42,85 @@ Future<void> close() {
 For simple signals without payload, use an enum:
 
 ```dart
-enum <FeatureName>Message {
-  errorSendingLead,
-  successSendingLead,
-  missingContactInfo,
-  invalidEmail,
-  invalidPhone,
-  scrollToTop,
+enum WizardEvent {
+  missingName,
+  missingPronoun,
+  missingBirthday,
+  confirmNoAnniversary,
 }
 ```
 
 Fired as:
 ```dart
-getIt<EventBus>().fire(<FeatureName>Message.errorSendingLead);
+getIt<EventBus>().fire(WizardEvent.missingName);
 ```
 
-### Sealed Class Messages
+### Class Messages with Data
 
-For messages that carry data or need type-safe matching, use a sealed class hierarchy in a `part` file:
+For messages that carry data, define a small `@immutable` class:
 
 ```dart
-part of '<cubit_name>_cubit.dart';
-
-sealed class <CubitName>Message {
-  const <CubitName>Message();
+@immutable
+class WizardEventGoToPage {
+  final int page;
+  const WizardEventGoToPage({required this.page});
 }
 
-class ErrorRejectingRequest extends <CubitName>Message {
-  const ErrorRejectingRequest();
-}
-
-class RegisterTransfer extends <CubitName>Message {
-  final NewTransferInfo transferInfo;
-  const RegisterTransfer({required this.transferInfo});
-}
-
-class SuccessAcceptingRequest extends <CubitName>Message {
-  const SuccessAcceptingRequest();
+@immutable
+class WizardInitialSetupCompletedEvent {
+  final UserPartnerProfile profile;
+  const WizardInitialSetupCompletedEvent({required this.profile});
 }
 ```
 
-### Standalone Message Classes
-
-For cross-feature messages, define them in a separate file (not a `part` file):
-
+Fired as:
 ```dart
-// lib/application/<feature>/<feature>_message.dart
-sealed class LoginMessage {
-  const LoginMessage();
-}
-
-class StartAuthentication extends LoginMessage {
-  final AuthorizationCredentials credentials;
-  const StartAuthentication({required this.credentials});
-}
+getIt<EventBus>().fire(WizardEventGoToPage(page: nextStepIndex));
+getIt<EventBus>().fire(WizardInitialSetupCompletedEvent(profile: _buildPartnerProfile()));
 ```
+
+See `lib/application/wizard/wizard_state.dart` for the established pattern in this project.
 
 ### File Location
 
 | Message style | Location |
 |---|---|
-| Sealed class, cubit-specific | `<cubit_name>_messages.dart` as `part` of the cubit |
 | Enum, cubit-specific | Inside `<cubit_name>_state.dart` (above the state class) |
-| Cross-feature sealed class | `<feature>_message.dart` as standalone file |
+| Class with data | Inside `<cubit_name>_state.dart` or alongside the cubit file |
 
 ---
 
 ## Firing Events from Cubits
 
-### Pattern: Global EventBus
-
 ```dart
 getIt<EventBus>().fire(<FeatureName>Message.errorOccurred);
-getIt<EventBus>().fire(StartAuthentication(credentials: credentials));
-```
-
-### Pattern: Scoped EventBus
-
-```dart
-eventBus.fire(const ErrorAcceptingPaymentRequest());
-eventBus.fire(RegisterTransfer(transferInfo: transferInfo));
-```
-
-### Pattern: UI Intent
-
-For generic UI commands shared across features, use the `UiIntent` enum:
-
-```dart
-getIt<EventBus>().fire(UiIntent.endEdit);
+getIt<EventBus>().fire(SomeEventWithPayload(data: data));
 ```
 
 ---
 
 ## Consuming Events in the Presentation Layer
 
-Events are consumed via `IsbEventBusListenerMolecule`:
-
-### Global EventBus
+The project ships a listener widget at `lib/presentation/core/ui_components/la_event_bus_listener.dart`. Pages subscribe to events of a specific type and react in a callback:
 
 ```dart
-IsbEventBusListenerMolecule<SomeMessage>(
-  onMessage: (SomeMessage message) {
-    // show snackbar, navigate, etc.
+LaEventBusListener<WizardEvent>(
+  onMessage: (WizardEvent message) {
+    switch (message) {
+      case WizardEvent.missingName:
+        // show error, scroll, etc.
+        break;
+      case WizardEvent.missingPronoun:
+        // ...
+        break;
+      // ...
+    }
   },
   child: ...,
 )
 ```
 
-### Scoped EventBus
-
-```dart
-IsbEventBusListenerMolecule<SomeMessage>.scoped(
-  eventBus: context.read<SomeCubit>().eventBus,
-  onMessage: (SomeMessage message) {
-    // handle
-  },
-  child: ...,
-)
-```
+The listener subscribes to the global `EventBus` stream, filters by type `<T>`, and invokes the `onMessage` callback. It cancels the subscription on dispose.
 
 ---
 
@@ -207,10 +131,9 @@ IsbEventBusListenerMolecule<SomeMessage>.scoped(
 | Messages are immutable | Use `const` constructors |
 | Messages carry minimal data | Only what the UI needs to react — not the full state |
 | Enum for simple signals | No payload needed |
-| Sealed class for typed messages | When messages carry data or need exhaustive matching |
-| Scoped EventBus requires `close()` | Always call `eventBus.dispose()` in the cubit's `close()` |
+| Class with data for typed messages | When messages carry data |
 | Never store messages in state | They are fire-and-forget; state is for persistent UI data |
-| One message type per cubit | All messages for a cubit share a sealed base or a single enum |
+| One message type per feature | Define an enum or a small set of classes per cubit |
 
 ---
 
@@ -218,9 +141,7 @@ IsbEventBusListenerMolecule<SomeMessage>.scoped(
 
 | Anti-pattern | Why |
 |---|---|
-| Storing "lastError" in state to trigger toast | Toast would re-trigger on every rebuild |
-| Using `BlocListener` for one-shot events that are not state transitions | EventBus is the project convention for one-shot signals |
-| Forgetting `eventBus.dispose()` | Leaks stream controllers |
+| Storing `lastError` in state to trigger toast | Toast would re-trigger on every rebuild |
+| Using `BlocListener` for one-shot events | The project's convention is EventBus + `LaEventBusListener` |
 | Firing events in the constructor | Listeners may not be registered yet |
-| Using raw strings as event payloads | Use typed message classes or enums |
-
+| Using raw strings as event payloads | Use typed enums or `@immutable` classes |

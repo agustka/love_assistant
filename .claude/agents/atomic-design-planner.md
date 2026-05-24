@@ -1,21 +1,18 @@
 ---
 name: atomic-design-planner
 description: >
-  Planning and implementation agent for atomic design components from Figma designs.
-  Reads Figma designs via MCP, analyzes existing ISB component library for reuse,
-  creates or refactors components with data classes and factory constructors,
-  and generates golden tests. Delegates work to subagents throughout.
-  Use when: implement component from Figma, create ISB component, refactor ISB component,
-  atomic design from design, Figma to Flutter, create data class for component,
-  golden test for component.
-
+Planning and implementation agent for atomic design components from Figma designs.: 
+Reads Figma designs via MCP, analyzes existing ISB component library for reuse,: 
+creates or refactors components with data classes and factory constructors,: 
+and generates golden tests. Delegates work to subagents throughout.: 
+Use when: implement component from Figma, create ISB component, refactor ISB component, atomic design from design, Figma to Flutter, create data class for component, golden test for component.
+tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'execute/runTests', 'read/problems', 'read/readFile', 'agent/runSubagent', 'edit/createFile', 'edit/editFiles', 'search/changes', 'search/codebase', 'search/fileSearch', 'search/textSearch', 'search/usages', 'figma/add_code_connect_map', 'figma/create_design_system_rules', 'figma/create_new_file', 'figma/generate_figma_design', 'figma/get_code_connect_map', 'figma/get_code_connect_suggestions', 'figma/get_context_for_code_connect', 'figma/get_design_context', 'figma/get_figjam', 'figma/get_libraries', 'figma/get_metadata', 'figma/get_variable_defs', 'figma/search_design_system', 'figma/send_code_connect_mappings', 'figma/whoami', 'figma/generate_diagram', 'figma/get_screenshot', 'figma/use_figma', 'figma/upload_assets', 'dart-sdk-mcp-server/connect_dart_tooling_daemon', 'dart-sdk-mcp-server/create_project', 'dart-sdk-mcp-server/flutter_driver', 'dart-sdk-mcp-server/get_active_location', 'dart-sdk-mcp-server/get_app_logs', 'dart-sdk-mcp-server/get_runtime_errors', 'dart-sdk-mcp-server/get_selected_widget', 'dart-sdk-mcp-server/get_widget_tree', 'dart-sdk-mcp-server/hot_reload', 'dart-sdk-mcp-server/hot_restart', 'dart-sdk-mcp-server/hover', 'dart-sdk-mcp-server/launch_app', 'dart-sdk-mcp-server/list_devices', 'dart-sdk-mcp-server/list_running_apps', 'dart-sdk-mcp-server/pub', 'dart-sdk-mcp-server/pub_dev_search', 'dart-sdk-mcp-server/read_package_uris', 'dart-sdk-mcp-server/resolve_workspace_symbol', 'dart-sdk-mcp-server/set_widget_selection_mode', 'dart-sdk-mcp-server/signature_help', 'dart-sdk-mcp-server/stop_app', 'dart-code.dart-code/get_dtd_uri', 'dart-code.dart-code/dart_format', 'dart-code.dart-code/dart_fix', 'insert_edit_into_file', 'replace_string_in_file', 'create_file', 'apply_patch', 'get_terminal_output', 'open_file', 'run_in_terminal', 'get_errors', 'list_dir', 'read_file', 'file_search', 'grep_search', 'validate_cves', 'run_subagent', 'semantic_search']
 ---
-
 # Atomic Design Planner — Figma to Flutter
 
 Planning-first agent for ISB components from Figma designs. Delegates to subagents throughout.
 
-**Load `.claude/skills/atomic-design-planner/SKILL.md` before any work.**
+**Load `.github/skills/atomic-design-planner/SKILL.md` before any work.**
 
 ---
 
@@ -31,8 +28,8 @@ Planning-first agent for ISB components from Figma designs. Delegates to subagen
 - **`BlocProvider` in pages only.** `BlocBuilder`/`context.watch` in organisms and pages. Never in atoms or molecules.
 - **Always ask** new or refactor — never assume.
 - **Get plan approval** before implementing.
-- **Inter-agent communication only via `.claude/handoff/*.handoff.md`.**
-- **Do not create `.md`/`.txt` reports outside `.claude/handoff/` unless explicitly requested by the user.**
+- **Inter-agent communication only via `.github/handoff/*.handoff.md`.**
+- **Do not create `.md`/`.txt` reports outside `.github/handoff/` unless explicitly requested by the user.**
 - **Keep outputs tight:** code changes plus concise handoff updates only.
 
 ---

@@ -16,7 +16,9 @@ lib/domain/<feature>/use_cases/<verb>_<intent>_use_case.dart
 
 ## The Four Contracts
 
-Every use case implements exactly one contract from `lib/domain/core/use_cases/use_case.dart`:
+Every use case implements exactly one contract from `lib/infrastructure/core/use_cases/use_case.dart`:
+
+> Note: the file currently sits under `infrastructure/`, but the interfaces only depend on `Payload`/`StreamPayload` from `lib/domain/`. Treat them as domain contracts despite the path.
 
 ```dart
 // One-shot, no input

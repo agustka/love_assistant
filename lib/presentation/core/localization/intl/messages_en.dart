@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "app_name": MessageLookupByLibrary.simpleMessage("LoveAssistant"),
+    "app_name": MessageLookupByLibrary.simpleMessage("BetterHalf"),
     "auth_email_confirmation_confirmed": MessageLookupByLibrary.simpleMessage(
       "I\'ve confirmed my email",
     ),
@@ -256,10 +256,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Select language",
     ),
     "wizard_greetings": MessageLookupByLibrary.simpleMessage(
-      "Your Personal Love-Assistant",
+      "Your Personal BetterHalf",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
-      "Your Love Assistant helps you nurture your relationship with your loved one.",
+      "BetterHalf helps you nurture your relationship with your loved one.",
     ),
     "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
       "It reminds you of special dates, crafts personalized messages, and suggests thoughtful ideas.",

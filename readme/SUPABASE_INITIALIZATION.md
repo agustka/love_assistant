@@ -37,7 +37,7 @@ This is intentionally fail-fast so the app does not continue with broken backend
 1. Copy the example template:
 
 ```bash
-cp assets/keys/config.json.example assets/keys/config.json
+cp assets/keys/config.json assets/keys/config.json
 ```
 
 2. Fill in your real values in `assets/keys/config.json`:

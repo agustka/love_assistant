@@ -80,11 +80,11 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
                   label: LaTextAtom(
                     option.toString(),
                     style: isSelected
-                        ? LaTextAtomStyle.body14.onSecondary.light
+                        ? LaTextAtomStyle.body14.onPrimary.light
                         : LaTextAtomStyle.body14.onSecondaryContainer.light,
                   ),
                   selected: isSelected,
-                  checkmarkColor: LaTheme.onSecondary(),
+                  checkmarkColor: LaTheme.onPrimary(),
                   onSelected: (bool selected) {
                     setState(() {
                       if (selected) {
@@ -95,7 +95,7 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
                       widget.onSelectionChanged(_selectedOptions);
                     });
                   },
-                  selectedColor: LaTheme.secondary(),
+                  selectedColor: LaTheme.primary(),
                   backgroundColor: LaTheme.secondaryContainer(),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(LaCornerRadius.medium),
@@ -143,13 +143,13 @@ class _LaMultiSelectPickerOrganismState<T> extends State<LaMultiSelectPickerOrga
                         vertical: LaPadding.small,
                       ),
                       decoration: BoxDecoration(
-                        color: isSelected ? LaTheme.secondary() : LaTheme.secondaryContainer(),
+                        color: isSelected ? LaTheme.primary() : LaTheme.secondaryContainer(),
                         borderRadius: BorderRadius.circular(LaCornerRadius.medium),
                       ),
                       child: LaTextAtom(
                         option.toString(),
                         style: isSelected
-                            ? LaTextAtomStyle.body16.onSecondary.light
+                            ? LaTextAtomStyle.body16.onPrimary.light
                             : LaTextAtomStyle.body16.onSecondaryContainer.light,
                       ),
                     ),

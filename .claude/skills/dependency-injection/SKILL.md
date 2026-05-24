@@ -6,7 +6,7 @@ Define how dependencies are wired across the infrastructure and application laye
 
 The project uses `get_it` + `injectable` for compile-time DI registration. All dependencies are injected via constructor parameters — the container resolves the graph automatically from annotations.
 
-Direct `getIt<T>()` calls at call-site are **forbidden** except for the two cross-cutting singletons listed below.
+Direct `getIt<T>()` calls at call-site are **forbidden** except for the cross-cutting singletons listed below.
 
 ---
 
@@ -27,16 +27,53 @@ All dependencies (repositories, services, use cases, application helpers) must b
 
 ## Allowed `getIt<T>()` Call-Sites
 
-There are exactly **two** cross-cutting singletons that may be accessed via `getIt<T>()` directly, without constructor injection:
+There are exactly two cross-cutting singletons that may be accessed via `getIt<T>()` directly, without constructor injection:
 
 | Type | Usage |
 |------|-------|
-| `getIt<Navigation>()` | Imperative navigation from cubits |
-| `getIt<EventBus>()` | Firing global, cross-feature one-shot events |
+| `getIt<EventBus>()` | Firing global one-shot events from cubit method bodies |
+| `getIt<IPollAndDebounce>()` | Cross-cutting timer/debounce utility |
 
 These are singletons with app-wide scope. Injecting them via constructor would add noise without benefit.
 
-> **`ScopedEventBus`** is the exception to `EventBus`: it **must** be injected via constructor because each cubit gets its own instance and disposes it in `close()`.
+Navigation is **not** abstracted into a cubit/service here — pages navigate via `App.navigatorKey.currentState?.pushNamed(PageName.x.route)`. See `lib/presentation/core/app.dart`.
+
+---
+
+## Environments
+
+Two environments are declared in `lib/setup.dart`:
+
+```dart
+class InjectableEnv {
+  static const Environment offline = Environment("offline");
+  static const Environment online = Environment("online");
+}
+```
+
+Annotate environment-specific implementations with `@InjectableEnv.online` or `@InjectableEnv.offline`. Pass the active environment when calling `getIt.init(environment: ...)`.
+
+---
+
+## Modules
+
+Use `@module` abstract classes for third-party types you can't annotate directly:
+
+```dart
+@module
+abstract class SharedPreferencesModule {
+  @InjectableEnv.online
+  @preResolve
+  Future<SharedPreferences> get sharedPreferences => SharedPreferences.getInstance();
+}
+```
+
+Existing modules:
+- `EventBusModule` — provides `EventBus`
+- `SupabaseModule` — provides `SupabaseClient`
+- `SharedPreferencesModule` — provides `SharedPreferences` via `@preResolve`
+
+Use `@preResolve` for async getters. This makes `getIt.init()` async — callers must `await getIt.init()` (see `lib/setup.dart`).
 
 ---
 
@@ -45,36 +82,31 @@ These are singletons with app-wide scope. Injecting them via constructor would a
 ### Services
 
 ```dart
-@LazySingleton(as: IFeatureService)
-class FeatureService with BaseService implements IFeatureService {
-  final FeatureChopperService _chopperService;
-
-  const FeatureService(this._chopperService);
+@LazySingleton(as: IAuthService)
+class AuthService implements IAuthService {
+  final SupabaseClient _client;
+  AuthService(this._client);
 }
 ```
 
-- Chopper service is resolved by the container and passed via constructor.
-- Never call `getIt<FeatureChopperService>()` inside the service body.
+- Third-party dependencies (`SupabaseClient`, `SharedPreferences`) are resolved via `@module` providers and passed via constructor.
 
 ### Repositories
 
 ```dart
-@LazySingleton(as: IFeatureRepository)
-class FeatureRepository implements IFeatureRepository {
-  final IFeatureService _service;
-
-  FeatureRepository(this._service);
+@LazySingleton(as: IAuthRepository)
+class AuthRepository implements IAuthRepository {
+  final IAuthService _service;
+  AuthRepository(this._service);
 }
 ```
 
-- The service dependency is resolved by the container and passed via constructor.
-- `CacheSupport` classes are **not** injected — they are instantiated as private final fields:
+- Service dependencies are resolved by the container and passed via constructor.
+- `CacheSupport` classes are **not** injected — instantiate them as private final fields:
 
 ```dart
 final FeatureCacheSupport _cache = FeatureCacheSupport();
 ```
-
-Cache support classes are lightweight, have no external dependencies, and carry no state that needs to be shared or mocked. Instantiating them inline is the established pattern.
 
 ---
 
@@ -84,9 +116,8 @@ Cache support classes are lightweight, have no external dependencies, and carry 
 
 ```dart
 @injectable
-class GetFeatureUseCase implements IUseCaseWith<({String id, bool forceGet}), FeatureEntity> {
+class GetFeatureUseCase implements IUseCaseWith<String, FeatureEntity> {
   final IFeatureRepository _repository;
-
   const GetFeatureUseCase(this._repository);
 }
 ```
@@ -95,15 +126,14 @@ class GetFeatureUseCase implements IUseCaseWith<({String id, bool forceGet}), Fe
 
 ```dart
 @injectable
-class FeatureCubit extends IsbCubit<FeatureState> with AnalyticsHelper {
+class FeatureCubit extends BaseCubit<FeatureState> {
   final GetFeatureUseCase _getFeature;
-
   FeatureCubit(this._getFeature) : super(FeatureState.initial());
 }
 ```
 
 - Use cases are resolved and passed by the container.
-- `getIt<Navigation>()` and `getIt<EventBus>()` may be called inside method bodies, not constructor parameters.
+- `getIt<EventBus>()` is allowed inside method bodies for firing one-shot events.
 
 ---
 
@@ -113,21 +143,21 @@ Cubits are **not** constructor-injected in the UI. They are obtained via `getIt<
 
 ```dart
 BlocProvider(
-  create: (BuildContext context) => getIt<FeatureCubit>()..getData(),
+  create: (BuildContext context) => getIt<FeatureCubit>()..init(),
   child: BlocBuilder<FeatureCubit, FeatureState>(...),
 )
 ```
 
-This is the **only** place in the UI where `getIt<T>()` should appear for cubits.
+This is the only place in the UI where `getIt<T>()` should appear for cubits.
 
 ---
 
 ## DI Registration
 
-All annotations are processed by `injectable`'s code generator. After adding/changing annotations **or adding/changing constructor dependencies in any DI-managed class** (`@injectable`, `@LazySingleton`, `@singleton`, including cubits/use cases/services/repositories), run:
+All annotations are processed by `injectable`'s code generator. After adding/changing annotations or adding/changing constructor dependencies in any DI-managed class (`@injectable`, `@LazySingleton`, `@singleton`, `@module`), regenerate:
 
 ```bash
-python3 scripts/build.py getit
+dart run build_runner build --delete-conflicting-outputs
 ```
 
 This regenerates `lib/setup.config.dart`. Do not edit that file manually.
@@ -139,9 +169,10 @@ This regenerates `lib/setup.config.dart`. Do not edit that file manually.
 | Annotation | When to use |
 |-----------|-------------|
 | `@LazySingleton(as: IType)` | Infrastructure services and repositories — one instance per session, created on first use |
-| `@singleton` | App-wide singletons that must exist at startup (rare — prefer `@LazySingleton`) |
+| `@Singleton()` | App-wide singletons that must exist at startup (used for `SessionManager`, `InitializationService`, `DeviceIdProvider`) |
 | `@injectable` | Use cases and cubits — fresh instance on each resolution |
-| `@factoryParam` | Cubits that require a runtime parameter (e.g. an entity passed from a previous screen) |
+| `@module` | Wrapper for providing third-party types |
+| `@preResolve` | On async module getters — the container awaits them during `init` |
 
 ---
 
@@ -151,13 +182,13 @@ This regenerates `lib/setup.config.dart`. Do not edit that file manually.
 |------|--------|
 | Constructor injection | All dependencies declared as constructor parameters |
 | No `getIt<T>()` in business logic | Forbidden in cubits, use cases, services, repositories |
-| `getIt<Navigation>()` allowed | Call inside cubit methods for imperative navigation |
 | `getIt<EventBus>()` allowed | Call inside cubit methods to fire global events |
-| `ScopedEventBus` via constructor | Must be injected — each cubit owns its instance |
+| `getIt<IPollAndDebounce>()` allowed | Call inside cubit methods for debounce |
 | `CacheSupport` inline | Instantiated as `final _cache = FeatureCacheSupport()` — not injected |
 | `@LazySingleton` for infrastructure | Services and repositories are singletons |
 | `@injectable` for cubits and use cases | Fresh instance per resolution |
-| Run `getit` build after DI signature changes | `python3 scripts/build.py getit` after annotation changes or constructor dependency changes in DI-managed classes |
+| `await getIt.init()` | Required because `@preResolve` makes init async |
+| Run codegen after DI signature changes | `dart run build_runner build --delete-conflicting-outputs` |
 | Bind implementation to interface | Always use `as: IType` to register against the abstract interface |
 
 ---
@@ -166,13 +197,11 @@ This regenerates `lib/setup.config.dart`. Do not edit that file manually.
 
 | Anti-pattern | Why |
 |---|---|
-| `FeatureCubit(GetFeatureUseCase? uc) : _uc = uc ?? const GetFeatureUseCase(...)` | Optional fallback DI bypasses container wiring and hides required dependencies |
+| `FeatureCubit(UseCase? uc) : _uc = uc ?? const UseCase()` | Optional fallback DI bypasses container wiring and hides required dependencies |
 | `getIt<SomeUseCase>()` inside a cubit method | Breaks the DI contract — inject via constructor |
-| `final _uc = getIt<SomeUseCase>()` in a cubit field/lazy getter | Same — use case/service dependencies must come from required constructor params |
+| `final _uc = getIt<SomeUseCase>()` in a cubit field | Same — use case/service dependencies must come from required constructor params |
 | `getIt<IRepository>()` inside a use case | Same — constructor injection only |
 | Injecting `CacheSupport` via constructor | They have no external dependencies; inline instantiation is the pattern |
-| Calling `getIt<ScopedEventBus>()` | Scoped buses must be constructor-injected so each cubit has its own |
-| Editing `setup.config.dart` manually | This file is generated — run `python3 scripts/build.py getit` |
+| Editing `setup.config.dart` manually | This file is generated — run `dart run build_runner build --delete-conflicting-outputs` |
 | Omitting `@injectable` / `@LazySingleton` | The class will not be registered and resolution will fail at runtime |
-| Using `@singleton` as default | Prefer `@LazySingleton` — only use `@singleton` when startup-time creation is required |
-
+| Calling `getIt.init()` synchronously | Init is async because of `@preResolve` — must be awaited |

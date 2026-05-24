@@ -22,9 +22,9 @@ The domain must represent **business intent only**, independent of infrastructur
 
 ## Input
 
-- .claude/specs/bdd.md (required)
-- .claude/handoff/infrastructure.handoff.md (required — `incomplete` status is accepted; the domain agent only needs model contracts, not the full repository)
-- .claude/specs/api.yaml (optional, context only)
+- .github/specs/bdd.md (required)
+- .github/handoff/infrastructure.handoff.md (required — `incomplete` status is accepted; the domain agent only needs model contracts, not the full repository)
+- .github/specs/api.yaml (optional, context only)
 
 ---
 
@@ -35,7 +35,7 @@ The domain must represent **business intent only**, independent of infrastructur
     - entities
     - use cases
 
-- .claude/handoff/domain.handoff.md
+- .github/handoff/domain.handoff.md
 
 ---
 
@@ -66,8 +66,8 @@ The agent must:
 - Do not introduce UI or state management concepts
 - Do not mirror API models unless required by behavior
 - Do not modify other layers
-- Inter-agent communication is allowed only through `.claude/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.claude/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `.github/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `.github/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - **Scope guard**: Only create or modify files within the current feature's own directory (`lib/domain/<feature>/`). Never modify a pre-existing file that belongs to another feature or a shared layer, even if doing so appears to fix a test failure or compilation error. If such a modification seems necessary, stop and report it as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`. Do not proceed until a human resolves it.
 
@@ -85,28 +85,24 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 
 ## Convention Discovery
 
-Before generating any domain code, call the **know-the-code agent** with:
+Before generating any domain code, read `.github/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the domain conventions (value object validation style, entity class shape, `fromModel` constructor pattern, use case signature). If the handoff does not cover domain conventions or is missing, call the **know-the-code agent** as a fallback with:
 
 > "What are the value object, entity, and use case conventions for the `<feature>` area? Show me the nearest precedent file paths and the patterns used — class shape, `fromModel` constructor, value object validation style, use case signature."
 
-Use the returned summary as the convention baseline for all code generated in this run. Do not derive conventions from first principles or general Flutter/DDD advice.
+Use the convention baseline for all code generated in this run. Do not derive conventions from first principles or general Flutter/DDD advice.
 
 ---
 
 ## Execution Sequence
 
-1. **know-the-code agent** — call as described in Convention Discovery above
+1. **Convention baseline** — read from `know-the-code.handoff.md` as described in Convention Discovery above
 2. **value-object-generation** — generate value objects for concepts identified in BDD
 3. **entity-generation** — generate entities with `fromModel` constructors
 4. **use-case-generation** — generate use case classes that depend on repository interfaces
 
-After all generation, verify compilation:
+After all generation:
 
-```bash
-dart analyze lib/domain/<feature>/
-```
-
-If analyze fails → fix the specific errors before updating the handoff. Do not mark status `complete` while the feature directory has analyzer errors.
+Do **not** run `dart analyze` after generation. Compilation verification is handled centrally by the review agent. If the pipeline routes a compilation failure back to this agent, follow the Iteration Rules for targeted fixes.
 
 ---
 
@@ -114,10 +110,8 @@ If analyze fails → fix the specific errors before updating the handoff. Do not
 
 **Targeted fix mode**: When re-triggered after `status: failed` due to compilation errors:
 1. Read the exact errors from the `Issues` section of `coordination.plan.md` (placed there by the pipeline)
-2. If not present, run `dart analyze lib/domain/<feature>/` to get them fresh
-3. Fix only the specific reported errors — do **not** re-run the know-the-code agent or the full generation sequence
-4. Re-run `dart analyze` to confirm resolution
-5. Update the handoff status
+2. Fix only the specific reported errors — do **not** re-run the full generation sequence
+3. Update the handoff status
 
 When re-triggered after review violations → fix only the cited files and issues; do not regenerate unaffected artifacts.
 
@@ -125,7 +119,7 @@ When re-triggered after review violations → fix only the cited files and issue
 
 ## Handoff Contract
 
-Produce `.claude/handoff/domain.handoff.md` with:
+Produce `.github/handoff/domain.handoff.md` with:
 
 - summary
 - artifacts
@@ -168,4 +162,4 @@ failure_signature: "<stable identifier>" | null
 suggested_tier: cheap | medium | strong | null
 ```
 
-See `.claude/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.
+See `.github/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.

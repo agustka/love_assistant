@@ -9,7 +9,17 @@
       "Bash(timeout 90 dart run build_runner build --delete-conflicting-outputs)",
       "Bash(dart run *)",
       "Bash(git *)",
-      "Bash(dart analyze *)"
+      "Bash(dart analyze *)",
+      "Bash(echo \"exit:$?\")",
+      "Bash(python3 -c \"import json; print\\(list\\(json.load\\(open\\('assets/keys/config.json'\\)\\).keys\\(\\)\\)\\)\")",
+      "Bash(flutter analyze *)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(awk '/json_serializable|json_annotation|freezed/{print}')",
+      "Bash(chmod +x scripts/build.py)",
+      "Bash(python3 scripts/build.py --help)",
+      "Bash(python3 scripts/build.py build)",
+      "Bash(awk '/flutter_launcher_icons:/{f=1} f&&/android|ios|web|windows|macos/{print} /^[a-z]/&&f&&!/flutter_launcher_icons/{f=0}' pubspec.yaml)",
+      "Bash(awk '/dependencies:/{d=1} d&&NF&&!/^#/{print}' pubspec.yaml)"
     ]
   }
 }

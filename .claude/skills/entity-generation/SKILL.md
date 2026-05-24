@@ -21,8 +21,8 @@ Multiple related entities (e.g. a collection and its item) may live in the same 
 ```dart
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:isbapp/domain/core/value_objects/text_value_object.dart';
-import 'package:isbapp/infrastructure/<feature>/models/<feature>_model.dart';
+import 'package:la/domain/core/value_objects/text_value_object.dart';
+import 'package:la/infrastructure/<feature>/models/<feature>_model.dart';
 
 @immutable
 class <Entity> extends Equatable {

@@ -44,7 +44,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Local Supabase / environment config (never commit — use config.json.example as template)
+# Local Supabase / environment config (never commit — use config.json as template)
 assets/keys/config.json
 
 # Agent input documents

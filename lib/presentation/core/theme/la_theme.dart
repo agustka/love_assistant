@@ -74,24 +74,24 @@ class LaTheme {
 
   static TextStyle get font => TextStyle(color: LaTheme.onSurface());
 
-  static const Color _lightBackground = Color(0xFFF9F9F9);
-  static const Color _lightOnBackground = Color(0xFF0E0E0E);
-  static const Color _lightSurface = Color(0xFFFEFEFE);
-  static const Color _lightOnSurface = Color(0xFF2E2E2E);
-  static const Color _lightSecondaryContainer = Color(0xFFEEEEEE);
-  static const Color _lightOnSecondaryContainer = Color(0xFF262626);
-  static const Color _lightTertiaryContainer = Color(0xFFE0E0E0);
-  static const Color _lightOnTertiaryContainer = Color(0xFF0E0E0E);
+  static const Color _lightBackground = Color(0xFFFAF7F4);
+  static const Color _lightOnBackground = Color(0xFF241C1F);
+  static const Color _lightSurface = Color(0xFFFFFFFF);
+  static const Color _lightOnSurface = Color(0xFF2D2929);
+  static const Color _lightSecondaryContainer = Color(0xFFF0E8E3);
+  static const Color _lightOnSecondaryContainer = Color(0xFF2D2929);
+  static const Color _lightTertiaryContainer = Color(0xFFE7DDDA);
+  static const Color _lightOnTertiaryContainer = Color(0xFF241C1F);
 
   static const Color _lightPrimary = Color(0xFFD85555);
   static const Color _lightOnPrimary = Color(0xFFFFFFFF);
-  static const Color _lightSecondary = Color(0xFFF0A07E);
-  static const Color _lightOnSecondary = Color(0xFF0E0E0E);
+  static const Color _lightSecondary = Color(0xFFEEEEEE);
+  static const Color _lightOnSecondary = Color(0xFF262626);
   static const Color _lightShadow = Color(0x44000000);
   static const Color _lightSingleElement = Color(0x22000000);
-  static const Color _lightHintText = Color(0xFFA0A0A0);
+  static const Color _lightHintText = Color(0xFF9B9492);
   static const Color _lightError = Color(0xFFD83535);
-  static const Color _lightOnError = Color(0xFF1A0000);
+  static const Color _lightOnError = Color(0xFFFFFFFF);
 
   static const Color _darkBackground = Color(0xFF1A1010);
   static const Color _darkOnBackground = Color(0xFFE0E0E0);
@@ -102,10 +102,10 @@ class LaTheme {
   static const Color _darkTertiaryContainer = Color(0xFF2E2323);
   static const Color _darkOnTertiaryContainer = Color(0xFFF5F5F5);
 
-  static const Color _darkPrimary = Color(0xFFd85555);
-  static const Color _darkOnPrimary = Color(0xFF000000);
-  static const Color _darkSecondary = Color(0xFFC76D5A);
-  static const Color _darkOnSecondary = Color(0xFF0E0E0E);
+  static const Color _darkPrimary = Color(0xFFD85555);
+  static const Color _darkOnPrimary = Color(0xFFFFFFFF);
+  static const Color _darkSecondary = Color(0xFF3C2D2D);
+  static const Color _darkOnSecondary = Color(0xFFF5F5F5);
   static const Color _darkShadow = Color(0xCC000000);
   static const Color _darkSingleElement = Color(0x33FFFFFF);
   static const Color _darkHintText = Color(0xFF707070);

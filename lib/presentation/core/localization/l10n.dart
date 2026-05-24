@@ -54,9 +54,9 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Hjálp í ást`
+  /// `BetterHalf`
   String get app_name {
-    return Intl.message('Hjálp í ást', name: 'app_name', desc: '', args: []);
+    return Intl.message('BetterHalf', name: 'app_name', desc: '', args: []);
   }
 
   /// `Hætta við`
@@ -159,20 +159,20 @@ class S {
     );
   }
 
-  /// `Þinn eiginn Ástar Engill`
+  /// `Þinn eiginn BetterHalf`
   String get wizard_greetings {
     return Intl.message(
-      'Þinn eiginn Ástar Engill',
+      'Þinn eiginn BetterHalf',
       name: 'wizard_greetings',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ástarengillinn þinn hjálpar þér að næra sambandið við ástvin þinn.`
+  /// `BetterHalf hjálpar þér að næra sambandið við ástvin þinn.`
   String get wizard_greetings_message_1 {
     return Intl.message(
-      'Ástarengillinn þinn hjálpar þér að næra sambandið við ástvin þinn.',
+      'BetterHalf hjálpar þér að næra sambandið við ástvin þinn.',
       name: 'wizard_greetings_message_1',
       desc: '',
       args: [],

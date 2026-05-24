@@ -4,7 +4,7 @@ description: >-
   Use this skill to understand what has changed in the current working branch —
   before making changes, focusing a review, scoping a task, or answering
   questions about what is new or modified. Trigger whenever an agent needs to
-  know what files have been added, changed, or deleted relative to the staging branch.
+  know what files have been added, changed, or deleted relative to the main branch.
 ---
 
 # Git Diff
@@ -17,7 +17,7 @@ A lightweight procedure for detecting the current change situation in the reposi
 
 ```bash
 git branch --show-current
-git merge-base HEAD origin/staging
+git merge-base HEAD origin/main
 ```
 
 This gives you the branch name and the commit where it diverged from the base. Use the merge-base SHA as `<base>` in subsequent commands.

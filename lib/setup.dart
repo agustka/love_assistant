@@ -32,5 +32,6 @@ class InjectableEnv {
 final GetIt getIt = GetIt.instance;
 @injectableInit
 Future<void> _configureInjection() async {
-  await getIt.init();
+  final Environment environment = InjectableEnv.current ?? InjectableEnv.online;
+  await getIt.init(environment: environment.name);
 }

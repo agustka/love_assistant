@@ -1,9 +1,9 @@
 ---
 name: architecture-validation
 description: >-
-  Validate that code changes in Channels.Flutter.Components respect the project
-  architecture: layer boundaries, dependency direction, DI/navigation patterns,
-  and enforced presentation conventions.
+  Validate that code changes respect the project architecture: layer
+  boundaries, dependency direction, DI/navigation patterns, and the
+  presentation conventions defined in the layer CLAUDE.md files.
 tools: []
 ---
 
@@ -17,7 +17,6 @@ Focus on:
 - dependency direction and cross-layer imports
 - DI and environment wiring consistency
 - navigation and state-management patterns
-- architecture rules enforced by repository instructions and static checks
 
 ---
 
@@ -27,70 +26,56 @@ Focus on:
 
 Primary folders under `lib/`:
 
-- `lib/presentation/` - UI, routing integration, atomic design components
-- `lib/application/` - Cubits (`IsbCubit`-based), orchestration, app flow
-- `lib/domain/` - entities/value objects/use cases and shared domain abstractions
-- `lib/infrastructure/` - repositories/services/models/cache and external integrations
-- `lib/core/` - cross-cutting utilities
+- `lib/presentation/` — UI, routing integration, atomic design components (atoms/molecules/organisms/templates live under `lib/presentation/core/ui_components/`)
+- `lib/application/` — Cubits (extend `BaseCubit`), orchestration, app flow
+- `lib/domain/` — entities, value objects, repository interfaces, shared domain abstractions
+- `lib/infrastructure/` — repositories, services, models, cache, external integrations, **and** use case interfaces (`lib/infrastructure/core/use_cases/use_case.dart` — see note below)
 
 Key references:
 
-- `lib/presentation/core/app.dart`
-- `lib/application/core/cubit/isb_cubit.dart`
-- `lib/domain/core/navigation/named_route.dart`
-- `lib/infrastructure/**`
+- `lib/presentation/core/app.dart` — `App` widget + `PageName` enum + `MaterialApp.routes` map
+- `lib/application/core/base_cubit.dart` — `BaseCubit<T>` base class
+- `lib/setup.dart` / `lib/setup.config.dart` — DI setup
+- `CLAUDE.md` files under `lib/application/`, `lib/domain/`, `lib/infrastructure/`, `lib/presentation/`, and `test/`
 
-### Intended dependency direction (guideline)
+### Intended dependency direction
 
-Expected direction used by project guidance:
+`Presentation → Application → Domain ← Infrastructure`
 
-`Presentation -> Application -> Domain <- Infrastructure`
+### Known existing exceptions
 
-Reference:
+- `IUseCase`/`IUseCaseWith`/`IStreamUseCase`/`IStreamUseCaseWith` are declared at `lib/infrastructure/core/use_cases/use_case.dart` even though they belong to the domain conceptually. The interfaces themselves only depend on `Payload`/`StreamPayload` from `lib/domain/`, so usage is fine, but the path is a code smell worth flagging if changed.
+- `lib/infrastructure/core/error_handling/error_handler.dart:19` still strips a `package:isbapp/` prefix — a leftover from the original project (the app is now `la`). Out-of-scope drift, but worth surfacing.
 
-- `.claude/skills/know-the-code/SKILL.md`
-
-### Actual architecture reality in this codebase
-
-The codebase contains deliberate and legacy exceptions to strict clean layering.
-
-Observed examples:
-
-- `domain` imports `presentation` (`lib/domain/core/navigation/named_route.dart`)
-- `domain` imports `application` (`lib/domain/core/navigation/route_link.dart`)
-- `domain` imports `infrastructure` in multiple use cases/entities
-- `application` imports `presentation` and `infrastructure` in many cubits
-
-Treat these as **existing architecture debt / established exceptions** unless the change introduces new or wider coupling.
-
-New violations must only be flagged if they introduce new or expanded coupling.
-
-Existing patterns must not be flagged unless they are made worse.
+Treat these as existing debt unless the change makes the coupling worse.
 
 ### DI and environment model
 
 - DI is based on `get_it` + `injectable`
-- setup entrypoint: `lib/setup.dart`
-- generated registrations: `lib/setup.config.dart`
-- environments: `InjectableEnv.offline`, `InjectableEnv.online`
+- Setup entrypoint: `lib/setup.dart` — `appSetup()` calls `await getIt.init()` (async because `SharedPreferencesModule` uses `@preResolve`)
+- Generated registrations: `lib/setup.config.dart`
+- Environments: `InjectableEnv.offline`, `InjectableEnv.online`
+- Modules: `EventBusModule`, `SupabaseModule`, `SharedPreferencesModule`
 
 ### Navigation model
 
-- route registry and creators live in `lib/domain/core/navigation/named_route.dart`
-- route intents are represented by `RouteLink` in `lib/domain/core/navigation/route_link.dart`
-- runtime route generation and navigator wiring happen in `lib/presentation/core/app.dart`
+- Plain `MaterialApp.routes` map keyed by `PageName.x.route`
+- `PageName` enum lives in `lib/presentation/core/app.dart`
+- Navigation is done via `App.navigatorKey.currentState?.pushNamed(...)` / `pushReplacementNamed(...)` directly
+- There is **no** `Navigation` cubit/service, `RouteLink`, `NamedRoute`, or `RouteArguments` in this codebase
 
 ### Enforced architecture conventions
 
-Repository guidance and checks:
+Source of truth lives in `CLAUDE.md` per layer:
 
-- `.claude/instructions/presentation-and-atomic-design.instructions.md`
-- `.claude/instructions/application-layer-rules.instructions.md`
-- `.claude/instructions/domain-layer-rules.instructions.md`
-- `.claude/instructions/infrastructure-layer-rules.instructions.md`
-- `scripts/static_code_analysis/static_code_analysis.py`
-- `scripts/static_code_analysis/rules/atomic_design_rule.py`
-- `scripts/static_code_analysis/rules/no_direct_event_bus_usage_rule.py`
+- `lib/application/CLAUDE.md`
+- `lib/domain/CLAUDE.md`
+- `lib/infrastructure/CLAUDE.md`
+- `lib/presentation/CLAUDE.md`
+- `test/CLAUDE.md`
+- Top-level `CLAUDE.md` for Effective Dart conventions
+
+There is no static analysis script enforcing atomic-design rules in this project (no equivalent of `AtomicDesignRule`).
 
 ---
 
@@ -102,59 +87,56 @@ Identify files touched by the change and classify by layer.
 
 ### 2. Validate layer placement
 
-Only validate placement for new or modified code, not untouched existing structures.
+For each new/modified symbol, confirm it belongs to the folder/layer responsibilities described in the CLAUDE.md files. Flag violations such as:
 
-For each changed symbol/class, confirm it belongs to the folder/layer responsibilities.
-
-Flag violations such as:
-
-- UI widgets or route builders outside `presentation`
-- HTTP/database/platform details outside `infrastructure`
+- UI widgets or route definitions outside `presentation`
+- Supabase / HTTP / platform details outside `infrastructure`
 - business invariants moved out of `domain`
-- Cubit/application flow logic placed in `presentation`
+- Cubit logic placed in `presentation`
 
 ### 3. Validate dependency direction and coupling
 
-Check imports in changed files for new cross-layer dependencies.
-
-Rules:
+Check imports in changed files for new cross-layer dependencies:
 
 - if a new dependency follows the intended direction, accept
 - if it adds cross-layer coupling, classify as:
   - **violation** when it breaks explicit layer rules
-  - **risk** when it extends existing legacy coupling without clear need
+  - **risk** when it extends existing legacy coupling
 
-### 4. Validate presentation atomic design constraints
+### 4. Validate presentation atomic-design constraints
 
-For `lib/presentation/**` changes, confirm compliance with atomic composition constraints and avoid direct low-level widget composition where disallowed.
+For `lib/presentation/**` changes:
 
-Use repository rule behavior as source of truth:
+- pages compose templates + organisms (not atoms/molecules directly)
+- design tokens from `LaTheme` / `LaPadding` etc. instead of hardcoded values
+- no `EdgeInsets`/`SizedBox` at page level — that's a template/organism concern
 
-- `scripts/static_code_analysis/rules/atomic_design_rule.py`
+Source: `lib/presentation/CLAUDE.md`.
 
 ### 5. Validate Cubit and DI patterns
 
 For `lib/application/**` changes:
 
-- Cubits extend `IsbCubit`
-- dependencies are constructor-injected (with project exceptions for approved cross-cutting singletons)
-- lifecycle/subscription cleanup patterns are preserved
+- Cubits extend `BaseCubit`
+- Dependencies are constructor-injected (except `getIt<EventBus>()` and `getIt<IPollAndDebounce>()`)
+- Stream subscriptions are cleaned up in `close()`
+- Cubits emit immutable state via `copyWith`
 
 ### 6. Validate infrastructure boundaries
 
 For `lib/infrastructure/**` changes:
 
-- model/repository/service separation remains intact
-- external API and persistence concerns stay in infrastructure
-- no UI/application workflow logic leaks in
+- Model/repository/service separation
+- External API / persistence stays in infrastructure
+- No UI/application workflow logic leaks in
 
 ### 7. Validate domain integrity
 
 For `lib/domain/**` changes:
 
-- domain types keep invariant-oriented logic
-- avoid introducing new unnecessary dependencies on presentation/application/infrastructure
-- if unavoidable, explicitly mark as architecture risk with rationale
+- Entities composed of value objects, never raw primitives
+- Value objects extend `ValueObject<T>`
+- No imports from `presentation`/`application`/`infrastructure` (other than the known use-case-interface path exception above)
 
 ---
 
@@ -162,40 +144,28 @@ For `lib/domain/**` changes:
 
 Classify findings as:
 
-- **violation**
-  - change contradicts declared layer rules in `.claude/instructions/*_layer_rules.instructions.md`
-  - change introduces clearly avoidable architectural boundary break
-- **risk**
-  - change increases existing cross-layer coupling in already mixed areas
-  - change is technically valid but increases complexity, fragility, or test burden
-- **ok**
-  - change is consistent with current project conventions and does not worsen boundaries
+- **violation** — change contradicts an explicit layer rule from a CLAUDE.md file
+- **risk** — change increases existing cross-layer coupling
+- **ok** — change is consistent with current project conventions
 
 ---
 
 ## Output Contract
 
-Return findings in a structured form:
+Return findings as:
 
 - `violations`: []
 - `risks`: []
 - `accepted_deviations`: []
-
-accepted_deviations should only include:
-- cases where deviation is intentional and justified
-- cases where fixing would cause disproportionate impact
-
-Do not use accepted_deviations to hide violations.
 
 Each finding must include:
 
 - description
 - changed file reference
 - violated/related rule reference
-- recommended action (fix now / follow-up / accept with rationale)
+- recommended action
 
-If no issues are found, explicitly state:
+If no issues are found, state:
 
 - `No architecture violations found in changed scope.`
 - `Residual risk:` (if any) due to legacy coupling patterns.
-

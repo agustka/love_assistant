@@ -114,11 +114,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_transparent.svg
   String get icTransparent => 'assets/icons/ic_transparent.svg';
 
+  /// File path: assets/icons/logo_v1.svg
+  String get logoV1 => 'assets/icons/logo_v1.svg';
+
   /// File path: assets/icons/love_assistant_logo.svg
   String get loveAssistantLogo => 'assets/icons/love_assistant_logo.svg';
 
   /// List of all assets
-  List<String> get values => [icTransparent, loveAssistantLogo];
+  List<String> get values => [icTransparent, logoV1, loveAssistantLogo];
 }
 
 class $AssetsIllustrationsGen {
@@ -139,6 +142,16 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [loveAssistantLogo];
+}
+
+class $AssetsKeysGen {
+  const $AssetsKeysGen();
+
+  /// File path: assets/keys/config.json
+  String get config => 'assets/keys/config.json';
+
+  /// List of all assets
+  List<String> get values => [config];
 }
 
 class $AssetsIconsFlagsGen {
@@ -1289,6 +1302,7 @@ class AppAssets {
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsIllustrationsGen illustrations = $AssetsIllustrationsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsKeysGen keys = $AssetsKeysGen();
 }
 
 class AssetGenImage {

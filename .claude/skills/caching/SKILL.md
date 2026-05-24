@@ -30,22 +30,23 @@ lib/infrastructure/<feature>/repository/
 ## Canonical Template
 
 ```dart
-import 'package:isbapp/domain/core/entities/cache_wrapper.dart';
-import 'package:isbapp/infrastructure/core/service/cache/cache_support.dart';
-import 'package:isbapp/infrastructure/<feature>/models/<feature>_model.dart';
-import 'package:isbapp/infrastructure/<feature>/models/converter/<feature>_model_converter.dart';
+import 'package:la/domain/core/entities/cache_wrapper.dart';
+import 'package:la/infrastructure/core/service/cache/cache_support.dart';
+import 'package:la/infrastructure/<feature>/models/<feature>_model.dart';
 
 class <Feature>CacheSupport with CacheSupport {
   static const String _box = "<Feature>";
   static const String _key = "<featureData>";
 
-  final <Feature>ModelConverter _converter = <Feature>ModelConverter();
+  Map<dynamic, Function> get _conversions => {
+    <Feature>Model: (Map<String, dynamic> data) => <Feature>Model.fromJson(data),
+  };
 
   Future<CacheWrapper<<Feature>Model>> get() {
     return getCachedV2<<Feature>Model>(
       box: _box,
       key: _key,
-      conversions: _converter.conversions,
+      conversions: _conversions,
     );
   }
 
@@ -103,17 +104,16 @@ Factories:
 
 ## Conversions Map
 
-The `conversions` parameter is a `Map<dynamic, Function>` that maps model types to their `fromJson` factories. It comes from the **model converter** class (same one used by chopper):
+The `conversions` parameter is a `Map<dynamic, Function>` that maps model types to their `fromJson` factories:
 
 ```dart
-@override
-Map<dynamic, Function> get conversions => {
+Map<dynamic, Function> get _conversions => {
   <Feature>Model: (Map<String, dynamic> data) => <Feature>Model.fromJson(data),
   <Item>Model: (Map<String, dynamic> data) => <Item>Model.fromJson(data),
 };
 ```
 
-This map is reused for both HTTP response conversion and cache deserialization.
+This project does **not** use Chopper, so there is no shared model-converter class to reuse. Define the conversions map inline on the cache support class (or as a private getter). Models must expose `fromJson(Map<String, dynamic>)` factories — hand-written, since `json_serializable` is not in `pubspec.yaml`.
 
 ---
 

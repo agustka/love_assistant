@@ -288,12 +288,13 @@ If the repository should **not** be refreshed on screen unlock, add it to `_excl
 
 Repositories call `DomainEntity.fromModel(model)` for domain conversion — **never** `model.toDomain()`. The domain entity owns its construction from the infrastructure model.
 
-If domain entities do not yet exist when generating the infrastructure layer:
-1. Generate models, converter, service, and cache support
-2. **Stop before generating the repository**
-3. Mark the handoff `incomplete` with gap: `"repository pending domain entities"`
+## Models and Conversions
 
-The pipeline then runs the domain agent and re-triggers the infrastructure agent.
+This project does **not** use Chopper or `json_serializable`. Infrastructure data sources are Supabase calls (`SupabaseClient`) — `Model` classes are hand-written with their own `fromJson`/`toJson` if/when caching is required. The `conversions` map in `getCachedV2` accepts any `{Type: fromJsonFn}` map; build it by hand rather than reusing a Chopper-style converter class (those do not exist here).
+
+## Current State of the Project
+
+As of writing, no streaming repositories exist yet — `SessionManager._repos` is empty and `AuthRepository`/`LoggingRepository` are stubs. Use this skill when adding the first real one; expect to also wire the new repo into `session_manager.dart`.
 
 ---
 

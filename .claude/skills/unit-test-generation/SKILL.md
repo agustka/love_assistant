@@ -36,7 +36,9 @@ test/domain/<feature>/entities/<entity_name>_test.dart
 
 Core/shared tests live under `test/domain/core/value_objects/` and `test/domain/core/entities/`.
 
-Mirror the production source path: if the source is `lib/domain/transfers/value_objects/swift_bic_value_object.dart`, the test is `test/domain/transfers/value_objects/swift_bic_value_object_test.dart`.
+Mirror the production source path: if the source is `lib/domain/wizard/value_objects/pronoun_value_object.dart`, the test is `test/domain/wizard/value_objects/pronoun_value_object_test.dart`.
+
+> Note: `test/domain/` does not exist yet in this project. The current `test/` tree has `_core/`, `application/`, and `presentation/` only — the first time this skill is used, create the `test/domain/<feature>/` folders as needed.
 
 ---
 
@@ -44,8 +46,8 @@ Mirror the production source path: if the source is `lib/domain/transfers/value_
 
 ```dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:isbapp/domain/core/value_objects/failures/failure.dart';
-import 'package:isbapp/domain/<feature>/value_objects/<name>_value_object.dart';
+import 'package:la/domain/core/value_objects/failures/failure.dart';
+import 'package:la/domain/<feature>/value_objects/<name>_value_object.dart';
 
 void main() {
   group("<Name>ValueObject", () {
@@ -102,7 +104,7 @@ void main() {
 
 ```dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:isbapp/domain/<feature>/entities/<entity_name>.dart';
+import 'package:la/domain/<feature>/entities/<entity_name>.dart';
 
 void main() {
   group("<EntityName>", () {

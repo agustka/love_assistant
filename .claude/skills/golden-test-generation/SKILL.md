@@ -11,15 +11,16 @@ tools: []
 
 Use this skill to generate page-level golden tests that capture pixel-perfect screenshots of pages in multiple visual modes. These tests catch visual regressions across theme changes, accessibility scaling, and orientation changes.
 
-Golden tests reuse the same drivers and builders from `test-driver-generation`. They differ from UI component goldens (which test individual atoms/molecules/organisms in isolation).
+> **Project status:** This project does not yet have a UAT driver/builder framework. The driver-based golden setup below is aspirational — it is what should be built once that framework lands. For now, write goldens against the page widget directly: wrap it in a `MaterialApp` with the project theme and pump.
+
+Golden tests differ from UI component goldens (which test individual atoms/molecules/organisms in isolation).
 
 ---
 
 ## Input
 
 - UI handoff (handoff/ui.handoff.md) — pages and their visual states
-- Existing drivers (from test-driver-generation)
-- Existing builders (from test-driver-generation)
+- Once a UAT framework exists: any existing page drivers/builders. Until then, instantiate the page widget directly inside a `MaterialApp` with the project theme.
 
 ---
 

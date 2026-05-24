@@ -216,15 +216,6 @@ Use `requestFocus()` for text fields (which auto-scrolls). Use `Scrollable.ensur
 
 ---
 
-## Legacy Patterns (Do Not Use)
+## Reference Implementation
 
-The following patterns exist in the codebase but are **deprecated**. Do not use them for new code. When refactoring existing code, migrate to the per-field error flag pattern above.
-
-### `showValidationMessages` flag
-A single `bool` or `BoolValueObject` that gates all error display at once. Found in `TransferAmountBaseCubit`. Problems: shows all errors simultaneously, requires the UI to combine `showValidationMessages && field.isInvalid` for every field.
-
-### `didSubmit` flag
-A single `bool` set on first submit. Found in `AccountFreeFormEntryDrawerCubit`. Problems: same as `showValidationMessages` — all errors appear at once, no scroll guidance.
-
-### `InputStatus` enum per field
-An enum (`idle`, `valid`, `errorEmpty`, `errorInvalid`) tracked per field. Found in `LoginCubit`. Problems: more complex state, requires conditional re-validation logic in every input handler, no scroll-to-error guidance.
+`lib/application/wizard/wizard_cubit.dart` uses a variant of this pattern: it stores raw values on every keystroke, defers validation until the user taps Next, and fires `WizardEvent.missingName` / `WizardEvent.missingPronoun` / `WizardEvent.missingBirthday` to the EventBus so the UI can react. The wizard does not use per-field `bool` error flags on its state class — it surfaces the first error through the EventBus instead. Both patterns are acceptable; pick the one that matches the surrounding feature.

@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "app_name": MessageLookupByLibrary.simpleMessage("Hjálp í ást"),
+    "app_name": MessageLookupByLibrary.simpleMessage("BetterHalf"),
     "auth_email_confirmation_confirmed": MessageLookupByLibrary.simpleMessage(
       "Ég hef stadfest netfangid mitt",
     ),
@@ -268,10 +268,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Veldu tungumál",
     ),
     "wizard_greetings": MessageLookupByLibrary.simpleMessage(
-      "Þinn eiginn Ástar Engill",
+      "Þinn eiginn BetterHalf",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
-      "Ástarengillinn þinn hjálpar þér að næra sambandið við ástvin þinn.",
+      "BetterHalf hjálpar þér að næra sambandið við ástvin þinn.",
     ),
     "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
       "Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.",

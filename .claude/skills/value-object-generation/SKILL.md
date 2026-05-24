@@ -46,8 +46,8 @@ abstract class ValueObject<T> extends Equatable {
 For value objects that wrap a simple string with basic validation:
 
 ```dart
-import 'package:isbapp/domain/core/value_objects/failures/failure.dart';
-import 'package:isbapp/domain/core/value_objects/value_object.dart';
+import 'package:la/domain/core/value_objects/failures/failure.dart';
+import 'package:la/domain/core/value_objects/value_object.dart';
 
 class <Name>ValueObject extends ValueObject<String> {
   String get get => getOr("");
@@ -81,9 +81,9 @@ class _$Invalid<Name> extends <Name>ValueObject {
 For value objects that parse a string into a typed enum:
 
 ```dart
-import 'package:isbapp/domain/core/value_objects/failures/failure.dart';
-import 'package:isbapp/domain/core/value_objects/value_object.dart';
-import 'package:isbapp/infrastructure/core/error_handling/error_handler.dart';
+import 'package:la/domain/core/value_objects/failures/failure.dart';
+import 'package:la/domain/core/value_objects/value_object.dart';
+import 'package:la/infrastructure/core/error_handling/error_handler.dart';
 
 class <Name>ValueObject extends ValueObject<<Name>> {
   <Name> get get => getOr(<Name>.invalid);

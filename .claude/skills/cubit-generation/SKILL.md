@@ -17,21 +17,19 @@ Cubits live exclusively in the application layer. They orchestrate domain use ca
 
 ## Input
 
-- BDD scenarios describing user flows (specs/bdd.md)
-- domain.handoff.md listing available use cases, entities, value objects
+- BDD scenarios describing user flows
+- Available domain use cases, entities, value objects
 
 ---
 
 ## File Location
 
 ```
-lib/application/<feature>/<cubit_name>/
-├── <cubit_name>_cubit.dart
-├── <cubit_name>_state.dart      ← part file
-└── <cubit_name>_messages.dart   ← part file (optional, for sealed message classes)
+lib/application/<feature>/<cubit_name>_cubit.dart
+lib/application/<feature>/<cubit_name>_state.dart      ← part file
 ```
 
-State and messages are `part` files of the cubit file.
+State is a `part` file of the cubit file. See `WizardCubit` / `wizard_state.dart` for the established pattern in this codebase.
 
 ---
 
@@ -39,27 +37,23 @@ State and messages are `part` files of the cubit file.
 
 ```dart
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:isbapp/application/core/analytics/analytics_helper.dart';
-import 'package:isbapp/application/core/cubit/isb_cubit.dart';
-import 'package:isbapp/domain/core/value_objects/failures/failure.dart';
-import 'package:isbapp/domain/core/value_objects/payload.dart';
-import 'package:isbapp/infrastructure/core/service/event_bus.dart';
-import 'package:isbapp/setup.dart';
+import 'package:la/application/core/base_cubit.dart';
+import 'package:la/domain/core/value_objects/failures/failure.dart';
+import 'package:la/domain/core/value_objects/payload.dart';
+import 'package:la/infrastructure/core/error_handling/error_handler.dart';
 
 part '<cubit_name>_state.dart';
-part '<cubit_name>_messages.dart'; // optional
 
 @injectable
-class <CubitName>Cubit extends IsbCubit<<CubitName>State> with AnalyticsHelper {
+class <CubitName>Cubit extends BaseCubit<<CubitName>State> {
   final GetSomethingUseCase _getSomething;
 
-  <CubitName>Cubit(
-    this._getSomething,
-  ) : super(<CubitName>State.initial());
+  <CubitName>Cubit(this._getSomething) : super(<CubitName>State.initial());
 
   Future<void> getData() async {
-    final Payload<SomeEntity> payload = await _getSomething();
+    final Payload<SomeEntity> payload = await _getSomething.execute();
     payload.fold(
       (Failure failure) {
         err(failure, location: "<CubitName>Cubit.getData");
@@ -82,72 +76,57 @@ class <CubitName>Cubit extends IsbCubit<<CubitName>State> with AnalyticsHelper {
 | Rule | Detail |
 |------|--------|
 | Annotation | `@injectable` — always, for DI registration via `get_it` + `injectable` |
-| Base class | Extend `IsbCubit<State>` (preferred) or `Cubit<State>` from `flutter_bloc` |
-| Mixin | `with AnalyticsHelper` — for `log(Event)` and `err(...)` methods |
+| Base class | Extend `BaseCubit<State>` from `lib/application/core/base_cubit.dart` (it gates `emit` against `isClosed`) |
 | Constructor | Accept domain use cases and application services via constructor injection |
 | Initial state | Call `super(<CubitName>State.initial())` in the constructor |
-| `part` directives | State file is always a `part`; messages file is a `part` when messages use sealed classes |
+| `part` directive | State file is always a `part`; messages/events may live in the state file or alongside it |
+
+### Logging
+
+- `err(...)` is a top-level function in `lib/infrastructure/core/error_handling/error_handler.dart`. Import it and call directly: `err(failure, location: "<CubitName>.<method>");`
+- For analytics events, mix in `AnalyticsHelper` (`lib/application/core/analytics/analytics_helper.dart`) and call `log(Event)`. `AnalyticsHelper` only exposes `log` — it does not expose `err`.
 
 ### Dependency Injection
 
 See the **dependency-injection** skill for the full DI contract. Key rules for cubits:
 
-- Dependencies are **domain use cases** (e.g. `GetAccountsUseCase`, `SubmitTransferUseCase`) and **application services** (e.g. `ScopedEventBus`, `IPollAndDebounce`)
-- Inject all dependencies via constructor parameters — **never** call `getIt<T>()` to obtain use cases or services
-- `getIt<EventBus>()` is the only acceptable direct `getIt` call for firing global one-shot events inside method bodies
-- `getIt<Navigation>()` is the only acceptable direct `getIt` call for imperative navigation inside method bodies
-- `ScopedEventBus` **must** be injected via constructor (each cubit owns its instance)
+- Dependencies are **domain use cases** and **application services** — inject all via constructor parameters
 - **Do not inject repository interfaces directly** — use domain use cases to access repositories
+- Direct `getIt<T>()` calls are only acceptable inside method bodies for two cross-cutting singletons:
+  - `getIt<EventBus>()` — firing one-shot events (see `WizardCubit` for the established pattern)
+  - `getIt<IPollAndDebounce>()` — debounced calls
+- Imperative navigation is done directly through `App.navigatorKey.currentState?.pushReplacementNamed(PageName.x.route)` — there is no `Navigation` wrapper class in this project
 
 ### State Management
 
 - Emit new states via `emit(state.copyWith(...))` — never mutate state directly
-- Use a status enum for page lifecycle: `loading`, `loaded`, `error`, plus feature-specific statuses (e.g. `accepting`, `rejecting`)
-- Private fields on the cubit are acceptable for tracking internal status that feeds into computed state (see emit-override pattern below)
-
-### Emit Override Pattern
-
-When a cubit tracks multiple async data sources, override `emit` to compute the aggregate status:
-
-```dart
-@override
-void emit(<State> state) {
-  // Derive composite status from private tracking fields
-  Status status = state.status;
-  if (_sourceAStatus == _SourceAStatus.error) {
-    status = Status.error;
-  } else if (_sourceAStatus == _SourceAStatus.loading) {
-    status = Status.loading;
-  }
-  super.emit(state.copyWith(status: status));
-}
-```
+- Use a status enum for page lifecycle: `loading`, `loaded`, `error`, plus feature-specific statuses (e.g. `submitting`)
+- Private fields on the cubit are acceptable for tracking internal status that feeds into computed state
 
 ### Method Naming
 
 | Method type | Convention | Example |
 |---|---|---|
-| Data loading | `getData`, `pullToRefresh` | `Future<void> getData({required bool forceGet})` |
-| User actions | `on<Action>Tap`, `on<Action>Changed` | `onPayNowTap()`, `onAmountChanged(String)` |
-| Internal handlers | `_receive<DataType>` | `_receiveAccounts(StreamPayload<AccountsV2>)` |
-| Lifecycle | `init`, `onResumed` | `void init({required String? param})` |
+| Initialization | `init`, `getData` | `Future<void> init()` |
+| User actions | `on<Action>Tap`, `on<Action>Changed` | `onNameChanged(String)` |
+| Internal handlers | `_receive<DataType>` | `_receiveData(StreamPayload<X>)` |
 
 ### Error Handling
 
 - Use `payload.fold(onFailure, onSuccess)` for `Payload<T>`
-- Use `streamPayload.resolve(onFailure:, onData:, onDataRefresh:, onDataCleared:)` for `StreamPayload<T>`
-- Log errors with `err(failure, location: "<CubitName>Cubit.<method>")` or `log(Event.error(...))`
-- Fire error messages via EventBus for the UI to show snackbars/toasts
+- Use `streamPayload.resolve(...)` for `StreamPayload<T>`
+- Log errors with `err(failure, location: "<CubitName>.<method>")`
+- Fire error messages via EventBus for the UI to react (toasts, dialogs)
 
 ### Stream Subscriptions
 
-When subscribing to streams (e.g. account updates):
+When subscribing to streams:
 
 ```dart
 StreamSubscription<StreamPayload<Data>>? _subscription;
 
-<CubitName>Cubit(...) : super(State.initial()) {
-  _subscription ??= _subscribeToDataUseCase().listen(_receiveData);
+<CubitName>Cubit(this._watchData) : super(State.initial()) {
+  _subscription ??= _watchData.subscribe().listen(_receiveData);
 }
 
 @override
@@ -157,21 +136,21 @@ Future<void> close() {
 }
 ```
 
-### Navigation
+### Firing Events
 
-- Use `getIt<Navigation>().pop()`, `.navigate(routeLink:)`, `.navigateAndPopTo(routeLink:, popTo:)`
-- Use `RouteLink` factories for route construction
+Use the singleton `EventBus` directly inside method bodies:
 
-### Analytics
+```dart
+getIt<EventBus>().fire(WizardEvent.missingName);
+getIt<EventBus>().fire(WizardEventGoToPage(page: nextStepIndex));
+```
 
-- Log user actions: `log(<Feature>Event.<eventFactory>())`
-- Log errors: `log(<Feature>Event.<errorFactory>(failure: failure))`
-- Use named factory constructors on event classes
+See `WizardCubit` (lib/application/wizard/wizard_cubit.dart) for the established pattern.
 
 ### Comment Discipline
 
 - Canonical template comments in this skill are illustrative only.
-- Do not emit section headers, scaffold comments, or method/property/function doc comments (`///`) in generated cubit/state/message files.
+- Do not emit section headers, scaffold comments, or doc comments (`///`) in generated cubit/state files.
 - Use comments only for rare non-obvious rationale.
 
 ---
@@ -181,15 +160,14 @@ Future<void> close() {
 | Anti-pattern | Why |
 |---|---|
 | Business logic in cubit | Belongs in domain layer (use cases, entities) |
-| Direct infrastructure calls (HTTP, cache) | Use domain use cases |
+| Direct HTTP/Supabase calls in the cubit | Use a repository → use case chain |
 | Injecting repository interfaces directly | Repositories are consumed by use cases, not cubits |
 | UI code (widgets, BuildContext) | Cubits must not import Flutter widgets |
 | Mutable state fields exposed to UI | Always use immutable state + `copyWith` |
-| Calling `getIt<>()` for use cases | Inject via constructor — see dependency-injection skill |
-| Validating input on every keystroke by default | See `application-input-handling` skill |
+| Calling `getIt<>()` for use cases | Inject via constructor |
 | Skipping `@injectable` | Breaks DI registration |
 | Forgetting `close()` override when using subscriptions | Causes memory leaks |
-| Adding verbose section/doc comments in generated files | Creates noise and violates project comment discipline |
+| Adding doc comments or section banners | Creates noise and violates project comment discipline |
 
 ---
 
@@ -198,11 +176,16 @@ Future<void> close() {
 For each cubit, produce:
 
 - `<cubit_name>_cubit.dart` — cubit class
-- `<cubit_name>_state.dart` — state class (as `part` file)
-- `<cubit_name>_messages.dart` — messages (as `part` file, when needed)
+- `<cubit_name>_state.dart` — state class as a `part` file
 
 After creating cubits, verify compilation with:
 
 ```bash
 dart analyze lib/application/<feature>/
+```
+
+And regenerate DI:
+
+```bash
+dart run build_runner build --delete-conflicting-outputs
 ```

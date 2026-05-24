@@ -2,8 +2,8 @@
 name: bug-ticket-specs
 description: >-
   Convert a bug ticket into repository spec artifacts for pipeline execution.
-  Always rewrites .claude/specs/bdd.md, .claude/specs/layout.md, and
-  .claude/specs/api.yaml. Decides whether layout/api details are required or
+  Always rewrites .github/specs/bdd.md, .github/specs/layout.md, and
+  .github/specs/api.yaml. Decides whether layout/api details are required or
   should remain explicit placeholders.
 ---
 
@@ -22,9 +22,9 @@ If the bug ticket is missing, stop and ask for the ticket text.
 
 Always overwrite these files:
 
-- `.claude/specs/bdd.md`
-- `.claude/specs/layout.md`
-- `.claude/specs/api.yaml`
+- `.github/specs/bdd.md`
+- `.github/specs/layout.md`
+- `.github/specs/api.yaml`
 
 Do not create other docs unless explicitly requested.
 

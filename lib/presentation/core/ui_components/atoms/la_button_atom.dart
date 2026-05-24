@@ -215,15 +215,15 @@ class _IsbButtonColorPalette {
       };
 
   factory _IsbButtonColorPalette.primary() => _IsbButtonColorPalette._(
-        enabledTextColor: LaTheme.onSecondary(),
-        enabledBackgroundColor: LaTheme.secondary(),
+        enabledTextColor: LaTheme.onPrimary(),
+        enabledBackgroundColor: LaTheme.primary(),
         enabledBorderColor: Colors.transparent,
-        enabledSplashColor: LaTheme.onSecondary(),
+        enabledSplashColor: LaTheme.onPrimary(),
         disabledTextColor: LaTheme.hintText(),
-        disabledBackgroundColor: LaTheme.secondary().withValues(alpha: 155),
+        disabledBackgroundColor: LaTheme.primary().withValues(alpha: 155),
         disabledBorderColor: Colors.transparent,
-        disabledSplashColor: LaTheme.onSecondary().withValues(alpha: 155),
-        busyColor: LaTheme.onSecondary(),
+        disabledSplashColor: LaTheme.onPrimary().withValues(alpha: 155),
+        busyColor: LaTheme.onPrimary(),
       );
 
   factory _IsbButtonColorPalette.secondary() => _IsbButtonColorPalette._(
@@ -283,7 +283,7 @@ extension _IsbButtonSizeX on LaButtonSize {
     }
 
     return switch (buttonStyle) {
-      LaButtonStyle.primary => sizeStyle.onSecondary,
+      LaButtonStyle.primary => sizeStyle.onPrimary,
       LaButtonStyle.secondary => sizeStyle.onTertiaryContainer,
     };
   }
