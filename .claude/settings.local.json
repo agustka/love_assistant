@@ -20,7 +20,14 @@
       "Bash(python3 scripts/build.py build)",
       "Bash(awk '/flutter_launcher_icons:/{f=1} f&&/android|ios|web|windows|macos/{print} /^[a-z]/&&f&&!/flutter_launcher_icons/{f=0}' pubspec.yaml)",
       "Bash(awk '/dependencies:/{d=1} d&&NF&&!/^#/{print}' pubspec.yaml)",
-      "Bash(echo \"exit=$? \\(1=none found, good\\)\")"
+      "Bash(echo \"exit=$? \\(1=none found, good\\)\")",
+      "Bash(rm -f /Users/agustka/repos/love_assistant/.claude/handoff/*.handoff.md)",
+      "Bash(rm -f /Users/agustka/repos/love_assistant/.claude/handoff/coordination.plan.md)",
+      "Bash(sed -n '1,40p' lib/domain/core/value_objects/payload.dart)",
+      "Bash(sed -n '45,75p' lib/domain/core/value_objects/favorite_food_value_object.dart)",
+      "Bash(flutter test *)",
+      "Bash(grep -iB2 -A8 \"exception\\\\|error\\\\|assert\\\\|thrown\\\\|failed to\")",
+      "Bash(grep -iB1 -A6 \"EXCEPTION\\\\|Bad state\\\\|not registered\\\\|+0 -1\\\\|+1 \\\\|All tests\")"
     ]
   }
 }
