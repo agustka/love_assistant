@@ -16,7 +16,7 @@ void err(dynamic error, {required String location, StackTrace? trace}) {
     trace ??= StackTrace.current;
     final List<String> lines = StackTrace.current.toString().trimRight().split("\n").toList();
     if (lines.isNotEmpty && lines.length > 1) {
-      errorMessage = "$errorMessage (${lines[1].replaceAll("#1", "").replaceAll("package:isbapp/", "").trim()})";
+      errorMessage = "$errorMessage (${lines[1].replaceAll("#1", "").replaceAll("package:la/", "").trim()})";
     }
   } catch (ex) {
     Logger().d("Exception thrown during error logging: $ex");

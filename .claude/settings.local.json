@@ -30,7 +30,27 @@
       "Bash(grep -iB1 -A6 \"EXCEPTION\\\\|Bad state\\\\|not registered\\\\|+0 -1\\\\|+1 \\\\|All tests\")",
       "Bash(python3 scripts/build.py jsons)",
       "Bash(dart format *)",
-      "Bash(dart pub *)"
+      "Bash(dart pub *)",
+      "Bash(grep -rnE \"\\(Text|Tooltip|label|hint|title\\)\\\\s*[:\\(]\\\\s*\\\\\"[A-Z][a-zA-Z ]{3,}\" lib --include=\"*.dart\")",
+      "Bash(cd *)",
+      "Bash(python3 scripts/build.py intl)",
+      "Bash(python3 -)",
+      "Bash(grep -nA8 -iE \"skill usage|## skills\" agents/application.md)",
+      "Bash(grep -nA10 \"Skill Usage\" agents/bug-ticket-specs.md)",
+      "Bash(grep -nA10 \"Skill Usage\" agents/prompt-ticket-specs.md)",
+      "Bash(grep -nA12 \"Skill Usage\" agents/atomic-design-planner.md)",
+      "Bash(grep -nA12 \"Skill Usage\" agents/review.md)",
+      "Bash(sed -n '89,130p' agents/review.md)",
+      "Bash(grep -nE \"^#{1,3} \" agents/prompt-ticket-specs.md)",
+      "Bash(grep -nE \"^#{1,3} \" agents/bug-ticket-specs.md)",
+      "Bash(sed -n '109,145p' agents/prompt-ticket-specs.md)",
+      "Bash(sed -n '1,40p' agents/bug-ticket-specs.md)",
+      "Bash(grep -nE \"^#{2,3} \" agents/application.md)",
+      "Bash(sed -n '/^## Skill Usage/,/^---/p' agents/ui.md)",
+      "Bash(sed -n '/^## Skill Usage/,/^---/p' agents/application.md)",
+      "Bash(sed -n '241,247p' agents/ui.md)",
+      "Bash(sed -n '126,133p' agents/ui.md)",
+      "Bash(sed -n '177,186p' agents/application.md)"
     ]
   }
 }

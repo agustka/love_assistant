@@ -37,7 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m6(gender) => "Hvernig ástarmál passar ${gender}?";
 
   static String m7(name) =>
-      "Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.";
+      "[Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.]";
 
   static String m8(gender) =>
       "Veldu ástarmálin og tóninn sem henta ${gender} best.";
@@ -55,10 +55,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ég hef stadfest netfangid mitt",
     ),
     "auth_email_confirmation_message": MessageLookupByLibrary.simpleMessage(
-      "Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á \"Ég hef stadfest netfangid mitt\".",
+      "[Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á \"Ég hef stadfest netfangid mitt\".]",
     ),
     "auth_email_confirmation_pending_error": MessageLookupByLibrary.simpleMessage(
-      "Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.",
+      "[Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.]",
     ),
     "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
       "Stadfestu netfangid",
@@ -271,14 +271,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Þinn eiginn BetterHalf",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
-      "BetterHalf hjálpar þér að næra sambandið við ástvin þinn.",
+      "[BetterHalf hjálpar þér að næra sambandið við ástvin þinn.]",
     ),
     "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
-      "Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.",
+      "[Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.]",
     ),
     "wizard_next": MessageLookupByLibrary.simpleMessage("Næsta"),
     "wizard_partner_anniversary_explanation": MessageLookupByLibrary.simpleMessage(
-      "Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.",
+      "[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.]",
     ),
     "wizard_partner_anniversary_hint": MessageLookupByLibrary.simpleMessage(
       "Gifting, trúlofun osfr.",
@@ -296,7 +296,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Einhver stór dagsetning?",
     ),
     "wizard_partner_birthday_explanation": MessageLookupByLibrary.simpleMessage(
-      "Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.",
+      "[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.]",
     ),
     "wizard_partner_birthday_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu afmælisdagsetningu",
@@ -309,14 +309,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_food_and_gifts_title": m2,
     "wizard_partner_food_likes_title": m3,
     "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
-      "Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.",
+      "[Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.]",
     ),
     "wizard_partner_gift_likes_title": m4,
     "wizard_partner_gift_types_explanation": MessageLookupByLibrary.simpleMessage(
-      "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.",
+      "[Picking your partner\'s favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.]",
     ),
     "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
-      "Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.",
+      "[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]",
     ),
     "wizard_partner_hobbies_title": m5,
     "wizard_partner_love_language_explanation":
@@ -326,7 +326,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_love_language_title": m6,
     "wizard_partner_loves_message_1": m7,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
-      "Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.",
+      "[Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.]",
     ),
     "wizard_partner_loves_message_initial_1": m8,
     "wizard_partner_loves_title": m9,
@@ -335,11 +335,11 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
     "wizard_partner_profile_message_1_extended":
         MessageLookupByLibrary.simpleMessage(
-          "Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.",
+          "[Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.]",
         ),
     "wizard_partner_profile_message_1_shortened":
         MessageLookupByLibrary.simpleMessage(
-          "Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.",
+          "[Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.]",
         ),
     "wizard_partner_profile_message_initial_1":
         MessageLookupByLibrary.simpleMessage(
@@ -367,7 +367,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "wizard_partner_relationship_type_explanation":
         MessageLookupByLibrary.simpleMessage(
-          "Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.",
+          "[Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.]",
         ),
     "wizard_partner_relationship_type_hint":
         MessageLookupByLibrary.simpleMessage("Veldu tegund sambands"),
@@ -375,7 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage("Tegund sambands"),
     "wizard_partner_tone_of_voice_explanation":
         MessageLookupByLibrary.simpleMessage(
-          "Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.",
+          "[Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.]",
         ),
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu talsmáta",

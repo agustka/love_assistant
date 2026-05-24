@@ -181,7 +181,7 @@ The invariants section must list the architectural rules that the generated code
 - application-event-handling
 - application-input-handling
 - dependency-injection
-- project-rules (reference only — for coding standards and conventions during generation)
+- betterhalf-voice (required when defining any user-facing message text — error toasts, success banners, dialog copy, validation messages — apply the brand voice to the wording)
 
 ---
 

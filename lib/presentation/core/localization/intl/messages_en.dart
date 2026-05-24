@@ -21,7 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   static String m0(gender) =>
-      "Please share with me ${gender} gift and food preferences.";
+      "Share ${gender} gift and food preferences with me.";
 
   static String m1(name, gender) =>
       "This ensures I recommend things ${name} loves and can avoid what ${gender} may not like as much.";
@@ -37,7 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m6(gender) => "Which love languages match ${gender}?";
 
   static String m7(name) =>
-      "Share the things ${name} enjoys to help tailor suggestions.";
+      "Share the things ${name} enjoys so the suggestions fit.";
 
   static String m8(gender) =>
       "Choose the love languages and tone that fit ${gender} best.";
@@ -55,10 +55,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "I\'ve confirmed my email",
     ),
     "auth_email_confirmation_message": MessageLookupByLibrary.simpleMessage(
-      "We sent you a confirmation email. Open it, tap the confirmation link, return to the app, and then tap \"I\'ve confirmed my email\".",
+      "I sent you a confirmation email. Open it, tap the confirmation link, return to the app, and then tap \"I\'ve confirmed my email\".",
     ),
     "auth_email_confirmation_pending_error": MessageLookupByLibrary.simpleMessage(
-      "We couldn\'t detect a confirmed session yet. Please check your email and try again.",
+      "I haven\'t seen your email confirmed yet. Check your inbox and try again.",
     ),
     "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
       "Confirm your email",
@@ -259,14 +259,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Your Personal BetterHalf",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
-      "BetterHalf helps you nurture your relationship with your loved one.",
+      "BetterHalf keeps track of what matters to your partner and helps you act on it.",
     ),
     "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
-      "It reminds you of special dates, crafts personalized messages, and suggests thoughtful ideas.",
+      "It reminds you of the dates that matter, drafts messages in your voice, and lines up gift and date ideas they\'d actually want.",
     ),
     "wizard_next": MessageLookupByLibrary.simpleMessage("Next"),
     "wizard_partner_anniversary_explanation": MessageLookupByLibrary.simpleMessage(
-      "I use your anniversary date to make sure you have enough time to plan or get something special for your loved one.",
+      "I use your anniversary date so you have enough time to plan or get something special for them.",
     ),
     "wizard_partner_anniversary_hint": MessageLookupByLibrary.simpleMessage(
       "Pick your big date",
@@ -285,7 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Do you have an anniversary date?",
     ),
     "wizard_partner_birthday_explanation": MessageLookupByLibrary.simpleMessage(
-      "I use your partner’s birthday to make sure you have enough time to plan something special for your loved one.",
+      "I use your partner\'s birthday so you have enough time to plan something special for them.",
     ),
     "wizard_partner_birthday_hint": MessageLookupByLibrary.simpleMessage(
       "Pick birthday date",
@@ -298,14 +298,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_food_and_gifts_title": m2,
     "wizard_partner_food_likes_title": m3,
     "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
-      "Sharing your loved one’s favorite foods will help me select the correct food gifts and restaurant suggestons.",
+      "Sharing your partner\'s favorite foods helps me pick food gifts and restaurants that fit.",
     ),
     "wizard_partner_gift_likes_title": m4,
     "wizard_partner_gift_types_explanation": MessageLookupByLibrary.simpleMessage(
-      "Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.",
+      "Picking your partner\'s favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.",
     ),
     "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
-      "Sharing your loved one’s hobbies will help me select a variety of appropriate activities and gifts.",
+      "Sharing your partner\'s hobbies helps me pick activities and gifts that fit.",
     ),
     "wizard_partner_hobbies_title": m5,
     "wizard_partner_love_language_explanation":
@@ -315,7 +315,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_love_language_title": m6,
     "wizard_partner_loves_message_1": m7,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
-      "This ensures that my suggestions and messages are truly meaningful.",
+      "This is what makes my suggestions and messages land.",
     ),
     "wizard_partner_loves_message_initial_1": m8,
     "wizard_partner_loves_title": m9,
@@ -324,15 +324,15 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage("Birthday is required"),
     "wizard_partner_profile_message_1_extended":
         MessageLookupByLibrary.simpleMessage(
-          "Tell us a bit about your partner, like their name, pronouns and important dates.",
+          "Tell me a bit about your partner, like their name, pronouns and important dates.",
         ),
     "wizard_partner_profile_message_1_shortened":
         MessageLookupByLibrary.simpleMessage(
-          "Tell us a bit about your partner, like their name and pronouns.",
+          "Tell me a bit about your partner, like their name and pronouns.",
         ),
     "wizard_partner_profile_message_initial_1":
         MessageLookupByLibrary.simpleMessage(
-          "We’ll start with the basics; name and gender.",
+          "Let\'s start with the basics: name and gender.",
         ),
     "wizard_partner_profile_name_hint": MessageLookupByLibrary.simpleMessage(
       "Partner name",
@@ -341,22 +341,22 @@ class MessageLookup extends MessageLookupByLibrary {
       "Name is required",
     ),
     "wizard_partner_profile_name_title": MessageLookupByLibrary.simpleMessage(
-      "What’s your partner’s name?",
+      "What\'s your partner\'s name?",
     ),
     "wizard_partner_profile_pronoun_missing":
         MessageLookupByLibrary.simpleMessage("Pronoun is required"),
     "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
-      "Let’s start with basics",
+      "Let\'s start with the basics",
     ),
     "wizard_partner_pronouns_hint": MessageLookupByLibrary.simpleMessage(
-      "Select your partner’s pronouns",
+      "Select your partner\'s pronouns",
     ),
     "wizard_partner_pronouns_title": MessageLookupByLibrary.simpleMessage(
       "How should I refer to your partner?",
     ),
     "wizard_partner_relationship_type_explanation":
         MessageLookupByLibrary.simpleMessage(
-          "This helps me tailor reminders, messages, and suggestions to match the stage of your relationship",
+          "This helps me fit reminders, messages, and suggestions to the stage of your relationship",
         ),
     "wizard_partner_relationship_type_hint":
         MessageLookupByLibrary.simpleMessage("Select relationship type"),
@@ -364,7 +364,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage("Relationship type"),
     "wizard_partner_tone_of_voice_explanation":
         MessageLookupByLibrary.simpleMessage(
-          "Selecting the correct tone of voice helps me craft messages that resonate with your loved one better.",
+          "Picking the right tone helps me write messages that land with your partner.",
         ),
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Select tone of voice",

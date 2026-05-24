@@ -102,7 +102,7 @@ class LaButtonAtom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _IsbButtonColorPalette colors = _IsbButtonColorPalette.fromButtonStyle(buttonStyle);
+    final _LaButtonColorPalette colors = _LaButtonColorPalette.fromButtonStyle(buttonStyle);
 
     Widget child;
     if (busy) {
@@ -186,7 +186,7 @@ class LaButtonAtom extends StatelessWidget {
   }
 }
 
-class _IsbButtonColorPalette {
+class _LaButtonColorPalette {
   final Color enabledTextColor;
   final Color enabledBackgroundColor;
   final Color enabledBorderColor;
@@ -197,7 +197,7 @@ class _IsbButtonColorPalette {
   final Color disabledSplashColor;
   final Color busyColor;
 
-  const _IsbButtonColorPalette._({
+  const _LaButtonColorPalette._({
     required this.enabledTextColor,
     required this.enabledBackgroundColor,
     required this.enabledBorderColor,
@@ -209,12 +209,12 @@ class _IsbButtonColorPalette {
     required this.busyColor,
   });
 
-  factory _IsbButtonColorPalette.fromButtonStyle(LaButtonStyle style) => switch (style) {
-        LaButtonStyle.primary => _IsbButtonColorPalette.primary(),
-        LaButtonStyle.secondary => _IsbButtonColorPalette.secondary(),
+  factory _LaButtonColorPalette.fromButtonStyle(LaButtonStyle style) => switch (style) {
+        LaButtonStyle.primary => _LaButtonColorPalette.primary(),
+        LaButtonStyle.secondary => _LaButtonColorPalette.secondary(),
       };
 
-  factory _IsbButtonColorPalette.primary() => _IsbButtonColorPalette._(
+  factory _LaButtonColorPalette.primary() => _LaButtonColorPalette._(
         enabledTextColor: LaTheme.onPrimary(),
         enabledBackgroundColor: LaTheme.primary(),
         enabledBorderColor: Colors.transparent,
@@ -226,7 +226,7 @@ class _IsbButtonColorPalette {
         busyColor: LaTheme.onPrimary(),
       );
 
-  factory _IsbButtonColorPalette.secondary() => _IsbButtonColorPalette._(
+  factory _LaButtonColorPalette.secondary() => _LaButtonColorPalette._(
         enabledTextColor: LaTheme.onTertiaryContainer(),
         enabledBackgroundColor: LaTheme.tertiaryContainer(),
         enabledBorderColor:  Colors.transparent,
@@ -251,7 +251,7 @@ class _IsbButtonColorPalette {
           : disabledSplashColor;
 }
 
-extension _IsbButtonSizeX on LaButtonSize {
+extension _LaButtonSizeX on LaButtonSize {
   double get width => switch (this) {
         LaButtonSize.normal => double.infinity,
         LaButtonSize.mini => 0,

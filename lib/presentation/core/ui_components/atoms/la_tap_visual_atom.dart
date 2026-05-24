@@ -41,10 +41,10 @@ class LaTapVisualAtom extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => _IsbTapVisualState();
+  State<StatefulWidget> createState() => _LaTapVisualState();
 }
 
-class _IsbTapVisualState extends State<LaTapVisualAtom> {
+class _LaTapVisualState extends State<LaTapVisualAtom> {
   late final IPollAndDebounce _debouncer;
 
   @override

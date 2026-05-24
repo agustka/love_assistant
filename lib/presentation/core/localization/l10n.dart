@@ -169,20 +169,20 @@ class S {
     );
   }
 
-  /// `BetterHalf hjálpar þér að næra sambandið við ástvin þinn.`
+  /// `[BetterHalf hjálpar þér að næra sambandið við ástvin þinn.]`
   String get wizard_greetings_message_1 {
     return Intl.message(
-      'BetterHalf hjálpar þér að næra sambandið við ástvin þinn.',
+      '[BetterHalf hjálpar þér að næra sambandið við ástvin þinn.]',
       name: 'wizard_greetings_message_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.`
+  /// `[Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.]`
   String get wizard_greetings_message_2 {
     return Intl.message(
-      'Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.',
+      '[Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.]',
       name: 'wizard_greetings_message_2',
       desc: '',
       args: [],
@@ -214,20 +214,20 @@ class S {
     );
   }
 
-  /// `Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.`
+  /// `[Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.]`
   String get wizard_partner_profile_message_1_shortened {
     return Intl.message(
-      'Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.',
+      '[Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.]',
       name: 'wizard_partner_profile_message_1_shortened',
       desc: '',
       args: [],
     );
   }
 
-  /// `Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.`
+  /// `[Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.]`
   String get wizard_partner_profile_message_1_extended {
     return Intl.message(
-      'Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.',
+      '[Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.]',
       name: 'wizard_partner_profile_message_1_extended',
       desc: '',
       args: [],
@@ -324,10 +324,10 @@ class S {
     );
   }
 
-  /// `Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.`
+  /// `[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.]`
   String get wizard_partner_birthday_explanation {
     return Intl.message(
-      'Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.',
+      '[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.]',
       name: 'wizard_partner_birthday_explanation',
       desc: '',
       args: [],
@@ -414,10 +414,10 @@ class S {
     );
   }
 
-  /// `Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.`
+  /// `[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.]`
   String get wizard_partner_anniversary_explanation {
     return Intl.message(
-      'Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.',
+      '[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.]',
       name: 'wizard_partner_anniversary_explanation',
       desc: '',
       args: [],
@@ -434,10 +434,10 @@ class S {
     );
   }
 
-  /// `Deildu því sem {name} hefur gaman af til að hjálpa til við að sérsníða tillögur.`
+  /// `[Deildu því sem {name} hefur gaman af til að hjálpa til við að sérsníða tillögur.]`
   String wizard_partner_loves_message_1(Object name) {
     return Intl.message(
-      'Deildu því sem $name hefur gaman af til að hjálpa til við að sérsníða tillögur.',
+      '[Deildu því sem $name hefur gaman af til að hjálpa til við að sérsníða tillögur.]',
       name: 'wizard_partner_loves_message_1',
       desc: '',
       args: [name],
@@ -454,10 +454,10 @@ class S {
     );
   }
 
-  /// `Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.`
+  /// `[Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.]`
   String get wizard_partner_loves_message_2 {
     return Intl.message(
-      'Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.',
+      '[Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.]',
       name: 'wizard_partner_loves_message_2',
       desc: '',
       args: [],
@@ -474,30 +474,30 @@ class S {
     );
   }
 
-  /// `Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.`
+  /// `[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]`
   String get wizard_partner_hobbies_explanation {
     return Intl.message(
-      'Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.',
+      '[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]',
       name: 'wizard_partner_hobbies_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.`
+  /// `[Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.]`
   String get wizard_partner_foods_explanation {
     return Intl.message(
-      'Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.',
+      '[Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.]',
       name: 'wizard_partner_foods_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.`
+  /// `[Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.]`
   String get wizard_partner_tone_of_voice_explanation {
     return Intl.message(
-      'Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.',
+      '[Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.]',
       name: 'wizard_partner_tone_of_voice_explanation',
       desc: '',
       args: [],
@@ -524,10 +524,10 @@ class S {
     );
   }
 
-  /// `Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.`
+  /// `[Picking your partner's favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.]`
   String get wizard_partner_gift_types_explanation {
     return Intl.message(
-      'Selecting your loved one’s favorite types will help me suggest appropriate gifts.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.',
+      '[Picking your partner\'s favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.]',
       name: 'wizard_partner_gift_types_explanation',
       desc: '',
       args: [],
@@ -594,10 +594,10 @@ class S {
     );
   }
 
-  /// `Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.`
+  /// `[Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.]`
   String get wizard_partner_relationship_type_explanation {
     return Intl.message(
-      'Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.',
+      '[Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.]',
       name: 'wizard_partner_relationship_type_explanation',
       desc: '',
       args: [],
@@ -1469,10 +1469,10 @@ class S {
     );
   }
 
-  /// `Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á "Ég hef stadfest netfangid mitt".`
+  /// `[Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á "Ég hef stadfest netfangid mitt".]`
   String get auth_email_confirmation_message {
     return Intl.message(
-      'Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á "Ég hef stadfest netfangid mitt".',
+      '[Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á "Ég hef stadfest netfangid mitt".]',
       name: 'auth_email_confirmation_message',
       desc: '',
       args: [],
@@ -1489,10 +1489,10 @@ class S {
     );
   }
 
-  /// `Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.`
+  /// `[Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.]`
   String get auth_email_confirmation_pending_error {
     return Intl.message(
-      'Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.',
+      '[Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.]',
       name: 'auth_email_confirmation_pending_error',
       desc: '',
       args: [],

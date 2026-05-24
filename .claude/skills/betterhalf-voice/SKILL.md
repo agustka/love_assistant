@@ -38,6 +38,34 @@ Apply whenever editing or authoring user-facing text. The trigger isn't *"is thi
 
 Skip only for: code comments, log messages, internal debug strings, and developer-facing documentation.
 
+## Localization: only edit English, bracket the other languages
+
+These voice rules are written for, and verified against, **English** copy. Do **not** rewrite, reword, or "fix the voice" of non-English translations (e.g. the Icelandic `intl_is.arb`). The phrasing, idiom, and tone judgement required to keep those in voice is beyond what this skill is tuned for, and Ágúst handles those translations personally.
+
+**The rule:** whenever you change the meaning of an English string, wrap the corresponding value in every other language file in square brackets `[ ]` to flag it for manual re-translation. Leave the bracketed content otherwise untouched.
+
+- Apply this to any key whose **English meaning changed** (a reword, a different sentence, a fog/voice fix). A pure punctuation normalization on the English side (e.g. swapping a curly apostrophe for a straight one) does not change meaning, so it does not require bracketing the translation.
+- Bracket the **current** value as-is. Do not translate, do not guess, do not "improve" the wording inside the brackets.
+- Match keys by their localization key, not by position.
+- If a translation value is already wrapped in `[ ]`, leave the single pair of brackets in place (don't double-wrap).
+- If you find untranslated English sitting in a non-English file, you may correct that English text to match the voice rules and bracket it (it still needs real translation).
+
+**Example.** You change the English:
+
+```jsonc
+// intl_en.arb  (before)  "wizard_greetings_message_1": "BetterHalf helps you nurture your relationship."
+// intl_en.arb  (after)   "wizard_greetings_message_1": "BetterHalf keeps track of what matters to your partner and helps you act on it."
+```
+
+Then in `intl_is.arb` you only bracket the existing value:
+
+```jsonc
+// intl_is.arb  (before)  "wizard_greetings_message_1": "BetterHalf hjálpar þér að næra sambandið við ástvin þinn."
+// intl_is.arb  (after)   "wizard_greetings_message_1": "[BetterHalf hjálpar þér að næra sambandið við ástvin þinn.]"
+```
+
+The brackets are a to-do marker for Ágúst, who will replace the bracketed text with a proper translation and remove the brackets.
+
 ## The non-negotiables (bright-line rules)
 
 These are not preferences. They're hard rules. Catch and fix every violation.
@@ -290,6 +318,7 @@ Show the format. Don't restate the label.
 - [ ] No "we apologize for the inconvenience" energy
 - [ ] User agency preserved ("you pick, you send")
 - [ ] Reads like a real person, not a brand voice
+- [ ] Edited English only; bracketed `[ ]` the matching value in every other language file when the English meaning changed (never reword the translations)
 
 ## Example reviews
 

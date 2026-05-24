@@ -116,6 +116,8 @@ Once all required fields are resolved, write these three files:
 
 Do not create other files.
 
+Any user-facing copy you put in these specs (button and field labels, messages, empty/error/success states, notification text) must follow the `betterhalf-voice` skill. Apply it to the wording before writing the spec so downstream agents inherit copy that is already in voice.
+
 ## Work type classification
 
 Every prompt must be classified as exactly one of:
