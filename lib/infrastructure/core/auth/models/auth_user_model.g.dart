@@ -8,8 +8,8 @@ part of 'auth_user_model.dart';
 
 AuthUserModel _$AuthUserModelFromJson(Map<String, dynamic> json) =>
     AuthUserModel(
-      id: json['id'] as String,
-      email: json['email'] as String,
+      id: json['id'] as String?,
+      email: json['email'] as String?,
       createdAt: json['created_at'] as String?,
     );
 

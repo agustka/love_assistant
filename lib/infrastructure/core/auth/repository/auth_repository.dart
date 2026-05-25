@@ -1,18 +1,16 @@
 import "dart:async";
 
 import "package:injectable/injectable.dart";
+import "package:la/domain/core/entities/email_password_credentials.dart";
 import "package:la/domain/core/repositories/i_auth_repository.dart";
 import "package:la/domain/core/value_objects/failures/failure.dart";
 import "package:la/domain/core/value_objects/payload.dart";
 import "package:la/infrastructure/core/auth/auth_event_type.dart";
 import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
-import "package:la/infrastructure/core/auth/models/email_password_credentials_model.dart";
 import "package:la/infrastructure/core/auth/service/i_auth_service.dart";
 import "package:la/infrastructure/core/error_handling/error_handler.dart";
-import "package:la/setup.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 
-@InjectableEnv.online
 @LazySingleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
   AuthRepository(this._authService);
@@ -37,6 +35,10 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Payload<AuthUserModel>> signUp(EmailPasswordCredentials credentials) async {
+    final Failure? invalid = _firstFailure(credentials);
+    if (invalid != null) {
+      return Payload.failure(invalid);
+    }
     try {
       final AuthUserModel model = await _authService.signUpWithEmailAndPassword(credentials);
       return Payload.success(model);
@@ -48,6 +50,10 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Payload<AuthUserModel>> signIn(EmailPasswordCredentials credentials) async {
+    final Failure? invalid = _firstFailure(credentials);
+    if (invalid != null) {
+      return Payload.failure(invalid);
+    }
     try {
       final AuthUserModel model = await _authService.signInWithEmailAndPassword(credentials);
       return Payload.success(model);
@@ -56,6 +62,9 @@ class AuthRepository implements IAuthRepository {
       return Payload.failure(_mapAuthFailure(ex, isSignUp: false));
     }
   }
+
+  Failure? _firstFailure(EmailPasswordCredentials credentials) =>
+      credentials.email.failure ?? credentials.password.failure;
 
   Failure _mapAuthFailure(Object ex, {required bool isSignUp}) {
     if (ex is! AuthException) {
@@ -77,9 +86,7 @@ class AuthRepository implements IAuthRepository {
       if (message.contains("password should be at least") || message.contains("weak password")) {
         return const Failure("Password is too short. Please choose a stronger password.");
       }
-      if (message.contains("user already registered") ||
-          message.contains("email already") ||
-          statusCode == "422") {
+      if (message.contains("user already registered") || message.contains("email already") || statusCode == "422") {
         return const Failure("An account with this email already exists.");
       }
     } else {

@@ -15,6 +15,7 @@
 - Model files in `/models` directories with `_model.dart` suffix
 - Model converters for Chopper: extend `JsonConverter` with `BaseConverter` mixin, define `conversions` map, override `convertResponse`
 - Models use `@JsonSerializable()` and `@immutable` annotations; do NOT extend Equatable
+- ALL model fields MUST be nullable — external data is untrusted and any field may be missing. Non-null guarantees belong to the domain layer (entities/value objects), established during `Entity.fromModel(...)` conversion, never on the model itself
 
 ## What NEVER belongs in Infrastructure
 
@@ -92,6 +93,13 @@ Typical folder structure per feature:
 ## Offline Implementations
 
 Offline implementations provide mock service responses for testing/development, loaded only in `@InjectableEnv.offline`.
+
+**Only fake the outer boundary.** An offline variant exists to stand in for the external world (network/SDK/platform). That boundary lives in **services, client providers, and local stores/datasources** — never in repositories. Swap the boundary and let the *real* repository run on top of it, so the repository's validation, error mapping, caching, and `Payload` logic are exercised against stubbed responses. Faking the repository instead bypasses all of that and forces its logic to be duplicated in a stub, where it silently drifts from production.
+
+Consequences for `@InjectableEnv` annotations:
+- `@InjectableEnv.online` / `@InjectableEnv.offline` belong ONLY on boundary classes (services, client providers, stores) that have a paired online/offline implementation.
+- Repositories carry NO environment annotation — a single `@LazySingleton(as: IRepo)` registers in every environment and consumes whichever boundary the environment provides.
+- NEVER create an `OfflineXRepository`. Test affordances (stubbed return values, `throwOnX` flags, call spies like `lastXArgs`/`didX`) live on the offline **service/store**, not on a fake repository.
 
 ### Offline Service Implementations
 

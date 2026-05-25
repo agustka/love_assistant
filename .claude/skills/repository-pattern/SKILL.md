@@ -80,6 +80,8 @@ class MyRepository implements IMyRepository { ... }
 
 Use `@LazySingleton` (not `@injectable`). Repositories are singletons — they own the `BehaviorSubject` and must not be re-created per injection.
 
+Repositories carry **no `@InjectableEnv` annotation** — a single registration serves every environment. The online/offline split happens at the boundary the repository depends on (service / client provider / store), never at the repository itself. There is no such thing as an `OfflineXRepository`.
+
 | Artifact | Registered as | DI annotation |
 |---|---|---|
 | Streaming repository | `IMyRepository` | `@LazySingleton(as: IMyRepository)` |
@@ -315,6 +317,8 @@ As of writing, no streaming repositories exist yet — `SessionManager._repos` i
 | Dedup with `_currentFetch` | Prevents concurrent identical network calls |
 | Failure with `fallback: cache.data` | UI shows stale data alongside error |
 | One resource per repository | Do not mix unrelated data |
+| No `@InjectableEnv` on repositories | Repositories register once for all environments; only the boundary they depend on (service/client/store) gets online/offline variants |
+| No offline repository | Never create `OfflineXRepository`. Fake the service/store instead and let the real repository run on top of it |
 
 ---
 
@@ -330,3 +334,5 @@ As of writing, no streaming repositories exist yet — `SessionManager._repos` i
 - Do not forget to register streaming repositories in `session_manager.dart`
 - Do not skip `ICacheLifecycleRepository` for streaming repos
 - Do not add `ICacheLifecycleRepository` to mutation-only repos
+- Do not annotate a repository with `@InjectableEnv.online`/`.offline` — repositories are environment-agnostic
+- Do not create an `OfflineXRepository` — the repository is not the app's outer boundary; fake the service/store/client it depends on and put test affordances (`throwOnX`, `lastXArgs`, `didX`) there

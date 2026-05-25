@@ -1,7 +1,7 @@
 import "package:injectable/injectable.dart";
+import "package:la/domain/core/entities/email_password_credentials.dart";
 import "package:la/infrastructure/core/auth/auth_event_type.dart";
 import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
-import "package:la/infrastructure/core/auth/models/email_password_credentials_model.dart";
 import "package:la/infrastructure/core/auth/service/i_auth_service.dart";
 import "package:la/setup.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
@@ -16,8 +16,8 @@ class AuthService implements IAuthService {
   @override
   Future<AuthUserModel> signUpWithEmailAndPassword(EmailPasswordCredentials credentials) async {
     final AuthResponse response = await _client.auth.signUp(
-      email: credentials.email,
-      password: credentials.password,
+      email: credentials.email.get,
+      password: credentials.password.get,
     );
     final User? user = response.user;
     if (user == null) {
@@ -29,8 +29,8 @@ class AuthService implements IAuthService {
   @override
   Future<AuthUserModel> signInWithEmailAndPassword(EmailPasswordCredentials credentials) async {
     final AuthResponse response = await _client.auth.signInWithPassword(
-      email: credentials.email,
-      password: credentials.password,
+      email: credentials.email.get,
+      password: credentials.password.get,
     );
     final User? user = response.user;
     if (user == null) {
@@ -49,9 +49,9 @@ class AuthService implements IAuthService {
       .cast<AuthEventType>();
 
   AuthEventType? _mapEvent(AuthState state) => switch (state.event) {
-        AuthChangeEvent.signedIn => AuthEventType.login,
-        AuthChangeEvent.signedOut => AuthEventType.logout,
-        AuthChangeEvent.initialSession => state.session != null ? AuthEventType.login : null,
-        _ => null,
-      };
+    AuthChangeEvent.signedIn => AuthEventType.login,
+    AuthChangeEvent.signedOut => AuthEventType.logout,
+    AuthChangeEvent.initialSession => state.session != null ? AuthEventType.login : null,
+    _ => null,
+  };
 }

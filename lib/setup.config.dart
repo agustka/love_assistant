@@ -25,8 +25,6 @@ import 'package:la/infrastructure/core/analytics/repository/logging_repository.d
 import 'package:la/infrastructure/core/auth/device_id_provider.dart' as _i700;
 import 'package:la/infrastructure/core/auth/repository/auth_repository.dart'
     as _i755;
-import 'package:la/infrastructure/core/auth/repository/offline/offline_auth_repository.dart'
-    as _i302;
 import 'package:la/infrastructure/core/auth/service/auth_service.dart' as _i266;
 import 'package:la/infrastructure/core/auth/service/i_auth_service.dart'
     as _i663;
@@ -91,10 +89,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i261.OfflinePartnerProfileLocalStore(),
       registerFor: {_offline},
     );
-    gh.lazySingleton<_i742.IAuthRepository>(
-      () => _i302.OfflineAuthRepository(),
-      registerFor: {_offline},
-    );
     gh.lazySingleton<_i663.IAuthService>(
       () => _i817.OfflineAuthService(),
       registerFor: {_offline},
@@ -103,6 +97,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i845.LoggingRepository(),
       dispose: (i) => i.dispose(),
     );
+    gh.lazySingleton<_i742.IAuthRepository>(
+      () => _i755.AuthRepository(gh<_i663.IAuthService>()),
+    );
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => sharedPreferencesModule.sharedPreferences,
       registerFor: {_online},
@@ -110,10 +107,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i700.DeviceIdProvider>(
       () => _i700.DeviceIdProvider(gh<_i339.IHiveCache>()),
-    );
-    gh.lazySingleton<_i742.IAuthRepository>(
-      () => _i755.AuthRepository(gh<_i663.IAuthService>()),
-      registerFor: {_online},
     );
     gh.lazySingleton<_i306.ISharedPrefsWrapper>(
       () => _i784.SharedPrefsWrapper(gh<_i460.SharedPreferences>()),

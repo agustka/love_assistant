@@ -129,12 +129,15 @@ For `lib/infrastructure/**` changes:
 - Model/repository/service separation
 - External API / persistence stays in infrastructure
 - No UI/application workflow logic leaks in
+- All model (`*Model`) fields are nullable, and the type is JSON-serializable (`@JsonSerializable`)
+- `@InjectableEnv.online`/`.offline` appears ONLY on boundary classes (services, client providers, stores). A repository carrying an env annotation, or any `Offline*Repository` file, is a violation — flag it. The online/offline split belongs at the boundary; the real repository must run on top of the offline boundary
+- Every `@InjectableEnv.online` class has a paired `.offline` implementation for the same interface (and vice versa)
 
 ### 7. Validate domain integrity
 
 For `lib/domain/**` changes:
 
-- Entities composed of value objects, never raw primitives
+- Entities composed of value objects or other entities, never raw primitives and never nullable fields
 - Value objects extend `ValueObject<T>`
 - No imports from `presentation`/`application`/`infrastructure` (other than the known use-case-interface path exception above)
 
