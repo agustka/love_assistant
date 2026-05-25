@@ -57,6 +57,7 @@ The agent must:
 ## Decision Rules
 
 - Only create UI required to satisfy BDD scenarios
+- UI must conform to the product interaction doctrine in `.claude/instructions/product-decision.md`: card-based surfaces, the four input shapes (chip, date/number picker, scoped ~120-char text, confirmation), and none of the prohibited chat cues (chat bubbles, conversation threads, large empty prompt boxes, assistant avatars, typing animations, "Regenerate response"). If a layout spec contradicts this doctrine, report it as an ambiguous-layout gap rather than building a chat surface.
 - If behavior is not defined in BDD → do not implement it
 - If layout is ambiguous or incomplete → report a gap
 - If application layer does not provide required state or actions → report a gap (see Gap Reporting)
@@ -243,6 +244,10 @@ The agent must **not** block when:
 
 - cubit-integration
 - betterhalf-voice (required whenever authoring or adding any user-facing string or localization key — apply the brand voice rules to the copy before writing it, never just to the widget)
+
+## References
+
+- `.claude/instructions/product-decision.md` — the product interaction doctrine (card-based model, four input shapes, prohibited chat cues). Consult it whenever a layout decision touches input surfaces or the shape of how output is presented.
 
 ---
 

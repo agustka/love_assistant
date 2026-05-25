@@ -36,6 +36,9 @@ guess, infer, or use placeholders for required information.
     - Treat results as **evidence to consider**, not authoritative fact.
     - If know-the-code returns low or medium confidence on a field, treat that field
       as unresolved and include it in clarifying questions rather than inferring silently.
+    - know-the-code is an intermediate grounding step, not a deliverable. After it returns,
+      immediately continue to steps 4–5. The only deliverables are the three spec files;
+      never end the run on grounding output.
 4. Re-check every required field after incorporating codebase context. If any field
    is still missing or ambiguous: stop and ask all blocking questions in a single message.
 5. Write the three output files.
@@ -43,6 +46,14 @@ guess, infer, or use placeholders for required information.
 Do not skip steps 3 or 4 unless know-the-code is unavailable. If unavailable, continue using only the provided 
 prompt and context, and record that codebase grounding was not performed in Supporting context.
 Never proceed to step 5 while required fields are unresolved.
+
+---
+
+## Completion criteria
+
+A run is complete only when all three files (`bdd.md`, `layout.md`, `api.yaml`) have been
+written for the current prompt. Returning analysis, grounding, or questions — once required
+fields are resolved — without writing the files is an incomplete run.
 
 ---
 
@@ -114,9 +125,15 @@ Once all required fields are resolved, write these three files:
 - `.claude/specs/layout.md`
 - `.claude/specs/api.yaml`
 
+These three files are single-slot, per-ticket artifacts and may already contain a previous,
+unrelated ticket. Always overwrite each file completely from scratch for the current prompt.
+Never merge, append to, or partially edit prior content.
+
 Do not create other files.
 
 Any user-facing copy you put in these specs (button and field labels, messages, empty/error/success states, notification text) must follow the `betterhalf-voice` skill. Apply it to the wording before writing the spec so downstream agents inherit copy that is already in voice.
+
+The behavior and layout you spec must conform to the product interaction doctrine in `.claude/instructions/product-decision.md`. Read it before writing `bdd.md` and `layout.md`. In particular: the product is "prepare and present, never automate"; every output is a card (ready to use / approve / adjust), never a chat surface; user input is restricted to the four input shapes (chip selection, date/number picker, scoped text bound to one question hard-capped ~120 chars, or a confirmation on a system-suggested fact). When a prompt implies an open-ended "ask the assistant" capability, spec it as a structured card-creation flow with a scoped note — not a chat thread or blank prompt. Do not spec any of the prohibited UI cues (chat bubbles, conversation threads, large empty prompt boxes, assistant avatars, "Ask me anything", "Regenerate response").
 
 ## Work type classification
 
@@ -166,6 +183,10 @@ Then <observable failure state>
 #### Out of scope
 - <list behaviors explicitly not covered by this change>
 
+#### Testing directives
+- <unit tests only / unit + UAT, per the rules below>
+- <no mock-based cubit/repository/service tests; everything runs through the test drivers>
+
 #### Open questions
 - <list any non-required details that remain unresolved>
 
@@ -206,6 +227,25 @@ Example AC:
 If the defect location is known (from know-the-code or extra context), include
 it in Supporting Context (e.g. "The bug is in `TransferFormCubit.submit` —
 it does not handle the success response correctly").
+
+### Testing directives
+
+Every `bdd.md` must include a `#### Testing directives` section. Two rules always apply:
+
+- Tests never use mock classes. Do not specify cubit, repository, service, or any other tests
+  that mock their collaborators. All tests exercise real implementations through the project's
+  test drivers.
+- Every test is either a unit test or a user acceptance test (UAT). There is no other category.
+
+Choose the allowed test types from the in-scope layers:
+
+- If presentation/UI is in scope, the feature is user-executable: UAT is appropriate, alongside
+  unit tests for deterministic logic.
+- If the in-scope layers cannot be exercised as a user (e.g. infrastructure-only or domain-only,
+  with no presentation in scope), state explicitly: **unit tests only, no UAT** — because the
+  feature cannot be driven as a user. Name the deterministic units worth covering (value objects,
+  model serialization, error mapping) and note that the backend-dependent flows are validated
+  later via UAT once a presentation layer brings them into a user-executable path.
 
 ---
 

@@ -13,6 +13,8 @@ Brand voice review and authoring for the BetterHalf product.
 
 BetterHalf helps men show up for their partner without doing the part they're bad at: figuring out what to give, what to write, and what to plan. Positioned as a thoughtful friend who knows your partner combined with a secretary who handles the artifacts. **Not** an AI product. **Not** an Assistant. **Not** a reminder app. Built solo by Ágúst Karlsson.
 
+This skill governs *wording*. The companion doctrine in `.claude/instructions/product-decision.md` governs *structure* — the card-based interaction model and the ban on chat surfaces. They reinforce each other: the "no Assistant / no chatbot" stance here is the verbal expression of that structural rule. When you catch chat-style copy ("Ask me anything", "What would you like to do today?"), the fix is usually structural too, so flag it.
+
 ## The voice in one paragraph
 
 Plain-spoken. First-person where the founder is present ("I built this", never "we"). Second-person where the product addresses the user ("you pick, you send"). Honest about uncertainty. Names concrete failures (decision paralysis, blank cards, day-of scrambles) but never stereotyped ones ("gift cards" — real users laugh at that one). Gender-neutral by default ("they/their"). No marketing fog. No AI branding. No em-dashes or curly quotes. Audience leans male and recognizes fake polish instantly — write like a real person, not a brand.

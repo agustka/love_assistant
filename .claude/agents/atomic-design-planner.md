@@ -31,6 +31,7 @@ Planning-first agent for shared UI components from Figma designs. Delegates to s
 - **Inter-agent communication only via `.claude/handoff/*.handoff.md`.**
 - **Do not create `.md`/`.txt` reports outside `.claude/handoff/` unless explicitly requested by the user.**
 - **Keep outputs tight:** code changes plus concise handoff updates only.
+- **Honor the product doctrine.** Components must fit the card-based interaction model in `.claude/instructions/product-decision.md`. Build cards, chips, bottom sheets, pickers, and inline edits. Never build the prohibited UI cues (chat bubbles, conversation threads, large empty prompt boxes, assistant avatars, typing animations, "Regenerate response"). Free-text inputs are scoped to one question and hard-capped around 120 characters — the cap is an architectural defense, not a styling choice.
 
 ---
 
