@@ -32,19 +32,24 @@ The Presentation Layer is strictly responsible for turning data from Application
 - Feature toggling logic (already resolved before reaching UI)
 
 ## Atomic Design Levels (Flutter Adaptation)
-Allowed import direction: Pages can import Templates and Organisms (which can be composed directly on pages). Templates can import Organisms, which can import Molecules, which can import Atoms. Lower levels never import higher levels. Only Templates and Organisms are allowed on a page.
+Composition flows one direction only; lower levels never import or depend on higher levels.
 
-### Global Design System (ISB)
-The shared, reusable UI components for the whole app live under `lib/presentation/core/isb/`:
-- Atoms: `lib/presentation/core/isb/atoms/`
-- Molecules: `lib/presentation/core/isb/molecules/`
-- Organisms: `lib/presentation/core/isb/organisms/`
-- Templates: `lib/presentation/core/isb/templates/`
-- Utilities: `lib/presentation/core/isb/utils/`
+- **Pages must use an atomic design template.** A page builds the template's inputs from cubit state and passes them in; it never lays out atoms or raw Flutter widgets directly.
+- **Templates accept only definitions, organisms, and molecules.** A template must never take atoms or raw Flutter widgets in its public API.
+- **Organisms** compose molecules and atoms. **Molecules** compose atoms. **Atoms** are the leaf primitives.
 
-Use these ISB components for common patterns across features. Feature-specific widgets should be placed under `lib/presentation/<feature>/widgets`.
+A *definition* is an immutable data/config object (view data, labels, callbacks) that a page builds from cubit state and hands to a template or organism, instead of passing loose primitives.
 
-Lower atomic levels must not import higher levels, and feature widgets should not modify ISB components directly.
+### Global Design System
+The shared, reusable UI components for the whole app live under `lib/presentation/core/ui_components/`:
+- Atoms: `lib/presentation/core/ui_components/atoms/`
+- Molecules: `lib/presentation/core/ui_components/molecules/`
+- Organisms: `lib/presentation/core/ui_components/organisms/`
+- Templates: `lib/presentation/core/ui_components/templates/`
+
+Use these shared components for common patterns across features. Feature-specific widgets should be placed under `lib/presentation/<feature>/widgets`.
+
+Lower atomic levels must not import higher levels, and feature widgets should not modify shared components directly.
 
 ### 1. Atoms 🔬
 Smallest visual / interactive primitives.
@@ -69,21 +74,23 @@ Composable UI sections made of molecules & atoms.
 ### 4. Templates 📋
 Structural layouts defining placement constraints.
 - Provide consistent page skeleton (regions)
-- No feature-specific business content; use placeholders / slots
+- Accept only definitions, organisms, and molecules as slot/input content — never atoms or raw Flutter widgets
+- No feature-specific business content; use placeholders / slots / definitions
 - Provide layout composition API (named constructors / slots / builders)
 - Support portrait/landscape and responsive layouting
 
 ### 5. Pages 📱
-Concrete screen instances binding templates with real content and Cubit state.
+Concrete screen instances binding a template with real content and Cubit state.
+- Must use at least one atomic design template to structure the layout
 - Subscribe to necessary Cubits/Blocs (injected above) for rendering
-- Assemble organisms/molecules/atoms with actual data
+- Build definitions, organisms, and molecules from state and pass them into the template — never compose atoms or raw layout widgets directly
 - Contain only presentation logic (UI state switching, mapping already-sanitized DTO/view models)
 
 ## File & Naming Conventions
 - Folder segmentation under `lib/presentation/` per feature:
   - `widgets/my_example_widget.dart`
   - `widgets/another_widget.dart`
-- Global ISB design system lives in `lib/presentation/core/isb/` with clearly segmented folders (`atoms/`, `molecules/`, `organisms/`, `templates/`, `utils/`). Prefer ISB components for cross-feature reuse.
+- The global design system lives in `lib/presentation/core/ui_components/` with clearly segmented folders (`atoms/`, `molecules/`, `organisms/`, `templates/`). Prefer these shared components for cross-feature reuse.
 - Widget class names: `PascalCase` describing purpose (`LocationCard`, `AppHeaderBar`)
 - File name aligns with primary public widget: `location_card.dart`
 - One primary widget per file; related private helper widgets may live below it.
@@ -108,7 +115,7 @@ Concrete screen instances binding templates with real content and Cubit state.
 - Use this app’s localization system via `S` in `lib/presentation/core/localization/l10n.dart`—do not hardcode strings in widgets.
 - Typical usage in widgets: `S.of(context).<key>`; for non-widget contexts where a `BuildContext` is unavailable, use `S.current.<key>`.
 - Avoid formatting logic (pluralization, gender, date/number formatting) in presentation widgets; this should be resolved before reaching the UI component.
-- Keep localization keys and usage centralized; prefer composition with ISB components that follow the same localization strategy.
+- Keep localization keys and usage centralized; prefer composition with shared components that follow the same localization strategy.
 - Dont create new keys in presentation layer; all keys must be defined in core localization files.
 
 ## Accessibility

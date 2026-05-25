@@ -15,6 +15,8 @@ Use this skill to implement input handling in cubits. The core policy is:
 
 This prevents premature error messages that frustrate users who are still composing their input.
 
+This skill covers *when* to validate. The product doctrine in `.claude/instructions/product-decision.md` constrains *what shape* input is allowed to take: every fact about the partner enters through one of four input shapes — a chip selection, a date/number picker, a scoped text field bound to one question and hard-capped around 120 characters, or a confirmation on a system-suggested fact. When a cubit accepts a free-text field, enforce that ~120-character cap; it is an architectural defense against the field becoming a chat, not a styling preference.
+
 ---
 
 ## The Policy

@@ -57,6 +57,7 @@ The agent must:
 ## Decision Rules
 
 - Only create UI required to satisfy BDD scenarios
+- UI must conform to the product interaction doctrine in `.claude/instructions/product-decision.md`: card-based surfaces, the four input shapes (chip, date/number picker, scoped ~120-char text, confirmation), and none of the prohibited chat cues (chat bubbles, conversation threads, large empty prompt boxes, assistant avatars, typing animations, "Regenerate response"). If a layout spec contradicts this doctrine, report it as an ambiguous-layout gap rather than building a chat surface.
 - If behavior is not defined in BDD → do not implement it
 - If layout is ambiguous or incomplete → report a gap
 - If application layer does not provide required state or actions → report a gap (see Gap Reporting)
@@ -82,12 +83,12 @@ The agent must:
 ## Constraints
 
 - Must strictly follow atomic design:
-    - pages, dialogs, and drawers must use templates
-    - templates compose organisms only
-    - no direct composition of atoms/molecules at page level
+    - pages, dialogs, and drawers must use at least one atomic design template
+    - templates accept only definitions, organisms, and molecules — never atoms or raw Flutter widgets
+    - pages build definitions, organisms, and molecules from cubit state and pass them into the template; no atoms or raw layout widgets composed directly at page level
 
-- Must prefer existing ISB design system components over creating new ones
-- Must not create new **shared** atoms, molecules, organisms, or templates in `lib/presentation/core/isb/`
+- Must prefer existing shared UI components (`lib/presentation/core/ui_components/`) over creating new ones
+- Must not create new **shared** atoms, molecules, organisms, or templates in `lib/presentation/core/ui_components/`
 - Must not create new templates — use only approved templates
 - Must not create new dialog widgets unless `bdd.md` explicitly defines a custom dialog — standard error/warning/info dialogs use `AlertDialogPage.show(...)`
 
@@ -95,7 +96,7 @@ The agent must:
     - side widgets are always private (`_WidgetName`) and connected via `part of`
     - side widgets live in the page's `widgets/` folder
     - side widgets are purely organizational — they extract sections of the page's build tree
-    - side widgets must only use organisms and templates — **not** atoms or molecules
+    - side widgets must only use definitions, organisms, molecules, and templates — **not** atoms or raw Flutter widgets
     - side widgets follow the same composition rules as the page itself
     - side widgets must never be made public or annotated with `@visibleForTesting`
     - creation of side widgets must be reported as advisory gaps in the handoff (see Gap Reporting) so they can be evaluated for promotion to shared organisms later
@@ -128,11 +129,11 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 Follow this order when generating UI layer code:
 
 1. **Convention baseline** — read `.claude/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the UI conventions (template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern, PageName/NamedRoute/RouteLink registration). If the handoff does not cover UI conventions or is missing, call the know-the-code agent as a fallback with: `"What are the page, template, and route registration conventions for the <feature> area? Show me a complete precedent page file: template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern (part of), and PageName/NamedRoute/RouteLink registration."`
-2. **ui-components-catalog** — discover available organisms and templates that match the layout requirements
-3. **atomic-design-composition** — plan the composition: choose template, identify organisms, define Definition objects
-4. **ui-setup** — scaffold page/drawer files, create route registrations (PageName, NamedRoute, RouteLink), create keys file
+2. **Component discovery** — discover available organisms and templates that match the layout requirements
+3. **Composition planning** — plan the composition: choose template, identify organisms, define Definition objects
+4. **Scaffolding** — scaffold page/drawer files, create route registrations (PageName, NamedRoute, RouteLink), create keys file
 5. **cubit-integration** — wire BlocProvider, BlocBuilder, connect cubit state and actions to Definition objects
-6. **ui-event-handling** — implement `_onMessage` handler for one-shot events (navigation, toasts, dialogs)
+6. **Event handling** — implement `_onMessage` handler for one-shot events (navigation, toasts, dialogs)
 
 ---
 
@@ -208,7 +209,8 @@ Produce `.claude/handoff/ui.handoff.md` with:
 The invariants section must list the architectural rules that the generated code satisfies. Include all that apply:
 
 - All pages use approved templates (min 1, max 3)
-- No atoms or molecules used directly at page level
+- Templates receive only definitions, organisms, and molecules — never atoms or raw Flutter widgets
+- No atoms or raw Flutter widgets composed directly at page level (the page builds definitions/organisms/molecules and passes them into the template)
 - No `EdgeInsets`, hardcoded sizes, or raw Flutter widgets at page level
 - All strings via `S.of(context).*` — no hardcoded strings
 - Cubits provided via `getIt<T>()` only — no direct construction
@@ -217,7 +219,7 @@ The invariants section must list the architectural rules that the generated code
 - Drawers follow the project route-driven navigation convention (no direct modal bottom-sheet opening for standard flows)
 - Event bus messages handled via template `onMessage` parameter
 - No business logic in the UI layer
-- No new shared components created in `lib/presentation/core/isb/`
+- No new shared components created in `lib/presentation/core/ui_components/`
 - No new dialogs created unless explicitly required by `bdd.md`
 
 ---
@@ -240,12 +242,12 @@ The agent must **not** block when:
 
 ## Skill Usage
 
-- ui-components-catalog
-- atomic-design-composition
-- ui-setup
 - cubit-integration
-- ui-event-handling
-- project-rules (reference only — for coding standards and conventions during generation)
+- betterhalf-voice (required whenever authoring or adding any user-facing string or localization key — apply the brand voice rules to the copy before writing it, never just to the widget)
+
+## References
+
+- `.claude/instructions/product-decision.md` — the product interaction doctrine (card-based model, four input shapes, prohibited chat cues). Consult it whenever a layout decision touches input surfaces or the shape of how output is presented.
 
 ---
 

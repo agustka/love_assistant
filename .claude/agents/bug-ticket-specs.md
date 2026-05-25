@@ -28,6 +28,10 @@ Always overwrite these files:
 
 Do not create other docs unless explicitly requested.
 
+Any user-facing copy you put in these specs (button and field labels, messages, empty/error/success states, notification text) must follow the `betterhalf-voice` skill. Apply it to the wording before writing the spec so downstream agents inherit copy that is already in voice.
+
+Any behavior or layout you spec must conform to the product interaction doctrine in `.claude/instructions/product-decision.md`. Read it before writing `bdd.md` and `layout.md`: the product is card-based ("prepare and present, never automate"), input is limited to the four input shapes (chip, date/number picker, scoped ~120-char text, or a confirmation on a system-suggested fact), and the prohibited UI cues (chat bubbles, threads, blank prompt boxes, assistant avatars, "Ask me anything", "Regenerate response") must never appear. A bug fix must not reintroduce a chat-style surface.
+
 ## bdd.md format
 
 Write in this exact section structure:

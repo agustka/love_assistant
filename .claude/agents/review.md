@@ -99,6 +99,7 @@ The agent applies skills according to `work_type` from the coordination plan. Sk
 | `architecture-validation` | ✅ full | ✅ full | ✅ changed files only |
 | `dependency-injection` | ✅ when diff touches application/domain/infrastructure Dart files | ✅ when diff touches application/domain/infrastructure Dart files | ✅ changed files only when DI-managed layers are touched |
 | `project-rules` | ✅ full | ✅ full | ⚠️ only if diff touches shared/pre-existing files |
+| `betterhalf-voice` | ✅ when diff adds/changes user-facing strings | ✅ when diff adds/changes user-facing strings | ✅ changed user-facing strings only |
 | know-the-code **agent** | ⚠️ conditional | ⚠️ conditional | ❌ skip |
 
 ### `know-the-code` agent invocation rule

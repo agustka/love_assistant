@@ -45,7 +45,6 @@ Key references:
 ### Known existing exceptions
 
 - `IUseCase`/`IUseCaseWith`/`IStreamUseCase`/`IStreamUseCaseWith` are declared at `lib/infrastructure/core/use_cases/use_case.dart` even though they belong to the domain conceptually. The interfaces themselves only depend on `Payload`/`StreamPayload` from `lib/domain/`, so usage is fine, but the path is a code smell worth flagging if changed.
-- `lib/infrastructure/core/error_handling/error_handler.dart:19` still strips a `package:isbapp/` prefix — a leftover from the original project (the app is now `la`). Out-of-scope drift, but worth surfacing.
 
 Treat these as existing debt unless the change makes the coupling worse.
 
@@ -107,7 +106,8 @@ Check imports in changed files for new cross-layer dependencies:
 
 For `lib/presentation/**` changes:
 
-- pages compose templates + organisms (not atoms/molecules directly)
+- pages must use at least one atomic design template; templates accept only definitions, organisms, and molecules (never atoms or raw Flutter widgets)
+- pages build definitions/organisms/molecules from state and pass them into the template — no atoms or raw layout widgets composed directly at page level
 - design tokens from `LaTheme` / `LaPadding` etc. instead of hardcoded values
 - no `EdgeInsets`/`SizedBox` at page level — that's a template/organism concern
 
