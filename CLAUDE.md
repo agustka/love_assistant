@@ -36,6 +36,25 @@ Best practices from [Effective Dart](https://dart.dev/effective-dart) and [Flutt
 *   PREFER lines 120 characters or fewer.
 *   DO use curly braces for all flow control statements.
 
+##### Member ordering
+
+*   DO order class members by this precedence:
+    1.  Static `const` fields
+    2.  Static fields
+    3.  Member (instance) fields
+    4.  Getters and setters
+    5.  Constructor (the unnamed constructor ALWAYS comes first among constructors, even when it is a `factory` — required by the analyzer's `sort_unnamed_constructors_first`)
+    6.  Private constructors
+    7.  Public named constructors
+    8.  Factory constructors
+    9.  Public static methods
+    10. Public methods
+    11. Private methods
+*   DO place the `toString` override next to last.
+*   DO place the Equatable `props` getter last.
+*   For Flutter widgets (`State` classes), DO follow the same precedence with lifecycle methods ordered as: `initState` before `dispose`, then the remaining lifecycle overrides, then `build`, then the rest.
+*   DON'T put blank lines between consecutive members of the same group (e.g. between field declarations). DO separate the groups above from each other with a single blank line.
+
 #### Documentation
 
 ##### Comments
@@ -123,7 +142,7 @@ Best practices from [Effective Dart](https://dart.dev/effective-dart) and [Flutt
 
 *   DON'T wrap a field in a getter and setter unnecessarily.
 *   PREFER using a `final` field to make a read-only property.
-*   CONSIDER using `=>` for simple members.
+*   DO reserve the `=>` arrow body for getters ONLY. Methods, setters, and operators MUST use a block body with an explicit `return`, even when the body is a single expression. Factory and named constructors may use `=>`, and function literals/callbacks (e.g. `list.map((e) => e.name)`) are unaffected.
 *   DON'T use `this.` except to redirect to a named constructor or to avoid shadowing.
 *   DO initialize fields at their declaration when possible.
 

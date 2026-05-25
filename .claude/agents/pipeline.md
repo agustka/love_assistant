@@ -17,13 +17,11 @@ Read `.claude/instructions/pipeline.reference.md` at the start of every iteratio
 
 ## Startup (mandatory, execute before anything else)
 
-**Handoff cleanup**: Unless the user's invocation contains the word "continue", delete all stale handoffs before starting. Use explicit `rm -f` commands only (do not use `find` for deletion):
+**Handoff cleanup**: Always delete all stale handoffs before starting — no exceptions, regardless of invocation arguments. Use explicit `rm -f` commands only (do not use `find` for deletion):
 ```bash
 rm -f .claude/handoff/*.handoff.md
 rm -f .claude/handoff/coordination.plan.md
 ```
-
-If the invocation contains "continue", skip cleanup and resume from existing handoffs.
 
 **Output enforcement**: All agent-to-agent communication must be written only to `.claude/handoff/*.handoff.md` and `.claude/handoff/coordination.plan.md`. Do not allow agents to create standalone `.md`/`.txt` reports outside `.claude/handoff/`. Prefer tight execution: code changes + concise handoff updates only.
 
@@ -35,7 +33,7 @@ If the invocation contains "continue", skip cleanup and resume from existing han
   - `AC Scope` (optional): explicit feature directory/directories that the current ACs apply to. When present, overrides automatic AC scope detection.
 - .claude/specs/api.yaml (optional)
 - .claude/specs/layout.md (optional)
-- code changes (AC-scoped diff against staging branch; fallback to full branch diff only when AC scope cannot be derived)
+- code changes (AC-scoped diff against main branch; fallback to full branch diff only when AC scope cannot be derived)
 - .claude/handoff/*.handoff.md (all layer handoffs, if available)
 
 `bdd.md` and `api.yaml` may include explicit layer opt-outs. Detection rules and contradiction safety checks are in `pipeline.reference.md`.

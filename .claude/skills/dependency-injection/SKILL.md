@@ -53,6 +53,8 @@ class InjectableEnv {
 
 Annotate environment-specific implementations with `@InjectableEnv.online` or `@InjectableEnv.offline`. Pass the active environment when calling `getIt.init(environment: ...)`.
 
+**Only the outer boundary is environment-specific.** Apply `@InjectableEnv` to the classes that touch the external world — services, client providers, and local stores/datasources — where a real (`.online`) and a fake (`.offline`) implementation are paired against the same interface. Everything that sits *on top* of a boundary (repositories above all) carries no `@InjectableEnv`: it registers once and resolves whichever boundary the active environment supplies. If you find yourself writing an `Offline<Repository>`, stop — fake the service/store it depends on instead. A class annotated `@InjectableEnv.online` MUST have a paired `.offline` implementation (or offline DI breaks), and vice versa.
+
 ---
 
 ## Modules

@@ -1,6 +1,6 @@
 # Pipeline Reference Tables
 
-Referenced by `pipeline.agent.md`. Do not use independently.
+Referenced by `pipeline.md`. Do not use independently.
 
 ---
 
@@ -216,7 +216,7 @@ Determine required agents in the following order:
 ### Step 0 — Work type gate
 
 - if `work_type` is `refactor` → skip to Diff analysis; do not apply specification gates for generative work
-- if `work_type` is `refactor` and migration is detected (see Migration Detection in `pipeline.agent.md`) → apply Diff analysis, then allow targeted generative work for the migrated layer only
+- if `work_type` is `refactor` and migration is detected (see Migration Detection in `pipeline.md`) → apply Diff analysis, then allow targeted generative work for the migrated layer only
 - if `work_type` is `bug` → skip to testing agent first (see Pipeline Loop for bug); layer selection is deferred until failure classification
 
 ### Step 1 — Specification gates (feature only)

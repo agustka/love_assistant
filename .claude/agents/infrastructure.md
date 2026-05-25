@@ -28,7 +28,7 @@ It does not define business logic, user behavior, or UI.
 The handoff must contain:
 
 - summary
-- artifacts (list each interface with **both** its online and offline implementation; flag any boundary missing an offline variant)
+- artifacts (list each **boundary** interface — services, client providers, stores — with **both** its online and offline implementation; flag any boundary missing an offline variant. Repositories are listed without an offline variant, since they are not boundaries)
 - invariants
 - gaps
 - status (complete | incomplete | failed)
@@ -72,12 +72,16 @@ The agent must:
 
 ## Offline Implementations (mandatory)
 
-Every infrastructure boundary this agent produces **must** ship with both:
+**What counts as a boundary.** A *boundary* is a class that touches the external world: a service, a client provider, a local store/datasource, a platform/device service, or an SDK bridge. A **repository is NOT a boundary** — it is internal orchestration (validation, error mapping, caching, model→entity conversion, `Payload` wrapping) that sits *on top of* a boundary. Only boundaries get offline variants.
+
+Every infrastructure **boundary** this agent produces **must** ship with both:
 
 1. A **production (online)** implementation, annotated `@InjectableEnv.online` + `@LazySingleton(as: I<Name>)`.
 2. An **offline** implementation, annotated `@InjectableEnv.offline` + `@LazySingleton(as: I<Name>)`, placed in an `offline/` subdirectory next to the production file and named with an `Offline` prefix (e.g. `lib/infrastructure/<feature>/store/offline/offline_<name>.dart`).
 
-This applies to **all** infrastructure boundaries behind an interface — services, repositories, local stores/datasources, platform/device services, and SDK bridges — not just networked ones.
+This applies to **all** infrastructure boundaries behind an interface — services, client providers, local stores/datasources, platform/device services, and SDK bridges — not just networked ones.
+
+**Repositories never get an offline variant** and never carry `@InjectableEnv`. A repository registers once (`@LazySingleton(as: IRepo)`) for every environment and runs unchanged on top of whichever boundary the environment supplies. To make a repository testable, fake the boundary it depends on (its service/store) and put the test affordances there — never create an `OfflineXRepository`, because that bypasses the real repository logic and forces it to be duplicated in a stub where it drifts.
 
 **Why both must be annotated**: an implementation with no `@InjectableEnv` registers in *every* environment. Adding an offline variant without also constraining the production one to `@InjectableEnv.online` produces two registrations for the same interface in the offline environment — a DI conflict. So when adding an offline variant to an existing unscoped production class, you must also add `@InjectableEnv.online` to the production class.
 
@@ -142,7 +146,7 @@ Steps 7–9 require domain entities with `fromModel` factories (produced by the 
 If domain entities **already exist**, continue:
 
 7. **repository-pattern** — implement repository with streaming, caching, and domain conversion
-8. **offline variants** — for every boundary produced in steps 3–7 (services, repositories, local stores), create its offline counterpart per Offline Implementations (offline client for networked services; in-memory implementation for non-networked boundaries). Ensure each production boundary is `@InjectableEnv.online` so the offline registration does not collide.
+8. **offline variants** — for every **boundary** produced in steps 3–7 (services, client providers, local stores — **NOT repositories**), create its offline counterpart per Offline Implementations (offline client for networked services; in-memory implementation for non-networked boundaries). Repositories get no offline variant and no `@InjectableEnv`. Ensure each production boundary is `@InjectableEnv.online` so the offline registration does not collide.
 9. **DI registration** — register repository in `session_manager.dart` → run `python3 scripts/build.py getit`
 
 Always run the relevant build command after each generation step before proceeding to the next. **If any build command returns a non-zero exit code or produces errors → stop immediately, do not proceed to the next step, mark status as `failed`, and record the exact error output in the handoff gaps section.**

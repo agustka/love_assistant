@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: Launch a PR review of the current branch against staging
+description: Launch a PR review of the current branch against main
 ---
 
-Review the current branch against staging using @pr-review.
+Review the current branch against main using @pr-review.

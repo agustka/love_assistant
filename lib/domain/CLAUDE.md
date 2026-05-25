@@ -73,6 +73,7 @@ the rest of the codebase can consume it.
 - Include `valid` or `isValid` boolean property (defaults to true) to indicate entity validity
 - Provide `isInvalid` getter computed from validity property: `bool get isInvalid => !valid;`
 - Use Value Objects as entity properties, not raw primitives
+- NEVER use nullable fields on entities — every field must be a Value Object or another Entity (never a nullable type, never a raw primitive). Absence is modeled by a Value Object's `.empty()`/`.invalid()` state, not by `null`.
 - Keep entities focused on single responsibility
 - No infrastructure concerns (no caching, HTTP, database logic)
 - Can contain domain logic methods (e.g., `findAccount()`, `hasWithdrawalAccount()`)

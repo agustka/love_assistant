@@ -1,4 +1,4 @@
-Code review the changes on this local branch against the local master branch 
+Code review the changes on this local branch against the local main branch 
 and give me a concise, helpful bullet point list of issues and regressions detected
 from highest to lowest priority, that I can paste into GitHub. 
 Focus on potential bugs, regressions, and maintainability issues. 
