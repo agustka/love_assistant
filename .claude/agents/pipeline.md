@@ -17,13 +17,11 @@ Read `.claude/instructions/pipeline.reference.md` at the start of every iteratio
 
 ## Startup (mandatory, execute before anything else)
 
-**Handoff cleanup**: Unless the user's invocation contains the word "continue", delete all stale handoffs before starting. Use explicit `rm -f` commands only (do not use `find` for deletion):
+**Handoff cleanup**: Always delete all stale handoffs before starting — no exceptions, regardless of invocation arguments. Use explicit `rm -f` commands only (do not use `find` for deletion):
 ```bash
 rm -f .claude/handoff/*.handoff.md
 rm -f .claude/handoff/coordination.plan.md
 ```
-
-If the invocation contains "continue", skip cleanup and resume from existing handoffs.
 
 **Output enforcement**: All agent-to-agent communication must be written only to `.claude/handoff/*.handoff.md` and `.claude/handoff/coordination.plan.md`. Do not allow agents to create standalone `.md`/`.txt` reports outside `.claude/handoff/`. Prefer tight execution: code changes + concise handoff updates only.
 

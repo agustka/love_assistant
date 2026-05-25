@@ -25,9 +25,13 @@ import 'package:la/infrastructure/core/analytics/repository/logging_repository.d
 import 'package:la/infrastructure/core/auth/device_id_provider.dart' as _i700;
 import 'package:la/infrastructure/core/auth/repository/auth_repository.dart'
     as _i755;
+import 'package:la/infrastructure/core/auth/repository/offline/offline_auth_repository.dart'
+    as _i302;
 import 'package:la/infrastructure/core/auth/service/auth_service.dart' as _i266;
 import 'package:la/infrastructure/core/auth/service/i_auth_service.dart'
     as _i663;
+import 'package:la/infrastructure/core/auth/service/offline/offline_auth_service.dart'
+    as _i817;
 import 'package:la/infrastructure/core/auth/session/session_manager.dart'
     as _i693;
 import 'package:la/infrastructure/core/cache/hive_cache.dart' as _i681;
@@ -77,10 +81,22 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i449.OfflineSharedPrefsWrapper(),
       registerFor: {_offline},
     );
+    gh.lazySingleton<_i663.IAuthService>(
+      () => _i266.AuthService(gh<_i454.SupabaseClient>()),
+      registerFor: {_online},
+    );
     gh.lazySingleton<_i339.IHiveCache>(() => const _i681.HiveCache());
     gh.factory<_i651.IPollAndDebounce>(() => _i187.PollAndDebounce());
     gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
       () => _i261.OfflinePartnerProfileLocalStore(),
+      registerFor: {_offline},
+    );
+    gh.lazySingleton<_i742.IAuthRepository>(
+      () => _i302.OfflineAuthRepository(),
+      registerFor: {_offline},
+    );
+    gh.lazySingleton<_i663.IAuthService>(
+      () => _i817.OfflineAuthService(),
       registerFor: {_offline},
     );
     gh.lazySingleton<_i1013.ILoggingRepository>(
@@ -92,11 +108,12 @@ extension GetItInjectableX on _i174.GetIt {
       registerFor: {_online},
       preResolve: true,
     );
-    gh.lazySingleton<_i663.IAuthService>(
-      () => _i266.AuthService(gh<_i454.SupabaseClient>()),
-    );
     gh.singleton<_i700.DeviceIdProvider>(
       () => _i700.DeviceIdProvider(gh<_i339.IHiveCache>()),
+    );
+    gh.lazySingleton<_i742.IAuthRepository>(
+      () => _i755.AuthRepository(gh<_i663.IAuthService>()),
+      registerFor: {_online},
     );
     gh.lazySingleton<_i306.ISharedPrefsWrapper>(
       () => _i784.SharedPrefsWrapper(gh<_i460.SharedPreferences>()),
@@ -105,9 +122,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
       () => _i1018.PartnerProfileLocalStore(gh<_i306.ISharedPrefsWrapper>()),
       registerFor: {_online},
-    );
-    gh.lazySingleton<_i742.IAuthRepository>(
-      () => _i755.AuthRepository(gh<_i663.IAuthService>()),
     );
     gh.factory<_i1010.SaveLocalPartnerProfileUseCase>(
       () => _i1010.SaveLocalPartnerProfileUseCase(

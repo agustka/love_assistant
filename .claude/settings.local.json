@@ -50,7 +50,13 @@
       "Bash(sed -n '/^## Skill Usage/,/^---/p' agents/application.md)",
       "Bash(sed -n '241,247p' agents/ui.md)",
       "Bash(sed -n '126,133p' agents/ui.md)",
-      "Bash(sed -n '177,186p' agents/application.md)"
+      "Bash(sed -n '177,186p' agents/application.md)",
+      "Bash(rm -f .claude/handoff/*.handoff.md)",
+      "Bash(rm -f .claude/handoff/coordination.plan.md)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(python3 *)",
+      "Bash(xargs ls -la)",
+      "Bash(fvm flutter *)"
     ]
   }
 }
