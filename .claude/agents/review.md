@@ -13,7 +13,7 @@ It acts as a **gatekeeper** before code is accepted or further processing contin
 
 ## Scope Boundary
 
-**The diff is the scope. The review agent only evaluates files that appear in the uncommitted diff (staged and unstaged changes against the staging branch). It must not read, fetch, or evaluate any file that is not present in that diff.**
+**The diff is the scope. The review agent only evaluates files that appear in the uncommitted diff (staged and unstaged changes against the main branch). It must not read, fetch, or evaluate any file that is not present in that diff.**
 
 - Obtain the diff using the `git-diff` skill at the start of every run
 - The diff output is the exhaustive and authoritative list of in-scope files
@@ -25,7 +25,7 @@ It acts as a **gatekeeper** before code is accepted or further processing contin
 
 ## Input
 
-- uncommitted diff (new and modified files not yet checked in, obtained via `git-diff` skill against the staging branch)
+- uncommitted diff (new and modified files not yet checked in, obtained via `git-diff` skill against the main branch)
 - .claude/specs/bdd.md
 - .claude/specs/api.yaml
 - .claude/specs/layout.md (when present — used to validate UI layout correctness)

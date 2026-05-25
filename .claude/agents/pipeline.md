@@ -33,7 +33,7 @@ rm -f .claude/handoff/coordination.plan.md
   - `AC Scope` (optional): explicit feature directory/directories that the current ACs apply to. When present, overrides automatic AC scope detection.
 - .claude/specs/api.yaml (optional)
 - .claude/specs/layout.md (optional)
-- code changes (AC-scoped diff against staging branch; fallback to full branch diff only when AC scope cannot be derived)
+- code changes (AC-scoped diff against main branch; fallback to full branch diff only when AC scope cannot be derived)
 - .claude/handoff/*.handoff.md (all layer handoffs, if available)
 
 `bdd.md` and `api.yaml` may include explicit layer opt-outs. Detection rules and contradiction safety checks are in `pipeline.reference.md`.
