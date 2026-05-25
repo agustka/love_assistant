@@ -38,7 +38,9 @@ class OfflineAuthService implements IAuthService {
 
   OfflineAuthService();
 
-  void emitAuthEvent(AuthEventType event) => _authStateController.add(event);
+  void emitAuthEvent(AuthEventType event) {
+    _authStateController.add(event);
+  }
 
   @override
   Future<AuthUserModel> signUpWithEmailAndPassword(EmailPasswordCredentials credentials) async {

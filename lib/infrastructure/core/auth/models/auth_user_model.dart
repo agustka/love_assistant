@@ -27,5 +27,7 @@ class AuthUserModel {
     createdAt: user.createdAt,
   );
 
-  Map<String, dynamic> toJson() => _$AuthUserModelToJson(this);
+  Map<String, dynamic> toJson() {
+    return _$AuthUserModelToJson(this);
+  }
 }

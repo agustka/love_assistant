@@ -10,7 +10,10 @@ class PasswordValueObject extends ValueObject<String> {
   const PasswordValueObject._(String super.value, Failure<String>? super.failure);
   const factory PasswordValueObject.invalid() = _$InvalidPasswordValueObject;
 
-  static String _parse(String? input) => input ?? "";
+  static String _parse(String? input) {
+    return input ?? "";
+  }
+
   static Failure<String>? _validate(String? input) {
     final String value = _parse(input);
     if (value.isEmpty) {

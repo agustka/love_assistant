@@ -142,7 +142,7 @@ Best practices from [Effective Dart](https://dart.dev/effective-dart) and [Flutt
 
 *   DON'T wrap a field in a getter and setter unnecessarily.
 *   PREFER using a `final` field to make a read-only property.
-*   CONSIDER using `=>` for simple members.
+*   DO reserve the `=>` arrow body for getters ONLY. Methods, setters, and operators MUST use a block body with an explicit `return`, even when the body is a single expression. Factory and named constructors may use `=>`, and function literals/callbacks (e.g. `list.map((e) => e.name)`) are unaffected.
 *   DON'T use `this.` except to redirect to a named constructor or to avoid shadowing.
 *   DO initialize fields at their declaration when possible.
 

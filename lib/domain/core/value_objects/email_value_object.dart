@@ -10,7 +10,10 @@ class EmailValueObject extends ValueObject<String> {
   const EmailValueObject._(String super.value, Failure<String>? super.failure);
   const factory EmailValueObject.invalid() = _$InvalidEmailValueObject;
 
-  static String _parse(String? input) => (input ?? "").trim();
+  static String _parse(String? input) {
+    return (input ?? "").trim();
+  }
+
   static Failure<String>? _validate(String? input) {
     final String value = _parse(input);
     if (value.isEmpty) {

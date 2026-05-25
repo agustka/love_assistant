@@ -60,7 +60,8 @@
       "Bash(gh pr *)",
       "Bash(echo \"EXIT:$?\")",
       "Bash(sed -n '74,92p' .claude/skills/repository-pattern/SKILL.md)",
-      "Bash(sed -n '301,345p' .claude/skills/repository-pattern/SKILL.md)"
+      "Bash(sed -n '301,345p' .claude/skills/repository-pattern/SKILL.md)",
+      "Bash(grep *)"
     ]
   }
 }

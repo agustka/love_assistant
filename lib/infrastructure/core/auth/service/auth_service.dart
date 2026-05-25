@@ -40,7 +40,9 @@ class AuthService implements IAuthService {
   }
 
   @override
-  Future<void> signOut() => _client.auth.signOut();
+  Future<void> signOut() {
+    return _client.auth.signOut();
+  }
 
   @override
   Stream<AuthEventType> get authStateChanges => _client.auth.onAuthStateChange
@@ -48,10 +50,12 @@ class AuthService implements IAuthService {
       .where((AuthEventType? event) => event != null)
       .cast<AuthEventType>();
 
-  AuthEventType? _mapEvent(AuthState state) => switch (state.event) {
-    AuthChangeEvent.signedIn => AuthEventType.login,
-    AuthChangeEvent.signedOut => AuthEventType.logout,
-    AuthChangeEvent.initialSession => state.session != null ? AuthEventType.login : null,
-    _ => null,
-  };
+  AuthEventType? _mapEvent(AuthState state) {
+    return switch (state.event) {
+      AuthChangeEvent.signedIn => AuthEventType.login,
+      AuthChangeEvent.signedOut => AuthEventType.logout,
+      AuthChangeEvent.initialSession => state.session != null ? AuthEventType.login : null,
+      _ => null,
+    };
+  }
 }

@@ -63,8 +63,9 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
-  Failure? _firstFailure(EmailPasswordCredentials credentials) =>
-      credentials.email.failure ?? credentials.password.failure;
+  Failure? _firstFailure(EmailPasswordCredentials credentials) {
+    return credentials.email.failure ?? credentials.password.failure;
+  }
 
   Failure _mapAuthFailure(Object ex, {required bool isSignUp}) {
     if (ex is! AuthException) {
