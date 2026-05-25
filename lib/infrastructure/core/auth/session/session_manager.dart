@@ -55,8 +55,25 @@ class SessionManager with AnalyticsHelper {
         }
       case AuthEventType.loginStart:
         await _clearAllData(preserveSharedPrefs: false);
+      case AuthEventType.logout:
+        await _handleLogout();
       default:
         break;
+    }
+  }
+
+  Future<void> _handleLogout() async {
+    _isLoggingOut = true;
+    try {
+      log(AuthEvent.appLogOut());
+
+      // Token and user data is no longer available at this point - the sign-out
+      // has already happened upstream, the session manager only cleans up after it.
+      await _clearAllData(preserveSharedPrefs: false);
+    } catch (e, stackTrace) {
+      err("Error during logout: $e", location: "SessionManager._handleLogout", trace: stackTrace);
+    } finally {
+      _isLoggingOut = false;
     }
   }
 
@@ -92,23 +109,6 @@ class SessionManager with AnalyticsHelper {
 
     if (!preserveSharedPrefs) {
       await _prefs.clearUserData();
-    }
-  }
-
-  //We should probably move all user switch operations / cleanups in here as well
-  Future<void> logout() async {
-    _isLoggingOut = true;
-    try {
-      log(AuthEvent.appLogOut());
-
-      await _clearAllData(preserveSharedPrefs: false);
-
-      // Finish session - token and user data is not available after this point
-      await _authRepository.logout();
-    } catch (e, stackTrace) {
-      err("Error during logout: $e", location: "SessionManager.logout", trace: stackTrace);
-    } finally {
-      _isLoggingOut = false;
     }
   }
 }
