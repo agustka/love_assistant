@@ -3,7 +3,7 @@ part of "../wizard_page.dart";
 class _WizardStep2 extends StatelessWidget {
   final bool isInitial;
 
-  const _WizardStep2({required this.isInitial});
+  const _WizardStep2({required this.isInitial, super.key});
 
   @override
   Widget build(BuildContext context) {

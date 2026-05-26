@@ -35,6 +35,10 @@ part "widgets/wizard_step_4.dart";
 part "widgets/wizard_step_5.dart";
 
 class WizardPage extends StatefulWidget {
+  static const Key greetingsStepKey = Key("WizardPage_greetingsStep");
+  static const Key basicInfoStepKey = Key("WizardPage_basicInfoStep");
+  static const Key nextButtonKey = Key("WizardPage_nextButton");
+
   static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
   static const String partnerPronounFieldId = "WizardStep2_partnerPronounFieldId";
   static const String partnerPronounFreeFormFieldId = "WizardStep2_partnerPronounFreeFormFieldId";
@@ -128,9 +132,9 @@ class _WizardPageState extends State<WizardPage> {
 
     switch (step.type) {
       case WizardStepType.greetings:
-        return const _WizardStep1();
+        return const _WizardStep1(key: WizardPage.greetingsStepKey);
       case WizardStepType.basicInfo:
-        return _WizardStep2(isInitial: state.isInitial);
+        return _WizardStep2(key: WizardPage.basicInfoStepKey, isInitial: state.isInitial);
       case WizardStepType.personalPreferences:
         return _WizardStep3(
           isInitial: state.isInitial,
@@ -230,6 +234,7 @@ class _WizardPageState extends State<WizardPage> {
       loading: state.status == WizardStatus.loading,
       buttons: [
         BottomButtonDefinition(
+          key: WizardPage.nextButtonKey,
           text: S.of(context).wizard_next,
           onTap: () {
             FocusScope.of(context).unfocus();

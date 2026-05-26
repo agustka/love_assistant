@@ -111,13 +111,19 @@ class WatchAccountsUseCase implements IStreamUseCase<AccountsV2> {
   const WatchAccountsUseCase(this._repo);
 
   @override
-  Stream<StreamPayload<AccountsV2>> subscribe() => _repo.subscribe();
+  Stream<StreamPayload<AccountsV2>> subscribe() {
+    return _repo.subscribe();
+  }
 
   @override
-  Future<void> refresh({required bool forceGet}) => _repo.refresh(forceGet: forceGet);
+  Future<void> refresh({required bool forceGet}) {
+    return _repo.refresh(forceGet: forceGet);
+  }
 
   @override
-  Future<void> reload() => _repo.reload();
+  Future<void> reload() {
+    return _repo.reload();
+  }
 }
 ```
 
@@ -171,16 +177,20 @@ class WatchLoyaltyPointsSummaryUseCase implements IStreamUseCase<LoyaltyPointsSu
   }
 
   @override
-  Future<void> refresh({required bool forceGet}) => Future.wait([
-    _pointsRepo.refresh(forceGet: forceGet),
-    _scoreRepo.refresh(forceGet: forceGet),
-  ]);
+  Future<void> refresh({required bool forceGet}) {
+    return Future.wait([
+      _pointsRepo.refresh(forceGet: forceGet),
+      _scoreRepo.refresh(forceGet: forceGet),
+    ]);
+  }
 
   @override
-  Future<void> reload() => Future.wait([
-    _pointsRepo.reload(),
-    _scoreRepo.reload(),
-  ]);
+  Future<void> reload() {
+    return Future.wait([
+      _pointsRepo.reload(),
+      _scoreRepo.reload(),
+    ]);
+  }
 }
 ```
 

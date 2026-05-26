@@ -45,16 +45,16 @@
 - Avoid `find.byType()` — it is not specific enough and may match multiple widgets. Always prefer `find.byKey()` with static `Key` constants from the presentation layer.
 - If a widget lacks the needed static `Key`, add one to the presentation widget rather than falling back to `find.byType()` or `find.descendant()`.
 - If a scenario appears to need `tester.pumpAndSettle()` or any other raw `tester.*` call, add or reuse a driver/`AppDriver` method instead of writing it in the test file.
-- Use `AppDriver(tester: tester)` for cross-cutting concerns (navigation assertions, page existence assertions, dialogs, pop).
-- Do not add feature-driver helpers like `assertIsOnAmountPage()` or `assertAmountPageDoesNotExist()` when `AppDriver.assertIsOnPage()`, `assertPageExists()`, or `assertPageDoesNotExist()` already covers the assertion.
+- Use `AppDriver(tester: tester)` for cross-cutting concerns (e.g. `assertWidgetExists(Key)`, `assertWidgetDoesNotExist(Key)`, generic `tap(Key)`). Add new cross-cutting helpers to `AppDriver` rather than duplicating them across feature drivers.
+- A driver opens its page via `BaseDriver.launchApplication(home: ...)`, which boots the offline dependency graph and pumps the given widget. The launching driver's `openPage()` wraps the page with any required `BlocProvider`s before passing it as `home`.
 - Keep generated and edited test code formatter-friendly with a max line width of 120.
 
 ## Builders (`test/_core/test_setup/builders/`)
 
 - Builders extend `BaseBuilder` and expose a fluent API for test data configuration.
-- `build()` returns a `TestSetupConstructor` whose `setup()` wires data into the offline client and whose `tearDown()` resets all properties to `null`.
-- Wire data through the **client provider pattern**: `getIt<IXxxClientProvider>().getClient() as OfflineXxxClient`.
-- Builders do **not** call `fixture()`. Fixtures are loaded directly in test files when needed.
+- `build()` returns a `TestSetupConstructor` whose `setup()` wires data into the offline boundary and whose `tearDown()` restores it to its default state.
+- Wire data through the offline **service** or **store** behind an interface, resolved from `getIt` and cast to its offline type — e.g. `getIt<IPartnerProfileLocalStore>() as OfflinePartnerProfileLocalStore`, `getIt<ISharedPrefsWrapper>()`, or in-memory singletons such as `getIt<InitializationService>()`. Never fake a repository.
+- `setup()` runs after the offline graph is initialized (inside `launchApp`), so `getIt` always resolves the current test's instances.
 
 ## Domain Tests (`test/domain/`)
 
@@ -65,7 +65,8 @@
 
 ## Golden Tests (`test/presentation/`)
 
-- Use `testGoldens()` from `golden_toolkit`.
-- Golden tests must live under `test/presentation/<feature>/`.
-- Page-level goldens use drivers with `goldenTest: true` and assert via `matchesGoldenFile()`.
-- Each golden group covers light, dark, and accessibility variants.
+- Use `testGoldens()` from `golden_toolkit`; capture with `screenMatchesGolden(tester, "<name>")`, which writes/compares `goldens/<name>.png` next to the test.
+- Page-level goldens live under `test/presentation/<feature>/` and use a driver with `goldenTest: true`; each page group covers light, dark, and accessibility variants.
+- Component (atom/molecule/organism) goldens live under `test/presentation/core/ui_components/<level>/` and pump the component directly via `launchApp(tester, home: ...)`; light and dark variants are enough.
+- A component pumped without a `Material`/`Scaffold` ancestor falls back to Flutter's debug text style (red text, yellow underline). Always wrap a bare component under test in a `Scaffold` so it inherits a real `DefaultTextStyle`.
+- Drive brightness and accessibility through `launchApp`'s `brightness` / `accessibilityMode` parameters (exposed on drivers) — never by editing widgets.
