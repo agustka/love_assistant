@@ -153,7 +153,11 @@
   "auth_email_confirmation_message": "I sent you a confirmation email. Open it, tap the confirmation link, return to the app, and then tap \"I've confirmed my email\".",
   "auth_email_confirmation_confirmed": "I've confirmed my email",
   "auth_email_confirmation_pending_error": "I haven't seen your email confirmed yet. Check your inbox and try again.",
-  "landing_title": "Welcome",
-  "landing_subtitle": "Choose how you want to continue.",
+  "landing_title": "Your partner's profile is ready",
+  "landing_title_named": "{name}'s profile is ready",
+  "landing_subtitle": "Create an account and it starts lining up gift ideas, message drafts, and date plans for your partner.",
+  "landing_reassurance_saved": "Your setup is ready and waiting",
+  "landing_reassurance_signup_free": "Signing up is free",
+  "landing_reassurance_trial": "Free to use for your first week",
   "main_title": "Main App"
 }

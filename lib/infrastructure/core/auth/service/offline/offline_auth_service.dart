@@ -28,6 +28,8 @@ class OfflineAuthService implements IAuthService {
   bool throwOnSignUp = false;
   bool throwOnSignIn = false;
   bool throwOnSignOut = false;
+  bool hasSession = false;
+  bool throwOnHasActiveSession = false;
   EmailPasswordCredentials? lastSignUpCredentials;
   EmailPasswordCredentials? lastSignInCredentials;
   bool didSignOut = false;
@@ -66,5 +68,13 @@ class OfflineAuthService implements IAuthService {
       throw Exception("OfflineAuthService forced signOut failure");
     }
     didSignOut = true;
+  }
+
+  @override
+  Future<bool> hasActiveSession() async {
+    if (throwOnHasActiveSession) {
+      throw Exception("OfflineAuthService forced hasActiveSession failure");
+    }
+    return hasSession;
   }
 }

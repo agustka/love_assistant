@@ -162,7 +162,7 @@ Key rules:
 | Value object properties | Never raw primitives (`String`, `int`, `double`) — always value objects |
 | `valid` property | `bool valid` (defaults to `true`) — indicates entity validity |
 | `isInvalid` getter | `bool get isInvalid => !valid;` |
-| `.invalid()` factory | Const named constructor — all fields set to their `.invalid()` defaults, `valid = false` |
+| `.invalid()` factory | Const named constructor — all fields set to their `.invalid()` defaults, `valid = false`. This is how absence travels through the system: stores/use cases return `Payload.success(const Entity.invalid())` for "not found", never `Payload<Entity?>`. See **repository-pattern** / **use-case-generation**. |
 | `.empty()` factory | Optional — for valid-but-empty state (e.g. empty list entity) |
 | `fromModel` factory | Required — constructs domain entity from infrastructure model |
 | `toModel()` method | Required **only when the entity is serialized/persisted/sent outward** — converts the entity to its infrastructure model (which owns `toJson`). Never put `toJson` on the entity. |

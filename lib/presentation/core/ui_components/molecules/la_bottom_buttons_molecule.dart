@@ -184,7 +184,7 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
       case BottomButtonsStyle.sandwich:
         return LaSeparatedColumnMolecule(
           separatorBuilder: (BuildContext context, int index) {
-            return const LaSizedBoxAtom(height: LaPadding.medium);
+            return const LaSizedBoxAtom(height: LaPadding.small);
           },
           mainAxisSize: MainAxisSize.min,
           children: [..._getSandwichButtons(context)],

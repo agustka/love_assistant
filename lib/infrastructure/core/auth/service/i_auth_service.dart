@@ -6,5 +6,6 @@ abstract class IAuthService {
   Future<AuthUserModel> signUpWithEmailAndPassword(EmailPasswordCredentials credentials);
   Future<AuthUserModel> signInWithEmailAndPassword(EmailPasswordCredentials credentials);
   Future<void> signOut();
+  Future<bool> hasActiveSession();
   Stream<AuthEventType> get authStateChanges;
 }

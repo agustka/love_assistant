@@ -15,6 +15,9 @@ class UserPartnerProfile extends Equatable {
   final ToneOfVoice partnerToneOfVoice;
   final List<FavoriteFood> partnerFavoriteFoods;
   final List<GiftCategory> partnerGiftCategories;
+  final bool valid;
+
+  bool get isInvalid => !valid;
 
   const UserPartnerProfile({
     required this.partnerName,
@@ -25,7 +28,54 @@ class UserPartnerProfile extends Equatable {
     required this.partnerToneOfVoice,
     required this.partnerFavoriteFoods,
     required this.partnerGiftCategories,
+    this.valid = true,
   });
+
+  const UserPartnerProfile.invalid()
+      : partnerName = "",
+        partnerPronoun = Pronoun.invalid,
+        customPronoun = "",
+        partnerBirthday = null,
+        partnerLoveLanguages = const [],
+        partnerToneOfVoice = ToneOfVoice.invalid,
+        partnerFavoriteFoods = const [],
+        partnerGiftCategories = const [],
+        valid = false;
+
+  factory UserPartnerProfile.fromModel(UserPartnerProfileModel model) {
+    return UserPartnerProfile(
+      partnerName: model.partnerName,
+      partnerPronoun: _enumByName(Pronoun.values, model.partnerPronoun, Pronoun.invalid),
+      customPronoun: model.customPronoun,
+      partnerBirthday: _dateOrNull(model.partnerBirthday),
+      partnerLoveLanguages: model.partnerLoveLanguages
+          .map((String e) => _enumByName(LoveLanguage.values, e, LoveLanguage.invalid))
+          .toList(),
+      partnerToneOfVoice: _enumByName(ToneOfVoice.values, model.partnerToneOfVoice, ToneOfVoice.invalid),
+      partnerFavoriteFoods: model.partnerFavoriteFoods
+          .map((String e) => _enumByName(FavoriteFood.values, e, FavoriteFood.invalid))
+          .toList(),
+      partnerGiftCategories: model.partnerGiftCategories
+          .map((String e) => _enumByName(GiftCategory.values, e, GiftCategory.invalid))
+          .toList(),
+    );
+  }
+
+  static T _enumByName<T extends Enum>(List<T> values, String name, T fallback) {
+    for (final T value in values) {
+      if (value.name == name) {
+        return value;
+      }
+    }
+    return fallback;
+  }
+
+  static DateTime? _dateOrNull(String? iso) {
+    if (iso == null) {
+      return null;
+    }
+    return DateTime.tryParse(iso);
+  }
 
   UserPartnerProfileModel toModel() {
     return UserPartnerProfileModel(
@@ -50,5 +100,6 @@ class UserPartnerProfile extends Equatable {
     partnerToneOfVoice,
     partnerFavoriteFoods,
     partnerGiftCategories,
+    valid,
   ];
 }

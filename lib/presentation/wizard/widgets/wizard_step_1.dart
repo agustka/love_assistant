@@ -1,7 +1,7 @@
 part of "../wizard_page.dart";
 
 class _WizardStep1 extends StatelessWidget {
-  const _WizardStep1();
+  const _WizardStep1({super.key});
 
   @override
   Widget build(BuildContext context) {

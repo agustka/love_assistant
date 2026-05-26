@@ -45,6 +45,11 @@ class AuthService implements IAuthService {
   }
 
   @override
+  Future<bool> hasActiveSession() async {
+    return _client.auth.currentSession != null;
+  }
+
+  @override
   Stream<AuthEventType> get authStateChanges => _client.auth.onAuthStateChange
       .map((AuthState state) => _mapEvent(state))
       .where((AuthEventType? event) => event != null)

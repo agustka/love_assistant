@@ -15,7 +15,11 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:la/application/core/language/language_cubit.dart' as _i953;
 import 'package:la/application/splash/splash_cubit.dart' as _i247;
 import 'package:la/application/wizard/wizard_cubit.dart' as _i167;
+import 'package:la/domain/core/auth/use_cases/has_active_session_use_case.dart'
+    as _i850;
 import 'package:la/domain/core/repositories/i_auth_repository.dart' as _i742;
+import 'package:la/domain/wizard/use_cases/get_local_partner_profile_use_case.dart'
+    as _i19;
 import 'package:la/domain/wizard/use_cases/save_local_partner_profile_use_case.dart'
     as _i1010;
 import 'package:la/infrastructure/core/analytics/repository/i_logging_repository.dart'
@@ -69,7 +73,6 @@ extension GetItInjectableX on _i174.GetIt {
     final supabaseModule = _$SupabaseModule();
     final sharedPreferencesModule = _$SharedPreferencesModule();
     gh.factory<_i953.LanguageCubit>(() => _i953.LanguageCubit());
-    gh.factory<_i247.SplashCubit>(() => _i247.SplashCubit());
     gh.singleton<_i1017.EventBus>(() => eventBusModule.eventBus);
     gh.singleton<_i984.InitializationService>(
       () => _i984.InitializationService(),
@@ -108,6 +111,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i700.DeviceIdProvider>(
       () => _i700.DeviceIdProvider(gh<_i339.IHiveCache>()),
     );
+    gh.factory<_i850.HasActiveSessionUseCase>(
+      () => _i850.HasActiveSessionUseCase(gh<_i742.IAuthRepository>()),
+    );
     gh.lazySingleton<_i306.ISharedPrefsWrapper>(
       () => _i784.SharedPrefsWrapper(gh<_i460.SharedPreferences>()),
       registerFor: {_online},
@@ -115,6 +121,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
       () => _i1018.PartnerProfileLocalStore(gh<_i306.ISharedPrefsWrapper>()),
       registerFor: {_online},
+    );
+    gh.factory<_i19.GetLocalPartnerProfileUseCase>(
+      () => _i19.GetLocalPartnerProfileUseCase(
+        gh<_i667.IPartnerProfileLocalStore>(),
+      ),
     );
     gh.factory<_i1010.SaveLocalPartnerProfileUseCase>(
       () => _i1010.SaveLocalPartnerProfileUseCase(
@@ -130,6 +141,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i167.WizardCubit>(
       () => _i167.WizardCubit(gh<_i1010.SaveLocalPartnerProfileUseCase>()),
+    );
+    gh.factory<_i247.SplashCubit>(
+      () => _i247.SplashCubit(
+        gh<_i19.GetLocalPartnerProfileUseCase>(),
+        gh<_i850.HasActiveSessionUseCase>(),
+      ),
     );
     return this;
   }

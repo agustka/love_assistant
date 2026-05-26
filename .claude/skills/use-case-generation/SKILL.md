@@ -111,13 +111,19 @@ class WatchAccountsUseCase implements IStreamUseCase<AccountsV2> {
   const WatchAccountsUseCase(this._repo);
 
   @override
-  Stream<StreamPayload<AccountsV2>> subscribe() => _repo.subscribe();
+  Stream<StreamPayload<AccountsV2>> subscribe() {
+    return _repo.subscribe();
+  }
 
   @override
-  Future<void> refresh({required bool forceGet}) => _repo.refresh(forceGet: forceGet);
+  Future<void> refresh({required bool forceGet}) {
+    return _repo.refresh(forceGet: forceGet);
+  }
 
   @override
-  Future<void> reload() => _repo.reload();
+  Future<void> reload() {
+    return _repo.reload();
+  }
 }
 ```
 
@@ -171,16 +177,20 @@ class WatchLoyaltyPointsSummaryUseCase implements IStreamUseCase<LoyaltyPointsSu
   }
 
   @override
-  Future<void> refresh({required bool forceGet}) => Future.wait([
-    _pointsRepo.refresh(forceGet: forceGet),
-    _scoreRepo.refresh(forceGet: forceGet),
-  ]);
+  Future<void> refresh({required bool forceGet}) {
+    return Future.wait([
+      _pointsRepo.refresh(forceGet: forceGet),
+      _scoreRepo.refresh(forceGet: forceGet),
+    ]);
+  }
 
   @override
-  Future<void> reload() => Future.wait([
-    _pointsRepo.reload(),
-    _scoreRepo.reload(),
-  ]);
+  Future<void> reload() {
+    return Future.wait([
+      _pointsRepo.reload(),
+      _scoreRepo.reload(),
+    ]);
+  }
 }
 ```
 
@@ -208,6 +218,28 @@ class GetLoanUseCase implements IUseCaseWith<GetLoanInput, Loan> {
 // Call site:
 final payload = await _getLoanUseCase.execute((loanId: loanId, forceGet: forceGet));
 ```
+
+---
+
+## Never-Nullable Payloads — Absence Is `.invalid()`
+
+The type argument of `Payload<T>` / `StreamPayload<T>` must **never** be nullable. `Payload<Foo?>` is forbidden — a payload already encodes failure separately, so a nullable value is redundant and pushes `null`-handling onto every caller.
+
+Model "no data" the same way the domain models every other absence: with the entity's `const Foo.invalid()` (or `.empty()`) state, returned inside a successful payload.
+
+```dart
+// ❌ Wrong — nullable payload, caller must null-check
+class GetLocalProfileUseCase implements IUseCase<UserPartnerProfile?> {
+  Future<Payload<UserPartnerProfile?>> execute() => _store.loadProfile();
+}
+
+// ✅ Right — non-nullable; absence is an invalid instance
+class GetLocalProfileUseCase implements IUseCase<UserPartnerProfile> {
+  Future<Payload<UserPartnerProfile>> execute() => _store.loadProfile();
+}
+```
+
+The store/repository this delegates to returns `Payload.success(const UserPartnerProfile.invalid())` when nothing is persisted, and `Payload.failure(...)` only for a genuine read error. Callers then branch on `value.valid` (see the **cubit-generation** skill for consuming the result with `fold`/`getOr`), never on `value == null`.
 
 ---
 
@@ -295,6 +327,7 @@ Some use cases coordinate several repositories or other use cases and carry muta
 - Do not introduce UI or state management concerns (cubits, widgets)
 - Do not instantiate dependencies — inject via constructor
 - Do not return raw `Future<T>` or nullable data — use `Payload<T>` / `StreamPayload<T>`
+- Do not make the payload type argument nullable (`Payload<T?>`) — model absence with the entity's `.invalid()`/`.empty()` state inside a successful payload
 - Do not expose infrastructure models through use case interfaces
 - Do not use `Get*UseCase` naming for stream-based use cases — use `Watch*`
 - Do not use `Map` or `dynamic` bundles as input — use records or value objects

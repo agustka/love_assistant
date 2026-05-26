@@ -1499,16 +1499,61 @@ class S {
     );
   }
 
-  /// `Velkomin`
+  /// `[Velkomin]`
   String get landing_title {
-    return Intl.message('Velkomin', name: 'landing_title', desc: '', args: []);
+    return Intl.message(
+      '[Velkomin]',
+      name: 'landing_title',
+      desc: '',
+      args: [],
+    );
   }
 
-  /// `Veldu hvernig þú vilt halda áfram.`
+  /// `[{name}'s profile is ready]`
+  String landing_title_named(Object name) {
+    return Intl.message(
+      '[$name\'s profile is ready]',
+      name: 'landing_title_named',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `[Veldu hvernig þú vilt halda áfram.]`
   String get landing_subtitle {
     return Intl.message(
-      'Veldu hvernig þú vilt halda áfram.',
+      '[Veldu hvernig þú vilt halda áfram.]',
       name: 'landing_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Your setup is ready and waiting]`
+  String get landing_reassurance_saved {
+    return Intl.message(
+      '[Your setup is ready and waiting]',
+      name: 'landing_reassurance_saved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Signing up is free]`
+  String get landing_reassurance_signup_free {
+    return Intl.message(
+      '[Signing up is free]',
+      name: 'landing_reassurance_signup_free',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Free to use for your first week]`
+  String get landing_reassurance_trial {
+    return Intl.message(
+      '[Free to use for your first week]',
+      name: 'landing_reassurance_trial',
       desc: '',
       args: [],
     );

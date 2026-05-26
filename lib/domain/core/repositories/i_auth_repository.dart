@@ -11,4 +11,6 @@ abstract class IAuthRepository {
   Future<Payload<AuthUserModel>> signUp(EmailPasswordCredentials credentials);
 
   Future<Payload<AuthUserModel>> signIn(EmailPasswordCredentials credentials);
+
+  Future<Payload<bool>> hasActiveSession();
 }
