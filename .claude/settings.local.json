@@ -67,7 +67,8 @@
       "Bash(ls .ai/agents)",
       "Bash(grep -l \"^tools:\" .claude/agents/*.md)",
       "Bash(awk 'NR==1{next} /^---/{exit} {print}' .claude/agents/know-the-code.md)",
-      "Bash(awk 'NR==1{next} /^---/{exit} {print}' .claude/agents/atomic-design-planner.md)"
+      "Bash(awk 'NR==1{next} /^---/{exit} {print}' .claude/agents/atomic-design-planner.md)",
+      "Bash(gh auth *)"
     ]
   }
 }
