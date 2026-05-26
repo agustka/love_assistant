@@ -20,33 +20,35 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'is';
 
-  static String m0(gender) =>
+  static String m0(name) => "[${name}\'s profile is ready]";
+
+  static String m1(gender) =>
       "Segðu mér frá matar og gjafastíl sem á best við ${gender}.";
 
-  static String m1(name, gender) =>
+  static String m2(name, gender) =>
       "Þá get ég stungið upp á hlutum sem ${name} mun dýrka og forðast þá sem ${gender} kýs síður.";
 
-  static String m2(gender) => "Segðu mér aðeins frá ${gender} smekk";
+  static String m3(gender) => "Segðu mér aðeins frá ${gender} smekk";
 
-  static String m3(name) => "Hvernig mat finnst ${name} góður?";
+  static String m4(name) => "Hvernig mat finnst ${name} góður?";
 
-  static String m4(gender) => "Hvernig gjafir vill ${gender} fá?";
+  static String m5(gender) => "Hvernig gjafir vill ${gender} fá?";
 
-  static String m5(gender) => "Hefur ${gender} einhver áhugamál?";
+  static String m6(gender) => "Hefur ${gender} einhver áhugamál?";
 
-  static String m6(gender) => "Hvernig ástarmál passar ${gender}?";
+  static String m7(gender) => "Hvernig ástarmál passar ${gender}?";
 
-  static String m7(name) =>
+  static String m8(name) =>
       "[Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.]";
 
-  static String m8(gender) =>
+  static String m9(gender) =>
       "Veldu ástarmálin og tóninn sem henta ${gender} best.";
 
-  static String m9(gender) => "Hvað elskar ${gender}?";
+  static String m10(gender) => "Hvað elskar ${gender}?";
 
-  static String m10(name) => "Hvað dýrkar ${name}?";
+  static String m11(name) => "Hvað dýrkar ${name}?";
 
-  static String m11(gender) => "Hvernig talsmáti á best við ${gender}?";
+  static String m12(gender) => "Hvernig talsmáti á best við ${gender}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -254,10 +256,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_tone_of_voice_romantic": MessageLookupByLibrary.simpleMessage(
       "Rómantískur",
     ),
-    "landing_subtitle": MessageLookupByLibrary.simpleMessage(
-      "Veldu hvernig þú vilt halda áfram.",
+    "landing_reassurance_saved": MessageLookupByLibrary.simpleMessage(
+      "[Your setup is ready and waiting]",
     ),
-    "landing_title": MessageLookupByLibrary.simpleMessage("Velkomin"),
+    "landing_reassurance_signup_free": MessageLookupByLibrary.simpleMessage(
+      "[Signing up is free]",
+    ),
+    "landing_reassurance_trial": MessageLookupByLibrary.simpleMessage(
+      "[Free to use for your first week]",
+    ),
+    "landing_subtitle": MessageLookupByLibrary.simpleMessage(
+      "[Veldu hvernig þú vilt halda áfram.]",
+    ),
+    "landing_title": MessageLookupByLibrary.simpleMessage("[Velkomin]"),
+    "landing_title_named": m0,
     "main_title": MessageLookupByLibrary.simpleMessage("Aðalforrit"),
     "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
     "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
@@ -304,33 +316,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
       "Afmæli",
     ),
-    "wizard_partner_food_and_gifts_message_1": m0,
-    "wizard_partner_food_and_gifts_message_2": m1,
-    "wizard_partner_food_and_gifts_title": m2,
-    "wizard_partner_food_likes_title": m3,
+    "wizard_partner_food_and_gifts_message_1": m1,
+    "wizard_partner_food_and_gifts_message_2": m2,
+    "wizard_partner_food_and_gifts_title": m3,
+    "wizard_partner_food_likes_title": m4,
     "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
       "[Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.]",
     ),
-    "wizard_partner_gift_likes_title": m4,
+    "wizard_partner_gift_likes_title": m5,
     "wizard_partner_gift_types_explanation": MessageLookupByLibrary.simpleMessage(
       "[Picking your partner\'s favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.]",
     ),
     "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
       "[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]",
     ),
-    "wizard_partner_hobbies_title": m5,
+    "wizard_partner_hobbies_title": m6,
     "wizard_partner_love_language_explanation":
         MessageLookupByLibrary.simpleMessage(
           "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.",
         ),
-    "wizard_partner_love_language_title": m6,
-    "wizard_partner_loves_message_1": m7,
+    "wizard_partner_love_language_title": m7,
+    "wizard_partner_loves_message_1": m8,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
       "[Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.]",
     ),
-    "wizard_partner_loves_message_initial_1": m8,
-    "wizard_partner_loves_title": m9,
-    "wizard_partner_more_details": m10,
+    "wizard_partner_loves_message_initial_1": m9,
+    "wizard_partner_loves_title": m10,
+    "wizard_partner_more_details": m11,
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
     "wizard_partner_profile_message_1_extended":
@@ -380,7 +392,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu talsmáta",
     ),
-    "wizard_partner_tone_of_voice_title": m11,
+    "wizard_partner_tone_of_voice_title": m12,
     "wizard_previous": MessageLookupByLibrary.simpleMessage("Fyrri"),
     "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
     "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning"),

@@ -30,7 +30,6 @@ void main() {
         tester: tester,
         goldenTest: true,
         accessibilityMode: true,
-        size: const Size(430, 1400),
       );
       await driver.openPage();
 

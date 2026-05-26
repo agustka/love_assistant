@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
+import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_scaffold_organism.dart';
 
 class LaDefaultPageTemplate extends StatelessWidget {
   final Widget child;
   final LaAppBarOrganism? appBar;
+  final BottomButtonsDefinition? bottomButtons;
   final EdgeInsetsGeometry padding;
   final bool centerContent;
   final bool scrollable;
@@ -15,6 +17,7 @@ class LaDefaultPageTemplate extends StatelessWidget {
     super.key,
     required this.child,
     this.appBar,
+    this.bottomButtons,
     this.padding = const EdgeInsets.all(LaPadding.large),
     this.centerContent = false,
     this.scrollable = true,
@@ -26,6 +29,7 @@ class LaDefaultPageTemplate extends StatelessWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: LaScaffoldOrganism(
         appBar: appBar,
+        bottomButtons: bottomButtons,
         child: LaSafeAreaAtom(
           top: appBar == null,
           child: LaLayoutBuilderAtom(

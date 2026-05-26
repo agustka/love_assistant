@@ -153,7 +153,11 @@
   "auth_email_confirmation_message": "[Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á \"Ég hef stadfest netfangid mitt\".]",
   "auth_email_confirmation_confirmed": "Ég hef stadfest netfangid mitt",
   "auth_email_confirmation_pending_error": "[Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.]",
-  "landing_title": "Velkomin",
-  "landing_subtitle": "Veldu hvernig þú vilt halda áfram.",
+  "landing_title": "[Velkomin]",
+  "landing_title_named": "[{name}'s profile is ready]",
+  "landing_subtitle": "[Veldu hvernig þú vilt halda áfram.]",
+  "landing_reassurance_saved": "[Your setup is ready and waiting]",
+  "landing_reassurance_signup_free": "[Signing up is free]",
+  "landing_reassurance_trial": "[Free to use for your first week]",
   "main_title": "Aðalforrit"
 }

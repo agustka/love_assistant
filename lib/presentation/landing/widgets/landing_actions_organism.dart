@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:la/presentation/core/theme/la_theme.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
+import 'package:la/presentation/core/ui_components/molecules/la_auth_illustration_molecule.dart';
+import 'package:la/presentation/core/ui_components/molecules/la_feature_heading_molecule.dart';
 
-class LandingActionsOrganism extends StatelessWidget {
+class LandingReassurance {
+  final IconData icon;
+  final String text;
+
+  const LandingReassurance({required this.icon, required this.text});
+}
+
+class LandingDefinition {
   final String title;
   final String subtitle;
-  final String signupText;
-  final String loginText;
-  final VoidCallback onSignupTap;
-  final VoidCallback onLoginTap;
+  final List<LandingReassurance> reassurances;
+
+  const LandingDefinition({
+    required this.title,
+    required this.subtitle,
+    required this.reassurances,
+  });
+}
+
+class LandingActionsOrganism extends StatelessWidget {
+  final LandingDefinition definition;
 
   const LandingActionsOrganism({
     super.key,
-    required this.title,
-    required this.subtitle,
-    required this.signupText,
-    required this.loginText,
-    required this.onSignupTap,
-    required this.onLoginTap,
+    required this.definition,
   });
 
   @override
@@ -26,27 +38,72 @@ class LandingActionsOrganism extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        LaTextAtom(
-          title,
-          style: LaTextAtomStyle.body28.bold.onSurface,
-          textAlign: TextAlign.center,
+        // Placeholder illustration until the dedicated landing art is ready.
+        // Decorative: kept out of the semantics tree so screen readers jump
+        // straight to the heading.
+        LaExcludeSemanticsAtom(
+          child: LaAuthIllustrationMolecule(
+            illustration: LaTheme.illustrations.manLove,
+            size: LaAuthIllustrationSize.medium,
+          ),
+        ),
+        const LaSizedBoxAtom(height: LaPadding.large),
+        LaFeatureHeadingMolecule(
+          title: definition.title,
+          subtitle: definition.subtitle,
         ),
         const LaSizedBoxAtom(height: LaPadding.medium),
-        LaTextAtom(
-          subtitle,
-          style: LaTextAtomStyle.body16.onSurface,
-          textAlign: TextAlign.center,
+        _ReassurancePanel(reassurances: definition.reassurances),
+      ],
+    );
+  }
+}
+
+class _ReassurancePanel extends StatelessWidget {
+  final List<LandingReassurance> reassurances;
+
+  const _ReassurancePanel({required this.reassurances});
+
+  @override
+  Widget build(BuildContext context) {
+    return LaContainerAtom(
+      padding: const EdgeInsets.all(LaPadding.medium),
+      decoration: BoxDecoration(
+        color: LaTheme.secondaryContainer(),
+        borderRadius: BorderRadius.circular(LaCornerRadius.large),
+      ),
+      child: LaColumnAtom(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        spacing: LaPadding.mediumSmall,
+        children: reassurances.map(_ReassurancePoint.new).toList(),
+      ),
+    );
+  }
+}
+
+class _ReassurancePoint extends StatelessWidget {
+  final LandingReassurance reassurance;
+
+  const _ReassurancePoint(this.reassurance);
+
+  @override
+  Widget build(BuildContext context) {
+    return LaRow(
+      spacing: LaPadding.mediumSmall,
+      children: [
+        LaExcludeSemanticsAtom(
+          child: LaIconAtom(
+            reassurance.icon,
+            size: LaSize.medium,
+            color: LaTheme.primary(),
+          ),
         ),
-        const LaSizedBoxAtom(height: LaPadding.extraLarge),
-        LaButtonAtom(
-          onTap: onSignupTap,
-          text: signupText,
-        ),
-        const LaSizedBoxAtom(height: LaPadding.mediumSmall),
-        LaButtonAtom(
-          onTap: onLoginTap,
-          text: loginText,
-          buttonStyle: LaButtonStyle.secondary,
+        LaExpandedAtom(
+          child: LaTextAtom(
+            reassurance.text,
+            style: LaTextAtomStyle.body16.onSurface,
+          ),
         ),
       ],
     );
