@@ -61,7 +61,13 @@
       "Bash(echo \"EXIT:$?\")",
       "Bash(sed -n '74,92p' .claude/skills/repository-pattern/SKILL.md)",
       "Bash(sed -n '301,345p' .claude/skills/repository-pattern/SKILL.md)",
-      "Bash(grep *)"
+      "Bash(grep *)",
+      "Bash(awk 'NR==1{next} /^---/{c++; if\\(c==1\\) exit} {print}' __TRACKED_VAR__.md)",
+      "Bash(ls -la .ai)",
+      "Bash(ls .ai/agents)",
+      "Bash(grep -l \"^tools:\" .claude/agents/*.md)",
+      "Bash(awk 'NR==1{next} /^---/{exit} {print}' .claude/agents/know-the-code.md)",
+      "Bash(awk 'NR==1{next} /^---/{exit} {print}' .claude/agents/atomic-design-planner.md)"
     ]
   }
 }

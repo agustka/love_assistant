@@ -63,6 +63,17 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
+  @override
+  Future<Payload<bool>> hasActiveSession() async {
+    try {
+      final bool active = await _authService.hasActiveSession();
+      return Payload.success(active);
+    } catch (ex, trace) {
+      err(ex, trace: trace, location: "AuthRepository.hasActiveSession");
+      return Payload.failure(const Failure("Failed to read auth session"));
+    }
+  }
+
   Failure? _firstFailure(EmailPasswordCredentials credentials) {
     return credentials.email.failure ?? credentials.password.failure;
   }

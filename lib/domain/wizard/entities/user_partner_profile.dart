@@ -27,6 +27,41 @@ class UserPartnerProfile extends Equatable {
     required this.partnerGiftCategories,
   });
 
+  factory UserPartnerProfile.fromModel(UserPartnerProfileModel model) {
+    return UserPartnerProfile(
+      partnerName: model.partnerName,
+      partnerPronoun: _enumByName(Pronoun.values, model.partnerPronoun, Pronoun.invalid),
+      customPronoun: model.customPronoun,
+      partnerBirthday: _dateOrNull(model.partnerBirthday),
+      partnerLoveLanguages: model.partnerLoveLanguages
+          .map((String e) => _enumByName(LoveLanguage.values, e, LoveLanguage.invalid))
+          .toList(),
+      partnerToneOfVoice: _enumByName(ToneOfVoice.values, model.partnerToneOfVoice, ToneOfVoice.invalid),
+      partnerFavoriteFoods: model.partnerFavoriteFoods
+          .map((String e) => _enumByName(FavoriteFood.values, e, FavoriteFood.invalid))
+          .toList(),
+      partnerGiftCategories: model.partnerGiftCategories
+          .map((String e) => _enumByName(GiftCategory.values, e, GiftCategory.invalid))
+          .toList(),
+    );
+  }
+
+  static T _enumByName<T extends Enum>(List<T> values, String name, T fallback) {
+    for (final T value in values) {
+      if (value.name == name) {
+        return value;
+      }
+    }
+    return fallback;
+  }
+
+  static DateTime? _dateOrNull(String? iso) {
+    if (iso == null) {
+      return null;
+    }
+    return DateTime.tryParse(iso);
+  }
+
   UserPartnerProfileModel toModel() {
     return UserPartnerProfileModel(
       partnerName: partnerName,

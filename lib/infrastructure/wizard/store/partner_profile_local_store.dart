@@ -7,6 +7,7 @@ import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/infrastructure/core/error_handling/error_handler.dart';
 import 'package:la/infrastructure/core/prefs/i_shared_prefs_wrapper.dart';
 import 'package:la/infrastructure/core/prefs/shared_prefs_keys.dart';
+import 'package:la/infrastructure/wizard/models/user_partner_profile_model.dart';
 import 'package:la/infrastructure/wizard/store/i_partner_profile_local_store.dart';
 import 'package:la/setup.dart';
 
@@ -26,6 +27,32 @@ class PartnerProfileLocalStore implements IPartnerProfileLocalStore {
     } catch (ex, trace) {
       err(ex, trace: trace, location: "PartnerProfileLocalStore.savePartnerProfile");
       return Payload.failure(const Failure("Failed to save partner profile locally"));
+    }
+  }
+
+  @override
+  Future<Payload<UserPartnerProfile?>> loadPartnerProfile() async {
+    try {
+      final String? serialized = _prefs.getString(SharedPrefsKeys.partnerProfile);
+      if (serialized == null) {
+        return Payload.success(null);
+      }
+      final Map<String, dynamic> json = jsonDecode(serialized) as Map<String, dynamic>;
+      final UserPartnerProfileModel model = UserPartnerProfileModel.fromJson(json);
+      return Payload.success(UserPartnerProfile.fromModel(model));
+    } catch (ex, trace) {
+      err(ex, trace: trace, location: "PartnerProfileLocalStore.loadPartnerProfile");
+      return Payload.failure(const Failure("Failed to load partner profile locally"));
+    }
+  }
+
+  @override
+  Future<Payload<bool>> hasPartnerProfile() async {
+    try {
+      return Payload.success(_prefs.containsKey(SharedPrefsKeys.partnerProfile));
+    } catch (ex, trace) {
+      err(ex, trace: trace, location: "PartnerProfileLocalStore.hasPartnerProfile");
+      return Payload.failure(const Failure("Failed to read partner profile presence"));
     }
   }
 }

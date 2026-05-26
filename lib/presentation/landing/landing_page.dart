@@ -5,6 +5,8 @@ import 'package:la/presentation/core/ui_components/templates/la_default_page_tem
 import 'package:la/presentation/landing/widgets/landing_actions_organism.dart';
 
 class LandingPage extends StatelessWidget {
+  static const Key pageKey = Key("LandingPage_page");
+
   const LandingPage({super.key});
 
   @override
@@ -24,6 +26,7 @@ class _LandingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LaDefaultPageTemplate(
+      key: LandingPage.pageKey,
       centerContent: true,
       scrollable: false,
       child: LandingActionsOrganism(
