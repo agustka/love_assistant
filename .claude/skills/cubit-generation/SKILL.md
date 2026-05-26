@@ -118,6 +118,20 @@ See the **dependency-injection** skill for the full DI contract. Key rules for c
 - Log errors with `err(failure, location: "<CubitName>.<method>")`
 - Fire error messages via EventBus for the UI to react (toasts, dialogs)
 
+### Reading a Payload's Value
+
+- Never read `payload.value` — it is the raw **nullable** accessor and reintroduces the `null` the payload exists to eliminate.
+- Use `fold(onFailure, onSuccess)` when failure and success take different branches.
+- Use `getOr(default)` when both failure and absence collapse to the same handling. The default must be non-null — typically the entity's `const Entity.invalid()` — so downstream code branches on `result.valid`, never on `result == null`.
+- Payload type arguments are non-nullable (`Payload<Entity>`, not `Payload<Entity?>`), so absence already arrives as an `.invalid()`/`.empty()` instance — see **use-case-generation** and **repository-pattern**.
+
+```dart
+// Both failure and "no profile" route to the wizard → getOr with an invalid fallback
+final Payload<UserPartnerProfile> payload = await _getLocalProfile.execute();
+final UserPartnerProfile profile = payload.getOr(const UserPartnerProfile.invalid());
+final bool signedIn = profile.valid && await _hasActiveSession();
+```
+
 ### Stream Subscriptions
 
 When subscribing to streams:
@@ -165,6 +179,7 @@ See `WizardCubit` (lib/application/wizard/wizard_cubit.dart) for the established
 | UI code (widgets, BuildContext) | Cubits must not import Flutter widgets |
 | Mutable state fields exposed to UI | Always use immutable state + `copyWith` |
 | Calling `getIt<>()` for use cases | Inject via constructor |
+| Reading `payload.value` (the nullable accessor) | Use `fold` / `getOr(Entity.invalid())` — value arrives non-null |
 | Skipping `@injectable` | Breaks DI registration |
 | Forgetting `close()` override when using subscriptions | Causes memory leaks |
 | Adding doc comments or section banners | Creates noise and violates project comment discipline |

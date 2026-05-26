@@ -31,11 +31,11 @@ class PartnerProfileLocalStore implements IPartnerProfileLocalStore {
   }
 
   @override
-  Future<Payload<UserPartnerProfile?>> loadPartnerProfile() async {
+  Future<Payload<UserPartnerProfile>> loadPartnerProfile() async {
     try {
       final String? serialized = _prefs.getString(SharedPrefsKeys.partnerProfile);
       if (serialized == null) {
-        return Payload.success(null);
+        return Payload.success(const UserPartnerProfile.invalid());
       }
       final Map<String, dynamic> json = jsonDecode(serialized) as Map<String, dynamic>;
       final UserPartnerProfileModel model = UserPartnerProfileModel.fromJson(json);

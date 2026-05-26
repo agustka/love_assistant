@@ -201,6 +201,35 @@ class MyRepository implements IMyRepository {
 
 ---
 
+## Never-Nullable Payloads — Absence Is `.invalid()`
+
+Repository and local-store methods must never return a nullable payload type argument (`Payload<T?>`, `Future<Payload<T?>>`). The payload already carries failure separately; a nullable value on top of that is redundant and forces every caller to null-check.
+
+When a one-shot read finds nothing — no cached row, no persisted record — return the domain entity's `const T.invalid()` (or `.empty()`) inside a **successful** payload. Reserve `Payload.failure(...)` for a genuine error (deserialization blew up, the data source threw).
+
+```dart
+@override
+Future<Payload<UserPartnerProfile>> loadPartnerProfile() async {
+  try {
+    final String? serialized = _prefs.getString(SharedPrefsKeys.partnerProfile);
+    if (serialized == null) {
+      return Payload.success(const UserPartnerProfile.invalid()); // absent, not an error
+    }
+    final UserPartnerProfileModel model = UserPartnerProfileModel.fromJson(
+      jsonDecode(serialized) as Map<String, dynamic>,
+    );
+    return Payload.success(UserPartnerProfile.fromModel(model));
+  } catch (ex, trace) {
+    err(ex, trace: trace, location: "PartnerProfileLocalStore.loadPartnerProfile");
+    return Payload.failure(const Failure("Failed to load partner profile locally"));
+  }
+}
+```
+
+Offline stores follow the same contract — convert their internal `T?` field to `const T.invalid()` at the boundary so the interface stays non-nullable. (`StreamPayload.failure(failure, fallback: cache.data)` is the one place `T?` is acceptable, because `fallback` is explicitly last-known-or-nothing.)
+
+---
+
 ## Non-Streaming (One-Shot) Methods
 
 ### Read with cache
@@ -324,6 +353,7 @@ As of writing, no streaming repositories exist yet — `SessionManager._repos` i
 
 ## What NOT to Do
 
+- Do not return a nullable payload type argument (`Payload<T?>`) — return absence as `const T.invalid()`/`.empty()` inside a successful payload, and reserve `Payload.failure(...)` for genuine errors
 - Do not expose infrastructure models from the interface — return domain entities
 - Do not use `model.toDomain()` — use `DomainEntity.fromModel(model)` instead
 - Do not use `ValueStream` in the interface — use `Stream` (keep rxdart out of interfaces)

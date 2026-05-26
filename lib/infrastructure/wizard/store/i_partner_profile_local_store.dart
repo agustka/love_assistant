@@ -5,7 +5,7 @@ import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 abstract class IPartnerProfileLocalStore {
   Future<Payload<void>> savePartnerProfile(UserPartnerProfile profile);
 
-  Future<Payload<UserPartnerProfile?>> loadPartnerProfile();
+  Future<Payload<UserPartnerProfile>> loadPartnerProfile();
 
   Future<Payload<bool>> hasPartnerProfile();
 }

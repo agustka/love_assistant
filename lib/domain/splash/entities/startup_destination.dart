@@ -1,23 +1,20 @@
 /// The page a cold start resolves to, derived from device state.
 ///
 /// [resolve] is the single deterministic routing decision for app startup:
-/// given whether a partner profile is present, whether reading it succeeded,
-/// and whether an active auth session exists, it returns exactly one
-/// destination. Navigation itself is performed by the application layer.
+/// given whether a usable partner profile loaded and whether an active auth
+/// session exists, it returns exactly one destination. A profile that is
+/// absent or failed to read is invalid, so both collapse to the wizard.
+/// Navigation itself is performed by the application layer.
 enum StartupDestination {
   wizard,
   landing,
   main;
 
   static StartupDestination resolve({
-    required bool profileReadOk,
-    required bool profilePresent,
+    required bool profileValid,
     required bool signedIn,
   }) {
-    if (!profileReadOk) {
-      return StartupDestination.wizard;
-    }
-    if (!profilePresent) {
+    if (!profileValid) {
       return StartupDestination.wizard;
     }
     if (signedIn) {

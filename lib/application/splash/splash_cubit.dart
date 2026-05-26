@@ -23,16 +23,13 @@ class SplashCubit extends BaseCubit<SplashState> {
   ) : super(const SplashState.initial());
 
   Future init() async {
-    final Payload<UserPartnerProfile?> profilePayload = await _getLocalPartnerProfileUseCase.execute();
-    final bool profileReadOk = profilePayload.succeeded;
-    final UserPartnerProfile? profile = profilePayload.value;
-    final bool profilePresent = profileReadOk && profile != null;
+    final Payload<UserPartnerProfile> profilePayload = await _getLocalPartnerProfileUseCase.execute();
+    final UserPartnerProfile profile = profilePayload.getOr(const UserPartnerProfile.invalid());
 
-    final bool signedIn = profilePresent && await _hasActiveSession();
+    final bool signedIn = profile.valid && await _hasActiveSession();
 
     final StartupDestination destination = StartupDestination.resolve(
-      profileReadOk: profileReadOk,
-      profilePresent: profilePresent,
+      profileValid: profile.valid,
       signedIn: signedIn,
     );
 
@@ -45,7 +42,7 @@ class SplashCubit extends BaseCubit<SplashState> {
     return sessionPayload.getOr(false);
   }
 
-  void _navigate(StartupDestination destination, UserPartnerProfile? profile) {
+  void _navigate(StartupDestination destination, UserPartnerProfile profile) {
     final NavigatorState? navigator = App.navigatorKey.currentState;
     if (navigator == null) {
       return;

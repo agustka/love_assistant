@@ -15,6 +15,9 @@ class UserPartnerProfile extends Equatable {
   final ToneOfVoice partnerToneOfVoice;
   final List<FavoriteFood> partnerFavoriteFoods;
   final List<GiftCategory> partnerGiftCategories;
+  final bool valid;
+
+  bool get isInvalid => !valid;
 
   const UserPartnerProfile({
     required this.partnerName,
@@ -25,7 +28,19 @@ class UserPartnerProfile extends Equatable {
     required this.partnerToneOfVoice,
     required this.partnerFavoriteFoods,
     required this.partnerGiftCategories,
+    this.valid = true,
   });
+
+  const UserPartnerProfile.invalid()
+      : partnerName = "",
+        partnerPronoun = Pronoun.invalid,
+        customPronoun = "",
+        partnerBirthday = null,
+        partnerLoveLanguages = const [],
+        partnerToneOfVoice = ToneOfVoice.invalid,
+        partnerFavoriteFoods = const [],
+        partnerGiftCategories = const [],
+        valid = false;
 
   factory UserPartnerProfile.fromModel(UserPartnerProfileModel model) {
     return UserPartnerProfile(
@@ -85,5 +100,6 @@ class UserPartnerProfile extends Equatable {
     partnerToneOfVoice,
     partnerFavoriteFoods,
     partnerGiftCategories,
+    valid,
   ];
 }

@@ -59,4 +59,26 @@ void main() {
       expect(restored.partnerGiftCategories, [GiftCategory.invalid]);
     });
   });
+
+  group("validity", () {
+    test("a constructed profile is valid", () {
+      final UserPartnerProfile profile = _profile();
+
+      expect(profile.valid, isTrue);
+      expect(profile.isInvalid, isFalse);
+    });
+
+    test("the invalid instance reports itself as invalid", () {
+      const UserPartnerProfile profile = UserPartnerProfile.invalid();
+
+      expect(profile.valid, isFalse);
+      expect(profile.isInvalid, isTrue);
+    });
+
+    test("a model round-trip stays valid", () {
+      final UserPartnerProfile restored = UserPartnerProfile.fromModel(_profile().toModel());
+
+      expect(restored.valid, isTrue);
+    });
+  });
 }

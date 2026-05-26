@@ -30,11 +30,15 @@ class OfflinePartnerProfileLocalStore implements IPartnerProfileLocalStore {
   }
 
   @override
-  Future<Payload<UserPartnerProfile?>> loadPartnerProfile() async {
+  Future<Payload<UserPartnerProfile>> loadPartnerProfile() async {
     if (failOnLoad) {
       return Payload.failure(const Failure("OfflinePartnerProfileLocalStore forced load failure"));
     }
-    return Payload.success(savedProfile);
+    final UserPartnerProfile? profile = savedProfile;
+    if (profile == null) {
+      return Payload.success(const UserPartnerProfile.invalid());
+    }
+    return Payload.success(profile);
   }
 
   @override
