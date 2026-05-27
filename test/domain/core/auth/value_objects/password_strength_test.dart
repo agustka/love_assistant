@@ -1,87 +1,63 @@
 import "package:flutter_test/flutter_test.dart";
-
-// scaffold — import the PasswordStrengthEvaluator once the domain layer creates it.
-// import "package:la/domain/core/auth/value_objects/password_strength_evaluator.dart";
+import "package:la/domain/core/auth/value_objects/password_strength_evaluator.dart";
 
 void main() {
-  // scaffold — PasswordStrengthEvaluator does not exist yet.
-  // These tests will be activated (un-skipped) when the domain layer creates the
-  // evaluator.  Each test maps an input string to its expected strength tier and
-  // validates the too-short boundary (< 6 characters).
-  //
-  // The exact tier enum/values are left to the implementer; the spec only requires:
-  //   - Inputs shorter than 6 characters → "too short" tier (communicates minimum not met).
-  //   - Inputs of 6+ characters → at least one tier above "too short".
-  //   - Higher variety (letters + numbers + symbols) → higher tier.
+  const PasswordStrengthEvaluator evaluator = PasswordStrengthEvaluator();
 
-  group("PasswordStrengthEvaluator", () {
+  group("Too-short boundary", () {
     test("Empty string is too short", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given
-      // const evaluator = PasswordStrengthEvaluator();
-
-      // When
-      // final result = evaluator.evaluate("");
-
-      // Then
-      // expect(result, PasswordStrength.tooShort);
+      expect(evaluator.evaluate(""), PasswordStrength.tooShort);
     });
 
     test("Single character is too short", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given / When / Then
-      // expect(evaluator.evaluate("a"), PasswordStrength.tooShort);
+      expect(evaluator.evaluate("a"), PasswordStrength.tooShort);
     });
 
     test("Five characters is too short (boundary below minimum)", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given / When / Then
-      // expect(evaluator.evaluate("abcde"), PasswordStrength.tooShort);
+      expect(evaluator.evaluate("abcde"), PasswordStrength.tooShort);
     });
 
-    test("Exactly 6 lowercase characters meets minimum — not too short", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given / When / Then
-      // final result = evaluator.evaluate("abcdef");
-      // expect(result, isNot(PasswordStrength.tooShort));
+    test("Exactly six characters meets the minimum and is no longer too short", () {
+      expect(evaluator.evaluate("abcdef"), isNot(PasswordStrength.tooShort));
+    });
+  });
+
+  group("Variety tiers", () {
+    test("Letters only maps to weak", () {
+      expect(evaluator.evaluate("abcdefg"), PasswordStrength.weak);
     });
 
-    test("Letters only of sufficient length maps to weak tier", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given / When / Then
-      // expect(evaluator.evaluate("abcdefg"), PasswordStrength.weak);
+    test("Digits only maps to weak", () {
+      expect(evaluator.evaluate("1234567"), PasswordStrength.weak);
     });
 
-    test("Letters and digits map to fair or higher tier", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given / When / Then
-      // final result = evaluator.evaluate("abc123");
-      // expect(result.index, greaterThanOrEqualTo(PasswordStrength.fair.index));
+    test("Letters and digits map to fair", () {
+      expect(evaluator.evaluate("abc123"), PasswordStrength.fair);
     });
 
-    test("Letters, digits, and symbols map to strong tier", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given / When / Then
-      // final result = evaluator.evaluate("abc123!@#");
-      // expect(result, PasswordStrength.strong);
+    test("Letters, digits, and symbols map to strong", () {
+      expect(evaluator.evaluate("abc123!@#"), PasswordStrength.strong);
     });
 
-    test("Higher variety produces equal or higher strength than lower variety", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given / When / Then
-      // final weak = evaluator.evaluate("abcdefg");
-      // final strong = evaluator.evaluate("Abcdef1!");
-      // expect(strong.index, greaterThanOrEqualTo(weak.index));
+    test("Two-variety password of twelve or more characters is promoted to strong", () {
+      expect(evaluator.evaluate("abcdefghij12"), PasswordStrength.strong);
     });
 
-    test("Strength is advisory — 6-char mixed-variety password is valid regardless of tier", () {
-      markTestSkipped("scaffold — implement after domain layer creates PasswordStrengthEvaluator");
-      // Given / When / Then
-      // The evaluator must not block a 6+ char password; only PasswordValueObject
-      // enforces the minimum-length rule.  This test confirms the evaluator does
-      // not throw or return an error result for any 6+ char input.
-      // final result = evaluator.evaluate("abc123");
-      // expect(result, isNotNull);
+    test("Two-variety password below twelve characters stays fair", () {
+      expect(evaluator.evaluate("abcdefghi12"), PasswordStrength.fair);
+    });
+  });
+
+  group("Strength is advisory and monotonic", () {
+    test("Higher variety never produces a lower tier than lower variety", () {
+      final PasswordStrength lowVariety = evaluator.evaluate("abcdefg");
+      final PasswordStrength highVariety = evaluator.evaluate("Abcdef1!");
+
+      expect(highVariety.index, greaterThanOrEqualTo(lowVariety.index));
+    });
+
+    test("A six-character mixed-variety password is rated, never rejected", () {
+      expect(evaluator.evaluate("abc123"), isNot(PasswordStrength.tooShort));
     });
   });
 }
