@@ -40,6 +40,27 @@ class AuthService implements IAuthService {
   }
 
   @override
+  Future<AuthUserModel> recheckEmailConfirmation(EmailPasswordCredentials credentials) async {
+    final AuthResponse response = await _client.auth.signInWithPassword(
+      email: credentials.email.get,
+      password: credentials.password.get,
+    );
+    final User? user = response.user;
+    if (user == null) {
+      throw const AuthException("Re-check succeeded but no user was returned");
+    }
+    return AuthUserModel.fromSupabaseUser(user);
+  }
+
+  @override
+  Future<void> resendConfirmationEmail(EmailPasswordCredentials credentials) {
+    return _client.auth.resend(
+      email: credentials.email.get,
+      type: OtpType.signup,
+    );
+  }
+
+  @override
   Future<void> signOut() {
     return _client.auth.signOut();
   }

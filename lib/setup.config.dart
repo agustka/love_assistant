@@ -12,9 +12,19 @@
 import 'package:event_bus/event_bus.dart' as _i1017;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:la/application/core/auth/email_confirmation_cubit.dart'
+    as _i344;
+import 'package:la/application/core/auth/sign_up_cubit.dart' as _i249;
 import 'package:la/application/core/language/language_cubit.dart' as _i953;
 import 'package:la/application/splash/splash_cubit.dart' as _i247;
 import 'package:la/application/wizard/wizard_cubit.dart' as _i167;
+import 'package:la/domain/core/auth/use_cases/observe_auth_events_use_case.dart'
+    as _i752;
+import 'package:la/domain/core/auth/use_cases/recheck_email_confirmation_use_case.dart'
+    as _i610;
+import 'package:la/domain/core/auth/use_cases/resend_confirmation_email_use_case.dart'
+    as _i363;
+import 'package:la/domain/core/auth/use_cases/sign_up_use_case.dart' as _i199;
 import 'package:la/domain/core/repositories/i_auth_repository.dart' as _i742;
 import 'package:la/domain/wizard/use_cases/save_local_partner_profile_use_case.dart'
     as _i1010;
@@ -108,6 +118,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i700.DeviceIdProvider>(
       () => _i700.DeviceIdProvider(gh<_i339.IHiveCache>()),
     );
+    gh.factory<_i752.ObserveAuthEventsUseCase>(
+      () => _i752.ObserveAuthEventsUseCase(gh<_i742.IAuthRepository>()),
+    );
+    gh.factory<_i610.RecheckEmailConfirmationUseCase>(
+      () => _i610.RecheckEmailConfirmationUseCase(gh<_i742.IAuthRepository>()),
+    );
+    gh.factory<_i363.ResendConfirmationEmailUseCase>(
+      () => _i363.ResendConfirmationEmailUseCase(gh<_i742.IAuthRepository>()),
+    );
+    gh.factory<_i199.SignUpUseCase>(
+      () => _i199.SignUpUseCase(gh<_i742.IAuthRepository>()),
+    );
     gh.lazySingleton<_i306.ISharedPrefsWrapper>(
       () => _i784.SharedPrefsWrapper(gh<_i460.SharedPreferences>()),
       registerFor: {_online},
@@ -120,6 +142,16 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1010.SaveLocalPartnerProfileUseCase(
         gh<_i667.IPartnerProfileLocalStore>(),
       ),
+    );
+    gh.factory<_i344.EmailConfirmationCubit>(
+      () => _i344.EmailConfirmationCubit(
+        gh<_i610.RecheckEmailConfirmationUseCase>(),
+        gh<_i363.ResendConfirmationEmailUseCase>(),
+        gh<_i752.ObserveAuthEventsUseCase>(),
+      ),
+    );
+    gh.factory<_i249.SignUpCubit>(
+      () => _i249.SignUpCubit(gh<_i199.SignUpUseCase>()),
     );
     gh.singleton<_i693.SessionManager>(
       () => _i693.SessionManager(

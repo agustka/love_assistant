@@ -5,14 +5,6 @@ description: >-
   what conventions are actually used, and where code should live. Use this
   before making changes or when answering questions about architecture,
   navigation, patterns, ownership, and code flow.
-tools: [
-  'search/codebase', 'search/fileSearch', 'search/listDirectory',
-  'search/textSearch', 'search/usages', 'search/searchResults',
-  'read/readFile', 'read/problems',
-  'show_content', 'open_file', 'list_dir', 'read_file',
-  'file_search', 'grep_search', 'get_errors', 'semantic_search',
-  'validate_cves', 'run_subagent', 'create_file'
-]
 ---
 
 ## ⛔ Hard rules — read first

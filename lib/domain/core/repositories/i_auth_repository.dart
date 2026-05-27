@@ -6,9 +6,15 @@ import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
 abstract class IAuthRepository {
   void subscribeToAuthEvents({required Future<dynamic> Function(AuthEventType event) listener});
 
+  Stream<AuthEventType> observeAuthEvents();
+
   Future<void> logout();
 
   Future<Payload<AuthUserModel>> signUp(EmailPasswordCredentials credentials);
 
   Future<Payload<AuthUserModel>> signIn(EmailPasswordCredentials credentials);
+
+  Future<Payload<AuthUserModel>> recheckEmailConfirmation(EmailPasswordCredentials credentials);
+
+  Future<Payload<void>> resendConfirmationEmail(EmailPasswordCredentials credentials);
 }

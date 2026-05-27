@@ -13,11 +13,17 @@ class AuthUserModel {
   final String? email;
   @JsonKey(name: "created_at")
   final String? createdAt;
+  @JsonKey(name: "email_confirmed")
+  final bool? emailConfirmed;
+  @JsonKey(name: "is_new_user")
+  final bool? isNewUser;
 
   const AuthUserModel({
     this.id,
     this.email,
     this.createdAt,
+    this.emailConfirmed,
+    this.isNewUser,
   });
 
   factory AuthUserModel.fromJson(Map<String, dynamic> json) => _$AuthUserModelFromJson(json);
@@ -25,6 +31,8 @@ class AuthUserModel {
     id: user.id,
     email: user.email,
     createdAt: user.createdAt,
+    emailConfirmed: user.emailConfirmedAt != null,
+    isNewUser: user.identities?.isNotEmpty,
   );
 
   Map<String, dynamic> toJson() {

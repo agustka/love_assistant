@@ -61,7 +61,12 @@
       "Bash(echo \"EXIT:$?\")",
       "Bash(sed -n '74,92p' .claude/skills/repository-pattern/SKILL.md)",
       "Bash(sed -n '301,345p' .claude/skills/repository-pattern/SKILL.md)",
-      "Bash(grep *)"
+      "Bash(grep *)",
+      "Bash(mkdir -p /Users/agustka/repos/love_assistant/test/user_acceptance_tests/auth/driver)",
+      "Bash(mkdir -p /Users/agustka/repos/love_assistant/test/domain/core/auth/value_objects)",
+      "Read(//Users/agustka/.pub-cache/hosted/pub.dev/gotrue-2.20.0/lib/src/**)",
+      "Read(//Users/agustka/.pub-cache/hosted/pub.dev/gotrue-2.20.0/lib/**)",
+      "Read(//Users/agustka/.pub-cache/hosted/pub.dev/gotrue-2.20.0/lib/src/types/**)"
     ]
   }
 }
