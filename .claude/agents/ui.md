@@ -1,4 +1,4 @@
-O---
+---
 name: ui-agent
 description: Generates the UI layer (pages, dialogs, drawers) using atomic design principles, based on layout specifications, BDD behavior, and application layer outputs.
 ---

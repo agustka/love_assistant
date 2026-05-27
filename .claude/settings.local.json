@@ -62,14 +62,16 @@
       "Bash(sed -n '74,92p' .claude/skills/repository-pattern/SKILL.md)",
       "Bash(sed -n '301,345p' .claude/skills/repository-pattern/SKILL.md)",
       "Bash(grep *)",
-      "Bash(awk 'NR==1{next} /^---/{c++; if\\(c==1\\) exit} {print}' __TRACKED_VAR__.md)",
-      "Bash(ls -la .ai)",
-      "Bash(ls .ai/agents)",
-      "Bash(grep -l \"^tools:\" .claude/agents/*.md)",
-      "Bash(awk 'NR==1{next} /^---/{exit} {print}' .claude/agents/know-the-code.md)",
-      "Bash(awk 'NR==1{next} /^---/{exit} {print}' .claude/agents/atomic-design-planner.md)",
-      "Bash(gh auth *)",
-      "Bash(fvm dart *)"
+      "Bash(mkdir -p /Users/agustka/repos/love_assistant/test/user_acceptance_tests/auth/driver)",
+      "Bash(mkdir -p /Users/agustka/repos/love_assistant/test/domain/core/auth/value_objects)",
+      "Read(//Users/agustka/.pub-cache/hosted/pub.dev/gotrue-2.20.0/lib/src/**)",
+      "Read(//Users/agustka/.pub-cache/hosted/pub.dev/gotrue-2.20.0/lib/**)",
+      "Read(//Users/agustka/.pub-cache/hosted/pub.dev/gotrue-2.20.0/lib/src/types/**)",
+      "Bash(echo \"---exit:$?---\")",
+      "Bash(awk '/^---$/{c++} c==1 && /^name:/{print} c==2{exit}' .claude/agents/ui.md)",
+      "Bash(md5 -q .claude/specs/bdd.md .claude/specs/layout.md .claude/specs/api.yaml .claude/specs/decisions.md)",
+      "Read(//private/tmp/**)",
+      "Bash(cp -R .claude/handoff __TRACKED_VAR__/handoff)"
     ]
   }
 }
