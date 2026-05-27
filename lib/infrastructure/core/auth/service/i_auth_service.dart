@@ -5,6 +5,8 @@ import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
 abstract class IAuthService {
   Future<AuthUserModel> signUpWithEmailAndPassword(EmailPasswordCredentials credentials);
   Future<AuthUserModel> signInWithEmailAndPassword(EmailPasswordCredentials credentials);
+  Future<AuthUserModel> recheckEmailConfirmation(EmailPasswordCredentials credentials);
+  Future<void> resendConfirmationEmail(EmailPasswordCredentials credentials);
   Future<void> signOut();
   Future<bool> hasActiveSession();
   Stream<AuthEventType> get authStateChanges;

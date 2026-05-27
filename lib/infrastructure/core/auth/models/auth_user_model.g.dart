@@ -11,6 +11,8 @@ AuthUserModel _$AuthUserModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       email: json['email'] as String?,
       createdAt: json['created_at'] as String?,
+      emailConfirmed: json['email_confirmed'] as bool?,
+      isNewUser: json['is_new_user'] as bool?,
     );
 
 Map<String, dynamic> _$AuthUserModelToJson(AuthUserModel instance) =>
@@ -18,4 +20,6 @@ Map<String, dynamic> _$AuthUserModelToJson(AuthUserModel instance) =>
       'id': instance.id,
       'email': instance.email,
       'created_at': instance.createdAt,
+      'email_confirmed': instance.emailConfirmed,
+      'is_new_user': instance.isNewUser,
     };
