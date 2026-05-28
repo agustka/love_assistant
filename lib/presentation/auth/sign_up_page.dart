@@ -4,6 +4,8 @@ import 'package:la/application/core/auth/sign_up_cubit.dart';
 import 'package:la/presentation/auth/widgets/sign_up_form_organism.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
+import 'package:la/presentation/core/ui_components/molecules/import.dart';
+import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_auth_template.dart';
 import 'package:la/setup.dart';
 
@@ -35,6 +37,11 @@ class SignUpPage extends StatelessWidget {
               key: SignUpPage.pageKey,
               title: S.of(context).auth_signup_title,
               subtitle: S.of(context).auth_signup_subtitle,
+              appBar: const LaAppBarOrganism(
+                style: AppBarStyle.background,
+                showBack: true,
+              ),
+              bottomButtons: _bottomButtons(context, state),
               child: SignUpFormOrganism(
                 definition: _formDefinition(context, state),
               ),
@@ -56,6 +63,23 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
+  BottomButtonsDefinition _bottomButtons(BuildContext context, SignUpState state) {
+    final S strings = S.of(context);
+    final SignUpCubit cubit = context.read<SignUpCubit>();
+
+    return BottomButtonsDefinition(
+      buttons: [
+        BottomButtonDefinition(
+          key: SignUpPage.submitButtonKey,
+          text: strings.auth_signup_action,
+          busy: state.isSubmitting,
+          enabled: !state.isSubmitting,
+          onTap: cubit.signUp,
+        ),
+      ],
+    );
+  }
+
   SignUpFormDefinition _formDefinition(BuildContext context, SignUpState state) {
     final S strings = S.of(context);
     final SignUpCubit cubit = context.read<SignUpCubit>();
@@ -65,13 +89,11 @@ class SignUpPage extends StatelessWidget {
       passwordFieldId: SignUpPage.passwordFieldId,
       emailFieldKey: SignUpPage.emailFieldKey,
       passwordFieldKey: SignUpPage.passwordFieldKey,
-      submitButtonKey: SignUpPage.submitButtonKey,
       emailErrorKey: SignUpPage.emailErrorKey,
       passwordErrorKey: SignUpPage.passwordErrorKey,
       formErrorKey: SignUpPage.formErrorKey,
       emailHint: strings.auth_email_hint,
       passwordHint: strings.auth_password_hint,
-      submitLabel: strings.auth_signup_action,
       passwordStrength: state.passwordStrength,
       emailError: state.emailError ? strings.auth_signup_email_invalid : null,
       passwordError: _passwordError(strings, state),
@@ -79,7 +101,6 @@ class SignUpPage extends StatelessWidget {
       busy: state.isSubmitting,
       onEmailChanged: cubit.onEmailChanged,
       onPasswordChanged: cubit.onPasswordChanged,
-      onSubmit: cubit.signUp,
     );
   }
 
