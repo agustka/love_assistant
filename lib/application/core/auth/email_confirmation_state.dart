@@ -46,7 +46,7 @@ class EmailConfirmationState extends Equatable {
     required this.credentials,
   });
 
-  EmailConfirmationState.initial()
+  const EmailConfirmationState.initial()
     : this(
         status: EmailConfirmationStatus.idle,
         recheckMessage: RecheckMessage.none,

@@ -20,35 +20,37 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'is';
 
-  static String m0(name) => "[${name}\'s profile is ready]";
+  static String m0(seconds) => "[Resend in ${seconds}s]";
 
-  static String m1(gender) =>
+  static String m1(name) => "[${name}\'s profile is ready]";
+
+  static String m2(gender) =>
       "Segðu mér frá matar og gjafastíl sem á best við ${gender}.";
 
-  static String m2(name, gender) =>
+  static String m3(name, gender) =>
       "Þá get ég stungið upp á hlutum sem ${name} mun dýrka og forðast þá sem ${gender} kýs síður.";
 
-  static String m3(gender) => "Segðu mér aðeins frá ${gender} smekk";
+  static String m4(gender) => "Segðu mér aðeins frá ${gender} smekk";
 
-  static String m4(name) => "Hvernig mat finnst ${name} góður?";
+  static String m5(name) => "Hvernig mat finnst ${name} góður?";
 
-  static String m5(gender) => "Hvernig gjafir vill ${gender} fá?";
+  static String m6(gender) => "Hvernig gjafir vill ${gender} fá?";
 
-  static String m6(gender) => "Hefur ${gender} einhver áhugamál?";
+  static String m7(gender) => "Hefur ${gender} einhver áhugamál?";
 
-  static String m7(gender) => "Hvernig ástarmál passar ${gender}?";
+  static String m8(gender) => "Hvernig ástarmál passar ${gender}?";
 
-  static String m8(name) =>
+  static String m9(name) =>
       "[Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.]";
 
-  static String m9(gender) =>
+  static String m10(gender) =>
       "Veldu ástarmálin og tóninn sem henta ${gender} best.";
 
-  static String m10(gender) => "Hvað elskar ${gender}?";
+  static String m11(gender) => "Hvað elskar ${gender}?";
 
-  static String m11(name) => "Hvað dýrkar ${name}?";
+  static String m12(name) => "Hvað dýrkar ${name}?";
 
-  static String m12(gender) => "Hvernig talsmáti á best við ${gender}?";
+  static String m13(gender) => "Hvernig talsmáti á best við ${gender}?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -62,10 +64,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_email_confirmation_pending_error": MessageLookupByLibrary.simpleMessage(
       "[Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.]",
     ),
+    "auth_email_confirmation_resend": MessageLookupByLibrary.simpleMessage(
+      "[Resend email]",
+    ),
+    "auth_email_confirmation_resend_cooldown": m0,
+    "auth_email_confirmation_resend_error":
+        MessageLookupByLibrary.simpleMessage(
+          "[Couldn\'t resend right now. Try again in a moment.]",
+        ),
+    "auth_email_confirmation_resend_success":
+        MessageLookupByLibrary.simpleMessage("[Confirmation email sent.]"),
     "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
       "Stadfestu netfangid",
     ),
     "auth_email_hint": MessageLookupByLibrary.simpleMessage("Netfang"),
+    "auth_error_network": MessageLookupByLibrary.simpleMessage(
+      "[Couldn\'t reach the server. Check your connection and try again.]",
+    ),
+    "auth_error_unexpected": MessageLookupByLibrary.simpleMessage(
+      "[Something went wrong. Try again.]",
+    ),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Innskraning med Apple",
     ),
@@ -86,11 +104,35 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Velkomin aftur"),
     "auth_password_hint": MessageLookupByLibrary.simpleMessage("Lykilord"),
+    "auth_password_strength_fair": MessageLookupByLibrary.simpleMessage(
+      "[Fair]",
+    ),
+    "auth_password_strength_label": MessageLookupByLibrary.simpleMessage(
+      "[Password strength]",
+    ),
+    "auth_password_strength_strong": MessageLookupByLibrary.simpleMessage(
+      "[Strong]",
+    ),
+    "auth_password_strength_too_short": MessageLookupByLibrary.simpleMessage(
+      "[Too short]",
+    ),
+    "auth_password_strength_weak": MessageLookupByLibrary.simpleMessage(
+      "[Weak]",
+    ),
+    "auth_signup_action": MessageLookupByLibrary.simpleMessage(
+      "[Create account]",
+    ),
     "auth_signup_apple": MessageLookupByLibrary.simpleMessage(
       "Skraning med Apple",
     ),
     "auth_signup_email": MessageLookupByLibrary.simpleMessage(
       "Skraning med netfangi",
+    ),
+    "auth_signup_email_invalid": MessageLookupByLibrary.simpleMessage(
+      "[That email doesn\'t look right. Try again.]",
+    ),
+    "auth_signup_error_email_exists": MessageLookupByLibrary.simpleMessage(
+      "[An account with this email already exists.]",
     ),
     "auth_signup_google": MessageLookupByLibrary.simpleMessage(
       "Skraning med Google",
@@ -100,6 +142,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "auth_signup_login_prompt": MessageLookupByLibrary.simpleMessage(
       "Ertu med adgang?",
+    ),
+    "auth_signup_password_empty": MessageLookupByLibrary.simpleMessage(
+      "[Enter a password.]",
+    ),
+    "auth_signup_password_too_short": MessageLookupByLibrary.simpleMessage(
+      "[Password must be at least 6 characters.]",
     ),
     "auth_signup_subtitle": MessageLookupByLibrary.simpleMessage(
       "Skradu thig inn til ad vista uppsetningu og halda afram.",
@@ -269,8 +317,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "[Veldu hvernig þú vilt halda áfram.]",
     ),
     "landing_title": MessageLookupByLibrary.simpleMessage("[Velkomin]"),
-    "landing_title_named": m0,
+    "landing_title_named": m1,
     "main_title": MessageLookupByLibrary.simpleMessage("Aðalforrit"),
+    "main_under_construction_message": MessageLookupByLibrary.simpleMessage(
+      "[This part of the app isn\'t ready yet.]",
+    ),
+    "main_under_construction_title": MessageLookupByLibrary.simpleMessage(
+      "[Under construction]",
+    ),
     "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
     "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
     "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
@@ -316,33 +370,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
       "Afmæli",
     ),
-    "wizard_partner_food_and_gifts_message_1": m1,
-    "wizard_partner_food_and_gifts_message_2": m2,
-    "wizard_partner_food_and_gifts_title": m3,
-    "wizard_partner_food_likes_title": m4,
+    "wizard_partner_food_and_gifts_message_1": m2,
+    "wizard_partner_food_and_gifts_message_2": m3,
+    "wizard_partner_food_and_gifts_title": m4,
+    "wizard_partner_food_likes_title": m5,
     "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
       "[Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.]",
     ),
-    "wizard_partner_gift_likes_title": m5,
+    "wizard_partner_gift_likes_title": m6,
     "wizard_partner_gift_types_explanation": MessageLookupByLibrary.simpleMessage(
       "[Picking your partner\'s favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.]",
     ),
     "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
       "[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]",
     ),
-    "wizard_partner_hobbies_title": m6,
+    "wizard_partner_hobbies_title": m7,
     "wizard_partner_love_language_explanation":
         MessageLookupByLibrary.simpleMessage(
           "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.",
         ),
-    "wizard_partner_love_language_title": m7,
-    "wizard_partner_loves_message_1": m8,
+    "wizard_partner_love_language_title": m8,
+    "wizard_partner_loves_message_1": m9,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
       "[Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.]",
     ),
-    "wizard_partner_loves_message_initial_1": m9,
-    "wizard_partner_loves_title": m10,
-    "wizard_partner_more_details": m11,
+    "wizard_partner_loves_message_initial_1": m10,
+    "wizard_partner_loves_title": m11,
+    "wizard_partner_more_details": m12,
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
     "wizard_partner_profile_message_1_extended":
@@ -392,7 +446,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu talsmáta",
     ),
-    "wizard_partner_tone_of_voice_title": m12,
+    "wizard_partner_tone_of_voice_title": m13,
     "wizard_previous": MessageLookupByLibrary.simpleMessage("Fyrri"),
     "wizard_start": MessageLookupByLibrary.simpleMessage("Byrjum"),
     "wizard_title": MessageLookupByLibrary.simpleMessage("Uppsetning"),

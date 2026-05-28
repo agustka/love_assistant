@@ -44,7 +44,7 @@ class SignUpState extends Equatable {
     required this.credentials,
   });
 
-  SignUpState.initial()
+  const SignUpState.initial()
     : this(
         status: SignUpStatus.idle,
         email: "",

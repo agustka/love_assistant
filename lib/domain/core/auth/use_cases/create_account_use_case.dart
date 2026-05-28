@@ -6,13 +6,13 @@ import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
 import "package:la/infrastructure/core/use_cases/use_case.dart";
 
 @injectable
-class RecheckEmailConfirmationUseCase implements IUseCaseWith<EmailPasswordCredentials, AuthUserModel> {
+class CreateAccountUseCase implements IUseCaseWith<EmailPasswordCredentials, AuthUserModel> {
   final IAuthRepository _repository;
 
-  const RecheckEmailConfirmationUseCase(this._repository);
+  const CreateAccountUseCase(this._repository);
 
   @override
   Future<Payload<AuthUserModel>> execute(EmailPasswordCredentials input) {
-    return _repository.recheckEmailConfirmation(input);
+    return _repository.signUp(input);
   }
 }

@@ -19,9 +19,9 @@ class PasswordStrengthEvaluator {
   }
 
   int _varietyScore(String password) {
-    final bool hasLetter = password.contains(RegExp(r"[A-Za-z]"));
-    final bool hasDigit = password.contains(RegExp(r"[0-9]"));
-    final bool hasSymbol = password.contains(RegExp(r"[^A-Za-z0-9]"));
+    final bool hasLetter = password.contains(RegExp("[A-Za-z]"));
+    final bool hasDigit = password.contains(RegExp("[0-9]"));
+    final bool hasSymbol = password.contains(RegExp("[^A-Za-z0-9]"));
     int score = 0;
     if (hasLetter) {
       score++;

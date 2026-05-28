@@ -5,10 +5,10 @@ import "package:la/domain/core/value_objects/payload.dart";
 import "package:la/infrastructure/core/use_cases/use_case.dart";
 
 @injectable
-class ResendConfirmationEmailUseCase implements IUseCaseWith<EmailPasswordCredentials, void> {
+class CreateConfirmationEmailUseCase implements IUseCaseWith<EmailPasswordCredentials, void> {
   final IAuthRepository _repository;
 
-  const ResendConfirmationEmailUseCase(this._repository);
+  const CreateConfirmationEmailUseCase(this._repository);
 
   @override
   Future<Payload<void>> execute(EmailPasswordCredentials input) {

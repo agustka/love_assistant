@@ -3,7 +3,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:la/application/core/base_cubit.dart';
-import 'package:la/domain/core/auth/use_cases/sign_up_use_case.dart';
+import 'package:la/domain/core/auth/use_cases/create_account_use_case.dart';
 import 'package:la/domain/core/auth/value_objects/password_strength_evaluator.dart';
 import 'package:la/domain/core/entities/email_password_credentials.dart';
 import 'package:la/domain/core/value_objects/email_value_object.dart';
@@ -19,9 +19,9 @@ part 'sign_up_state.dart';
 class SignUpCubit extends BaseCubit<SignUpState> {
   static const PasswordStrengthEvaluator _strengthEvaluator = PasswordStrengthEvaluator();
 
-  final SignUpUseCase _signUpUseCase;
+  final CreateAccountUseCase _createAccountUseCase;
 
-  SignUpCubit(this._signUpUseCase) : super(SignUpState.initial());
+  SignUpCubit(this._createAccountUseCase) : super(const SignUpState.initial());
 
   void onEmailChanged(String input) {
     emit(state.copyWith(email: input, emailError: false, formError: SignUpFormError.none));
@@ -56,7 +56,7 @@ class SignUpCubit extends BaseCubit<SignUpState> {
     emit(state.copyWith(status: SignUpStatus.submitting, formError: SignUpFormError.none));
 
     final EmailPasswordCredentials credentials = EmailPasswordCredentials(email: email, password: password);
-    final Payload<AuthUserModel> result = await _signUpUseCase.execute(credentials);
+    final Payload<AuthUserModel> result = await _createAccountUseCase.execute(credentials);
 
     if (result.succeeded) {
       emit(state.copyWith(status: SignUpStatus.success, credentials: credentials));

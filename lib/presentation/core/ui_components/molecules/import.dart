@@ -7,5 +7,6 @@ export 'la_drop_down_molecule.dart';
 export 'la_feature_heading_molecule.dart';
 export 'la_link_prompt_molecule.dart';
 export 'la_list_tile_molecule.dart';
+export 'la_password_strength_molecule.dart';
 export 'la_separated_column_molecule.dart';
 export 'la_text_field_molecule.dart';
