@@ -12,11 +12,22 @@
 import 'package:event_bus/event_bus.dart' as _i1017;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:la/application/core/auth/email_confirmation_cubit.dart'
+    as _i344;
+import 'package:la/application/core/auth/sign_up_cubit.dart' as _i249;
 import 'package:la/application/core/language/language_cubit.dart' as _i953;
 import 'package:la/application/splash/splash_cubit.dart' as _i247;
 import 'package:la/application/wizard/wizard_cubit.dart' as _i167;
+import 'package:la/domain/core/auth/use_cases/create_account_use_case.dart'
+    as _i103;
+import 'package:la/domain/core/auth/use_cases/create_confirmation_email_use_case.dart'
+    as _i658;
+import 'package:la/domain/core/auth/use_cases/get_email_confirmation_use_case.dart'
+    as _i1063;
 import 'package:la/domain/core/auth/use_cases/has_active_session_use_case.dart'
     as _i850;
+import 'package:la/domain/core/auth/use_cases/watch_auth_events_use_case.dart'
+    as _i211;
 import 'package:la/domain/core/repositories/i_auth_repository.dart' as _i742;
 import 'package:la/domain/wizard/use_cases/get_local_partner_profile_use_case.dart'
     as _i19;
@@ -114,9 +125,31 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i850.HasActiveSessionUseCase>(
       () => _i850.HasActiveSessionUseCase(gh<_i742.IAuthRepository>()),
     );
+    gh.factory<_i103.CreateAccountUseCase>(
+      () => _i103.CreateAccountUseCase(gh<_i742.IAuthRepository>()),
+    );
+    gh.factory<_i658.CreateConfirmationEmailUseCase>(
+      () => _i658.CreateConfirmationEmailUseCase(gh<_i742.IAuthRepository>()),
+    );
+    gh.factory<_i1063.GetEmailConfirmationUseCase>(
+      () => _i1063.GetEmailConfirmationUseCase(gh<_i742.IAuthRepository>()),
+    );
+    gh.factory<_i211.WatchAuthEventsUseCase>(
+      () => _i211.WatchAuthEventsUseCase(gh<_i742.IAuthRepository>()),
+    );
     gh.lazySingleton<_i306.ISharedPrefsWrapper>(
       () => _i784.SharedPrefsWrapper(gh<_i460.SharedPreferences>()),
       registerFor: {_online},
+    );
+    gh.factory<_i344.EmailConfirmationCubit>(
+      () => _i344.EmailConfirmationCubit(
+        gh<_i1063.GetEmailConfirmationUseCase>(),
+        gh<_i658.CreateConfirmationEmailUseCase>(),
+        gh<_i211.WatchAuthEventsUseCase>(),
+      ),
+    );
+    gh.factory<_i249.SignUpCubit>(
+      () => _i249.SignUpCubit(gh<_i103.CreateAccountUseCase>()),
     );
     gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
       () => _i1018.PartnerProfileLocalStore(gh<_i306.ISharedPrefsWrapper>()),

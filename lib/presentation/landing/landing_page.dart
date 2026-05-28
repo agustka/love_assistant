@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:la/domain/wizard/entities/user_partner_profile.dart';
+import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/ui_components/molecules/la_bottom_buttons_molecule.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
@@ -65,7 +66,7 @@ class _LandingView extends StatelessWidget {
       buttons: [
         BottomButtonDefinition(
           text: strings.auth_login_signup_action,
-          onTap: () {},
+          onTap: () => Navigator.of(context).pushNamed(PageName.signUp.route),
         ),
         BottomButtonDefinition(
           text: strings.auth_signup_login_action,

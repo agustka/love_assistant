@@ -19,6 +19,7 @@ List<TestSetupConstructor> _activeConstructors = [];
 Future<void> launchApp(
   WidgetTester tester, {
   required Widget home,
+  Map<String, WidgetBuilder> routes = const {},
   List<BaseBuilder> builders = const [],
   Brightness brightness = Brightness.light,
   bool accessibilityMode = false,
@@ -59,6 +60,7 @@ Future<void> launchApp(
           child: child!,
         );
       },
+      routes: routes,
       home: home,
     ),
   );

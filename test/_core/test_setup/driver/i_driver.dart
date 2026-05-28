@@ -27,10 +27,11 @@ class BaseDriver {
     this.size = const Size(390, 844),
   });
 
-  Future<void> launchApplication({required Widget home}) async {
+  Future<void> launchApplication({required Widget home, Map<String, WidgetBuilder> routes = const {}}) async {
     await launchApp(
       tester,
       home: home,
+      routes: routes,
       builders: builders,
       brightness: brightness,
       accessibilityMode: accessibilityMode,

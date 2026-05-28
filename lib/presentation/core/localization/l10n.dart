@@ -1499,6 +1499,186 @@ class S {
     );
   }
 
+  /// `[Create account]`
+  String get auth_signup_action {
+    return Intl.message(
+      '[Create account]',
+      name: 'auth_signup_action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[That email doesn't look right. Try again.]`
+  String get auth_signup_email_invalid {
+    return Intl.message(
+      '[That email doesn\'t look right. Try again.]',
+      name: 'auth_signup_email_invalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Password must be at least 6 characters.]`
+  String get auth_signup_password_too_short {
+    return Intl.message(
+      '[Password must be at least 6 characters.]',
+      name: 'auth_signup_password_too_short',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Enter a password.]`
+  String get auth_signup_password_empty {
+    return Intl.message(
+      '[Enter a password.]',
+      name: 'auth_signup_password_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[An account with this email already exists.]`
+  String get auth_signup_error_email_exists {
+    return Intl.message(
+      '[An account with this email already exists.]',
+      name: 'auth_signup_error_email_exists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Couldn't reach the server. Check your connection and try again.]`
+  String get auth_error_network {
+    return Intl.message(
+      '[Couldn\'t reach the server. Check your connection and try again.]',
+      name: 'auth_error_network',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Something went wrong. Try again.]`
+  String get auth_error_unexpected {
+    return Intl.message(
+      '[Something went wrong. Try again.]',
+      name: 'auth_error_unexpected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Password strength]`
+  String get auth_password_strength_label {
+    return Intl.message(
+      '[Password strength]',
+      name: 'auth_password_strength_label',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Too short]`
+  String get auth_password_strength_too_short {
+    return Intl.message(
+      '[Too short]',
+      name: 'auth_password_strength_too_short',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Weak]`
+  String get auth_password_strength_weak {
+    return Intl.message(
+      '[Weak]',
+      name: 'auth_password_strength_weak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Fair]`
+  String get auth_password_strength_fair {
+    return Intl.message(
+      '[Fair]',
+      name: 'auth_password_strength_fair',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Strong]`
+  String get auth_password_strength_strong {
+    return Intl.message(
+      '[Strong]',
+      name: 'auth_password_strength_strong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Resend email]`
+  String get auth_email_confirmation_resend {
+    return Intl.message(
+      '[Resend email]',
+      name: 'auth_email_confirmation_resend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Resend in {seconds}s]`
+  String auth_email_confirmation_resend_cooldown(Object seconds) {
+    return Intl.message(
+      '[Resend in ${seconds}s]',
+      name: 'auth_email_confirmation_resend_cooldown',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
+  /// `[Confirmation email sent.]`
+  String get auth_email_confirmation_resend_success {
+    return Intl.message(
+      '[Confirmation email sent.]',
+      name: 'auth_email_confirmation_resend_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Couldn't resend right now. Try again in a moment.]`
+  String get auth_email_confirmation_resend_error {
+    return Intl.message(
+      '[Couldn\'t resend right now. Try again in a moment.]',
+      name: 'auth_email_confirmation_resend_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Under construction]`
+  String get main_under_construction_title {
+    return Intl.message(
+      '[Under construction]',
+      name: 'main_under_construction_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[This part of the app isn't ready yet.]`
+  String get main_under_construction_message {
+    return Intl.message(
+      '[This part of the app isn\'t ready yet.]',
+      name: 'main_under_construction_message',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `[Velkomin]`
   String get landing_title {
     return Intl.message(

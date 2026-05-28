@@ -20,35 +20,37 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(name) => "${name}\'s profile is ready";
+  static String m0(seconds) => "Resend in ${seconds}s";
 
-  static String m1(gender) =>
+  static String m1(name) => "${name}\'s profile is ready";
+
+  static String m2(gender) =>
       "Share ${gender} gift and food preferences with me.";
 
-  static String m2(name, gender) =>
+  static String m3(name, gender) =>
       "This ensures I recommend things ${name} loves and can avoid what ${gender} may not like as much.";
 
-  static String m3(gender) => "Tell me a bit more about ${gender} tastes";
+  static String m4(gender) => "Tell me a bit more about ${gender} tastes";
 
-  static String m4(name) => "What food does ${name} like?";
+  static String m5(name) => "What food does ${name} like?";
 
-  static String m5(gender) => "Which kind of gifts does ${gender} like?";
+  static String m6(gender) => "Which kind of gifts does ${gender} like?";
 
-  static String m6(gender) => "Does ${gender} have any hobbies?";
+  static String m7(gender) => "Does ${gender} have any hobbies?";
 
-  static String m7(gender) => "Which love languages match ${gender}?";
+  static String m8(gender) => "Which love languages match ${gender}?";
 
-  static String m8(name) =>
+  static String m9(name) =>
       "Share the things ${name} enjoys so the suggestions fit.";
 
-  static String m9(gender) =>
+  static String m10(gender) =>
       "Choose the love languages and tone that fit ${gender} best.";
 
-  static String m10(gender) => "What does ${gender} like?";
+  static String m11(gender) => "What does ${gender} like?";
 
-  static String m11(name) => "How does ${name} feel loved?";
+  static String m12(name) => "How does ${name} feel loved?";
 
-  static String m12(gender) => "What tone of voice fits ${gender} best?";
+  static String m13(gender) => "What tone of voice fits ${gender} best?";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -62,10 +64,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_email_confirmation_pending_error": MessageLookupByLibrary.simpleMessage(
       "I haven\'t seen your email confirmed yet. Check your inbox and try again.",
     ),
+    "auth_email_confirmation_resend": MessageLookupByLibrary.simpleMessage(
+      "Resend email",
+    ),
+    "auth_email_confirmation_resend_cooldown": m0,
+    "auth_email_confirmation_resend_error":
+        MessageLookupByLibrary.simpleMessage(
+          "Couldn\'t resend right now. Try again in a moment.",
+        ),
+    "auth_email_confirmation_resend_success":
+        MessageLookupByLibrary.simpleMessage("Confirmation email sent."),
     "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
       "Confirm your email",
     ),
     "auth_email_hint": MessageLookupByLibrary.simpleMessage("Email"),
+    "auth_error_network": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t reach the server. Check your connection and try again.",
+    ),
+    "auth_error_unexpected": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong. Try again.",
+    ),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Sign in with Apple",
     ),
@@ -84,11 +102,31 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Welcome back"),
     "auth_password_hint": MessageLookupByLibrary.simpleMessage("Password"),
+    "auth_password_strength_fair": MessageLookupByLibrary.simpleMessage("Fair"),
+    "auth_password_strength_label": MessageLookupByLibrary.simpleMessage(
+      "Password strength",
+    ),
+    "auth_password_strength_strong": MessageLookupByLibrary.simpleMessage(
+      "Strong",
+    ),
+    "auth_password_strength_too_short": MessageLookupByLibrary.simpleMessage(
+      "Too short",
+    ),
+    "auth_password_strength_weak": MessageLookupByLibrary.simpleMessage("Weak"),
+    "auth_signup_action": MessageLookupByLibrary.simpleMessage(
+      "Create account",
+    ),
     "auth_signup_apple": MessageLookupByLibrary.simpleMessage(
       "Sign up with Apple",
     ),
     "auth_signup_email": MessageLookupByLibrary.simpleMessage(
       "Sign up with email",
+    ),
+    "auth_signup_email_invalid": MessageLookupByLibrary.simpleMessage(
+      "That email doesn\'t look right. Try again.",
+    ),
+    "auth_signup_error_email_exists": MessageLookupByLibrary.simpleMessage(
+      "An account with this email already exists.",
     ),
     "auth_signup_google": MessageLookupByLibrary.simpleMessage(
       "Sign up with Google",
@@ -96,6 +134,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_signup_login_action": MessageLookupByLibrary.simpleMessage("Login"),
     "auth_signup_login_prompt": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
+    ),
+    "auth_signup_password_empty": MessageLookupByLibrary.simpleMessage(
+      "Enter a password.",
+    ),
+    "auth_signup_password_too_short": MessageLookupByLibrary.simpleMessage(
+      "Password must be at least 6 characters.",
     ),
     "auth_signup_subtitle": MessageLookupByLibrary.simpleMessage(
       "Sign up to save your setup and continue.",
@@ -259,8 +303,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "landing_title": MessageLookupByLibrary.simpleMessage(
       "Your partner\'s profile is ready",
     ),
-    "landing_title_named": m0,
+    "landing_title_named": m1,
     "main_title": MessageLookupByLibrary.simpleMessage("Main App"),
+    "main_under_construction_message": MessageLookupByLibrary.simpleMessage(
+      "This part of the app isn\'t ready yet.",
+    ),
+    "main_under_construction_title": MessageLookupByLibrary.simpleMessage(
+      "Under construction",
+    ),
     "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("st"),
     "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("th"),
     "ordinal_suffix_global": MessageLookupByLibrary.simpleMessage("."),
@@ -307,33 +357,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_birthday_title": MessageLookupByLibrary.simpleMessage(
       "Birthday",
     ),
-    "wizard_partner_food_and_gifts_message_1": m1,
-    "wizard_partner_food_and_gifts_message_2": m2,
-    "wizard_partner_food_and_gifts_title": m3,
-    "wizard_partner_food_likes_title": m4,
+    "wizard_partner_food_and_gifts_message_1": m2,
+    "wizard_partner_food_and_gifts_message_2": m3,
+    "wizard_partner_food_and_gifts_title": m4,
+    "wizard_partner_food_likes_title": m5,
     "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
       "Sharing your partner\'s favorite foods helps me pick food gifts and restaurants that fit.",
     ),
-    "wizard_partner_gift_likes_title": m5,
+    "wizard_partner_gift_likes_title": m6,
     "wizard_partner_gift_types_explanation": MessageLookupByLibrary.simpleMessage(
       "Picking your partner\'s favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.",
     ),
     "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
       "Sharing your partner\'s hobbies helps me pick activities and gifts that fit.",
     ),
-    "wizard_partner_hobbies_title": m6,
+    "wizard_partner_hobbies_title": m7,
     "wizard_partner_love_language_explanation":
         MessageLookupByLibrary.simpleMessage(
           "There are said to be five forms of expressions of love.\nQuality Time: Spending undivided, meaningful time together.\nWords of Affirmation: Expressing love and appreciation through kind and affirming words.\nActs of Service: Showing love by doing helpful or thoughtful tasks.\nPhysical Touch: Expressing love through physical gestures like hugs, kisses, and other forms of touch.\nReceiving Gifts: Giving and receiving thoughtful gifts as a symbol of love.",
         ),
-    "wizard_partner_love_language_title": m7,
-    "wizard_partner_loves_message_1": m8,
+    "wizard_partner_love_language_title": m8,
+    "wizard_partner_loves_message_1": m9,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
       "This is what makes my suggestions and messages land.",
     ),
-    "wizard_partner_loves_message_initial_1": m9,
-    "wizard_partner_loves_title": m10,
-    "wizard_partner_more_details": m11,
+    "wizard_partner_loves_message_initial_1": m10,
+    "wizard_partner_loves_title": m11,
+    "wizard_partner_more_details": m12,
     "wizard_partner_profile_birthday_missing":
         MessageLookupByLibrary.simpleMessage("Birthday is required"),
     "wizard_partner_profile_message_1_extended":
@@ -383,7 +433,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Select tone of voice",
     ),
-    "wizard_partner_tone_of_voice_title": m12,
+    "wizard_partner_tone_of_voice_title": m13,
     "wizard_previous": MessageLookupByLibrary.simpleMessage("Previous"),
     "wizard_start": MessageLookupByLibrary.simpleMessage("Begin"),
     "wizard_title": MessageLookupByLibrary.simpleMessage("Partner setup"),

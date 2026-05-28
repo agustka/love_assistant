@@ -1,6 +1,6 @@
 # Pipeline Reference Tables
 
-Referenced by `pipeline.md`. Do not use independently.
+Referenced by `pipeline.manual.md`. Do not use independently.
 
 ---
 

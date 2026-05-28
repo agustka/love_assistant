@@ -6,6 +6,7 @@ import "package:la/infrastructure/core/auth/auth_event_type.dart";
 import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
 import "package:la/infrastructure/core/auth/service/i_auth_service.dart";
 import "package:la/setup.dart";
+import "package:supabase_flutter/supabase_flutter.dart";
 
 /// In-memory auth service for the offline (test) environment.
 ///
@@ -13,11 +14,11 @@ import "package:la/setup.dart";
 /// [AuthRepository] runs unchanged on top of it, so its validation, error
 /// mapping, and payload handling are exercised against stubbed responses.
 ///
-/// Returns a configurable [stubbedUser] from sign-up and sign-in. Set
-/// [throwOnSignUp], [throwOnSignIn], or [throwOnSignOut] to exercise failure
-/// paths. Inspect [lastSignUpCredentials], [lastSignInCredentials], and
-/// [didSignOut] to assert what the repository forwarded. Use [emitAuthEvent]
-/// to push events onto [authStateChanges].
+/// Sign-up / sign-in return a configurable [stubbedUser]. Re-check and resend
+/// each have success and failure toggles. Use [emitAuthEvent] to push events
+/// onto the broadcast [authStateChanges] stream (e.g. to drive the auto-detect
+/// confirmation path). Inspect the `last*Credentials` / `did*` spies to assert
+/// what the repository forwarded.
 @InjectableEnv.offline
 @LazySingleton(as: IAuthService)
 class OfflineAuthService implements IAuthService {
@@ -30,8 +31,17 @@ class OfflineAuthService implements IAuthService {
   bool throwOnSignOut = false;
   bool hasSession = false;
   bool throwOnHasActiveSession = false;
+  bool returnsDuplicateUser = false;
+  bool confirmationSucceeds = false;
+  bool confirmationThrowsNetworkError = false;
+  bool confirmationThrowsUnexpectedError = false;
+  bool resendSucceeds = true;
+  bool resendThrows = false;
+  bool rateLimitResend = false;
   EmailPasswordCredentials? lastSignUpCredentials;
   EmailPasswordCredentials? lastSignInCredentials;
+  EmailPasswordCredentials? lastRecheckCredentials;
+  EmailPasswordCredentials? lastResendCredentials;
   bool didSignOut = false;
   final StreamController<AuthEventType> _authStateController = StreamController<AuthEventType>.broadcast();
 
@@ -50,7 +60,7 @@ class OfflineAuthService implements IAuthService {
     if (throwOnSignUp) {
       throw Exception("OfflineAuthService forced signUp failure");
     }
-    return stubbedUser;
+    return _signUpResult();
   }
 
   @override
@@ -60,6 +70,33 @@ class OfflineAuthService implements IAuthService {
       throw Exception("OfflineAuthService forced signIn failure");
     }
     return stubbedUser;
+  }
+
+  @override
+  Future<AuthUserModel> recheckEmailConfirmation(EmailPasswordCredentials credentials) async {
+    lastRecheckCredentials = credentials;
+    if (confirmationThrowsNetworkError) {
+      throw const AuthException("network error reaching the server", statusCode: "0");
+    }
+    if (confirmationThrowsUnexpectedError) {
+      throw Exception("OfflineAuthService forced recheck failure");
+    }
+    if (confirmationSucceeds) {
+      emitAuthEvent(AuthEventType.login);
+      return _confirmedUser(emailConfirmed: true);
+    }
+    return _confirmedUser(emailConfirmed: false);
+  }
+
+  @override
+  Future<void> resendConfirmationEmail(EmailPasswordCredentials credentials) async {
+    lastResendCredentials = credentials;
+    if (rateLimitResend) {
+      throw const AuthException("email rate limit exceeded", statusCode: "429");
+    }
+    if (resendThrows || !resendSucceeds) {
+      throw Exception("OfflineAuthService forced resend failure");
+    }
   }
 
   @override
@@ -76,5 +113,25 @@ class OfflineAuthService implements IAuthService {
       throw Exception("OfflineAuthService forced hasActiveSession failure");
     }
     return hasSession;
+  }
+
+  AuthUserModel _signUpResult() {
+    return AuthUserModel(
+      id: stubbedUser.id,
+      email: stubbedUser.email,
+      createdAt: stubbedUser.createdAt,
+      emailConfirmed: stubbedUser.emailConfirmed,
+      isNewUser: !returnsDuplicateUser,
+    );
+  }
+
+  AuthUserModel _confirmedUser({required bool emailConfirmed}) {
+    return AuthUserModel(
+      id: stubbedUser.id,
+      email: stubbedUser.email,
+      createdAt: stubbedUser.createdAt,
+      emailConfirmed: emailConfirmed,
+      isNewUser: stubbedUser.isNewUser,
+    );
   }
 }

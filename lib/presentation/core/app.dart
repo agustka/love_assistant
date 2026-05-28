@@ -7,6 +7,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
+import 'package:la/presentation/auth/email_confirmation_page.dart';
+import 'package:la/presentation/auth/sign_up_page.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
@@ -20,6 +22,8 @@ enum PageName {
   splash("/"),
   landing("/landing"),
   wizard("/wizard"),
+  signUp("/sign-up"),
+  emailConfirmation("/email-confirmation"),
   main("/main")
   ;
 
@@ -78,6 +82,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               PageName.landing.route: (BuildContext context) => const LandingPage(),
               PageName.main.route: (BuildContext context) => const MainPage(),
               PageName.wizard.route: (BuildContext context) => const WizardPage(),
+              PageName.signUp.route: (BuildContext context) => const SignUpPage(),
+              PageName.emailConfirmation.route: (BuildContext context) => const EmailConfirmationPage(),
             },
             initialRoute: PageName.splash.route,
             localizationsDelegates: const [
@@ -99,6 +105,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               PageName.landing.route: (BuildContext context) => const LandingPage(),
               PageName.main.route: (BuildContext context) => const MainPage(),
               PageName.wizard.route: (BuildContext context) => const WizardPage(),
+              PageName.signUp.route: (BuildContext context) => const SignUpPage(),
+              PageName.emailConfirmation.route: (BuildContext context) => const EmailConfirmationPage(),
             },
             initialRoute: PageName.splash.route,
             localizationsDelegates: const [
