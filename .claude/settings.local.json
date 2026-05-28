@@ -78,7 +78,9 @@
       "Bash(sed -n '42,58p' lib/application/core/auth/email_confirmation_state.dart)",
       "Bash(sed -n '1,12p' lib/presentation/auth/sign_up_page.dart)",
       "Bash(sed -n '1,12p' lib/presentation/auth/email_confirmation_page.dart)",
-      "Bash(sed -n '1,20p' lib/presentation/core/app.dart)"
+      "Bash(sed -n '1,20p' lib/presentation/core/app.dart)",
+      "Bash(sed -n '20,60p' lib/application/splash/splash_cubit.dart)",
+      "Bash(sed -n '55,90p' lib/presentation/landing/landing_page.dart)"
     ]
   }
 }
