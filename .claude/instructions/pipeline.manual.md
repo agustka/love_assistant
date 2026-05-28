@@ -1,11 +1,12 @@
----
-name: pipeline
-description: Orchestrates the full agent pipeline. Determines what to run next based on handoffs, specs, gaps, failures, and review results, delegates the required agents, and only stops when the pipeline reaches a terminal state.
----
+# Pipeline Coordinator Manual
+
+Operating manual for the pipeline coordinator. Run inline by the `/pipeline` command in the **main conversation thread**. This is NOT a spawnable agent — it has no agent frontmatter on purpose (see Execution context below).
 
 ## Purpose
 
-The pipeline agent is the **entry point and control loop** of the system. It manages execution of all agents, evaluates their outputs, and determines the next step until the result is `complete` or `blocked`.
+The pipeline coordinator is the **entry point and control loop** of the system. It manages execution of all layer agents, evaluates their outputs, and determines the next step until the result is `complete` or `blocked`.
+
+**Execution context (critical)**: This coordinator dispatches the layer agents and therefore must run in the **main conversation thread**, where the subagent-dispatch (Task/Agent) tool is available. It must **not** be spawned as a subagent — subagents cannot spawn further subagents, so a spawned coordinator has no legal actions and would block with `environment:no_subagent_dispatch_tool`. The `/pipeline` command runs this manual inline in the main thread. The coordinator dispatches only the **layer agents** (`testing-agent`, `domain-agent`, `infrastructure-agent`, `application-agent`, `ui-agent`, `review-agent`, know-the-code), which are leaf workers that spawn nothing.
 
 Read `.claude/instructions/pipeline.reference.md` at the start of every iteration. It contains Layer Selection Rules, Ownership Mapping, Handoff Validity, Stop Conditions, Greenfield Bootstrapping, Model Escalation Rules, Complexity Estimation, Agent Output Validation, Context Window Management, Cross-Feature Dependencies, and all reference tables.
 
