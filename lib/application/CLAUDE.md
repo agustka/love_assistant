@@ -70,6 +70,7 @@ You are working in the **APPLICATION LAYER** - the orchestration and state manag
 - Use immutable state objects
 - State classes always extend Equatable
 - Avoid nested state complexity
+- **Never use nullable domain types (entities, value objects) as state fields.** The domain layer already encodes absence via `.empty()` / `.invalid()` factories; nullable fields re-introduce the ambiguity those factories exist to remove and force `== null` guards in every reader. Declare the field non-nullable, default it to `.empty()` / `.invalid()` in `.initial()`, and check `field.isInvalid` / `field.valid` in the cubit. Status and helper enums follow the same rule — add an explicit `none` / `idle` / `unknown` variant rather than making the enum field nullable. See the application-state-modeling skill for the full rule.
 
 ### State Copying Patterns
 

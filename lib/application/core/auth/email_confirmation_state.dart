@@ -34,7 +34,7 @@ class EmailConfirmationState extends Equatable {
   final RecheckMessage recheckMessage;
   final bool resendEnabled;
   final int cooldownRemaining;
-  final EmailPasswordCredentials? credentials;
+  final EmailPasswordCredentials credentials;
 
   bool get isRechecking => status == EmailConfirmationStatus.rechecking;
 
@@ -46,13 +46,13 @@ class EmailConfirmationState extends Equatable {
     required this.credentials,
   });
 
-  const EmailConfirmationState.initial()
+  EmailConfirmationState.initial()
     : this(
         status: EmailConfirmationStatus.idle,
         recheckMessage: RecheckMessage.none,
         resendEnabled: true,
         cooldownRemaining: 0,
-        credentials: null,
+        credentials: EmailPasswordCredentials.empty(),
       );
 
   EmailConfirmationState copyWith({

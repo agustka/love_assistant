@@ -29,7 +29,7 @@ class SignUpState extends Equatable {
   final bool emailError;
   final bool passwordError;
   final SignUpFormError formError;
-  final EmailPasswordCredentials? credentials;
+  final EmailPasswordCredentials credentials;
 
   bool get isSubmitting => status == SignUpStatus.submitting;
 
@@ -44,7 +44,7 @@ class SignUpState extends Equatable {
     required this.credentials,
   });
 
-  const SignUpState.initial()
+  SignUpState.initial()
     : this(
         status: SignUpStatus.idle,
         email: "",
@@ -53,7 +53,7 @@ class SignUpState extends Equatable {
         emailError: false,
         passwordError: false,
         formError: SignUpFormError.none,
-        credentials: null,
+        credentials: EmailPasswordCredentials.empty(),
       );
 
   SignUpState copyWith({

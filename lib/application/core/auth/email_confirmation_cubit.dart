@@ -34,7 +34,7 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
     this._getEmailConfirmationUseCase,
     this._createConfirmationEmailUseCase,
     this._watchAuthEventsUseCase,
-  ) : super(const EmailConfirmationState.initial());
+  ) : super(EmailConfirmationState.initial());
 
   void init(EmailPasswordCredentials credentials) {
     emit(state.copyWith(credentials: credentials));
@@ -43,8 +43,8 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
   }
 
   Future<void> recheckEmailConfirmation() async {
-    final EmailPasswordCredentials? credentials = state.credentials;
-    if (state.status == EmailConfirmationStatus.rechecking || credentials == null) {
+    final EmailPasswordCredentials credentials = state.credentials;
+    if (state.status == EmailConfirmationStatus.rechecking || credentials.isInvalid) {
       return;
     }
 
@@ -62,8 +62,8 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
   }
 
   Future<void> resendConfirmationEmail() async {
-    final EmailPasswordCredentials? credentials = state.credentials;
-    if (!state.resendEnabled || credentials == null) {
+    final EmailPasswordCredentials credentials = state.credentials;
+    if (!state.resendEnabled || credentials.isInvalid) {
       return;
     }
 

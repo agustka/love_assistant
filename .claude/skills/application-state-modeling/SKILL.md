@@ -101,6 +101,20 @@ class <CubitName>State extends Equatable {
 | `copyWith` method | Always — every field is an optional named parameter, defaults to `this.<field>` |
 | `props` override | Always — list every field for correct equality comparison |
 
+### Nullability (CRITICAL)
+
+**Never use nullable entity or value-object fields on a state class.** Domain types are designed to express absence through their own `.empty()` / `.invalid()` factories — that is the whole point of having value objects and entities. Using `EntityType?` re-introduces the null-vs-absent ambiguity the domain layer was built to eliminate, and forces every reader (cubit, page, builder) to write a `== null` guard instead of trusting the type.
+
+- A state field that holds a domain entity → `final SomeEntity field` (non-nullable). Initial value: `SomeEntity.empty()` or `SomeEntity.invalid()`.
+- A state field that holds a value object → `final SomeValueObject field` (non-nullable). Initial value: `SomeValueObject.invalid()`.
+- A state field that holds a list of entities → `final List<SomeEntity> field` (non-nullable). Initial value: `const []`.
+- Guard "not yet provided" cases in the cubit via `field.isInvalid` / `field.valid`, never `field == null`.
+- The `copyWith` parameter for that field stays nullable (`SomeEntity? field`) — that nullable is the standard "did the caller pass this argument?" sentinel and is `?? this.field`-folded. It is NOT the field's type.
+
+If the entity does not already expose `.empty()` / `.invalid()`, add one to the entity (per the domain layer rule) — do not paper over the gap with a nullable in state.
+
+The same rule applies to status enums and helper enums declared in the state file: provide an explicit `none` / `idle` / `unknown` variant rather than making the enum field nullable.
+
 ### Status Enum
 
 Every state has a status enum that models the page lifecycle:
@@ -137,12 +151,14 @@ enum <CubitName>Status {
 
 ### Initial State Defaults
 
-- Entities: `const SomeEntity.invalid()`
-- Value objects: `const SomeValueObject.invalid()`
-- Status: the `loading` enum value
+- Entities: `SomeEntity.invalid()` or `SomeEntity.empty()` — **never `null`**
+- Value objects: `SomeValueObject.invalid()` — **never `null`**
+- Status: the `loading` (or other appropriate) enum value — **never `null`**
 - Booleans: `false`
 - Lists: `const []`
 - Indices: `0`
+
+If the domain type's `.empty()` / `.invalid()` factory is `const`, the whole `.initial()` constructor can stay `const`. If the factory has runtime validation (so it cannot be `const`), drop `const` from `.initial()` — that is the correct trade-off, not a nullable field.
 
 ### Computed Getters
 
@@ -182,6 +198,8 @@ These are co-located with the state class they serve.
 | Missing field in `props` | Breaks equality — `BlocBuilder` may not rebuild |
 | Missing field in `copyWith` | Makes the field impossible to update after creation |
 | Raw `String`/`int` for user input | Use value objects for validation and domain alignment |
+| Nullable entity / value-object fields (`SomeEntity?`, `SomeValueObject?`) | The domain layer already expresses absence via `.empty()` / `.invalid()`. Nullable re-introduces the ambiguity those factories were designed to remove and forces `== null` guards in every reader. See "Nullability (CRITICAL)" above. |
+| Nullable status or helper enums | Add an explicit `none` / `idle` / `unknown` variant instead of making the enum field nullable. |
 | Business logic methods on state | State is a data snapshot; logic belongs in the cubit or domain |
 | Multiple state subclasses (sealed state) | Use a single state class with a status enum and `copyWith` |
 | Default constructor without `.initial()` factory | The cubit needs a well-defined starting state |

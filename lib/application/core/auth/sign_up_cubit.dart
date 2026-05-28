@@ -21,7 +21,7 @@ class SignUpCubit extends BaseCubit<SignUpState> {
 
   final CreateAccountUseCase _createAccountUseCase;
 
-  SignUpCubit(this._createAccountUseCase) : super(const SignUpState.initial());
+  SignUpCubit(this._createAccountUseCase) : super(SignUpState.initial());
 
   void onEmailChanged(String input) {
     emit(state.copyWith(email: input, emailError: false, formError: SignUpFormError.none));
