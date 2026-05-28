@@ -30,6 +30,8 @@ class AppBarActionDefinition {
 }
 
 class LaAppBarOrganism extends StatelessWidget implements PreferredSizeWidget {
+  static const Key backButtonKey = Key("la_app_bar_back_button");
+
   final String? title;
   final bool showBack;
   final bool takesUpSpace;
@@ -54,6 +56,7 @@ class LaAppBarOrganism extends StatelessWidget implements PreferredSizeWidget {
       actions: action != null ? [action!.toWidget(style: style)] : [],
       leading: showBack
           ? LaTapVisualAtom(
+              key: LaAppBarOrganism.backButtonKey,
               onTap: Navigator.of(context).pop,
               child: LaIconAtom(Icons.arrow_back, color: style.foregroundColor),
             )
