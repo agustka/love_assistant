@@ -71,7 +71,14 @@
       "Bash(awk '/^---$/{c++} c==1 && /^name:/{print} c==2{exit}' .claude/agents/ui.md)",
       "Bash(md5 -q .claude/specs/bdd.md .claude/specs/layout.md .claude/specs/api.yaml .claude/specs/decisions.md)",
       "Read(//private/tmp/**)",
-      "Bash(cp -R .claude/handoff __TRACKED_VAR__/handoff)"
+      "Bash(cp -R .claude/handoff __TRACKED_VAR__/handoff)",
+      "Bash(sed -n '1,40p' lib/presentation/core/ui_components/atoms/la_row_atom_atom.dart)",
+      "Bash(sed -n '1,30p' lib/presentation/core/ui_components/atoms/la_expanded_atom.dart)",
+      "Bash(sed -n '40,55p' lib/application/core/auth/sign_up_state.dart)",
+      "Bash(sed -n '42,58p' lib/application/core/auth/email_confirmation_state.dart)",
+      "Bash(sed -n '1,12p' lib/presentation/auth/sign_up_page.dart)",
+      "Bash(sed -n '1,12p' lib/presentation/auth/email_confirmation_page.dart)",
+      "Bash(sed -n '1,20p' lib/presentation/core/app.dart)"
     ]
   }
 }
