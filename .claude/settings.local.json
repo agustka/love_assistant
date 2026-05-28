@@ -80,7 +80,12 @@
       "Bash(sed -n '1,12p' lib/presentation/auth/email_confirmation_page.dart)",
       "Bash(sed -n '1,20p' lib/presentation/core/app.dart)",
       "Bash(sed -n '20,60p' lib/application/splash/splash_cubit.dart)",
-      "Bash(sed -n '55,90p' lib/presentation/landing/landing_page.dart)"
+      "Bash(sed -n '55,90p' lib/presentation/landing/landing_page.dart)",
+      "Bash(xargs ls)",
+      "Bash(sed -n '1,90p' /Users/agustka/repos/love_assistant/test/user_acceptance_tests/auth/driver/sign_up_driver.dart)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(export CLAUDE_CODE_TMPDIR=/tmp)",
+      "Bash(echo \"DONE\")"
     ]
   }
 }
