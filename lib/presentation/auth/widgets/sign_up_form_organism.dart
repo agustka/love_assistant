@@ -9,13 +9,11 @@ class SignUpFormDefinition {
   final String passwordFieldId;
   final Key emailFieldKey;
   final Key passwordFieldKey;
-  final Key submitButtonKey;
   final Key emailErrorKey;
   final Key passwordErrorKey;
   final Key? formErrorKey;
   final String emailHint;
   final String passwordHint;
-  final String submitLabel;
   final PasswordStrength passwordStrength;
   final String? emailError;
   final String? passwordError;
@@ -23,20 +21,17 @@ class SignUpFormDefinition {
   final bool busy;
   final void Function(String input) onEmailChanged;
   final void Function(String input) onPasswordChanged;
-  final VoidCallback onSubmit;
 
   const SignUpFormDefinition({
     required this.emailFieldId,
     required this.passwordFieldId,
     required this.emailFieldKey,
     required this.passwordFieldKey,
-    required this.submitButtonKey,
     required this.emailErrorKey,
     required this.passwordErrorKey,
     required this.formErrorKey,
     required this.emailHint,
     required this.passwordHint,
-    required this.submitLabel,
     required this.passwordStrength,
     required this.emailError,
     required this.passwordError,
@@ -44,7 +39,6 @@ class SignUpFormDefinition {
     required this.busy,
     required this.onEmailChanged,
     required this.onPasswordChanged,
-    required this.onSubmit,
   });
 }
 
@@ -84,13 +78,6 @@ class SignUpFormOrganism extends StatelessWidget {
         ),
         LaPasswordStrengthMolecule(strength: definition.passwordStrength),
         _FieldError(key: definition.passwordErrorKey, message: definition.passwordError),
-        LaButtonAtom(
-          key: definition.submitButtonKey,
-          text: definition.submitLabel,
-          busy: definition.busy,
-          enabled: !definition.busy,
-          onTap: definition.onSubmit,
-        ),
         _FormError(key: definition.formErrorKey, message: definition.formError),
       ],
     );

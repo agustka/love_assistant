@@ -193,18 +193,25 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
   }
 
   List<Widget> _getSandwichButtons(BuildContext context) {
+    final double buttonHeight = max(
+      LaButtonAtom.buttonHeight,
+      MediaQuery.textScalerOf(context).scale(LaButtonAtom.buttonHeight),
+    );
     return _buttons.buttons.map((BottomButtonDefinition button) {
       final int index = _buttons.buttons.indexOf(button);
-      return _loadingIndicator(
-        child: LaButtonAtom(
-          key: button.key,
-          buttonStyle: index == 0 ? LaButtonStyle.primary : LaButtonStyle.secondary,
-          text: button.text,
-          maxLines: 1,
-          onTap: button.onTap,
-          enabled: button.enabled,
-          busy: button.busy,
-          onDisabledTap: button.onDisabledTap,
+      return LaSizedBoxAtom(
+        height: buttonHeight,
+        child: _loadingIndicator(
+          child: LaButtonAtom(
+            key: button.key,
+            buttonStyle: index == 0 ? LaButtonStyle.primary : LaButtonStyle.secondary,
+            text: button.text,
+            maxLines: 1,
+            onTap: button.onTap,
+            enabled: button.enabled,
+            busy: button.busy,
+            onDisabledTap: button.onDisabledTap,
+          ),
         ),
       );
     }).toList();
