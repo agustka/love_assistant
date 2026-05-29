@@ -41,7 +41,7 @@ class LaDropDownMolecule<T> extends StatefulWidget {
   _LaDropDownMoleculeState createState() => _LaDropDownMoleculeState<T>();
 }
 
-class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
+class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule<T>> {
   T? _selectedOption;
   String? _customInput = "";
   final FocusNode _customInputFocusNode = FocusNode();
@@ -145,7 +145,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
                           if (_selectedOption != widget.freeFormOption) {
                             _customInput = "";
                           }
-                          widget.onChanged(_selectedOption, _customInput);
+                          widget.onChanged(value, _customInput);
                           if (_selectedOption == widget.freeFormOption) {
                             _customInputFocusNode.requestFocus();
                           }
@@ -177,7 +177,11 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
   }
 
   Widget _getFreeFormOption(BuildContext context) {
-    if (_selectedOption == widget.freeFormOption && widget.freeFormOption != null && widget.freeFormFieldId != null) {
+    final T? selectedOption = _selectedOption;
+    if (selectedOption != null &&
+        selectedOption == widget.freeFormOption &&
+        widget.freeFormOption != null &&
+        widget.freeFormFieldId != null) {
       return LaPaddingAtom(
         padding: const EdgeInsets.only(top: LaPadding.mediumSmall),
         child: LaTextField(
@@ -185,7 +189,7 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
           showCard: false,
           focusNode: _customInputFocusNode,
           hint: widget.customHint ?? "",
-          onChanged: (String input) => widget.onChanged(_selectedOption, input),
+          onChanged: (String input) => widget.onChanged(selectedOption, input),
         ),
       );
     }
@@ -228,10 +232,10 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
                 onSelectedItemChanged: (int index) {
                   setState(() {
                     if (index < widget.options.length) {
-                      _selectedOption = widget.options[index] as T;
+                      _selectedOption = widget.options[index];
                       _customInput = "";
                     } else {
-                      _selectedOption = widget.freeFormOption as T;
+                      _selectedOption = widget.freeFormOption;
                     }
                   });
                 },
@@ -256,11 +260,14 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
       _customInputFocusNode.requestFocus();
     } else if (_selectedOption == null) {
       setState(() {
-        _selectedOption = widget.options.first as T;
+        _selectedOption = widget.options.first;
       });
     }
 
-    widget.onChanged(_selectedOption, _customInput);
+    final T? selectedOption = _selectedOption;
+    if (selectedOption != null) {
+      widget.onChanged(selectedOption, _customInput);
+    }
   }
 
   Widget _getTitle(BuildContext context) {

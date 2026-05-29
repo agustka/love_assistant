@@ -92,7 +92,9 @@
       "Bash(mkdir -p /Users/agustka/repos/love_assistant/.claude/tmp)",
       "Bash(echo \"NONE FOUND - clean\")",
       "Bash(export TMPDIR=/Users/agustka/repos/love_assistant/.claude/handoff)",
-      "Bash(find /Users/agustka/repos/love_assistant/lib -name \"la_form_field_listener.dart\")"
+      "Bash(find /Users/agustka/repos/love_assistant/lib -name \"la_form_field_listener.dart\")",
+      "Bash(sed -n '40,60p' lib/presentation/wizard/widgets/wizard_step_3.dart)",
+      "Bash(sed -n '40,55p' lib/presentation/core/ui_components/molecules/la_drop_down_molecule.dart)"
     ]
   }
 }

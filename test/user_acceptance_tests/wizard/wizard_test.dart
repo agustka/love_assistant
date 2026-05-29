@@ -61,11 +61,11 @@ void main() {
 
   group("Returning wizard restores the saved partner profile", () {
     testWidgets("Reopening with a saved profile lands past the greetings step", (WidgetTester tester) async {
-      // Given a partner profile was already saved before the app was terminated and reopened
+      // Given a partner profile was saved before cold start, with no sign-up (initial wizard mode)
       final WizardDriver driver = WizardDriver(
         tester: tester,
         builders: [
-          PartnerProfileBuilder().profileAlreadyCreated().withSavedProfile(_savedProfile()),
+          PartnerProfileBuilder().withSavedProfile(_savedProfile()),
         ],
       );
 
@@ -77,18 +77,18 @@ void main() {
     });
 
     testWidgets("Reopening with a saved profile lands on its last step", (WidgetTester tester) async {
-      // Given a partner profile was already saved before the app was terminated and reopened
+      // Given a partner profile was saved before cold start, with no sign-up (initial wizard mode)
       final WizardDriver driver = WizardDriver(
         tester: tester,
         builders: [
-          PartnerProfileBuilder().profileAlreadyCreated().withSavedProfile(_savedProfile()),
+          PartnerProfileBuilder().withSavedProfile(_savedProfile()),
         ],
       );
 
       // When the wizard reopens for the returning user
       await driver.openPage();
 
-      // Then it reopens on the wizard's last step, not on the greetings or basics step
+      // Then it reopens on the initial wizard's last step, not on the greetings or basics step
       driver.assertOnLastStep();
       driver.assertNotOnGreetingsStep();
       driver.assertNotOnBasicInfoStep();
