@@ -10,6 +10,8 @@ class LaDropDownMolecule<T> extends StatefulWidget {
   final String title;
   final List<T> options;
   final T? freeFormOption;
+  final T? initialValue;
+  final String? initialCustomValue;
   final String? freeFormFieldId;
   final String? hint;
   final String? customHint;
@@ -24,6 +26,8 @@ class LaDropDownMolecule<T> extends StatefulWidget {
     required this.title,
     required this.options,
     this.freeFormOption,
+    this.initialValue,
+    this.initialCustomValue,
     this.freeFormFieldId,
     required this.onChanged,
     this.hint,
@@ -41,6 +45,14 @@ class _LaDropDownMoleculeState<T> extends State<LaDropDownMolecule> {
   T? _selectedOption;
   String? _customInput = "";
   final FocusNode _customInputFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _selectedOption = widget.initialValue;
+    _customInput = widget.initialCustomValue ?? "";
+  }
 
   @override
   void dispose() {

@@ -5,12 +5,17 @@ class _WizardStep4 extends StatelessWidget {
   final String partnerName;
   final Pronoun partnerPronoun;
   final String customPronoun;
+  final List<FavoriteFood> favoriteFoods;
+  final List<GiftCategory> giftCategories;
 
   const _WizardStep4({
     required this.isInitial,
     required this.partnerName,
     required this.partnerPronoun,
     required this.customPronoun,
+    required this.favoriteFoods,
+    required this.giftCategories,
+    super.key,
   });
 
   @override
@@ -25,6 +30,7 @@ class _WizardStep4 extends StatelessWidget {
         optional: true,
         options: FavoriteFood.values.toList()..removeWhere((FavoriteFood e) => e == FavoriteFood.invalid),
         explanation: S.of(context).wizard_partner_foods_explanation,
+        initialSelectedOptions: favoriteFoods,
         onSelectionChanged: context.read<WizardCubit>().onFavoriteFoodsChanged,
       ),
       multiSelectPickerSlot2: LaMultiSelectPickerDefinition(
@@ -33,6 +39,7 @@ class _WizardStep4 extends StatelessWidget {
         optional: true,
         options: GiftCategory.values.toList()..removeWhere((GiftCategory e) => e == GiftCategory.invalid),
         explanation: S.of(context).wizard_partner_gift_types_explanation,
+        initialSelectedOptions: giftCategories,
         onSelectionChanged: context.read<WizardCubit>().onGiftCategoriesChanged,
       ),
     );

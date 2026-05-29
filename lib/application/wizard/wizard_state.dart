@@ -32,6 +32,7 @@ class WizardState extends Equatable {
   final WizardStatus status;
   final bool isInitial;
   final WizardConfig config;
+  final int targetStep;
   final String partnerName;
   final Pronoun partnerPronoun;
   final String customPronoun;
@@ -48,6 +49,7 @@ class WizardState extends Equatable {
     required this.status,
     required this.isInitial,
     required this.config,
+    required this.targetStep,
     required this.partnerName,
     required this.partnerPronoun,
     required this.customPronoun,
@@ -66,6 +68,7 @@ class WizardState extends Equatable {
         status: WizardStatus.loading,
         isInitial: true,
         config: WizardConfig.initial,
+        targetStep: 0,
         partnerName: "",
         partnerPronoun: Pronoun.invalid,
         customPronoun: "",
@@ -83,6 +86,7 @@ class WizardState extends Equatable {
     WizardStatus? status,
     bool? isInitial,
     WizardConfig? config,
+    int? targetStep,
     String? partnerName,
     bool? missingName,
     Pronoun? partnerPronoun,
@@ -100,6 +104,7 @@ class WizardState extends Equatable {
       status: status ?? this.status,
       isInitial: isInitial ?? this.isInitial,
       config: config ?? this.config,
+      targetStep: targetStep ?? this.targetStep,
       partnerName: partnerName ?? this.partnerName,
       partnerPronoun: partnerPronoun ?? this.partnerPronoun,
       customPronoun: customPronoun ?? this.customPronoun,
@@ -119,6 +124,7 @@ class WizardState extends Equatable {
     status,
     isInitial,
     config,
+    targetStep,
     partnerName,
     partnerPronoun,
     customPronoun,

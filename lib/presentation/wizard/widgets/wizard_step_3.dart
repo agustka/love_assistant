@@ -5,12 +5,18 @@ class _WizardStep3 extends StatelessWidget {
   final String partnerName;
   final Pronoun partnerPronoun;
   final String customPronoun;
+  final List<LoveLanguage> loveLanguages;
+  final ToneOfVoice toneOfVoice;
+  final List<Hobby> hobbies;
 
   const _WizardStep3({
     required this.isInitial,
     required this.partnerName,
     required this.partnerPronoun,
     required this.customPronoun,
+    required this.loveLanguages,
+    required this.toneOfVoice,
+    required this.hobbies,
   });
 
   @override
@@ -48,6 +54,7 @@ class _WizardStep3 extends StatelessWidget {
               options: LoveLanguage.values.toList()
                 ..removeWhere((LoveLanguage e) => e == LoveLanguage.invalid)
                 ..sort((LoveLanguage left, LoveLanguage right) => left.toString().compareTo(right.toString())),
+              initialSelectedOptions: loveLanguages,
               onSelectionChanged: context.read<WizardCubit>().onLoveLanguageChanged,
             ),
       multiSelectPickerSlot2: isInitial ? null : LaMultiSelectPickerDefinition(
@@ -58,6 +65,7 @@ class _WizardStep3 extends StatelessWidget {
           ..removeWhere((Hobby e) => e == Hobby.invalid)
           ..sort((Hobby left, Hobby right) => left.toString().compareTo(right.toString())),
         explanation: S.of(context).wizard_partner_hobbies_explanation,
+        initialSelectedOptions: hobbies,
         onSelectionChanged: context.read<WizardCubit>().onHobbiesChanged,
       ),
       dropDownSlot: LaDropDownDefinition(
@@ -73,6 +81,7 @@ class _WizardStep3 extends StatelessWidget {
         options: ToneOfVoice.values.toList()
           ..removeWhere((ToneOfVoice e) => e == ToneOfVoice.invalid)
           ..sort((ToneOfVoice left, ToneOfVoice right) => left.toString().compareTo(right.toString())),
+        initialValue: toneOfVoice == ToneOfVoice.invalid ? null : toneOfVoice,
         onItemSelected: (dynamic selectedOption, String? custom) {
           context.read<WizardCubit>().onToneOfVoiceChanged(selectedOption as ToneOfVoice);
         },

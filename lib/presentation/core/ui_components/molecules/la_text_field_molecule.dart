@@ -11,6 +11,7 @@ class LaTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool optional;
   final TextEditingController? controller;
+  final String? initialValue;
   final bool enabled;
   final bool showCard;
   final Color? hintColor;
@@ -30,6 +31,7 @@ class LaTextField extends StatefulWidget {
     this.optional = true,
     this.showCard = true,
     this.controller,
+    this.initialValue,
     this.enabled = true,
     this.hintColor,
     this.focusNode,
@@ -47,6 +49,7 @@ class LaTextField extends StatefulWidget {
 
 class _LaTextField extends State<LaTextField> {
   late final FocusNode _fallbackFocusNode;
+  TextEditingController? _fallbackController;
 
   @override
   void initState() {
@@ -55,6 +58,16 @@ class _LaTextField extends State<LaTextField> {
     if (widget.focusNode == null) {
       _fallbackFocusNode = FocusNode();
     }
+
+    if (widget.controller == null && (widget.initialValue ?? "").isNotEmpty) {
+      _fallbackController = TextEditingController(text: widget.initialValue);
+    }
+  }
+
+  @override
+  void dispose() {
+    _fallbackController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -68,7 +81,7 @@ class _LaTextField extends State<LaTextField> {
             LaExpandedAtom(
               child: LaCupertinoTextFieldAtom(
                 enabled: widget.enabled,
-                controller: widget.controller,
+                controller: widget.controller ?? _fallbackController,
                 onChanged: widget.onChanged,
                 focusNode: widget.focusNode ?? _fallbackFocusNode,
                 textCapitalization: TextCapitalization.sentences,
@@ -104,7 +117,7 @@ class _LaTextField extends State<LaTextField> {
             LaExpandedAtom(
               child: LaMaterialTextFieldAtom(
                 enabled: widget.enabled,
-                controller: widget.controller,
+                controller: widget.controller ?? _fallbackController,
                 onChanged: widget.onChanged,
                 focusNode: widget.focusNode ?? _fallbackFocusNode,
                 textCapitalization: TextCapitalization.sentences,

@@ -8,6 +8,7 @@ class LaMultiSelectPickerDefinition<T> extends Equatable {
   final String explanation;
   final bool optional;
   final List<T> options;
+  final List<T> initialSelectedOptions;
   final void Function(List<T> selectedOptions) onSelectionChanged;
 
   const LaMultiSelectPickerDefinition({
@@ -16,6 +17,7 @@ class LaMultiSelectPickerDefinition<T> extends Equatable {
     required this.explanation,
     required this.optional,
     required this.options,
+    this.initialSelectedOptions = const [],
     required this.onSelectionChanged,
   });
 
@@ -26,6 +28,7 @@ class LaMultiSelectPickerDefinition<T> extends Equatable {
     explanation,
     optional,
     options,
+    initialSelectedOptions,
     onSelectionChanged,
   ];
 }

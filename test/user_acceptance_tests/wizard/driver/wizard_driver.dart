@@ -30,6 +30,14 @@ class WizardDriver extends BaseDriver {
     expect(_basicInfoStepFinder, findsOneWidget);
   }
 
+  void assertNotOnGreetingsStep() {
+    expect(_greetingsStepFinder, findsNothing);
+  }
+
+  void assertNotOnBasicInfoStep() {
+    expect(_basicInfoStepFinder, findsNothing);
+  }
+
   Future<void> tapNext() async {
     await tester.tap(_nextButtonFinder);
     await tester.pumpAndSettle();

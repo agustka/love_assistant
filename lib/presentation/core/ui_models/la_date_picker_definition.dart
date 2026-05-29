@@ -11,6 +11,7 @@ class LaDatePickerDefinition extends Equatable {
   final DateTime firstDate;
   final DateTime defaultDate;
   final DateTime lastDate;
+  final DateTime? initialDate;
   final void Function(DateTime date) onDateSelected;
 
   const LaDatePickerDefinition({
@@ -22,6 +23,7 @@ class LaDatePickerDefinition extends Equatable {
     required this.firstDate,
     required this.defaultDate,
     required this.lastDate,
+    this.initialDate,
     required this.onDateSelected,
   });
 
@@ -35,6 +37,7 @@ class LaDatePickerDefinition extends Equatable {
     firstDate,
     defaultDate,
     lastDate,
+    initialDate,
     onDateSelected,
   ];
 }

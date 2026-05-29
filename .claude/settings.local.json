@@ -85,7 +85,12 @@
       "Bash(sed -n '1,90p' /Users/agustka/repos/love_assistant/test/user_acceptance_tests/auth/driver/sign_up_driver.dart)",
       "Bash(echo \"EXIT: $?\")",
       "Bash(export CLAUDE_CODE_TMPDIR=/tmp)",
-      "Bash(echo \"DONE\")"
+      "Bash(echo \"DONE\")",
+      "Bash(export CLAUDE_CODE_TMPDIR=/Users/agustka/repos/love_assistant/.tmp_test)",
+      "Bash(df -h /tmp)",
+      "Bash(export CLAUDE_CODE_TMPDIR=/Users/agustka/repos/love_assistant/.claude/tmp)",
+      "Bash(mkdir -p /Users/agustka/repos/love_assistant/.claude/tmp)",
+      "Bash(echo \"NONE FOUND - clean\")"
     ]
   }
 }
