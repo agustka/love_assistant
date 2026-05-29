@@ -90,7 +90,9 @@
       "Bash(df -h /tmp)",
       "Bash(export CLAUDE_CODE_TMPDIR=/Users/agustka/repos/love_assistant/.claude/tmp)",
       "Bash(mkdir -p /Users/agustka/repos/love_assistant/.claude/tmp)",
-      "Bash(echo \"NONE FOUND - clean\")"
+      "Bash(echo \"NONE FOUND - clean\")",
+      "Bash(export TMPDIR=/Users/agustka/repos/love_assistant/.claude/handoff)",
+      "Bash(find /Users/agustka/repos/love_assistant/lib -name \"la_form_field_listener.dart\")"
     ]
   }
 }

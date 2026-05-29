@@ -88,7 +88,8 @@ void main() {
       // When the wizard reopens for the returning user
       await driver.openPage();
 
-      // Then it reopens deep in the flow, not on the first (greetings) or second (basics) step
+      // Then it reopens on the wizard's last step, not on the greetings or basics step
+      driver.assertOnLastStep();
       driver.assertNotOnGreetingsStep();
       driver.assertNotOnBasicInfoStep();
     });
