@@ -7,11 +7,13 @@ import 'package:la/domain/core/value_objects/favorite_food_value_object.dart';
 import 'package:la/domain/core/value_objects/gift_ideas_value_object.dart';
 import 'package:la/domain/core/value_objects/hobby_value_object.dart';
 import 'package:la/domain/core/value_objects/love_language_value_object.dart';
+import 'package:la/domain/core/value_objects/payload.dart';
 import 'package:la/domain/core/value_objects/pronoun_value_object.dart';
 import 'package:la/domain/core/value_objects/relationship_type_value_object.dart';
 import 'package:la/domain/core/value_objects/tone_of_voice_value_object.dart';
 import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
+import 'package:la/domain/wizard/use_cases/get_local_partner_profile_use_case.dart';
 import 'package:la/domain/wizard/use_cases/save_local_partner_profile_use_case.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/setup.dart';
@@ -21,13 +23,48 @@ part 'wizard_state.dart';
 @Injectable()
 class WizardCubit extends BaseCubit<WizardState> {
   final SaveLocalPartnerProfileUseCase _saveLocalPartnerProfileUseCase;
+  final GetLocalPartnerProfileUseCase _getLocalPartnerProfileUseCase;
 
-  WizardCubit(this._saveLocalPartnerProfileUseCase) : super(WizardState.initial());
+  WizardCubit(
+    this._saveLocalPartnerProfileUseCase,
+    this._getLocalPartnerProfileUseCase,
+  ) : super(WizardState.initial());
 
   Future init() async {
     final bool isInitial = !getIt<InitializationService>().profileCreated;
     final WizardConfig config = isInitial ? WizardConfig.initial : WizardConfig.detailed;
-    emit(state.copyWith(status: WizardStatus.loaded, isInitial: isInitial, config: config));
+
+    final Payload<UserPartnerProfile> profilePayload = await _getLocalPartnerProfileUseCase.execute();
+    final UserPartnerProfile profile = profilePayload.getOr(const UserPartnerProfile.invalid());
+
+    if (profile.isInvalid) {
+      emit(state.copyWith(status: WizardStatus.loaded, isInitial: isInitial, config: config, targetStep: 0));
+      return;
+    }
+
+    emit(_hydrateFromProfile(profile, isInitial: isInitial, config: config));
+  }
+
+  WizardState _hydrateFromProfile(
+    UserPartnerProfile profile, {
+    required bool isInitial,
+    required WizardConfig config,
+  }) {
+    final int lastStep = config.visibleSteps.length - 1;
+    return state.copyWith(
+      status: WizardStatus.loaded,
+      isInitial: isInitial,
+      config: config,
+      targetStep: lastStep,
+      partnerName: profile.partnerName,
+      partnerPronoun: profile.partnerPronoun,
+      customPronoun: profile.customPronoun,
+      partnerBirthday: profile.partnerBirthday,
+      partnerLoveLanguages: profile.partnerLoveLanguages,
+      partnerToneOfVoice: profile.partnerToneOfVoice,
+      partnerFavoriteFoods: profile.partnerFavoriteFoods,
+      partnerGiftCategories: profile.partnerGiftCategories,
+    );
   }
 
   Future<void> next(int currentPage, {bool confirmed = false}) async {

@@ -37,6 +37,8 @@ part "widgets/wizard_step_5.dart";
 class WizardPage extends StatefulWidget {
   static const Key greetingsStepKey = Key("WizardPage_greetingsStep");
   static const Key basicInfoStepKey = Key("WizardPage_basicInfoStep");
+  static const Key foodsAndGiftsStepKey = Key("WizardPage_foodsAndGiftsStep");
+  static const Key hobbiesStepKey = Key("WizardPage_hobbiesStep");
   static const Key nextButtonKey = Key("WizardPage_nextButton");
 
   static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
@@ -61,25 +63,13 @@ class WizardPage extends StatefulWidget {
 }
 
 class _WizardPageState extends State<WizardPage> {
-  late final PageController _controller;
+  PageController? _controller;
 
   double _page = 0;
 
   @override
-  void initState() {
-    super.initState();
-
-    _controller = PageController();
-    _controller.addListener(() {
-      setState(() {
-        _page = _controller.page ?? 0;
-      });
-    });
-  }
-
-  @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -91,8 +81,19 @@ class _WizardPageState extends State<WizardPage> {
       },
       child: BlocBuilder<WizardCubit, WizardState>(
         builder: (BuildContext context, WizardState state) {
+          if (state.status == WizardStatus.loading) {
+            return LaWizardTemplate(
+              body: LaPagerOrganism(
+                itemCount: 0,
+                itemBuilder: (BuildContext context, int index) => _buildStep(state, index),
+              ),
+            );
+          }
+
+          final PageController controller = _ensureController(state.targetStep);
+
           return _WizardPageEventListener(
-            pageController: _controller,
+            pageController: controller,
             onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
             onInitialSetupCompleted: (UserPartnerProfile profile) => _onInitialSetupCompleted(context, profile),
             child: LaWizardTemplate(
@@ -104,7 +105,7 @@ class _WizardPageState extends State<WizardPage> {
               bottomButtons: _getBottomButtons(context, state),
               body: LaPagerOrganism(
                 itemCount: state.config.stepCount,
-                controller: _controller,
+                controller: controller,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) => _buildStep(state, index),
               ),
@@ -113,6 +114,22 @@ class _WizardPageState extends State<WizardPage> {
         },
       ),
     );
+  }
+
+  PageController _ensureController(int initialPage) {
+    if (_controller != null) {
+      return _controller!;
+    }
+
+    final PageController controller = PageController(initialPage: initialPage);
+    controller.addListener(() {
+      setState(() {
+        _page = controller.page ?? 0;
+      });
+    });
+    _page = initialPage.toDouble();
+    _controller = controller;
+    return controller;
   }
 
   Future<void> _onInitialSetupCompleted(BuildContext context, UserPartnerProfile profile) async {
@@ -134,20 +151,33 @@ class _WizardPageState extends State<WizardPage> {
       case WizardStepType.greetings:
         return const _WizardStep1(key: WizardPage.greetingsStepKey);
       case WizardStepType.basicInfo:
-        return _WizardStep2(key: WizardPage.basicInfoStepKey, isInitial: state.isInitial);
+        return _WizardStep2(
+          key: WizardPage.basicInfoStepKey,
+          isInitial: state.isInitial,
+          partnerName: state.partnerName,
+          partnerPronoun: state.partnerPronoun,
+          customPronoun: state.customPronoun,
+          partnerBirthday: state.partnerBirthday,
+        );
       case WizardStepType.personalPreferences:
         return _WizardStep3(
           isInitial: state.isInitial,
           partnerName: state.partnerName,
           partnerPronoun: state.partnerPronoun,
           customPronoun: state.customPronoun,
+          loveLanguages: state.partnerLoveLanguages,
+          toneOfVoice: state.partnerToneOfVoice,
+          hobbies: state.partnerHobbies,
         );
       case WizardStepType.foodsAndGifts:
         return _WizardStep4(
+          key: WizardPage.foodsAndGiftsStepKey,
           isInitial: state.isInitial,
           partnerName: state.partnerName,
           partnerPronoun: state.partnerPronoun,
           customPronoun: state.customPronoun,
+          favoriteFoods: state.partnerFavoriteFoods,
+          giftCategories: state.partnerGiftCategories,
         );
       case WizardStepType.anniversary:
         return _WizardStep5(
@@ -157,7 +187,7 @@ class _WizardPageState extends State<WizardPage> {
           customPronoun: state.customPronoun,
         );
       case WizardStepType.hobbies:
-        return const WizardStep6();
+        return const WizardStep6(key: WizardPage.hobbiesStepKey);
     }
   }
 
@@ -199,7 +229,7 @@ class _WizardPageState extends State<WizardPage> {
         );
         if (!result && context.mounted) {
           context.read<WizardCubit>().next(
-            _controller.page?.round() ?? 0,
+            _controller?.page?.round() ?? 0,
             confirmed: true,
           );
         }
@@ -238,7 +268,7 @@ class _WizardPageState extends State<WizardPage> {
           text: S.of(context).wizard_next,
           onTap: () {
             FocusScope.of(context).unfocus();
-            context.read<WizardCubit>().next((_controller.page ?? 0).round());
+            context.read<WizardCubit>().next((_controller?.page ?? 0).round());
           },
         ),
         if (_page > 0)
@@ -246,7 +276,7 @@ class _WizardPageState extends State<WizardPage> {
             text: S.of(context).wizard_previous,
             onTap: () {
               FocusScope.of(context).unfocus();
-              _controller.animateToPage(
+              _controller?.animateToPage(
                 (_page - 1).round(),
                 duration: 300.milliseconds,
                 curve: Curves.easeIn,

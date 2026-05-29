@@ -12,6 +12,8 @@ class LaDropDownDefinition<T> extends Equatable {
   final String? explanation;
   final List<T> options;
   final T? freeFormOption;
+  final T? initialValue;
+  final String? initialCustomValue;
   final void Function(T selected, String? customOption) onItemSelected;
 
   const LaDropDownDefinition({
@@ -24,6 +26,8 @@ class LaDropDownDefinition<T> extends Equatable {
     this.explanation,
     required this.options,
     this.freeFormOption,
+    this.initialValue,
+    this.initialCustomValue,
     required this.onItemSelected,
   });
 
@@ -38,6 +42,8 @@ class LaDropDownDefinition<T> extends Equatable {
     explanation,
     options,
     freeFormOption,
+    initialValue,
+    initialCustomValue,
     onItemSelected,
   ];
 }

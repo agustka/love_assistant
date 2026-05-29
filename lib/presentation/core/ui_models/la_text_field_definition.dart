@@ -9,6 +9,7 @@ class LaTextFieldDefinition extends Equatable {
   final String title;
   final String hint;
   final int maxLength;
+  final String? initialValue;
 
   const LaTextFieldDefinition({
     required this.fieldId,
@@ -17,6 +18,7 @@ class LaTextFieldDefinition extends Equatable {
     required this.title,
     required this.hint,
     required this.maxLength,
+    this.initialValue,
   });
 
   @override
@@ -27,5 +29,6 @@ class LaTextFieldDefinition extends Equatable {
     title,
     hint,
     maxLength,
+    initialValue,
   ];
 }

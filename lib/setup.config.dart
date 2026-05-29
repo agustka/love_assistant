@@ -165,15 +165,18 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i667.IPartnerProfileLocalStore>(),
       ),
     );
+    gh.factory<_i167.WizardCubit>(
+      () => _i167.WizardCubit(
+        gh<_i1010.SaveLocalPartnerProfileUseCase>(),
+        gh<_i19.GetLocalPartnerProfileUseCase>(),
+      ),
+    );
     gh.singleton<_i693.SessionManager>(
       () => _i693.SessionManager(
         gh<_i306.ISharedPrefsWrapper>(),
         gh<_i742.IAuthRepository>(),
         gh<_i339.IHiveCache>(),
       ),
-    );
-    gh.factory<_i167.WizardCubit>(
-      () => _i167.WizardCubit(gh<_i1010.SaveLocalPartnerProfileUseCase>()),
     );
     gh.factory<_i247.SplashCubit>(
       () => _i247.SplashCubit(

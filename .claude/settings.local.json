@@ -80,7 +80,21 @@
       "Bash(sed -n '1,12p' lib/presentation/auth/email_confirmation_page.dart)",
       "Bash(sed -n '1,20p' lib/presentation/core/app.dart)",
       "Bash(sed -n '20,60p' lib/application/splash/splash_cubit.dart)",
-      "Bash(sed -n '55,90p' lib/presentation/landing/landing_page.dart)"
+      "Bash(sed -n '55,90p' lib/presentation/landing/landing_page.dart)",
+      "Bash(xargs ls)",
+      "Bash(sed -n '1,90p' /Users/agustka/repos/love_assistant/test/user_acceptance_tests/auth/driver/sign_up_driver.dart)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(export CLAUDE_CODE_TMPDIR=/tmp)",
+      "Bash(echo \"DONE\")",
+      "Bash(export CLAUDE_CODE_TMPDIR=/Users/agustka/repos/love_assistant/.tmp_test)",
+      "Bash(df -h /tmp)",
+      "Bash(export CLAUDE_CODE_TMPDIR=/Users/agustka/repos/love_assistant/.claude/tmp)",
+      "Bash(mkdir -p /Users/agustka/repos/love_assistant/.claude/tmp)",
+      "Bash(echo \"NONE FOUND - clean\")",
+      "Bash(export TMPDIR=/Users/agustka/repos/love_assistant/.claude/handoff)",
+      "Bash(find /Users/agustka/repos/love_assistant/lib -name \"la_form_field_listener.dart\")",
+      "Bash(sed -n '40,60p' lib/presentation/wizard/widgets/wizard_step_3.dart)",
+      "Bash(sed -n '40,55p' lib/presentation/core/ui_components/molecules/la_drop_down_molecule.dart)"
     ]
   }
 }

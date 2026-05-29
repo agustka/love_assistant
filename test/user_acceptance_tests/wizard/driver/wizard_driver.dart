@@ -9,6 +9,7 @@ import '../../../_core/test_setup/driver/i_driver.dart';
 class WizardDriver extends BaseDriver {
   Finder get _greetingsStepFinder => find.byKey(WizardPage.greetingsStepKey);
   Finder get _basicInfoStepFinder => find.byKey(WizardPage.basicInfoStepKey);
+  Finder get _foodsAndGiftsStepFinder => find.byKey(WizardPage.foodsAndGiftsStepKey);
   Finder get _nextButtonFinder => find.byKey(WizardPage.nextButtonKey);
 
   WizardDriver({required super.tester, super.builders});
@@ -28,6 +29,18 @@ class WizardDriver extends BaseDriver {
 
   void assertOnBasicInfoStep() {
     expect(_basicInfoStepFinder, findsOneWidget);
+  }
+
+  void assertNotOnGreetingsStep() {
+    expect(_greetingsStepFinder, findsNothing);
+  }
+
+  void assertNotOnBasicInfoStep() {
+    expect(_basicInfoStepFinder, findsNothing);
+  }
+
+  void assertOnLastStep() {
+    expect(_foodsAndGiftsStepFinder, findsOneWidget);
   }
 
   Future<void> tapNext() async {
