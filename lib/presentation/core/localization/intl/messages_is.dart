@@ -203,6 +203,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Komdu mér á óvart",
     ),
     "global_gift_wellness": MessageLookupByLibrary.simpleMessage("Vellíðan"),
+    "global_hide_password": MessageLookupByLibrary.simpleMessage(
+      "Fela lykilorð",
+    ),
     "global_hobby_cooking": MessageLookupByLibrary.simpleMessage("Eldamennska"),
     "global_hobby_crafting": MessageLookupByLibrary.simpleMessage("Föndur"),
     "global_hobby_fishing_and_hunting": MessageLookupByLibrary.simpleMessage(
@@ -298,6 +301,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Annað",
     ),
     "global_required": MessageLookupByLibrary.simpleMessage("Nauðsynlegt"),
+    "global_show_password": MessageLookupByLibrary.simpleMessage(
+      "Sýna lykilorð",
+    ),
     "global_tone_of_voice_casual": MessageLookupByLibrary.simpleMessage(
       "Hversdagslegur",
     ),

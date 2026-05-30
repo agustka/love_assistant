@@ -199,6 +199,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Surprise me",
     ),
     "global_gift_wellness": MessageLookupByLibrary.simpleMessage("Wellness"),
+    "global_hide_password": MessageLookupByLibrary.simpleMessage(
+      "Hide password",
+    ),
     "global_hobby_cooking": MessageLookupByLibrary.simpleMessage("Cooking"),
     "global_hobby_crafting": MessageLookupByLibrary.simpleMessage("Crafting"),
     "global_hobby_fishing_and_hunting": MessageLookupByLibrary.simpleMessage(
@@ -282,6 +285,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Other",
     ),
     "global_required": MessageLookupByLibrary.simpleMessage("Required"),
+    "global_show_password": MessageLookupByLibrary.simpleMessage(
+      "Show password",
+    ),
     "global_tone_of_voice_casual": MessageLookupByLibrary.simpleMessage(
       "Casual",
     ),

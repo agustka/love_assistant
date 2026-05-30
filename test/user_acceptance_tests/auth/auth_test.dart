@@ -72,6 +72,29 @@ void main() {
       driver.assertStrengthMeterVisible();
     });
 
+    testWidgets("Password visibility toggle reveals and re-hides the entered password",
+        (WidgetTester tester) async {
+      // Given the user has typed a password on the sign-up screen
+      final SignUpDriver driver = SignUpDriver(tester: tester, builders: [AuthSignUpBuilder()]);
+      await driver.openPage();
+      await driver.enterPassword(_validPassword);
+
+      // Then the password is obscured by default
+      driver.assertPasswordObscured();
+
+      // When they tap the visibility toggle
+      await driver.tapPasswordVisibilityToggle();
+
+      // Then the password becomes visible
+      driver.assertPasswordVisible();
+
+      // When they tap the toggle again
+      await driver.tapPasswordVisibilityToggle();
+
+      // Then the password is obscured again
+      driver.assertPasswordObscured();
+    });
+
     testWidgets("Already-registered email is detected and no confirmation screen is shown",
         (WidgetTester tester) async {
       // Given the user enters an email that already has an account (boundary returns an empty-identities user)

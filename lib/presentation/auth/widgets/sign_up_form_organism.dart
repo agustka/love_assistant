@@ -11,6 +11,7 @@ class SignUpFormDefinition {
   final String passwordFieldId;
   final Key emailFieldKey;
   final Key passwordFieldKey;
+  final Key passwordVisibilityToggleKey;
   final Key emailErrorKey;
   final Key passwordErrorKey;
   final Key? formErrorKey;
@@ -37,6 +38,7 @@ class SignUpFormDefinition {
     required this.passwordFieldId,
     required this.emailFieldKey,
     required this.passwordFieldKey,
+    required this.passwordVisibilityToggleKey,
     required this.emailErrorKey,
     required this.passwordErrorKey,
     required this.formErrorKey,
@@ -151,6 +153,8 @@ class _PasswordCard extends StatelessWidget {
       hint: definition.passwordHint,
       optional: false,
       obscureText: true,
+      obscureTextToggle: true,
+      obscureTextToggleKey: definition.passwordVisibilityToggleKey,
       enabled: !definition.busy,
       onChanged: definition.onPasswordChanged,
       focusNode: definition.passwordFocusNode,

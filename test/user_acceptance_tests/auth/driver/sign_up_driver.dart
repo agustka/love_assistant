@@ -14,6 +14,7 @@ class SignUpDriver extends BaseDriver {
       find.descendant(of: find.byKey(SignUpPage.emailFieldKey), matching: find.byType(EditableText));
   Finder get _passwordFieldFinder =>
       find.descendant(of: find.byKey(SignUpPage.passwordFieldKey), matching: find.byType(EditableText));
+  Finder get _passwordVisibilityToggleFinder => find.byKey(SignUpPage.passwordVisibilityToggleKey);
   Finder get _submitButtonFinder => find.byKey(SignUpPage.submitButtonKey);
   Finder get _emailErrorFinder => find.byKey(SignUpPage.emailErrorKey);
   Finder get _passwordErrorFinder => find.byKey(SignUpPage.passwordErrorKey);
@@ -84,6 +85,19 @@ class SignUpDriver extends BaseDriver {
   Future<void> enterPassword(String password) async {
     await tester.enterText(_passwordFieldFinder, password);
     await tester.pump();
+  }
+
+  Future<void> tapPasswordVisibilityToggle() async {
+    await tester.tap(_passwordVisibilityToggleFinder);
+    await tester.pump();
+  }
+
+  void assertPasswordObscured() {
+    expect(tester.widget<EditableText>(_passwordFieldFinder).obscureText, isTrue);
+  }
+
+  void assertPasswordVisible() {
+    expect(tester.widget<EditableText>(_passwordFieldFinder).obscureText, isFalse);
   }
 
   Future<void> tapSignUp() async {

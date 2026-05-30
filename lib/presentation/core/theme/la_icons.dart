@@ -59,4 +59,12 @@ class LaIcons {
   static IconData get information {
     return PlatformDetector.isIOS ? CupertinoIcons.info : Icons.info_outline;
   }
+
+  static IconData get visibility {
+    return PlatformDetector.isIOS ? CupertinoIcons.eye : Icons.visibility;
+  }
+
+  static IconData get visibilityOff {
+    return PlatformDetector.isIOS ? CupertinoIcons.eye_slash : Icons.visibility_off;
+  }
 }

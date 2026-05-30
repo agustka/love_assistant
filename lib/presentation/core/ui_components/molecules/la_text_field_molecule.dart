@@ -24,6 +24,8 @@ class LaTextField extends StatefulWidget {
   final bool autofocus;
   final TextInputAction? textInputAction;
   final void Function(String value)? onSubmitted;
+  final bool obscureTextToggle;
+  final Key? obscureTextToggleKey;
 
   const LaTextField({
     super.key,
@@ -47,6 +49,8 @@ class LaTextField extends StatefulWidget {
     this.autofocus = false,
     this.textInputAction,
     this.onSubmitted,
+    this.obscureTextToggle = false,
+    this.obscureTextToggleKey,
   });
 
   @override
@@ -58,10 +62,13 @@ class LaTextField extends StatefulWidget {
 class _LaTextField extends State<LaTextField> {
   late final FocusNode _fallbackFocusNode;
   TextEditingController? _fallbackController;
+  late bool _obscured;
 
   @override
   void initState() {
     super.initState();
+
+    _obscured = widget.obscureText;
 
     if (widget.focusNode == null) {
       _fallbackFocusNode = FocusNode();
@@ -82,6 +89,14 @@ class _LaTextField extends State<LaTextField> {
   }
 
   @override
+  void didUpdateWidget(covariant LaTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.obscureText != widget.obscureText) {
+      _obscured = widget.obscureText;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     late Widget text;
     if (PlatformDetector.isIOS) {
@@ -98,7 +113,7 @@ class _LaTextField extends State<LaTextField> {
                 textCapitalization: TextCapitalization.sentences,
                 keyboardType: widget.keyboardType,
                 placeholder: widget.hint,
-                obscureText: widget.obscureText,
+                obscureText: _obscured,
                 padding: const EdgeInsets.symmetric(vertical: LaPadding.mediumSmall, horizontal: LaPadding.medium),
                 decoration: BoxDecoration(
                   color: LaTheme.secondaryContainer(),
@@ -113,7 +128,14 @@ class _LaTextField extends State<LaTextField> {
                 onSubmitted: widget.onSubmitted,
               ),
             ),
-            if (widget.actionIcon != null)
+            if (widget.obscureTextToggle)
+              _ObscureTextToggle(
+                key: widget.obscureTextToggleKey,
+                obscured: _obscured,
+                onToggle: _toggleObscured,
+                color: widget.hintColor,
+              )
+            else if (widget.actionIcon != null)
               LaPaddingAtom(
                 padding: const EdgeInsets.only(right: LaPadding.mediumSmall),
                 child: LaCenterAtom(
@@ -136,7 +158,7 @@ class _LaTextField extends State<LaTextField> {
                 focusNode: widget.focusNode ?? _fallbackFocusNode,
                 textCapitalization: TextCapitalization.sentences,
                 keyboardType: widget.keyboardType,
-                obscureText: widget.obscureText,
+                obscureText: _obscured,
                 decoration: InputDecoration(
                   hintText: widget.hint,
                   hintStyle: TextStyle(color: widget.hintColor ?? LaTheme.hintText()),
@@ -155,7 +177,14 @@ class _LaTextField extends State<LaTextField> {
                 onSubmitted: widget.onSubmitted,
               ),
             ),
-            if (widget.actionIcon != null)
+            if (widget.obscureTextToggle)
+              _ObscureTextToggle(
+                key: widget.obscureTextToggleKey,
+                obscured: _obscured,
+                onToggle: _toggleObscured,
+                color: widget.hintColor,
+              )
+            else if (widget.actionIcon != null)
               LaPaddingAtom(
                 padding: const EdgeInsets.only(right: LaPadding.mediumSmall),
                 child: LaCenterAtom(
@@ -198,6 +227,45 @@ class _LaTextField extends State<LaTextField> {
         fieldId: widget.fieldId,
         focus: widget.focusNode ?? _fallbackFocusNode,
         child: finalWidget,
+      ),
+    );
+  }
+
+  void _toggleObscured() {
+    setState(() {
+      _obscured = !_obscured;
+    });
+  }
+}
+
+class _ObscureTextToggle extends StatelessWidget {
+  final bool obscured;
+  final void Function() onToggle;
+  final Color? color;
+
+  const _ObscureTextToggle({
+    super.key,
+    required this.obscured,
+    required this.onToggle,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LaPaddingAtom(
+      padding: const EdgeInsets.only(right: LaPadding.mediumSmall),
+      child: LaTapVisualAtom(
+        onTap: onToggle,
+        useDebounce: false,
+        child: LaPaddingAtom.all(
+          value: LaPadding.small,
+          child: LaIconAtom(
+            obscured ? LaIcons.visibility : LaIcons.visibilityOff,
+            size: LaSize.large,
+            color: color ?? LaTheme.hintText(),
+            semanticLabel: obscured ? S.of(context).global_show_password : S.of(context).global_hide_password,
+          ),
+        ),
       ),
     );
   }

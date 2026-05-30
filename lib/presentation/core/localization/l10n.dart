@@ -134,6 +134,26 @@ class S {
     );
   }
 
+  /// `Sýna lykilorð`
+  String get global_show_password {
+    return Intl.message(
+      'Sýna lykilorð',
+      name: 'global_show_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fela lykilorð`
+  String get global_hide_password {
+    return Intl.message(
+      'Fela lykilorð',
+      name: 'global_hide_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `dd. MMMM`
   String get date_format_month_and_day {
     return Intl.message(
