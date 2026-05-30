@@ -118,6 +118,30 @@ void main() {
       driver.assertOnSignUpPage();
     });
 
+    testWidgets("Email field is auto-focused when the sign-up screen opens", (WidgetTester tester) async {
+      // Given the user opens the sign-up screen
+      final SignUpDriver driver = SignUpDriver(tester: tester, builders: [AuthSignUpBuilder()]);
+
+      // When the page first renders
+      await driver.openPage();
+
+      // Then the email field is auto-focused
+      driver.assertEmailFieldFocused();
+    });
+
+    testWidgets("Email IME Next action advances focus to the password field", (WidgetTester tester) async {
+      // Given the user is on the sign-up screen with the email field focused
+      final SignUpDriver driver = SignUpDriver(tester: tester, builders: [AuthSignUpBuilder()]);
+      await driver.openPage();
+      driver.assertEmailFieldFocused();
+
+      // When they tap the keyboard's Next action on the email field
+      await driver.triggerEmailNextAction();
+
+      // Then focus moves to the password field
+      driver.assertPasswordFieldFocused();
+    });
+
     testWidgets("Sign-up button prevents duplicate submissions in flight", (WidgetTester tester) async {
       // Given a valid email and password on the sign-up screen and a sign-up request in flight
       final SignUpDriver driver = SignUpDriver(tester: tester, builders: [AuthSignUpBuilder()]);

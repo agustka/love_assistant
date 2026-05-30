@@ -78,6 +78,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Confirm your email",
     ),
     "auth_email_hint": MessageLookupByLibrary.simpleMessage("Email"),
+    "auth_email_placeholder": MessageLookupByLibrary.simpleMessage(
+      "you@example.com",
+    ),
     "auth_error_network": MessageLookupByLibrary.simpleMessage(
       "Couldn\'t reach the server. Check your connection and try again.",
     ),
@@ -102,6 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Welcome back"),
     "auth_password_hint": MessageLookupByLibrary.simpleMessage("Password"),
+    "auth_password_placeholder": MessageLookupByLibrary.simpleMessage(
+      "At least 6 characters",
+    ),
     "auth_password_strength_fair": MessageLookupByLibrary.simpleMessage("Fair"),
     "auth_password_strength_label": MessageLookupByLibrary.simpleMessage(
       "Password strength",

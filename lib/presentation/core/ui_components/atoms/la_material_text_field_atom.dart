@@ -14,5 +14,8 @@ class LaMaterialTextFieldAtom extends TextField {
     super.obscureText = false,
     super.onChanged,
     super.textCapitalization = TextCapitalization.none,
+    super.autofocus = false,
+    super.textInputAction,
+    super.onSubmitted,
   });
 }

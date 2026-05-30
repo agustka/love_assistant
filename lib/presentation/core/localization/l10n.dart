@@ -1439,6 +1439,26 @@ class S {
     );
   }
 
+  /// `you@example.com`
+  String get auth_email_placeholder {
+    return Intl.message(
+      'you@example.com',
+      name: 'auth_email_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[At least 6 characters]`
+  String get auth_password_placeholder {
+    return Intl.message(
+      '[At least 6 characters]',
+      name: 'auth_password_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Skraning med netfangi`
   String get auth_signup_email {
     return Intl.message(

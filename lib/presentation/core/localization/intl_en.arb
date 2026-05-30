@@ -147,6 +147,8 @@
   "auth_login_signup_action": "Sign up",
   "auth_email_hint": "Email",
   "auth_password_hint": "Password",
+  "auth_email_placeholder": "you@example.com",
+  "auth_password_placeholder": "At least 6 characters",
   "auth_signup_email": "Sign up with email",
   "auth_login_email": "Sign in with email",
   "auth_email_confirmation_title": "Confirm your email",

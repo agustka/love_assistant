@@ -38,6 +38,20 @@ class SignUpDriver extends BaseDriver {
     expect(_pageFinder, findsOneWidget);
   }
 
+  void assertEmailFieldFocused() {
+    expect(tester.widget<EditableText>(_emailFieldFinder).focusNode.hasFocus, isTrue);
+  }
+
+  void assertPasswordFieldFocused() {
+    expect(tester.widget<EditableText>(_passwordFieldFinder).focusNode.hasFocus, isTrue);
+  }
+
+  Future<void> triggerEmailNextAction() async {
+    await tester.showKeyboard(_emailFieldFinder);
+    await tester.testTextInput.receiveAction(TextInputAction.next);
+    await tester.pumpAndSettle();
+  }
+
   void assertOnConfirmationPage() {
     expect(_confirmationPageFinder, findsOneWidget);
   }

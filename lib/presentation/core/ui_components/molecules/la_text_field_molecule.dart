@@ -20,6 +20,10 @@ class LaTextField extends StatefulWidget {
   final int? maxLength;
   final void Function(String input)? onChanged;
   final EdgeInsets? padding;
+  final Widget? belowField;
+  final bool autofocus;
+  final TextInputAction? textInputAction;
+  final void Function(String value)? onSubmitted;
 
   const LaTextField({
     super.key,
@@ -39,6 +43,10 @@ class LaTextField extends StatefulWidget {
     this.onChanged,
     this.maxLength,
     this.padding,
+    this.belowField,
+    this.autofocus = false,
+    this.textInputAction,
+    this.onSubmitted,
   });
 
   @override
@@ -66,6 +74,9 @@ class _LaTextField extends State<LaTextField> {
 
   @override
   void dispose() {
+    if (widget.focusNode == null) {
+      _fallbackFocusNode.dispose();
+    }
     _fallbackController?.dispose();
     super.dispose();
   }
@@ -97,6 +108,9 @@ class _LaTextField extends State<LaTextField> {
                 placeholderStyle: LaTheme.font.body16.copyWith(color: widget.hintColor ?? LaTheme.hintText()),
                 cursorColor: LaTheme.primary(),
                 maxLength: widget.maxLength,
+                autofocus: widget.autofocus,
+                textInputAction: widget.textInputAction,
+                onSubmitted: widget.onSubmitted,
               ),
             ),
             if (widget.actionIcon != null)
@@ -136,6 +150,9 @@ class _LaTextField extends State<LaTextField> {
                 style: LaTheme.font.body16.copyWith(color: LaTheme.onSecondaryContainer()),
                 cursorColor: LaTheme.primary(),
                 maxLength: widget.maxLength,
+                autofocus: widget.autofocus,
+                textInputAction: widget.textInputAction,
+                onSubmitted: widget.onSubmitted,
               ),
             ),
             if (widget.actionIcon != null)
@@ -168,6 +185,7 @@ class _LaTextField extends State<LaTextField> {
               ),
               const LaSizedBoxAtom(height: LaPadding.small),
               finalWidget,
+              if (widget.belowField != null) widget.belowField!,
             ],
           ),
         ),

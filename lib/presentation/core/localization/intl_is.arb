@@ -147,6 +147,8 @@
   "auth_login_signup_action": "Skraning",
   "auth_email_hint": "Netfang",
   "auth_password_hint": "Lykilord",
+  "auth_email_placeholder": "you@example.com",
+  "auth_password_placeholder": "[At least 6 characters]",
   "auth_signup_email": "Skraning med netfangi",
   "auth_login_email": "Innskraning med netfangi",
   "auth_email_confirmation_title": "Stadfestu netfangid",

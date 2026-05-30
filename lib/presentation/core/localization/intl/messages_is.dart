@@ -78,6 +78,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Stadfestu netfangid",
     ),
     "auth_email_hint": MessageLookupByLibrary.simpleMessage("Netfang"),
+    "auth_email_placeholder": MessageLookupByLibrary.simpleMessage(
+      "you@example.com",
+    ),
     "auth_error_network": MessageLookupByLibrary.simpleMessage(
       "[Couldn\'t reach the server. Check your connection and try again.]",
     ),
@@ -104,6 +107,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Velkomin aftur"),
     "auth_password_hint": MessageLookupByLibrary.simpleMessage("Lykilord"),
+    "auth_password_placeholder": MessageLookupByLibrary.simpleMessage(
+      "[At least 6 characters]",
+    ),
     "auth_password_strength_fair": MessageLookupByLibrary.simpleMessage(
       "[Fair]",
     ),

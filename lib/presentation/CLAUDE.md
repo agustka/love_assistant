@@ -107,6 +107,12 @@ Concrete screen instances binding a template with real content and Cubit state.
 - Semantic naming: `primaryBackground`, `dangerText`, `spacingXL`.
 - Support dark/light modes and accessibility (contrast & scaling).
 
+## Inputs & Forms
+- **One input is one card with a heading.** Each text input is its own `LaCardAtom` with a heading on top and the field inside — the pattern `LaWizardStepOrganism` uses (`LaTextField` with `showCard: true`). The card is the field boundary.
+- Do NOT give fields a hand-rolled outline/border to create affordance, and do NOT stack multiple borderless fields inside one wrapping card. Use the headed-card pattern instead.
+- Input cards sit directly on the page background. Never nest an input card inside another card (no card-in-card).
+- A field's helpers (strength meter, hint, and that field's error) live inside the field's own card, below the field. Form-level errors (not tied to a single field) sit on the page background, not in a card.
+
 ## Localization
 - Use this app's localization system via `S` in `lib/presentation/core/localization/l10n.dart`—do not hardcode strings in widgets.
 - Typical usage in widgets: `S.of(context).<key>`; for non-widget contexts where a `BuildContext` is unavailable, use `S.current.<key>`.
@@ -129,3 +135,4 @@ Concrete screen instances binding a template with real content and Cubit state.
 - Instantiating blocs/cubits inside widgets (use DI/injection layer)
 - Hardcoded colors/strings/spacings
 - Mixing layout and data transformation logic
+- Stacking multiple borderless inputs inside one card, nesting an input card inside another card, or adding outlines to fields — use one headed card per input (see Inputs & Forms)
