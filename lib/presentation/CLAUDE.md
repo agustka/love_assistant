@@ -47,6 +47,13 @@ Use these shared components for common patterns across features. Feature-specifi
 
 Lower atomic levels must not import higher levels, and feature widgets should not modify shared components directly.
 
+#### Every widget is a classified tier — no unclassified widgets next to pages
+Every widget in the codebase is exactly one of: atom, molecule, organism, or template (consumed by a page, drawer, or dialog). There is no fifth category of "loose page widget." Before writing a widget, classify it, then place it by that classification:
+
+- **A widget whose build is purely a composition of atoms (with callbacks/data in, no domain knowledge) IS a molecule** — by definition. It belongs in `lib/presentation/core/ui_components/molecules/`, public and feature-agnostic, even if only one screen uses it today. Keep it generic: the consumer supplies labels, data, and callbacks; the molecule contains no feature- or domain-specific naming or logic. (For example, a "Next/Done" keyboard accessory bar is a molecule, not a sign-up widget.)
+- **Feature `widgets/` folders hold only feature-specific organisms and page side-widgets** — composites that coordinate molecules, organisms, definitions, and templates. They must **not** be raw atom compositions, and they must **not** be a generic, reusable primitive in disguise. If what you are about to write is generic and atom-only, it is a misplaced molecule — promote it to the shared design system instead.
+- A page/drawer/dialog or a feature side-widget that finds itself reaching for atoms directly is a signal that a molecule is missing. Create (or request) the shared molecule; do not inline atoms behind a `part of`.
+
 ### 1. Atoms
 Smallest visual / interactive primitives.
 - Pure UI, single responsibility

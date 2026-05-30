@@ -101,6 +101,8 @@ The agent must:
     - side widgets must never be made public or annotated with `@visibleForTesting`
     - creation of side widgets must be reported as advisory gaps in the handoff (see Gap Reporting) so they can be evaluated for promotion to shared organisms later
 
+- **Never inline a pure atom-composition as a feature widget.** A widget whose build is only atoms + callbacks (no organisms/molecules, no domain knowledge) IS a molecule by definition (see `lib/presentation/CLAUDE.md` → "Every widget is a classified tier"). Since this agent may not create shared molecules, you must **not** smuggle one in as a `part of` side widget, a private page class, or a feature `widgets/` file. Instead, report a `needs shared component` gap (see Gap Reporting) and compose the page from the still-missing molecule as if it existed, leaving the page blocked on that gap. Inlining atoms anywhere outside an approved shared component is a violation, not a workaround.
+
 - If required UI fundamentally cannot be built (no suitable template, no way to compose from existing primitives):
     - mark as blocking gap
     - do not proceed
@@ -163,6 +165,14 @@ These are consumed by the application agent on subsequent iterations. Use specif
 
 ### Component gaps
 
+When the layout needs a primitive that is a pure atom-composition (a molecule) and no shared component provides it, the agent must not inline atoms. Report it so a shared molecule can be created in the design system:
+
+| Gap type | Format | Example |
+|---|---|---|
+| Needs shared component | `"needs shared component: <ProposedMoleculeName> — <atom-only composition it would encapsulate>"` | `"needs shared component: LaKeyboardAccessoryBarMolecule — right-aligned Next/Done action bar shown above the keyboard"` |
+
+This is **blocking** when the page cannot be composed without that primitive: mark status `failed` and route to a human/coordinator decision on adding the shared molecule. Do not satisfy it by inlining atoms in a feature widget.
+
 ### Testing ownership gaps
 
 When UI implementation changes require test updates, the UI agent must not author tests and must report a testing-owned gap:
@@ -214,7 +224,8 @@ The invariants section must list the architectural rules that the generated code
 - No `EdgeInsets`, hardcoded sizes, or raw Flutter widgets at page level
 - All strings via `S.of(context).*` — no hardcoded strings
 - Cubits provided via `getIt<T>()` only — no direct construction
-- Side widgets are private and connected via `part of`
+- Side widgets are private and connected via `part of`, and compose only definitions/organisms/molecules/templates — never atoms or raw Flutter widgets
+- No atoms composed outside an approved shared component — no pure atom-composition inlined as a feature widget, side widget, or private page class (would-be molecules are reported as `needs shared component` gaps)
 - Route registration complete (PageName + NamedRoute + RouteLink)
 - Drawers follow the project route-driven navigation convention (no direct modal bottom-sheet opening for standard flows)
 - Event bus messages handled via template `onMessage` parameter
@@ -231,6 +242,7 @@ The agent must stop and mark status as `failed` if:
 - `layout.md` is not provided
 - no approved template can satisfy the page layout
 - the layout requires capabilities that cannot be achieved even with side widgets composing existing primitives
+- the layout requires a primitive that is a pure atom-composition (a molecule) that no shared component provides — report a `needs shared component` gap; never inline atoms in a feature widget to work around it
 
 These must be reported as blocking gaps for the coordinator.
 

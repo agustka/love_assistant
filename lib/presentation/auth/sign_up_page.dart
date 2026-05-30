@@ -4,14 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/sign_up_cubit.dart';
 import 'package:la/presentation/auth/widgets/sign_up_form_organism.dart';
 import 'package:la/presentation/core/app.dart';
-import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/setup.dart';
-
-part 'widgets/ios_keyboard_accessory_bar.dart';
 
 class SignUpPage extends StatefulWidget {
   static const Key pageKey = Key("SignUpPage_page");
@@ -72,7 +69,6 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium, vertical: LaPadding.medium),
               appBar: const LaAppBarOrganism(
                 style: AppBarStyle.background,
-                showBack: true,
               ),
               bottomButtons: _bottomButtons(context, state),
               child: SignUpFormOrganism(
@@ -135,10 +131,9 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ],
       belowButtonsWidget: showAccessoryBar
-          ? _IosKeyboardAccessoryBar(
-              isEmailFocused: _emailFocused,
-              onNext: _advanceToPassword,
-              onDone: _dismissKeyboard,
+          ? LaKeyboardAccessoryBarMolecule(
+              actionLabel: _emailFocused ? strings.wizard_next : strings.global_done,
+              onActionPressed: _emailFocused ? _advanceToPassword : _dismissKeyboard,
             )
           : null,
     );

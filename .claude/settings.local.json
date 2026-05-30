@@ -110,7 +110,10 @@
       "Bash(echo \"exit $?\")",
       "Bash(echo \"push exit $?\")",
       "Bash(echo \"prview exit $?\")",
-      "Bash(echo \"create exit $?\")"
+      "Bash(echo \"create exit $?\")",
+      "Bash(echo \"rm exit $?\")",
+      "Bash(echo \"analyze exit $?\")",
+      "Bash(echo \"test exit $?\")"
     ]
   }
 }
