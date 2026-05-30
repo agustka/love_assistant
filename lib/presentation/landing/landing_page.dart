@@ -3,6 +3,7 @@ import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/ui_components/molecules/la_bottom_buttons_molecule.dart';
+import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/presentation/landing/widgets/landing_actions_organism.dart';
 
@@ -29,6 +30,9 @@ class _LandingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return LaDefaultPageTemplate(
       key: LandingPage.pageKey,
+      appBar: const LaAppBarOrganism(
+        style: AppBarStyle.background,
+      ),
       centerContent: true,
       bottomButtons: _bottomButtons(context),
       child: LandingActionsOrganism(

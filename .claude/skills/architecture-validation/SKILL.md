@@ -110,8 +110,9 @@ For `lib/presentation/**` changes:
 - pages build definitions/organisms/molecules from state and pass them into the template — no atoms or raw layout widgets composed directly at page level
 - design tokens from `LaTheme` / `LaPadding` etc. instead of hardcoded values
 - no `EdgeInsets`/`SizedBox` at page level — that's a template/organism concern
+- **every widget is a classified tier** (atom/molecule/organism/template) — there is no unclassified "loose page widget". Flag any widget under a feature `lib/presentation/<feature>/widgets/` folder (or a `part of` page side-widget, or a private page-level class) whose build is a **pure composition of atoms** (only `La*Atom`s + callbacks, no organisms/molecules, no domain knowledge). That is a misplaced molecule: it must live in `lib/presentation/core/ui_components/molecules/` as a public, feature-agnostic component. Report as a **violation** with recommended action "extract to shared molecule". Feature `widgets/` may hold only feature-specific organisms and side-widgets composing molecules/organisms/definitions/templates.
 
-Source: `lib/presentation/CLAUDE.md`.
+Source: `lib/presentation/CLAUDE.md` ("Every widget is a classified tier — no unclassified widgets next to pages").
 
 ### 5. Validate Cubit and DI patterns
 

@@ -134,6 +134,26 @@ class S {
     );
   }
 
+  /// `Sýna lykilorð`
+  String get global_show_password {
+    return Intl.message(
+      'Sýna lykilorð',
+      name: 'global_show_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fela lykilorð`
+  String get global_hide_password {
+    return Intl.message(
+      'Fela lykilorð',
+      name: 'global_hide_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `dd. MMMM`
   String get date_format_month_and_day {
     return Intl.message(
@@ -1434,6 +1454,26 @@ class S {
     return Intl.message(
       'Lykilord',
       name: 'auth_password_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you@example.com`
+  String get auth_email_placeholder {
+    return Intl.message(
+      'you@example.com',
+      name: 'auth_email_placeholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[At least 6 characters]`
+  String get auth_password_placeholder {
+    return Intl.message(
+      '[At least 6 characters]',
+      name: 'auth_password_placeholder',
       desc: '',
       args: [],
     );

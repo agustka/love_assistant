@@ -78,6 +78,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Stadfestu netfangid",
     ),
     "auth_email_hint": MessageLookupByLibrary.simpleMessage("Netfang"),
+    "auth_email_placeholder": MessageLookupByLibrary.simpleMessage(
+      "you@example.com",
+    ),
     "auth_error_network": MessageLookupByLibrary.simpleMessage(
       "[Couldn\'t reach the server. Check your connection and try again.]",
     ),
@@ -104,6 +107,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Velkomin aftur"),
     "auth_password_hint": MessageLookupByLibrary.simpleMessage("Lykilord"),
+    "auth_password_placeholder": MessageLookupByLibrary.simpleMessage(
+      "[At least 6 characters]",
+    ),
     "auth_password_strength_fair": MessageLookupByLibrary.simpleMessage(
       "[Fair]",
     ),
@@ -197,6 +203,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Komdu mér á óvart",
     ),
     "global_gift_wellness": MessageLookupByLibrary.simpleMessage("Vellíðan"),
+    "global_hide_password": MessageLookupByLibrary.simpleMessage(
+      "Fela lykilorð",
+    ),
     "global_hobby_cooking": MessageLookupByLibrary.simpleMessage("Eldamennska"),
     "global_hobby_crafting": MessageLookupByLibrary.simpleMessage("Föndur"),
     "global_hobby_fishing_and_hunting": MessageLookupByLibrary.simpleMessage(
@@ -292,6 +301,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Annað",
     ),
     "global_required": MessageLookupByLibrary.simpleMessage("Nauðsynlegt"),
+    "global_show_password": MessageLookupByLibrary.simpleMessage(
+      "Sýna lykilorð",
+    ),
     "global_tone_of_voice_casual": MessageLookupByLibrary.simpleMessage(
       "Hversdagslegur",
     ),

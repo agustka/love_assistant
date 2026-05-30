@@ -21,6 +21,7 @@ class BottomButtonsDefinition extends Equatable {
   final bool showDropShadow;
   final List<BottomButtonDefinition> buttons;
   final Widget? aboveButtonsWidget;
+  final Widget? belowButtonsWidget;
   final bool addBottomPadding;
   final bool exit;
   final bool shouldPushOnKeyboard;
@@ -30,6 +31,7 @@ class BottomButtonsDefinition extends Equatable {
   const BottomButtonsDefinition({
     this.buttons = const [],
     this.aboveButtonsWidget,
+    this.belowButtonsWidget,
     this.addBottomPadding = true,
     this.showDropShadow = true,
     this.type = BottomButtonsStyle.sideBySide,
@@ -48,6 +50,7 @@ class BottomButtonsDefinition extends Equatable {
     bool? showDropShadow,
     List<BottomButtonDefinition>? buttons,
     Widget? aboveButtonsWidget,
+    Widget? belowButtonsWidget,
     bool? addBottomPadding,
     bool? exit,
     bool? shouldPushOnKeyboard,
@@ -61,6 +64,7 @@ class BottomButtonsDefinition extends Equatable {
       showDropShadow: showDropShadow ?? this.showDropShadow,
       buttons: buttons ?? this.buttons,
       aboveButtonsWidget: aboveButtonsWidget ?? this.aboveButtonsWidget,
+      belowButtonsWidget: belowButtonsWidget ?? this.belowButtonsWidget,
       addBottomPadding: addBottomPadding ?? this.addBottomPadding,
       exit: exit ?? this.exit,
       shouldPushOnKeyboard: shouldPushOnKeyboard ?? this.shouldPushOnKeyboard,
@@ -76,6 +80,7 @@ class BottomButtonsDefinition extends Equatable {
     loading,
     buttons,
     aboveButtonsWidget,
+    belowButtonsWidget,
     exit,
     shouldPushOnKeyboard,
     background,
@@ -141,7 +146,9 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
 
   @override
   Widget build(BuildContext context) {
-    if (widget.buttons.buttons.isEmpty && widget.buttons.aboveButtonsWidget == null) {
+    if (widget.buttons.buttons.isEmpty &&
+        widget.buttons.aboveButtonsWidget == null &&
+        widget.buttons.belowButtonsWidget == null) {
       return const LaSizedBoxAtom.shrink();
     }
 
@@ -165,6 +172,8 @@ class _LaBottomButtonsMoleculeState extends State<LaBottomButtonsMolecule> with 
               padding: const EdgeInsets.only(left: LaPadding.medium, right: LaPadding.medium),
               child: LaSizedBoxAtom(width: double.infinity, child: _getMainButtonEntries(context)),
             ),
+
+          widget.buttons.belowButtonsWidget ?? const LaSizedBoxAtom.shrink(),
 
           LaSizedBoxAtom(height: LaBottomButtonsMolecule.bottomPadding),
 

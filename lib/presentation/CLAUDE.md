@@ -47,6 +47,13 @@ Use these shared components for common patterns across features. Feature-specifi
 
 Lower atomic levels must not import higher levels, and feature widgets should not modify shared components directly.
 
+#### Every widget is a classified tier — no unclassified widgets next to pages
+Every widget in the codebase is exactly one of: atom, molecule, organism, or template (consumed by a page, drawer, or dialog). There is no fifth category of "loose page widget." Before writing a widget, classify it, then place it by that classification:
+
+- **A widget whose build is purely a composition of atoms (with callbacks/data in, no domain knowledge) IS a molecule** — by definition. It belongs in `lib/presentation/core/ui_components/molecules/`, public and feature-agnostic, even if only one screen uses it today. Keep it generic: the consumer supplies labels, data, and callbacks; the molecule contains no feature- or domain-specific naming or logic. (For example, a "Next/Done" keyboard accessory bar is a molecule, not a sign-up widget.)
+- **Feature `widgets/` folders hold only feature-specific organisms and page side-widgets** — composites that coordinate molecules, organisms, definitions, and templates. They must **not** be raw atom compositions, and they must **not** be a generic, reusable primitive in disguise. If what you are about to write is generic and atom-only, it is a misplaced molecule — promote it to the shared design system instead.
+- A page/drawer/dialog or a feature side-widget that finds itself reaching for atoms directly is a signal that a molecule is missing. Create (or request) the shared molecule; do not inline atoms behind a `part of`.
+
 ### 1. Atoms
 Smallest visual / interactive primitives.
 - Pure UI, single responsibility
@@ -107,6 +114,12 @@ Concrete screen instances binding a template with real content and Cubit state.
 - Semantic naming: `primaryBackground`, `dangerText`, `spacingXL`.
 - Support dark/light modes and accessibility (contrast & scaling).
 
+## Inputs & Forms
+- **One input is one card with a heading.** Each text input is its own `LaCardAtom` with a heading on top and the field inside — the pattern `LaWizardStepOrganism` uses (`LaTextField` with `showCard: true`). The card is the field boundary.
+- Do NOT give fields a hand-rolled outline/border to create affordance, and do NOT stack multiple borderless fields inside one wrapping card. Use the headed-card pattern instead.
+- Input cards sit directly on the page background. Never nest an input card inside another card (no card-in-card).
+- A field's helpers (strength meter, hint, and that field's error) live inside the field's own card, below the field. Form-level errors (not tied to a single field) sit on the page background, not in a card.
+
 ## Localization
 - Use this app's localization system via `S` in `lib/presentation/core/localization/l10n.dart`—do not hardcode strings in widgets.
 - Typical usage in widgets: `S.of(context).<key>`; for non-widget contexts where a `BuildContext` is unavailable, use `S.current.<key>`.
@@ -129,3 +142,4 @@ Concrete screen instances binding a template with real content and Cubit state.
 - Instantiating blocs/cubits inside widgets (use DI/injection layer)
 - Hardcoded colors/strings/spacings
 - Mixing layout and data transformation logic
+- Stacking multiple borderless inputs inside one card, nesting an input card inside another card, or adding outlines to fields — use one headed card per input (see Inputs & Forms)

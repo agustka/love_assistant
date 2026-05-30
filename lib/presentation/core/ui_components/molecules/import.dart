@@ -5,6 +5,7 @@ export 'la_date_picker_molecule.dart';
 export 'la_day_month_picker_molecule.dart';
 export 'la_drop_down_molecule.dart';
 export 'la_feature_heading_molecule.dart';
+export 'la_keyboard_accessory_bar_molecule.dart';
 export 'la_link_prompt_molecule.dart';
 export 'la_list_tile_molecule.dart';
 export 'la_password_strength_molecule.dart';

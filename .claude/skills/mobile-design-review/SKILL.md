@@ -43,6 +43,7 @@ If someone could look at the screen and say "a generator made that," it failed. 
 - **Identical card grids** — `LaCard` repeated with icon + heading + text, endlessly. A plain `LaColumn`/list with spacing and dividers usually reads better. **Never nest a card in a card.**
 - **Modal/dialog as first thought.** Exhaust inline and progressive options first; when a surface is warranted, prefer the project's `LaBottomDrawerTemplate` over a blocking dialog.
 - **Cards as the default container.** Most content does not need one. Spacing and alignment group things for free.
+- **Bordered/borderless input fields.** This app's input pattern is one input per `LaCardAtom` with a heading and the field inside (`LaTextField` `showCard: true`, the wizard pattern) — the card is the field boundary. Don't recommend a hand-rolled field outline for affordance, and don't leave several borderless fields stacked inside one wrapping card; restructure to one headed card per input on the page background. See `design-principles.md` § Layout & spacing.
 
 ## Review procedure
 

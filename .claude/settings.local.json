@@ -94,7 +94,26 @@
       "Bash(export TMPDIR=/Users/agustka/repos/love_assistant/.claude/handoff)",
       "Bash(find /Users/agustka/repos/love_assistant/lib -name \"la_form_field_listener.dart\")",
       "Bash(sed -n '40,60p' lib/presentation/wizard/widgets/wizard_step_3.dart)",
-      "Bash(sed -n '40,55p' lib/presentation/core/ui_components/molecules/la_drop_down_molecule.dart)"
+      "Bash(sed -n '40,55p' lib/presentation/core/ui_components/molecules/la_drop_down_molecule.dart)",
+      "Bash(sed -n '45,70p' lib/application/splash/splash_cubit.dart)",
+      "Bash(sed -n '130,150p' lib/presentation/wizard/wizard_page.dart)",
+      "Bash(sed -n '95,110p' lib/presentation/core/ui_components/molecules/la_drop_down_molecule.dart)",
+      "Bash(sed -n '187,205p' lib/presentation/core/ui_components/molecules/la_drop_down_molecule.dart)",
+      "Bash(sed -n '/## Status/,$p' .claude/handoff/know-the-code.handoff.md)",
+      "Bash(sed -n '/### Risks/,/## Status/p' .claude/handoff/know-the-code.handoff.md)",
+      "Bash(set +e)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(grep -rn \"belowButtonsWidget\" lib/ test/)",
+      "Bash(rm -f /Users/agustka/repos/love_assistant/.belowcheck.tmp)",
+      "Bash(echo \"done $?\")",
+      "Bash(git diff *)",
+      "Bash(echo \"exit $?\")",
+      "Bash(echo \"push exit $?\")",
+      "Bash(echo \"prview exit $?\")",
+      "Bash(echo \"create exit $?\")",
+      "Bash(echo \"rm exit $?\")",
+      "Bash(echo \"analyze exit $?\")",
+      "Bash(echo \"test exit $?\")"
     ]
   }
 }
