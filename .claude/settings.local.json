@@ -107,7 +107,10 @@
       "Bash(rm -f /Users/agustka/repos/love_assistant/.belowcheck.tmp)",
       "Bash(echo \"done $?\")",
       "Bash(git diff *)",
-      "Bash(echo \"exit $?\")"
+      "Bash(echo \"exit $?\")",
+      "Bash(echo \"push exit $?\")",
+      "Bash(echo \"prview exit $?\")",
+      "Bash(echo \"create exit $?\")"
     ]
   }
 }
