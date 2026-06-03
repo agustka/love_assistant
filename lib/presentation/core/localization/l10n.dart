@@ -28,9 +28,7 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -1374,10 +1372,10 @@ class S {
     );
   }
 
-  /// `Innskraning`
+  /// `[Innskraning]`
   String get auth_signup_login_action {
     return Intl.message(
-      'Innskraning',
+      '[Innskraning]',
       name: 'auth_signup_login_action',
       desc: '',
       args: [],
@@ -1399,6 +1397,26 @@ class S {
     return Intl.message(
       'Skradu inn til ad halda afram.',
       name: 'auth_login_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Login is not ready yet]`
+  String get auth_login_under_construction_title {
+    return Intl.message(
+      '[Login is not ready yet]',
+      name: 'auth_login_under_construction_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[Go back for now. The login flow is still being built.]`
+  String get auth_login_under_construction_message {
+    return Intl.message(
+      '[Go back for now. The login flow is still being built.]',
+      name: 'auth_login_under_construction_message',
       desc: '',
       args: [],
     );

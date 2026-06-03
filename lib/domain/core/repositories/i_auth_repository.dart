@@ -1,4 +1,5 @@
 import "package:la/domain/core/entities/email_password_credentials.dart";
+import "package:la/domain/core/value_objects/email_value_object.dart";
 import "package:la/domain/core/value_objects/payload.dart";
 import "package:la/infrastructure/core/auth/auth_event_type.dart";
 import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
@@ -19,4 +20,6 @@ abstract class IAuthRepository {
   Future<Payload<AuthUserModel>> recheckEmailConfirmation(EmailPasswordCredentials credentials);
 
   Future<Payload<void>> resendConfirmationEmail(EmailPasswordCredentials credentials);
+
+  Future<Payload<void>> resetPasswordForEmail(EmailValueObject email);
 }

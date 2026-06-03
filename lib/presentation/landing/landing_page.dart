@@ -3,19 +3,22 @@ import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/ui_components/molecules/la_bottom_buttons_molecule.dart';
+import 'package:la/presentation/core/ui_components/molecules/la_link_prompt_molecule.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/presentation/landing/widgets/landing_actions_organism.dart';
 
 class LandingPage extends StatelessWidget {
   static const Key pageKey = Key("LandingPage_page");
+  static const Key loginPromptKey = Key("LandingPage_loginPrompt");
+  static const Key loginActionKey = Key("LandingPage_loginAction");
+  static const Key signUpButtonKey = Key("LandingPage_signUpButton");
 
   const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final UserPartnerProfile? partnerProfile =
-        ModalRoute.of(context)?.settings.arguments as UserPartnerProfile?;
+    final UserPartnerProfile? partnerProfile = ModalRoute.of(context)?.settings.arguments as UserPartnerProfile?;
 
     return _LandingView(partnerProfile: partnerProfile);
   }
@@ -66,17 +69,20 @@ class _LandingView extends StatelessWidget {
   BottomButtonsDefinition _bottomButtons(BuildContext context) {
     final S strings = S.of(context);
     return BottomButtonsDefinition(
-      type: BottomButtonsStyle.sandwich,
       buttons: [
         BottomButtonDefinition(
+          key: LandingPage.signUpButtonKey,
           text: strings.auth_login_signup_action,
           onTap: () => Navigator.of(context).pushNamed(PageName.signUp.route),
         ),
-        BottomButtonDefinition(
-          text: strings.auth_signup_login_action,
-          onTap: () {},
-        ),
       ],
+      belowButtonsWidget: LaLinkPromptMolecule(
+        key: LandingPage.loginPromptKey,
+        actionKey: LandingPage.loginActionKey,
+        prompt: strings.auth_signup_login_prompt,
+        actionText: strings.auth_signup_login_action,
+        onTap: () => Navigator.of(context).pushNamed(PageName.login.route),
+      ),
     );
   }
 

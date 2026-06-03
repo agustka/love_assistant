@@ -24,8 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(name) => "${name}\'s profile is ready";
 
-  static String m2(gender) =>
-      "Share ${gender} gift and food preferences with me.";
+  static String m2(gender) => "Share ${gender} gift and food preferences with me.";
 
   static String m3(name, gender) =>
       "This ensures I recommend things ${name} loves and can avoid what ${gender} may not like as much.";
@@ -40,11 +39,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m8(gender) => "Which love languages match ${gender}?";
 
-  static String m9(name) =>
-      "Share the things ${name} enjoys so the suggestions fit.";
+  static String m9(name) => "Share the things ${name} enjoys so the suggestions fit.";
 
-  static String m10(gender) =>
-      "Choose the love languages and tone that fit ${gender} best.";
+  static String m10(gender) => "Choose the love languages and tone that fit ${gender} best.";
 
   static String m11(gender) => "What does ${gender} like?";
 
@@ -68,12 +65,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Resend email",
     ),
     "auth_email_confirmation_resend_cooldown": m0,
-    "auth_email_confirmation_resend_error":
-        MessageLookupByLibrary.simpleMessage(
-          "Couldn\'t resend right now. Try again in a moment.",
-        ),
-    "auth_email_confirmation_resend_success":
-        MessageLookupByLibrary.simpleMessage("Confirmation email sent."),
+    "auth_email_confirmation_resend_error": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t resend right now. Try again in a moment.",
+    ),
+    "auth_email_confirmation_resend_success": MessageLookupByLibrary.simpleMessage("Confirmation email sent."),
     "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
       "Confirm your email",
     ),
@@ -104,6 +99,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in to continue.",
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Welcome back"),
+    "auth_login_under_construction_message": MessageLookupByLibrary.simpleMessage(
+      "Go back for now. The login flow is still being built.",
+    ),
+    "auth_login_under_construction_title": MessageLookupByLibrary.simpleMessage(
+      "Login is not ready yet",
+    ),
     "auth_password_hint": MessageLookupByLibrary.simpleMessage("Password"),
     "auth_password_placeholder": MessageLookupByLibrary.simpleMessage(
       "At least 6 characters",
@@ -137,7 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_signup_google": MessageLookupByLibrary.simpleMessage(
       "Sign up with Google",
     ),
-    "auth_signup_login_action": MessageLookupByLibrary.simpleMessage("Login"),
+    "auth_signup_login_action": MessageLookupByLibrary.simpleMessage("Log in"),
     "auth_signup_login_prompt": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),
@@ -217,18 +218,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_hobby_reading": MessageLookupByLibrary.simpleMessage("Reading"),
     "global_hobby_sports": MessageLookupByLibrary.simpleMessage("Sports"),
     "global_hobby_traveling": MessageLookupByLibrary.simpleMessage("Traveling"),
-    "global_love_language_acts_of_service":
-        MessageLookupByLibrary.simpleMessage("Acts of service"),
+    "global_love_language_acts_of_service": MessageLookupByLibrary.simpleMessage("Acts of service"),
     "global_love_language_physical_touch": MessageLookupByLibrary.simpleMessage(
       "Physical touch",
     ),
     "global_love_language_quality_time": MessageLookupByLibrary.simpleMessage(
       "Quality time",
     ),
-    "global_love_language_receiving_gifts":
-        MessageLookupByLibrary.simpleMessage("Receiving gifts"),
-    "global_love_language_words_of_affirmation":
-        MessageLookupByLibrary.simpleMessage("Words of affirmation"),
+    "global_love_language_receiving_gifts": MessageLookupByLibrary.simpleMessage("Receiving gifts"),
+    "global_love_language_words_of_affirmation": MessageLookupByLibrary.simpleMessage("Words of affirmation"),
     "global_more": MessageLookupByLibrary.simpleMessage("More"),
     "global_optional": MessageLookupByLibrary.simpleMessage("Optional"),
     "global_pick_date": MessageLookupByLibrary.simpleMessage("Pick a date"),
@@ -276,8 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_relationship_type_engaged": MessageLookupByLibrary.simpleMessage(
       "Engaged",
     ),
-    "global_relationship_type_life_partners":
-        MessageLookupByLibrary.simpleMessage("Life partners"),
+    "global_relationship_type_life_partners": MessageLookupByLibrary.simpleMessage("Life partners"),
     "global_relationship_type_married": MessageLookupByLibrary.simpleMessage(
       "Married",
     ),
@@ -347,16 +344,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_anniversary_hint": MessageLookupByLibrary.simpleMessage(
       "Pick your big date",
     ),
-    "wizard_partner_anniversary_skip_message":
-        MessageLookupByLibrary.simpleMessage(
-          "Are you sure you want to skip the anniversary date?",
-        ),
-    "wizard_partner_anniversary_skip_no_cancel":
-        MessageLookupByLibrary.simpleMessage("No"),
-    "wizard_partner_anniversary_skip_title":
-        MessageLookupByLibrary.simpleMessage("Skip anniversary?"),
-    "wizard_partner_anniversary_skip_yes_confirm":
-        MessageLookupByLibrary.simpleMessage("Yes, skip"),
+    "wizard_partner_anniversary_skip_message": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to skip the anniversary date?",
+    ),
+    "wizard_partner_anniversary_skip_no_cancel": MessageLookupByLibrary.simpleMessage("No"),
+    "wizard_partner_anniversary_skip_title": MessageLookupByLibrary.simpleMessage("Skip anniversary?"),
+    "wizard_partner_anniversary_skip_yes_confirm": MessageLookupByLibrary.simpleMessage("Yes, skip"),
     "wizard_partner_anniversary_title": MessageLookupByLibrary.simpleMessage(
       "Do you have an anniversary date?",
     ),
@@ -384,10 +377,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sharing your partner\'s hobbies helps me pick activities and gifts that fit.",
     ),
     "wizard_partner_hobbies_title": m7,
-    "wizard_partner_love_language_explanation":
-        MessageLookupByLibrary.simpleMessage(
-          "There are said to be five forms of expressions of love.\nQuality Time: Spending undivided, meaningful time together.\nWords of Affirmation: Expressing love and appreciation through kind and affirming words.\nActs of Service: Showing love by doing helpful or thoughtful tasks.\nPhysical Touch: Expressing love through physical gestures like hugs, kisses, and other forms of touch.\nReceiving Gifts: Giving and receiving thoughtful gifts as a symbol of love.",
-        ),
+    "wizard_partner_love_language_explanation": MessageLookupByLibrary.simpleMessage(
+      "There are said to be five forms of expressions of love.\nQuality Time: Spending undivided, meaningful time together.\nWords of Affirmation: Expressing love and appreciation through kind and affirming words.\nActs of Service: Showing love by doing helpful or thoughtful tasks.\nPhysical Touch: Expressing love through physical gestures like hugs, kisses, and other forms of touch.\nReceiving Gifts: Giving and receiving thoughtful gifts as a symbol of love.",
+    ),
     "wizard_partner_love_language_title": m8,
     "wizard_partner_loves_message_1": m9,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
@@ -396,20 +388,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_loves_message_initial_1": m10,
     "wizard_partner_loves_title": m11,
     "wizard_partner_more_details": m12,
-    "wizard_partner_profile_birthday_missing":
-        MessageLookupByLibrary.simpleMessage("Birthday is required"),
-    "wizard_partner_profile_message_1_extended":
-        MessageLookupByLibrary.simpleMessage(
-          "Tell me a bit about your partner, like their name, pronouns and important dates.",
-        ),
-    "wizard_partner_profile_message_1_shortened":
-        MessageLookupByLibrary.simpleMessage(
-          "Tell me a bit about your partner, like their name and pronouns.",
-        ),
-    "wizard_partner_profile_message_initial_1":
-        MessageLookupByLibrary.simpleMessage(
-          "Let\'s start with the basics: name and gender.",
-        ),
+    "wizard_partner_profile_birthday_missing": MessageLookupByLibrary.simpleMessage("Birthday is required"),
+    "wizard_partner_profile_message_1_extended": MessageLookupByLibrary.simpleMessage(
+      "Tell me a bit about your partner, like their name, pronouns and important dates.",
+    ),
+    "wizard_partner_profile_message_1_shortened": MessageLookupByLibrary.simpleMessage(
+      "Tell me a bit about your partner, like their name and pronouns.",
+    ),
+    "wizard_partner_profile_message_initial_1": MessageLookupByLibrary.simpleMessage(
+      "Let\'s start with the basics: name and gender.",
+    ),
     "wizard_partner_profile_name_hint": MessageLookupByLibrary.simpleMessage(
       "Partner name",
     ),
@@ -419,8 +407,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_profile_name_title": MessageLookupByLibrary.simpleMessage(
       "What\'s your partner\'s name?",
     ),
-    "wizard_partner_profile_pronoun_missing":
-        MessageLookupByLibrary.simpleMessage("Pronoun is required"),
+    "wizard_partner_profile_pronoun_missing": MessageLookupByLibrary.simpleMessage("Pronoun is required"),
     "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
       "Let\'s start with the basics",
     ),
@@ -430,18 +417,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_pronouns_title": MessageLookupByLibrary.simpleMessage(
       "How should I refer to your partner?",
     ),
-    "wizard_partner_relationship_type_explanation":
-        MessageLookupByLibrary.simpleMessage(
-          "This helps me fit reminders, messages, and suggestions to the stage of your relationship",
-        ),
-    "wizard_partner_relationship_type_hint":
-        MessageLookupByLibrary.simpleMessage("Select relationship type"),
-    "wizard_partner_relationship_type_title":
-        MessageLookupByLibrary.simpleMessage("Relationship type"),
-    "wizard_partner_tone_of_voice_explanation":
-        MessageLookupByLibrary.simpleMessage(
-          "Picking the right tone helps me write messages that land with your partner.",
-        ),
+    "wizard_partner_relationship_type_explanation": MessageLookupByLibrary.simpleMessage(
+      "This helps me fit reminders, messages, and suggestions to the stage of your relationship",
+    ),
+    "wizard_partner_relationship_type_hint": MessageLookupByLibrary.simpleMessage("Select relationship type"),
+    "wizard_partner_relationship_type_title": MessageLookupByLibrary.simpleMessage("Relationship type"),
+    "wizard_partner_tone_of_voice_explanation": MessageLookupByLibrary.simpleMessage(
+      "Picking the right tone helps me write messages that land with your partner.",
+    ),
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Select tone of voice",
     ),

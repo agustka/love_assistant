@@ -8,6 +8,7 @@ import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/infrastructure/core/initialization/initialization_service.dart';
 import 'package:la/infrastructure/core/platform/platform_detector.dart';
 import 'package:la/presentation/auth/email_confirmation_page.dart';
+import 'package:la/presentation/auth/login_page.dart';
 import 'package:la/presentation/auth/sign_up_page.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
@@ -22,10 +23,10 @@ enum PageName {
   splash("/"),
   landing("/landing"),
   wizard("/wizard"),
+  login("/login"),
   signUp("/sign-up"),
   emailConfirmation("/email-confirmation"),
-  main("/main")
-  ;
+  main("/main");
 
   final String route;
 
@@ -82,6 +83,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               PageName.landing.route: (BuildContext context) => const LandingPage(),
               PageName.main.route: (BuildContext context) => const MainPage(),
               PageName.wizard.route: (BuildContext context) => const WizardPage(),
+              PageName.login.route: (BuildContext context) => const LoginPage(),
               PageName.signUp.route: (BuildContext context) => const SignUpPage(),
               PageName.emailConfirmation.route: (BuildContext context) => const EmailConfirmationPage(),
             },
@@ -105,6 +107,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               PageName.landing.route: (BuildContext context) => const LandingPage(),
               PageName.main.route: (BuildContext context) => const MainPage(),
               PageName.wizard.route: (BuildContext context) => const WizardPage(),
+              PageName.login.route: (BuildContext context) => const LoginPage(),
               PageName.signUp.route: (BuildContext context) => const SignUpPage(),
               PageName.emailConfirmation.route: (BuildContext context) => const EmailConfirmationPage(),
             },

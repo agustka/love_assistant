@@ -24,8 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(name) => "[${name}\'s profile is ready]";
 
-  static String m2(gender) =>
-      "Segðu mér frá matar og gjafastíl sem á best við ${gender}.";
+  static String m2(gender) => "Segðu mér frá matar og gjafastíl sem á best við ${gender}.";
 
   static String m3(name, gender) =>
       "Þá get ég stungið upp á hlutum sem ${name} mun dýrka og forðast þá sem ${gender} kýs síður.";
@@ -40,11 +39,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m8(gender) => "Hvernig ástarmál passar ${gender}?";
 
-  static String m9(name) =>
-      "[Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.]";
+  static String m9(name) => "[Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.]";
 
-  static String m10(gender) =>
-      "Veldu ástarmálin og tóninn sem henta ${gender} best.";
+  static String m10(gender) => "Veldu ástarmálin og tóninn sem henta ${gender} best.";
 
   static String m11(gender) => "Hvað elskar ${gender}?";
 
@@ -68,12 +65,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "[Resend email]",
     ),
     "auth_email_confirmation_resend_cooldown": m0,
-    "auth_email_confirmation_resend_error":
-        MessageLookupByLibrary.simpleMessage(
-          "[Couldn\'t resend right now. Try again in a moment.]",
-        ),
-    "auth_email_confirmation_resend_success":
-        MessageLookupByLibrary.simpleMessage("[Confirmation email sent.]"),
+    "auth_email_confirmation_resend_error": MessageLookupByLibrary.simpleMessage(
+      "[Couldn\'t resend right now. Try again in a moment.]",
+    ),
+    "auth_email_confirmation_resend_success": MessageLookupByLibrary.simpleMessage("[Confirmation email sent.]"),
     "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
       "Stadfestu netfangid",
     ),
@@ -106,6 +101,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Skradu inn til ad halda afram.",
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Velkomin aftur"),
+    "auth_login_under_construction_message": MessageLookupByLibrary.simpleMessage(
+      "[Go back for now. The login flow is still being built.]",
+    ),
+    "auth_login_under_construction_title": MessageLookupByLibrary.simpleMessage(
+      "[Login is not ready yet]",
+    ),
     "auth_password_hint": MessageLookupByLibrary.simpleMessage("Lykilord"),
     "auth_password_placeholder": MessageLookupByLibrary.simpleMessage(
       "[At least 6 characters]",
@@ -144,7 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Skraning med Google",
     ),
     "auth_signup_login_action": MessageLookupByLibrary.simpleMessage(
-      "Innskraning",
+      "[Innskraning]",
     ),
     "auth_signup_login_prompt": MessageLookupByLibrary.simpleMessage(
       "Ertu med adgang?",
@@ -225,18 +226,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Íþróttir og sport",
     ),
     "global_hobby_traveling": MessageLookupByLibrary.simpleMessage("Ferðalög"),
-    "global_love_language_acts_of_service":
-        MessageLookupByLibrary.simpleMessage("Þjónusta"),
+    "global_love_language_acts_of_service": MessageLookupByLibrary.simpleMessage("Þjónusta"),
     "global_love_language_physical_touch": MessageLookupByLibrary.simpleMessage(
       "Líkamleg snerting",
     ),
     "global_love_language_quality_time": MessageLookupByLibrary.simpleMessage(
       "Tími saman",
     ),
-    "global_love_language_receiving_gifts":
-        MessageLookupByLibrary.simpleMessage("Að fá gjafir"),
-    "global_love_language_words_of_affirmation":
-        MessageLookupByLibrary.simpleMessage("Falleg orð"),
+    "global_love_language_receiving_gifts": MessageLookupByLibrary.simpleMessage("Að fá gjafir"),
+    "global_love_language_words_of_affirmation": MessageLookupByLibrary.simpleMessage("Falleg orð"),
     "global_more": MessageLookupByLibrary.simpleMessage("Meira"),
     "global_optional": MessageLookupByLibrary.simpleMessage("Valkvæmt"),
     "global_pick_date": MessageLookupByLibrary.simpleMessage(
@@ -292,8 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_relationship_type_engaged": MessageLookupByLibrary.simpleMessage(
       "Trúlofuð",
     ),
-    "global_relationship_type_life_partners":
-        MessageLookupByLibrary.simpleMessage("Lífsfélagar"),
+    "global_relationship_type_life_partners": MessageLookupByLibrary.simpleMessage("Lífsfélagar"),
     "global_relationship_type_married": MessageLookupByLibrary.simpleMessage(
       "Gift",
     ),
@@ -364,12 +361,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_anniversary_skip_message": MessageLookupByLibrary.simpleMessage(
       "Ertu viss um að þú viljir sleppa dagsetningu stórviðurðar (gifting, trúlofun osfr.)?",
     ),
-    "wizard_partner_anniversary_skip_no_cancel":
-        MessageLookupByLibrary.simpleMessage("Nei"),
-    "wizard_partner_anniversary_skip_title":
-        MessageLookupByLibrary.simpleMessage("Sleppa stórviðburði?"),
-    "wizard_partner_anniversary_skip_yes_confirm":
-        MessageLookupByLibrary.simpleMessage("Já, sleppa"),
+    "wizard_partner_anniversary_skip_no_cancel": MessageLookupByLibrary.simpleMessage("Nei"),
+    "wizard_partner_anniversary_skip_title": MessageLookupByLibrary.simpleMessage("Sleppa stórviðburði?"),
+    "wizard_partner_anniversary_skip_yes_confirm": MessageLookupByLibrary.simpleMessage("Já, sleppa"),
     "wizard_partner_anniversary_title": MessageLookupByLibrary.simpleMessage(
       "Einhver stór dagsetning?",
     ),
@@ -397,10 +391,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]",
     ),
     "wizard_partner_hobbies_title": m7,
-    "wizard_partner_love_language_explanation":
-        MessageLookupByLibrary.simpleMessage(
-          "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.",
-        ),
+    "wizard_partner_love_language_explanation": MessageLookupByLibrary.simpleMessage(
+      "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.",
+    ),
     "wizard_partner_love_language_title": m8,
     "wizard_partner_loves_message_1": m9,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
@@ -409,20 +402,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_loves_message_initial_1": m10,
     "wizard_partner_loves_title": m11,
     "wizard_partner_more_details": m12,
-    "wizard_partner_profile_birthday_missing":
-        MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
-    "wizard_partner_profile_message_1_extended":
-        MessageLookupByLibrary.simpleMessage(
-          "[Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.]",
-        ),
-    "wizard_partner_profile_message_1_shortened":
-        MessageLookupByLibrary.simpleMessage(
-          "[Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.]",
-        ),
-    "wizard_partner_profile_message_initial_1":
-        MessageLookupByLibrary.simpleMessage(
-          "Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er.",
-        ),
+    "wizard_partner_profile_birthday_missing": MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
+    "wizard_partner_profile_message_1_extended": MessageLookupByLibrary.simpleMessage(
+      "[Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.]",
+    ),
+    "wizard_partner_profile_message_1_shortened": MessageLookupByLibrary.simpleMessage(
+      "[Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.]",
+    ),
+    "wizard_partner_profile_message_initial_1": MessageLookupByLibrary.simpleMessage(
+      "Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er.",
+    ),
     "wizard_partner_profile_name_hint": MessageLookupByLibrary.simpleMessage(
       "Nafn félaga þíns",
     ),
@@ -432,8 +421,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_profile_name_title": MessageLookupByLibrary.simpleMessage(
       "Hvað heitir sérstaka persónan þín?",
     ),
-    "wizard_partner_profile_pronoun_missing":
-        MessageLookupByLibrary.simpleMessage("Fornafn er nauðsynlegt"),
+    "wizard_partner_profile_pronoun_missing": MessageLookupByLibrary.simpleMessage("Fornafn er nauðsynlegt"),
     "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
       "Byrjum á grunnatriðunum",
     ),
@@ -443,18 +431,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_pronouns_title": MessageLookupByLibrary.simpleMessage(
       "Hvernig á að ávarpa félaga þinn?",
     ),
-    "wizard_partner_relationship_type_explanation":
-        MessageLookupByLibrary.simpleMessage(
-          "[Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.]",
-        ),
-    "wizard_partner_relationship_type_hint":
-        MessageLookupByLibrary.simpleMessage("Veldu tegund sambands"),
-    "wizard_partner_relationship_type_title":
-        MessageLookupByLibrary.simpleMessage("Tegund sambands"),
-    "wizard_partner_tone_of_voice_explanation":
-        MessageLookupByLibrary.simpleMessage(
-          "[Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.]",
-        ),
+    "wizard_partner_relationship_type_explanation": MessageLookupByLibrary.simpleMessage(
+      "[Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.]",
+    ),
+    "wizard_partner_relationship_type_hint": MessageLookupByLibrary.simpleMessage("Veldu tegund sambands"),
+    "wizard_partner_relationship_type_title": MessageLookupByLibrary.simpleMessage("Tegund sambands"),
+    "wizard_partner_tone_of_voice_explanation": MessageLookupByLibrary.simpleMessage(
+      "[Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.]",
+    ),
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu talsmáta",
     ),

@@ -2,6 +2,7 @@ import "dart:async";
 
 import "package:injectable/injectable.dart";
 import "package:la/domain/core/entities/email_password_credentials.dart";
+import "package:la/domain/core/value_objects/email_value_object.dart";
 import "package:la/infrastructure/core/auth/auth_event_type.dart";
 import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
 import "package:la/infrastructure/core/auth/service/i_auth_service.dart";
@@ -29,6 +30,7 @@ class OfflineAuthService implements IAuthService {
   bool throwOnSignUp = false;
   bool throwOnSignIn = false;
   bool throwOnSignOut = false;
+  bool throwOnPasswordReset = false;
   bool hasSession = false;
   bool throwOnHasActiveSession = false;
   bool returnsDuplicateUser = false;
@@ -38,10 +40,16 @@ class OfflineAuthService implements IAuthService {
   bool resendSucceeds = true;
   bool resendThrows = false;
   bool rateLimitResend = false;
+  bool signInReturnsUnconfirmed = false;
+  bool signInThrowsNetworkError = false;
+  bool signInThrowsRateLimit = false;
+  bool passwordResetThrowsNetworkError = false;
+  bool passwordResetThrowsRateLimit = false;
   EmailPasswordCredentials? lastSignUpCredentials;
   EmailPasswordCredentials? lastSignInCredentials;
   EmailPasswordCredentials? lastRecheckCredentials;
   EmailPasswordCredentials? lastResendCredentials;
+  EmailValueObject? lastResetPasswordEmail;
   bool didSignOut = false;
   final StreamController<AuthEventType> _authStateController = StreamController<AuthEventType>.broadcast();
 
@@ -67,7 +75,16 @@ class OfflineAuthService implements IAuthService {
   Future<AuthUserModel> signInWithEmailAndPassword(EmailPasswordCredentials credentials) async {
     lastSignInCredentials = credentials;
     if (throwOnSignIn) {
-      throw Exception("OfflineAuthService forced signIn failure");
+      throw const AuthException("Invalid login credentials", statusCode: "400");
+    }
+    if (signInThrowsNetworkError) {
+      throw const AuthException("network error reaching the server", statusCode: "0");
+    }
+    if (signInThrowsRateLimit) {
+      throw const AuthException("too many requests", statusCode: "429");
+    }
+    if (signInReturnsUnconfirmed) {
+      return _confirmedUser(emailConfirmed: false);
     }
     return stubbedUser;
   }
@@ -96,6 +113,20 @@ class OfflineAuthService implements IAuthService {
     }
     if (resendThrows || !resendSucceeds) {
       throw Exception("OfflineAuthService forced resend failure");
+    }
+  }
+
+  @override
+  Future<void> resetPasswordForEmail(EmailValueObject email) async {
+    lastResetPasswordEmail = email;
+    if (throwOnPasswordReset) {
+      throw Exception("OfflineAuthService forced password reset failure");
+    }
+    if (passwordResetThrowsNetworkError) {
+      throw const AuthException("network error reaching the server", statusCode: "0");
+    }
+    if (passwordResetThrowsRateLimit) {
+      throw const AuthException("email rate limit exceeded", statusCode: "429");
     }
   }
 
