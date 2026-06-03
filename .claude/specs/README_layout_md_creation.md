@@ -34,15 +34,15 @@ Keep in mind:
 
 ---
 
-## Figma
+## Visual References
 
-Figma links can be included.
+Screenshots and other visual references can be included.
 
 If included:
 - link directly to the relevant screen or component
 - avoid linking entire files without context
 
-Figma is a reference, not a source of truth.  
+Visual references are not a source of truth by themselves.
 The layout description should still stand on its own.
 
 ---
