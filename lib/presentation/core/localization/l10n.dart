@@ -28,7 +28,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -177,30 +179,30 @@ class S {
     );
   }
 
-  /// `Þinn eiginn BetterHalf`
+  /// `Þinn eigin BetterHalf`
   String get wizard_greetings {
     return Intl.message(
-      'Þinn eiginn BetterHalf',
+      'Þinn eigin BetterHalf',
       name: 'wizard_greetings',
       desc: '',
       args: [],
     );
   }
 
-  /// `[BetterHalf hjálpar þér að næra sambandið við ástvin þinn.]`
+  /// `BetterHalf heldur utan um það sem skiptir maka þinn máli og hjálpar þér að gera eitthvað í því.`
   String get wizard_greetings_message_1 {
     return Intl.message(
-      '[BetterHalf hjálpar þér að næra sambandið við ástvin þinn.]',
+      'BetterHalf heldur utan um það sem skiptir maka þinn máli og hjálpar þér að gera eitthvað í því.',
       name: 'wizard_greetings_message_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.]`
+  /// `Ég minni þig á dagsetningarnar sem skipta máli, skrifa drög að skilaboðum í þínum tón og raða upp gjafa- og stefnumótahugmyndum sem maki þinn myndi raunverulega vilja.`
   String get wizard_greetings_message_2 {
     return Intl.message(
-      '[Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.]',
+      'Ég minni þig á dagsetningarnar sem skipta máli, skrifa drög að skilaboðum í þínum tón og raða upp gjafa- og stefnumótahugmyndum sem maki þinn myndi raunverulega vilja.',
       name: 'wizard_greetings_message_2',
       desc: '',
       args: [],
@@ -232,50 +234,50 @@ class S {
     );
   }
 
-  /// `[Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.]`
+  /// `Segðu mér aðeins frá maka þínum, eins og nafni og fornöfnum.`
   String get wizard_partner_profile_message_1_shortened {
     return Intl.message(
-      '[Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.]',
+      'Segðu mér aðeins frá maka þínum, eins og nafni og fornöfnum.',
       name: 'wizard_partner_profile_message_1_shortened',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.]`
+  /// `Segðu mér aðeins frá maka þínum, eins og nafni, fornöfnum og mikilvægum dagsetningum.`
   String get wizard_partner_profile_message_1_extended {
     return Intl.message(
-      '[Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.]',
+      'Segðu mér aðeins frá maka þínum, eins og nafni, fornöfnum og mikilvægum dagsetningum.',
       name: 'wizard_partner_profile_message_1_extended',
       desc: '',
       args: [],
     );
   }
 
-  /// `Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er.`
+  /// `Byrjum á grunnatriðunum: nafni og kyni.`
   String get wizard_partner_profile_message_initial_1 {
     return Intl.message(
-      'Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er.',
+      'Byrjum á grunnatriðunum: nafni og kyni.',
       name: 'wizard_partner_profile_message_initial_1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hvað heitir sérstaka persónan þín?`
+  /// `Hvað heitir maki þinn?`
   String get wizard_partner_profile_name_title {
     return Intl.message(
-      'Hvað heitir sérstaka persónan þín?',
+      'Hvað heitir maki þinn?',
       name: 'wizard_partner_profile_name_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `Nafn félaga þíns`
+  /// `Nafn maka`
   String get wizard_partner_profile_name_hint {
     return Intl.message(
-      'Nafn félaga þíns',
+      'Nafn maka',
       name: 'wizard_partner_profile_name_hint',
       desc: '',
       args: [],
@@ -292,10 +294,10 @@ class S {
     );
   }
 
-  /// `Hvernig á að ávarpa félaga þinn?`
+  /// `Hvernig á ég að tala um maka þinn?`
   String get wizard_partner_pronouns_title {
     return Intl.message(
-      'Hvernig á að ávarpa félaga þinn?',
+      'Hvernig á ég að tala um maka þinn?',
       name: 'wizard_partner_pronouns_title',
       desc: '',
       args: [],
@@ -312,10 +314,10 @@ class S {
     );
   }
 
-  /// `Veldu fornafn`
+  /// `Veldu fornöfn maka þíns`
   String get wizard_partner_pronouns_hint {
     return Intl.message(
-      'Veldu fornafn',
+      'Veldu fornöfn maka þíns',
       name: 'wizard_partner_pronouns_hint',
       desc: '',
       args: [],
@@ -342,30 +344,30 @@ class S {
     );
   }
 
-  /// `[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.]`
+  /// `Ég nota afmælisdag maka þíns svo þú hafir nægan tíma til að skipuleggja eitthvað sérstakt fyrir maka þinn.`
   String get wizard_partner_birthday_explanation {
     return Intl.message(
-      '[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.]',
+      'Ég nota afmælisdag maka þíns svo þú hafir nægan tíma til að skipuleggja eitthvað sérstakt fyrir maka þinn.',
       name: 'wizard_partner_birthday_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Einhver stór dagsetning?`
+  /// `Eigið þið afmælisdag?`
   String get wizard_partner_anniversary_title {
     return Intl.message(
-      'Einhver stór dagsetning?',
+      'Eigið þið afmælisdag?',
       name: 'wizard_partner_anniversary_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `Gifting, trúlofun osfr.`
+  /// `Veldu stóra daginn ykkar`
   String get wizard_partner_anniversary_hint {
     return Intl.message(
-      'Gifting, trúlofun osfr.',
+      'Veldu stóra daginn ykkar',
       name: 'wizard_partner_anniversary_hint',
       desc: '',
       args: [],
@@ -392,20 +394,20 @@ class S {
     );
   }
 
-  /// `Sleppa stórviðburði?`
+  /// `Sleppa afmælisdegi?`
   String get wizard_partner_anniversary_skip_title {
     return Intl.message(
-      'Sleppa stórviðburði?',
+      'Sleppa afmælisdegi?',
       name: 'wizard_partner_anniversary_skip_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ertu viss um að þú viljir sleppa dagsetningu stórviðurðar (gifting, trúlofun osfr.)?`
+  /// `Ertu viss um að þú viljir sleppa afmælisdeginum?`
   String get wizard_partner_anniversary_skip_message {
     return Intl.message(
-      'Ertu viss um að þú viljir sleppa dagsetningu stórviðurðar (gifting, trúlofun osfr.)?',
+      'Ertu viss um að þú viljir sleppa afmælisdeginum?',
       name: 'wizard_partner_anniversary_skip_message',
       desc: '',
       args: [],
@@ -432,30 +434,30 @@ class S {
     );
   }
 
-  /// `[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.]`
+  /// `Ég nota afmælisdaginn ykkar svo þú hafir nægan tíma til að skipuleggja eða redda einhverju sérstöku fyrir maka þinn.`
   String get wizard_partner_anniversary_explanation {
     return Intl.message(
-      '[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.]',
+      'Ég nota afmælisdaginn ykkar svo þú hafir nægan tíma til að skipuleggja eða redda einhverju sérstöku fyrir maka þinn.',
       name: 'wizard_partner_anniversary_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hvað elskar {gender}?`
+  /// `Hvað finnst {gender} skemmtilegt?`
   String wizard_partner_loves_title(Object gender) {
     return Intl.message(
-      'Hvað elskar $gender?',
+      'Hvað finnst $gender skemmtilegt?',
       name: 'wizard_partner_loves_title',
       desc: '',
       args: [gender],
     );
   }
 
-  /// `[Deildu því sem {name} hefur gaman af til að hjálpa til við að sérsníða tillögur.]`
+  /// `Segðu mér hvað {name} hefur gaman af svo tillögurnar passi betur.`
   String wizard_partner_loves_message_1(Object name) {
     return Intl.message(
-      '[Deildu því sem $name hefur gaman af til að hjálpa til við að sérsníða tillögur.]',
+      'Segðu mér hvað $name hefur gaman af svo tillögurnar passi betur.',
       name: 'wizard_partner_loves_message_1',
       desc: '',
       args: [name],
@@ -472,50 +474,50 @@ class S {
     );
   }
 
-  /// `[Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.]`
+  /// `Þetta hjálpar mér að láta tillögurnar og skilaboðin hitta í mark.`
   String get wizard_partner_loves_message_2 {
     return Intl.message(
-      '[Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.]',
+      'Þetta hjálpar mér að láta tillögurnar og skilaboðin hitta í mark.',
       name: 'wizard_partner_loves_message_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.`
+  /// `Það er oft talað um fimm leiðir til að sýna ást.\nGæðatími: Að eiga óskiptan og innihaldsríkan tíma saman.\nFalleg orð: Að sýna ást og þakklæti með hlýjum og uppbyggilegum orðum.\nÞjónusta: Að sýna ást með því að gera eitthvað hjálplegt eða hugulsamt.\nLíkamleg snerting: Að sýna ást með líkamlegum merkjum eins og faðmlögum, kossum og annarri snertingu.\nGjafir: Að gefa og þiggja gjafir sem tákn um ást.`
   String get wizard_partner_love_language_explanation {
     return Intl.message(
-      'Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.',
+      'Það er oft talað um fimm leiðir til að sýna ást.\nGæðatími: Að eiga óskiptan og innihaldsríkan tíma saman.\nFalleg orð: Að sýna ást og þakklæti með hlýjum og uppbyggilegum orðum.\nÞjónusta: Að sýna ást með því að gera eitthvað hjálplegt eða hugulsamt.\nLíkamleg snerting: Að sýna ást með líkamlegum merkjum eins og faðmlögum, kossum og annarri snertingu.\nGjafir: Að gefa og þiggja gjafir sem tákn um ást.',
       name: 'wizard_partner_love_language_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]`
+  /// `Áhugamál maka þíns hjálpa mér að velja afþreyingu og gjafir sem passa.`
   String get wizard_partner_hobbies_explanation {
     return Intl.message(
-      '[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]',
+      'Áhugamál maka þíns hjálpa mér að velja afþreyingu og gjafir sem passa.',
       name: 'wizard_partner_hobbies_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.]`
+  /// `Uppáhaldsmatur maka þíns hjálpar mér að velja matargjafir og veitingastaði sem passa.`
   String get wizard_partner_foods_explanation {
     return Intl.message(
-      '[Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.]',
+      'Uppáhaldsmatur maka þíns hjálpar mér að velja matargjafir og veitingastaði sem passa.',
       name: 'wizard_partner_foods_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.]`
+  /// `Rétti tónninn hjálpar mér að skrifa skilaboð sem hitta í mark hjá maka þínum.`
   String get wizard_partner_tone_of_voice_explanation {
     return Intl.message(
-      '[Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.]',
+      'Rétti tónninn hjálpar mér að skrifa skilaboð sem hitta í mark hjá maka þínum.',
       name: 'wizard_partner_tone_of_voice_explanation',
       desc: '',
       args: [],
@@ -542,20 +544,20 @@ class S {
     );
   }
 
-  /// `[Picking your partner's favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.]`
+  /// `Uppáhalds gjafategundir maka þíns hjálpa mér að stinga upp á gjöfum sem passa.\nUpplifanir: Til dæmis miðar á viðburði, ferðalög eða stefnumót.\nPersónulegir hlutir: Til dæmis handgerðar gjafir, persónuleg bréf eða myndaalbúm.\nHagnýtar gjafir: Til dæmis tæki, verkfæri eða eldhúsdót.\nMunaðarvörur: Til dæmis skartgripir, hönnunarfatnaður eða vandaðir aukahlutir.\nÁhugamál: Til dæmis bækur, hljóðfæri eða listavörur.\nMatur og drykkur: Til dæmis vandað súkkulaði, vín eða áskriftarkassar.\nKomdu mér á óvart: Þegar þú vilt að ég verði skapandi.`
   String get wizard_partner_gift_types_explanation {
     return Intl.message(
-      '[Picking your partner\'s favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.]',
+      'Uppáhalds gjafategundir maka þíns hjálpa mér að stinga upp á gjöfum sem passa.\nUpplifanir: Til dæmis miðar á viðburði, ferðalög eða stefnumót.\nPersónulegir hlutir: Til dæmis handgerðar gjafir, persónuleg bréf eða myndaalbúm.\nHagnýtar gjafir: Til dæmis tæki, verkfæri eða eldhúsdót.\nMunaðarvörur: Til dæmis skartgripir, hönnunarfatnaður eða vandaðir aukahlutir.\nÁhugamál: Til dæmis bækur, hljóðfæri eða listavörur.\nMatur og drykkur: Til dæmis vandað súkkulaði, vín eða áskriftarkassar.\nKomdu mér á óvart: Þegar þú vilt að ég verði skapandi.',
       name: 'wizard_partner_gift_types_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hvernig ástarmál passar {gender}?`
+  /// `Hvaða ástarmál passa {gender}?`
   String wizard_partner_love_language_title(Object gender) {
     return Intl.message(
-      'Hvernig ástarmál passar $gender?',
+      'Hvaða ástarmál passa $gender?',
       name: 'wizard_partner_love_language_title',
       desc: '',
       args: [gender],
@@ -582,10 +584,10 @@ class S {
     );
   }
 
-  /// `Hvernig gjafir vill {gender} fá?`
+  /// `Hvers konar gjafir finnst {gender} góðar?`
   String wizard_partner_gift_likes_title(Object gender) {
     return Intl.message(
-      'Hvernig gjafir vill $gender fá?',
+      'Hvers konar gjafir finnst $gender góðar?',
       name: 'wizard_partner_gift_likes_title',
       desc: '',
       args: [gender],
@@ -612,40 +614,40 @@ class S {
     );
   }
 
-  /// `[Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.]`
+  /// `Þetta hjálpar mér að láta áminningar, skilaboð og tillögur passa við stöðuna í sambandinu ykkar`
   String get wizard_partner_relationship_type_explanation {
     return Intl.message(
-      '[Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.]',
+      'Þetta hjálpar mér að láta áminningar, skilaboð og tillögur passa við stöðuna í sambandinu ykkar',
       name: 'wizard_partner_relationship_type_explanation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Segðu mér aðeins frá {gender} smekk`
+  /// `Segðu mér aðeins meira frá smekk {gender}`
   String wizard_partner_food_and_gifts_title(Object gender) {
     return Intl.message(
-      'Segðu mér aðeins frá $gender smekk',
+      'Segðu mér aðeins meira frá smekk $gender',
       name: 'wizard_partner_food_and_gifts_title',
       desc: '',
       args: [gender],
     );
   }
 
-  /// `Segðu mér frá matar og gjafastíl sem á best við {gender}.`
+  /// `Segðu mér frá gjafa- og matarsmekk {gender}.`
   String wizard_partner_food_and_gifts_message_1(Object gender) {
     return Intl.message(
-      'Segðu mér frá matar og gjafastíl sem á best við $gender.',
+      'Segðu mér frá gjafa- og matarsmekk $gender.',
       name: 'wizard_partner_food_and_gifts_message_1',
       desc: '',
       args: [gender],
     );
   }
 
-  /// `Þá get ég stungið upp á hlutum sem {name} mun dýrka og forðast þá sem {gender} kýs síður.`
+  /// `Þá get ég mælt með hlutum sem {name} mun elska og forðast það sem {gender} fílar síður.`
   String wizard_partner_food_and_gifts_message_2(Object name, Object gender) {
     return Intl.message(
-      'Þá get ég stungið upp á hlutum sem $name mun dýrka og forðast þá sem $gender kýs síður.',
+      'Þá get ég mælt með hlutum sem $name mun elska og forðast það sem $gender fílar síður.',
       name: 'wizard_partner_food_and_gifts_message_2',
       desc: '',
       args: [name, gender],
@@ -712,10 +714,10 @@ class S {
     );
   }
 
-  /// `Velja sjálf(ur)`
+  /// `Sérsniðið`
   String get global_pronoun_custom {
     return Intl.message(
-      'Velja sjálf(ur)',
+      'Sérsniðið',
       name: 'global_pronoun_custom',
       desc: '',
       args: [],
@@ -1147,10 +1149,10 @@ class S {
     );
   }
 
-  /// `Sterkur`
+  /// `Sterkur matur`
   String get global_food_spicy_food {
     return Intl.message(
-      'Sterkur',
+      'Sterkur matur',
       name: 'global_food_spicy_food',
       desc: '',
       args: [],
@@ -1242,10 +1244,10 @@ class S {
     );
   }
 
-  /// `Matur & drykkur`
+  /// `Matur og drykkur`
   String get global_gift_food_and_drinks {
     return Intl.message(
-      'Matur & drykkur',
+      'Matur og drykkur',
       name: 'global_gift_food_and_drinks',
       desc: '',
       args: [],
@@ -1322,60 +1324,60 @@ class S {
     );
   }
 
-  /// `Bua til adgang`
+  /// `Búa til aðgang`
   String get auth_signup_title {
     return Intl.message(
-      'Bua til adgang',
+      'Búa til aðgang',
       name: 'auth_signup_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `Skradu thig inn til ad vista uppsetningu og halda afram.`
+  /// `Skráðu þig til að vista uppsetninguna og halda áfram.`
   String get auth_signup_subtitle {
     return Intl.message(
-      'Skradu thig inn til ad vista uppsetningu og halda afram.',
+      'Skráðu þig til að vista uppsetninguna og halda áfram.',
       name: 'auth_signup_subtitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Skraning med Google`
+  /// `Skrá með Google`
   String get auth_signup_google {
     return Intl.message(
-      'Skraning med Google',
+      'Skrá með Google',
       name: 'auth_signup_google',
       desc: '',
       args: [],
     );
   }
 
-  /// `Skraning med Apple`
+  /// `Skrá með Apple`
   String get auth_signup_apple {
     return Intl.message(
-      'Skraning med Apple',
+      'Skrá með Apple',
       name: 'auth_signup_apple',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ertu med adgang?`
+  /// `Ertu nú þegar með aðgang?`
   String get auth_signup_login_prompt {
     return Intl.message(
-      'Ertu med adgang?',
+      'Ertu nú þegar með aðgang?',
       name: 'auth_signup_login_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Innskraning]`
+  /// `Innskráning`
   String get auth_signup_login_action {
     return Intl.message(
-      '[Innskraning]',
+      'Innskráning',
       name: 'auth_signup_login_action',
       desc: '',
       args: [],
@@ -1392,70 +1394,70 @@ class S {
     );
   }
 
-  /// `Skradu inn til ad halda afram.`
+  /// `Skráðu þig inn til að halda áfram.`
   String get auth_login_subtitle {
     return Intl.message(
-      'Skradu inn til ad halda afram.',
+      'Skráðu þig inn til að halda áfram.',
       name: 'auth_login_subtitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Login is not ready yet]`
+  /// `Innskráning er ekki tilbúin enn`
   String get auth_login_under_construction_title {
     return Intl.message(
-      '[Login is not ready yet]',
+      'Innskráning er ekki tilbúin enn',
       name: 'auth_login_under_construction_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Go back for now. The login flow is still being built.]`
+  /// `Farðu til baka í bili. Enn er verið að smíða innskráningarflæðið.`
   String get auth_login_under_construction_message {
     return Intl.message(
-      '[Go back for now. The login flow is still being built.]',
+      'Farðu til baka í bili. Enn er verið að smíða innskráningarflæðið.',
       name: 'auth_login_under_construction_message',
       desc: '',
       args: [],
     );
   }
 
-  /// `Innskraning med Google`
+  /// `Skrá inn með Google`
   String get auth_login_google {
     return Intl.message(
-      'Innskraning med Google',
+      'Skrá inn með Google',
       name: 'auth_login_google',
       desc: '',
       args: [],
     );
   }
 
-  /// `Innskraning med Apple`
+  /// `Skrá inn með Apple`
   String get auth_login_apple {
     return Intl.message(
-      'Innskraning med Apple',
+      'Skrá inn með Apple',
       name: 'auth_login_apple',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ert thu ekki med adgang?`
+  /// `Ertu ekki með aðgang?`
   String get auth_login_signup_prompt {
     return Intl.message(
-      'Ert thu ekki med adgang?',
+      'Ertu ekki með aðgang?',
       name: 'auth_login_signup_prompt',
       desc: '',
       args: [],
     );
   }
 
-  /// `Skraning`
+  /// `Nýskráning`
   String get auth_login_signup_action {
     return Intl.message(
-      'Skraning',
+      'Nýskráning',
       name: 'auth_login_signup_action',
       desc: '',
       args: [],
@@ -1467,10 +1469,10 @@ class S {
     return Intl.message('Netfang', name: 'auth_email_hint', desc: '', args: []);
   }
 
-  /// `Lykilord`
+  /// `Lykilorð fyrir aðganginn`
   String get auth_password_hint {
     return Intl.message(
-      'Lykilord',
+      'Lykilorð fyrir aðganginn',
       name: 'auth_password_hint',
       desc: '',
       args: [],
@@ -1487,310 +1489,310 @@ class S {
     );
   }
 
-  /// `[At least 6 characters]`
+  /// `Að minnsta kosti 6 stafir`
   String get auth_password_placeholder {
     return Intl.message(
-      '[At least 6 characters]',
+      'Að minnsta kosti 6 stafir',
       name: 'auth_password_placeholder',
       desc: '',
       args: [],
     );
   }
 
-  /// `Skraning med netfangi`
+  /// `Skrá með netfangi`
   String get auth_signup_email {
     return Intl.message(
-      'Skraning med netfangi',
+      'Skrá með netfangi',
       name: 'auth_signup_email',
       desc: '',
       args: [],
     );
   }
 
-  /// `Innskraning med netfangi`
+  /// `Skrá inn með netfangi`
   String get auth_login_email {
     return Intl.message(
-      'Innskraning med netfangi',
+      'Skrá inn með netfangi',
       name: 'auth_login_email',
       desc: '',
       args: [],
     );
   }
 
-  /// `Stadfestu netfangid`
+  /// `Staðfestu netfangið þitt`
   String get auth_email_confirmation_title {
     return Intl.message(
-      'Stadfestu netfangid',
+      'Staðfestu netfangið þitt',
       name: 'auth_email_confirmation_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á "Ég hef stadfest netfangid mitt".]`
+  /// `Ég sendi þér staðfestingarpóst. Opnaðu hann, ýttu á staðfestingarhlekkinn, farðu aftur í appið og ýttu svo á "Ég hef staðfest netfangið mitt".`
   String get auth_email_confirmation_message {
     return Intl.message(
-      '[Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á "Ég hef stadfest netfangid mitt".]',
+      'Ég sendi þér staðfestingarpóst. Opnaðu hann, ýttu á staðfestingarhlekkinn, farðu aftur í appið og ýttu svo á "Ég hef staðfest netfangið mitt".',
       name: 'auth_email_confirmation_message',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ég hef stadfest netfangid mitt`
+  /// `Ég hef staðfest netfangið mitt`
   String get auth_email_confirmation_confirmed {
     return Intl.message(
-      'Ég hef stadfest netfangid mitt',
+      'Ég hef staðfest netfangið mitt',
       name: 'auth_email_confirmation_confirmed',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.]`
+  /// `Ég sé ekki enn að netfangið þitt hafi verið staðfest. Athugaðu pósthólfið og reyndu aftur.`
   String get auth_email_confirmation_pending_error {
     return Intl.message(
-      '[Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.]',
+      'Ég sé ekki enn að netfangið þitt hafi verið staðfest. Athugaðu pósthólfið og reyndu aftur.',
       name: 'auth_email_confirmation_pending_error',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Create account]`
+  /// `Búa til aðgang`
   String get auth_signup_action {
     return Intl.message(
-      '[Create account]',
+      'Búa til aðgang',
       name: 'auth_signup_action',
       desc: '',
       args: [],
     );
   }
 
-  /// `[That email doesn't look right. Try again.]`
+  /// `Þetta netfang lítur ekki rétt út. Reyndu aftur.`
   String get auth_signup_email_invalid {
     return Intl.message(
-      '[That email doesn\'t look right. Try again.]',
+      'Þetta netfang lítur ekki rétt út. Reyndu aftur.',
       name: 'auth_signup_email_invalid',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Password must be at least 6 characters.]`
+  /// `Lykilorðið þarf að vera að minnsta kosti 6 stafir.`
   String get auth_signup_password_too_short {
     return Intl.message(
-      '[Password must be at least 6 characters.]',
+      'Lykilorðið þarf að vera að minnsta kosti 6 stafir.',
       name: 'auth_signup_password_too_short',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Enter a password.]`
+  /// `Sláðu inn lykilorðið þitt.`
   String get auth_signup_password_empty {
     return Intl.message(
-      '[Enter a password.]',
+      'Sláðu inn lykilorðið þitt.',
       name: 'auth_signup_password_empty',
       desc: '',
       args: [],
     );
   }
 
-  /// `[An account with this email already exists.]`
+  /// `Það er nú þegar til aðgangur með þessu netfangi.`
   String get auth_signup_error_email_exists {
     return Intl.message(
-      '[An account with this email already exists.]',
+      'Það er nú þegar til aðgangur með þessu netfangi.',
       name: 'auth_signup_error_email_exists',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Couldn't reach the server. Check your connection and try again.]`
+  /// `Ég náði ekki sambandi við þjóninn. Athugaðu tenginguna og reyndu aftur.`
   String get auth_error_network {
     return Intl.message(
-      '[Couldn\'t reach the server. Check your connection and try again.]',
+      'Ég náði ekki sambandi við þjóninn. Athugaðu tenginguna og reyndu aftur.',
       name: 'auth_error_network',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Something went wrong. Try again.]`
+  /// `Eitthvað fór úrskeiðis. Reyndu aftur.`
   String get auth_error_unexpected {
     return Intl.message(
-      '[Something went wrong. Try again.]',
+      'Eitthvað fór úrskeiðis. Reyndu aftur.',
       name: 'auth_error_unexpected',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Password strength]`
+  /// `Styrkur lykilorðs`
   String get auth_password_strength_label {
     return Intl.message(
-      '[Password strength]',
+      'Styrkur lykilorðs',
       name: 'auth_password_strength_label',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Too short]`
+  /// `Þarf fleiri stafi`
   String get auth_password_strength_too_short {
     return Intl.message(
-      '[Too short]',
+      'Þarf fleiri stafi',
       name: 'auth_password_strength_too_short',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Weak]`
+  /// `Má vera sterkara`
   String get auth_password_strength_weak {
     return Intl.message(
-      '[Weak]',
+      'Má vera sterkara',
       name: 'auth_password_strength_weak',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Fair]`
+  /// `Lítur ágætlega út`
   String get auth_password_strength_fair {
     return Intl.message(
-      '[Fair]',
+      'Lítur ágætlega út',
       name: 'auth_password_strength_fair',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Strong]`
+  /// `Lítur vel út`
   String get auth_password_strength_strong {
     return Intl.message(
-      '[Strong]',
+      'Lítur vel út',
       name: 'auth_password_strength_strong',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Resend email]`
+  /// `Senda póst aftur`
   String get auth_email_confirmation_resend {
     return Intl.message(
-      '[Resend email]',
+      'Senda póst aftur',
       name: 'auth_email_confirmation_resend',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Resend in {seconds}s]`
+  /// `Senda aftur eftir {seconds}s`
   String auth_email_confirmation_resend_cooldown(Object seconds) {
     return Intl.message(
-      '[Resend in ${seconds}s]',
+      'Senda aftur eftir ${seconds}s',
       name: 'auth_email_confirmation_resend_cooldown',
       desc: '',
       args: [seconds],
     );
   }
 
-  /// `[Confirmation email sent.]`
+  /// `Staðfestingarpóstur sendur.`
   String get auth_email_confirmation_resend_success {
     return Intl.message(
-      '[Confirmation email sent.]',
+      'Staðfestingarpóstur sendur.',
       name: 'auth_email_confirmation_resend_success',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Couldn't resend right now. Try again in a moment.]`
+  /// `Ég get ekki sent aftur núna. Reyndu aftur eftir smá stund.`
   String get auth_email_confirmation_resend_error {
     return Intl.message(
-      '[Couldn\'t resend right now. Try again in a moment.]',
+      'Ég get ekki sent aftur núna. Reyndu aftur eftir smá stund.',
       name: 'auth_email_confirmation_resend_error',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Under construction]`
+  /// `Í smíðum`
   String get main_under_construction_title {
     return Intl.message(
-      '[Under construction]',
+      'Í smíðum',
       name: 'main_under_construction_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `[This part of the app isn't ready yet.]`
+  /// `Þessi hluti appsins er ekki tilbúinn enn.`
   String get main_under_construction_message {
     return Intl.message(
-      '[This part of the app isn\'t ready yet.]',
+      'Þessi hluti appsins er ekki tilbúinn enn.',
       name: 'main_under_construction_message',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Velkomin]`
+  /// `Prófíll maka þíns er tilbúinn`
   String get landing_title {
     return Intl.message(
-      '[Velkomin]',
+      'Prófíll maka þíns er tilbúinn',
       name: 'landing_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `[{name}'s profile is ready]`
+  /// `Prófíll {name} er tilbúinn`
   String landing_title_named(Object name) {
     return Intl.message(
-      '[$name\'s profile is ready]',
+      'Prófíll $name er tilbúinn',
       name: 'landing_title_named',
       desc: '',
       args: [name],
     );
   }
 
-  /// `[Veldu hvernig þú vilt halda áfram.]`
+  /// `Búðu til aðgang og þá fer BetterHalf að raða upp gjafahugmyndum, skilaboðadrögum og stefnumótaplönum fyrir maka þinn.`
   String get landing_subtitle {
     return Intl.message(
-      '[Veldu hvernig þú vilt halda áfram.]',
+      'Búðu til aðgang og þá fer BetterHalf að raða upp gjafahugmyndum, skilaboðadrögum og stefnumótaplönum fyrir maka þinn.',
       name: 'landing_subtitle',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Your setup is ready and waiting]`
+  /// `Uppsetningin þín er tilbúin og bíður`
   String get landing_reassurance_saved {
     return Intl.message(
-      '[Your setup is ready and waiting]',
+      'Uppsetningin þín er tilbúin og bíður',
       name: 'landing_reassurance_saved',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Signing up is free]`
+  /// `Það er ókeypis að skrá sig`
   String get landing_reassurance_signup_free {
     return Intl.message(
-      '[Signing up is free]',
+      'Það er ókeypis að skrá sig',
       name: 'landing_reassurance_signup_free',
       desc: '',
       args: [],
     );
   }
 
-  /// `[Free to use for your first week]`
+  /// `Ókeypis að nota fyrstu vikuna`
   String get landing_reassurance_trial {
     return Intl.message(
-      '[Free to use for your first week]',
+      'Ókeypis að nota fyrstu vikuna',
       name: 'landing_reassurance_trial',
       desc: '',
       args: [],

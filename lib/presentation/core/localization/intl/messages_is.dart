@@ -20,30 +20,32 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'is';
 
-  static String m0(seconds) => "[Resend in ${seconds}s]";
+  static String m0(seconds) => "Senda aftur eftir ${seconds}s";
 
-  static String m1(name) => "[${name}\'s profile is ready]";
+  static String m1(name) => "Prófíll ${name} er tilbúinn";
 
-  static String m2(gender) => "Segðu mér frá matar og gjafastíl sem á best við ${gender}.";
+  static String m2(gender) => "Segðu mér frá gjafa- og matarsmekk ${gender}.";
 
   static String m3(name, gender) =>
-      "Þá get ég stungið upp á hlutum sem ${name} mun dýrka og forðast þá sem ${gender} kýs síður.";
+      "Þá get ég mælt með hlutum sem ${name} mun elska og forðast það sem ${gender} fílar síður.";
 
-  static String m4(gender) => "Segðu mér aðeins frá ${gender} smekk";
+  static String m4(gender) => "Segðu mér aðeins meira frá smekk ${gender}";
 
   static String m5(name) => "Hvernig mat finnst ${name} góður?";
 
-  static String m6(gender) => "Hvernig gjafir vill ${gender} fá?";
+  static String m6(gender) => "Hvers konar gjafir finnst ${gender} góðar?";
 
   static String m7(gender) => "Hefur ${gender} einhver áhugamál?";
 
-  static String m8(gender) => "Hvernig ástarmál passar ${gender}?";
+  static String m8(gender) => "Hvaða ástarmál passa ${gender}?";
 
-  static String m9(name) => "[Deildu því sem ${name} hefur gaman af til að hjálpa til við að sérsníða tillögur.]";
+  static String m9(name) =>
+      "Segðu mér hvað ${name} hefur gaman af svo tillögurnar passi betur.";
 
-  static String m10(gender) => "Veldu ástarmálin og tóninn sem henta ${gender} best.";
+  static String m10(gender) =>
+      "Veldu ástarmálin og tóninn sem henta ${gender} best.";
 
-  static String m11(gender) => "Hvað elskar ${gender}?";
+  static String m11(gender) => "Hvað finnst ${gender} skemmtilegt?";
 
   static String m12(name) => "Hvað dýrkar ${name}?";
 
@@ -53,113 +55,116 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "app_name": MessageLookupByLibrary.simpleMessage("BetterHalf"),
     "auth_email_confirmation_confirmed": MessageLookupByLibrary.simpleMessage(
-      "Ég hef stadfest netfangid mitt",
+      "Ég hef staðfest netfangið mitt",
     ),
     "auth_email_confirmation_message": MessageLookupByLibrary.simpleMessage(
-      "[Vid sendum ther stadfestingarpost. Opnadu hann, pikkaðu á stadfestingarhlekkinn, farðu aftur í appid og pikkaðu svo á \"Ég hef stadfest netfangid mitt\".]",
+      "Ég sendi þér staðfestingarpóst. Opnaðu hann, ýttu á staðfestingarhlekkinn, farðu aftur í appið og ýttu svo á \"Ég hef staðfest netfangið mitt\".",
     ),
     "auth_email_confirmation_pending_error": MessageLookupByLibrary.simpleMessage(
-      "[Vid gátum ekki fundid stadfesta lotu ennþá. Athugadu netfangid thitt og reyndu aftur.]",
+      "Ég sé ekki enn að netfangið þitt hafi verið staðfest. Athugaðu pósthólfið og reyndu aftur.",
     ),
     "auth_email_confirmation_resend": MessageLookupByLibrary.simpleMessage(
-      "[Resend email]",
+      "Senda póst aftur",
     ),
     "auth_email_confirmation_resend_cooldown": m0,
-    "auth_email_confirmation_resend_error": MessageLookupByLibrary.simpleMessage(
-      "[Couldn\'t resend right now. Try again in a moment.]",
-    ),
-    "auth_email_confirmation_resend_success": MessageLookupByLibrary.simpleMessage("[Confirmation email sent.]"),
+    "auth_email_confirmation_resend_error":
+        MessageLookupByLibrary.simpleMessage(
+          "Ég get ekki sent aftur núna. Reyndu aftur eftir smá stund.",
+        ),
+    "auth_email_confirmation_resend_success":
+        MessageLookupByLibrary.simpleMessage("Staðfestingarpóstur sendur."),
     "auth_email_confirmation_title": MessageLookupByLibrary.simpleMessage(
-      "Stadfestu netfangid",
+      "Staðfestu netfangið þitt",
     ),
     "auth_email_hint": MessageLookupByLibrary.simpleMessage("Netfang"),
     "auth_email_placeholder": MessageLookupByLibrary.simpleMessage(
       "you@example.com",
     ),
     "auth_error_network": MessageLookupByLibrary.simpleMessage(
-      "[Couldn\'t reach the server. Check your connection and try again.]",
+      "Ég náði ekki sambandi við þjóninn. Athugaðu tenginguna og reyndu aftur.",
     ),
     "auth_error_unexpected": MessageLookupByLibrary.simpleMessage(
-      "[Something went wrong. Try again.]",
+      "Eitthvað fór úrskeiðis. Reyndu aftur.",
     ),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
-      "Innskraning med Apple",
+      "Skrá inn með Apple",
     ),
     "auth_login_email": MessageLookupByLibrary.simpleMessage(
-      "Innskraning med netfangi",
+      "Skrá inn með netfangi",
     ),
     "auth_login_google": MessageLookupByLibrary.simpleMessage(
-      "Innskraning med Google",
+      "Skrá inn með Google",
     ),
     "auth_login_signup_action": MessageLookupByLibrary.simpleMessage(
-      "Skraning",
+      "Nýskráning",
     ),
     "auth_login_signup_prompt": MessageLookupByLibrary.simpleMessage(
-      "Ert thu ekki med adgang?",
+      "Ertu ekki með aðgang?",
     ),
     "auth_login_subtitle": MessageLookupByLibrary.simpleMessage(
-      "Skradu inn til ad halda afram.",
+      "Skráðu þig inn til að halda áfram.",
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Velkomin aftur"),
-    "auth_login_under_construction_message": MessageLookupByLibrary.simpleMessage(
-      "[Go back for now. The login flow is still being built.]",
-    ),
+    "auth_login_under_construction_message":
+        MessageLookupByLibrary.simpleMessage(
+          "Farðu til baka í bili. Enn er verið að smíða innskráningarflæðið.",
+        ),
     "auth_login_under_construction_title": MessageLookupByLibrary.simpleMessage(
-      "[Login is not ready yet]",
+      "Innskráning er ekki tilbúin enn",
     ),
-    "auth_password_hint": MessageLookupByLibrary.simpleMessage("Lykilord"),
+    "auth_password_hint": MessageLookupByLibrary.simpleMessage(
+      "Lykilorð fyrir aðganginn",
+    ),
     "auth_password_placeholder": MessageLookupByLibrary.simpleMessage(
-      "[At least 6 characters]",
+      "Að minnsta kosti 6 stafir",
     ),
     "auth_password_strength_fair": MessageLookupByLibrary.simpleMessage(
-      "[Fair]",
+      "Lítur ágætlega út",
     ),
     "auth_password_strength_label": MessageLookupByLibrary.simpleMessage(
-      "[Password strength]",
+      "Styrkur lykilorðs",
     ),
     "auth_password_strength_strong": MessageLookupByLibrary.simpleMessage(
-      "[Strong]",
+      "Lítur vel út",
     ),
     "auth_password_strength_too_short": MessageLookupByLibrary.simpleMessage(
-      "[Too short]",
+      "Þarf fleiri stafi",
     ),
     "auth_password_strength_weak": MessageLookupByLibrary.simpleMessage(
-      "[Weak]",
+      "Má vera sterkara",
     ),
     "auth_signup_action": MessageLookupByLibrary.simpleMessage(
-      "[Create account]",
+      "Búa til aðgang",
     ),
-    "auth_signup_apple": MessageLookupByLibrary.simpleMessage(
-      "Skraning med Apple",
-    ),
+    "auth_signup_apple": MessageLookupByLibrary.simpleMessage("Skrá með Apple"),
     "auth_signup_email": MessageLookupByLibrary.simpleMessage(
-      "Skraning med netfangi",
+      "Skrá með netfangi",
     ),
     "auth_signup_email_invalid": MessageLookupByLibrary.simpleMessage(
-      "[That email doesn\'t look right. Try again.]",
+      "Þetta netfang lítur ekki rétt út. Reyndu aftur.",
     ),
     "auth_signup_error_email_exists": MessageLookupByLibrary.simpleMessage(
-      "[An account with this email already exists.]",
+      "Það er nú þegar til aðgangur með þessu netfangi.",
     ),
     "auth_signup_google": MessageLookupByLibrary.simpleMessage(
-      "Skraning med Google",
+      "Skrá með Google",
     ),
     "auth_signup_login_action": MessageLookupByLibrary.simpleMessage(
-      "[Innskraning]",
+      "Innskráning",
     ),
     "auth_signup_login_prompt": MessageLookupByLibrary.simpleMessage(
-      "Ertu med adgang?",
+      "Ertu nú þegar með aðgang?",
     ),
     "auth_signup_password_empty": MessageLookupByLibrary.simpleMessage(
-      "[Enter a password.]",
+      "Sláðu inn lykilorðið þitt.",
     ),
     "auth_signup_password_too_short": MessageLookupByLibrary.simpleMessage(
-      "[Password must be at least 6 characters.]",
+      "Lykilorðið þarf að vera að minnsta kosti 6 stafir.",
     ),
     "auth_signup_subtitle": MessageLookupByLibrary.simpleMessage(
-      "Skradu thig inn til ad vista uppsetningu og halda afram.",
+      "Skráðu þig til að vista uppsetninguna og halda áfram.",
     ),
-    "auth_signup_title": MessageLookupByLibrary.simpleMessage("Bua til adgang"),
+    "auth_signup_title": MessageLookupByLibrary.simpleMessage("Búa til aðgang"),
     "date_format_month_and_day": MessageLookupByLibrary.simpleMessage(
       "dd. MMMM",
     ),
@@ -176,7 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_food_pizza": MessageLookupByLibrary.simpleMessage("Pítsur"),
     "global_food_salads": MessageLookupByLibrary.simpleMessage("Salöt"),
     "global_food_seafood": MessageLookupByLibrary.simpleMessage("Sjávarmeti"),
-    "global_food_spicy_food": MessageLookupByLibrary.simpleMessage("Sterkur"),
+    "global_food_spicy_food": MessageLookupByLibrary.simpleMessage(
+      "Sterkur matur",
+    ),
     "global_food_street_food": MessageLookupByLibrary.simpleMessage(
       "Götumatur",
     ),
@@ -188,7 +195,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Upplifanir",
     ),
     "global_gift_food_and_drinks": MessageLookupByLibrary.simpleMessage(
-      "Matur & drykkur",
+      "Matur og drykkur",
     ),
     "global_gift_hobbies": MessageLookupByLibrary.simpleMessage("Áhugamál"),
     "global_gift_luxury_items": MessageLookupByLibrary.simpleMessage(
@@ -226,23 +233,24 @@ class MessageLookup extends MessageLookupByLibrary {
       "Íþróttir og sport",
     ),
     "global_hobby_traveling": MessageLookupByLibrary.simpleMessage("Ferðalög"),
-    "global_love_language_acts_of_service": MessageLookupByLibrary.simpleMessage("Þjónusta"),
+    "global_love_language_acts_of_service":
+        MessageLookupByLibrary.simpleMessage("Þjónusta"),
     "global_love_language_physical_touch": MessageLookupByLibrary.simpleMessage(
       "Líkamleg snerting",
     ),
     "global_love_language_quality_time": MessageLookupByLibrary.simpleMessage(
       "Tími saman",
     ),
-    "global_love_language_receiving_gifts": MessageLookupByLibrary.simpleMessage("Að fá gjafir"),
-    "global_love_language_words_of_affirmation": MessageLookupByLibrary.simpleMessage("Falleg orð"),
+    "global_love_language_receiving_gifts":
+        MessageLookupByLibrary.simpleMessage("Að fá gjafir"),
+    "global_love_language_words_of_affirmation":
+        MessageLookupByLibrary.simpleMessage("Falleg orð"),
     "global_more": MessageLookupByLibrary.simpleMessage("Meira"),
     "global_optional": MessageLookupByLibrary.simpleMessage("Valkvæmt"),
     "global_pick_date": MessageLookupByLibrary.simpleMessage(
       "Veldu dagsetningu",
     ),
-    "global_pronoun_custom": MessageLookupByLibrary.simpleMessage(
-      "Velja sjálf(ur)",
-    ),
+    "global_pronoun_custom": MessageLookupByLibrary.simpleMessage("Sérsniðið"),
     "global_pronoun_he_eignarfall": MessageLookupByLibrary.simpleMessage(
       "Hans",
     ),
@@ -290,7 +298,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "global_relationship_type_engaged": MessageLookupByLibrary.simpleMessage(
       "Trúlofuð",
     ),
-    "global_relationship_type_life_partners": MessageLookupByLibrary.simpleMessage("Lífsfélagar"),
+    "global_relationship_type_life_partners":
+        MessageLookupByLibrary.simpleMessage("Lífsfélagar"),
     "global_relationship_type_married": MessageLookupByLibrary.simpleMessage(
       "Gift",
     ),
@@ -314,25 +323,27 @@ class MessageLookup extends MessageLookupByLibrary {
       "Rómantískur",
     ),
     "landing_reassurance_saved": MessageLookupByLibrary.simpleMessage(
-      "[Your setup is ready and waiting]",
+      "Uppsetningin þín er tilbúin og bíður",
     ),
     "landing_reassurance_signup_free": MessageLookupByLibrary.simpleMessage(
-      "[Signing up is free]",
+      "Það er ókeypis að skrá sig",
     ),
     "landing_reassurance_trial": MessageLookupByLibrary.simpleMessage(
-      "[Free to use for your first week]",
+      "Ókeypis að nota fyrstu vikuna",
     ),
     "landing_subtitle": MessageLookupByLibrary.simpleMessage(
-      "[Veldu hvernig þú vilt halda áfram.]",
+      "Búðu til aðgang og þá fer BetterHalf að raða upp gjafahugmyndum, skilaboðadrögum og stefnumótaplönum fyrir maka þinn.",
     ),
-    "landing_title": MessageLookupByLibrary.simpleMessage("[Velkomin]"),
+    "landing_title": MessageLookupByLibrary.simpleMessage(
+      "Prófíll maka þíns er tilbúinn",
+    ),
     "landing_title_named": m1,
     "main_title": MessageLookupByLibrary.simpleMessage("Aðalforrit"),
     "main_under_construction_message": MessageLookupByLibrary.simpleMessage(
-      "[This part of the app isn\'t ready yet.]",
+      "Þessi hluti appsins er ekki tilbúinn enn.",
     ),
     "main_under_construction_title": MessageLookupByLibrary.simpleMessage(
-      "[Under construction]",
+      "Í smíðum",
     ),
     "ordinal_suffix_first": MessageLookupByLibrary.simpleMessage("."),
     "ordinal_suffix_generic": MessageLookupByLibrary.simpleMessage("."),
@@ -343,32 +354,36 @@ class MessageLookup extends MessageLookupByLibrary {
       "Veldu tungumál",
     ),
     "wizard_greetings": MessageLookupByLibrary.simpleMessage(
-      "Þinn eiginn BetterHalf",
+      "Þinn eigin BetterHalf",
     ),
     "wizard_greetings_message_1": MessageLookupByLibrary.simpleMessage(
-      "[BetterHalf hjálpar þér að næra sambandið við ástvin þinn.]",
+      "BetterHalf heldur utan um það sem skiptir maka þinn máli og hjálpar þér að gera eitthvað í því.",
     ),
     "wizard_greetings_message_2": MessageLookupByLibrary.simpleMessage(
-      "[Hann minnir þig á mikilvægar dagsetningar, semur persónuleg skilaboð og leggur til góðar hugmyndir.]",
+      "Ég minni þig á dagsetningarnar sem skipta máli, skrifa drög að skilaboðum í þínum tón og raða upp gjafa- og stefnumótahugmyndum sem maki þinn myndi raunverulega vilja.",
     ),
     "wizard_next": MessageLookupByLibrary.simpleMessage("Næsta"),
     "wizard_partner_anniversary_explanation": MessageLookupByLibrary.simpleMessage(
-      "[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja og fá eitthvað sérstakt fyrir þína sérstökupersónu.]",
+      "Ég nota afmælisdaginn ykkar svo þú hafir nægan tíma til að skipuleggja eða redda einhverju sérstöku fyrir maka þinn.",
     ),
     "wizard_partner_anniversary_hint": MessageLookupByLibrary.simpleMessage(
-      "Gifting, trúlofun osfr.",
+      "Veldu stóra daginn ykkar",
     ),
-    "wizard_partner_anniversary_skip_message": MessageLookupByLibrary.simpleMessage(
-      "Ertu viss um að þú viljir sleppa dagsetningu stórviðurðar (gifting, trúlofun osfr.)?",
-    ),
-    "wizard_partner_anniversary_skip_no_cancel": MessageLookupByLibrary.simpleMessage("Nei"),
-    "wizard_partner_anniversary_skip_title": MessageLookupByLibrary.simpleMessage("Sleppa stórviðburði?"),
-    "wizard_partner_anniversary_skip_yes_confirm": MessageLookupByLibrary.simpleMessage("Já, sleppa"),
+    "wizard_partner_anniversary_skip_message":
+        MessageLookupByLibrary.simpleMessage(
+          "Ertu viss um að þú viljir sleppa afmælisdeginum?",
+        ),
+    "wizard_partner_anniversary_skip_no_cancel":
+        MessageLookupByLibrary.simpleMessage("Nei"),
+    "wizard_partner_anniversary_skip_title":
+        MessageLookupByLibrary.simpleMessage("Sleppa afmælisdegi?"),
+    "wizard_partner_anniversary_skip_yes_confirm":
+        MessageLookupByLibrary.simpleMessage("Já, sleppa"),
     "wizard_partner_anniversary_title": MessageLookupByLibrary.simpleMessage(
-      "Einhver stór dagsetning?",
+      "Eigið þið afmælisdag?",
     ),
     "wizard_partner_birthday_explanation": MessageLookupByLibrary.simpleMessage(
-      "[Ég nota þessar upplýsingar til að ganga úr skugga um að þú hafir tíma til að skipuleggja eitthvað sérstakt fyrir þína sérstöku persónu.]",
+      "Ég nota afmælisdag maka þíns svo þú hafir nægan tíma til að skipuleggja eitthvað sérstakt fyrir maka þinn.",
     ),
     "wizard_partner_birthday_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu afmælisdagsetningu",
@@ -381,64 +396,74 @@ class MessageLookup extends MessageLookupByLibrary {
     "wizard_partner_food_and_gifts_title": m4,
     "wizard_partner_food_likes_title": m5,
     "wizard_partner_foods_explanation": MessageLookupByLibrary.simpleMessage(
-      "[Með því að deila hvaða mat þín heittelskaða persóna finnst góður hjálpar þú mér að velja réttar matargjafir og veitingastaði.]",
+      "Uppáhaldsmatur maka þíns hjálpar mér að velja matargjafir og veitingastaði sem passa.",
     ),
     "wizard_partner_gift_likes_title": m6,
     "wizard_partner_gift_types_explanation": MessageLookupByLibrary.simpleMessage(
-      "[Picking your partner\'s favorite types helps me suggest gifts that fit.\nExperiences: E.g., tickets to events, vacations, date nights.\nSentimental Items: E.g., handmade gifts, personal letters, photo albums.\nPractical Gifts: E.g., gadgets, tools, kitchenware.\nLuxury Items: E.g., jewelry, designer clothing, high-end accessories.\nHobbies & Interests: E.g., books, music instruments, art supplies.\nFood & Drinks: E.g., gourmet chocolates, wine, or subscription boxes.\nSurprise Me: For when you want me to get creative.]",
+      "Uppáhalds gjafategundir maka þíns hjálpa mér að stinga upp á gjöfum sem passa.\nUpplifanir: Til dæmis miðar á viðburði, ferðalög eða stefnumót.\nPersónulegir hlutir: Til dæmis handgerðar gjafir, persónuleg bréf eða myndaalbúm.\nHagnýtar gjafir: Til dæmis tæki, verkfæri eða eldhúsdót.\nMunaðarvörur: Til dæmis skartgripir, hönnunarfatnaður eða vandaðir aukahlutir.\nÁhugamál: Til dæmis bækur, hljóðfæri eða listavörur.\nMatur og drykkur: Til dæmis vandað súkkulaði, vín eða áskriftarkassar.\nKomdu mér á óvart: Þegar þú vilt að ég verði skapandi.",
     ),
     "wizard_partner_hobbies_explanation": MessageLookupByLibrary.simpleMessage(
-      "[Með því að deila með mér áhugamálum félaga þíns hjálpar þú mér að velja viðeigandi viðburði og gjafir.]",
+      "Áhugamál maka þíns hjálpa mér að velja afþreyingu og gjafir sem passa.",
     ),
     "wizard_partner_hobbies_title": m7,
-    "wizard_partner_love_language_explanation": MessageLookupByLibrary.simpleMessage(
-      "Það er oft talað um að það séu fimm tegundir ástar-tjáningar.\nGæðatími: Að eyða óskiptum, innihaldsríkum tíma saman.\nStaðfestingarorð: Að tjá ást og þakklæti með góðum og staðfestandi orðum.\nÞjónusta: Að sýna kærleika með því að vinna gagnleg eða ígrunduð verkefni.\nLíkamleg snerting: Að tjá ást með líkamlegum táknum eins og knúsum, kossum og öðrum snertingum.\nGefa gjafir: Að gefa og þiggja ígrundaðar gjafir sem tákn um ást.",
-    ),
+    "wizard_partner_love_language_explanation":
+        MessageLookupByLibrary.simpleMessage(
+          "Það er oft talað um fimm leiðir til að sýna ást.\nGæðatími: Að eiga óskiptan og innihaldsríkan tíma saman.\nFalleg orð: Að sýna ást og þakklæti með hlýjum og uppbyggilegum orðum.\nÞjónusta: Að sýna ást með því að gera eitthvað hjálplegt eða hugulsamt.\nLíkamleg snerting: Að sýna ást með líkamlegum merkjum eins og faðmlögum, kossum og annarri snertingu.\nGjafir: Að gefa og þiggja gjafir sem tákn um ást.",
+        ),
     "wizard_partner_love_language_title": m8,
     "wizard_partner_loves_message_1": m9,
     "wizard_partner_loves_message_2": MessageLookupByLibrary.simpleMessage(
-      "[Með þessu móti get ég búið til tillögur og skilaboð sem hitta betur í mark.]",
+      "Þetta hjálpar mér að láta tillögurnar og skilaboðin hitta í mark.",
     ),
     "wizard_partner_loves_message_initial_1": m10,
     "wizard_partner_loves_title": m11,
     "wizard_partner_more_details": m12,
-    "wizard_partner_profile_birthday_missing": MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
-    "wizard_partner_profile_message_1_extended": MessageLookupByLibrary.simpleMessage(
-      "[Segðu okkur aðeins frá félaga þínum eins og nafn, fornafn og mikilvægar dagsetningar.]",
-    ),
-    "wizard_partner_profile_message_1_shortened": MessageLookupByLibrary.simpleMessage(
-      "[Segðu okkur aðeins frá félaga þínum eins og nafn og fornafn.]",
-    ),
-    "wizard_partner_profile_message_initial_1": MessageLookupByLibrary.simpleMessage(
-      "Segðu mér hvað þín heittelskaða persónu heitir og hvers kyns hún er.",
-    ),
+    "wizard_partner_profile_birthday_missing":
+        MessageLookupByLibrary.simpleMessage("Afmæli er nauðsynlegt"),
+    "wizard_partner_profile_message_1_extended":
+        MessageLookupByLibrary.simpleMessage(
+          "Segðu mér aðeins frá maka þínum, eins og nafni, fornöfnum og mikilvægum dagsetningum.",
+        ),
+    "wizard_partner_profile_message_1_shortened":
+        MessageLookupByLibrary.simpleMessage(
+          "Segðu mér aðeins frá maka þínum, eins og nafni og fornöfnum.",
+        ),
+    "wizard_partner_profile_message_initial_1":
+        MessageLookupByLibrary.simpleMessage(
+          "Byrjum á grunnatriðunum: nafni og kyni.",
+        ),
     "wizard_partner_profile_name_hint": MessageLookupByLibrary.simpleMessage(
-      "Nafn félaga þíns",
+      "Nafn maka",
     ),
     "wizard_partner_profile_name_missing": MessageLookupByLibrary.simpleMessage(
       "Nafn er nauðsynlegt",
     ),
     "wizard_partner_profile_name_title": MessageLookupByLibrary.simpleMessage(
-      "Hvað heitir sérstaka persónan þín?",
+      "Hvað heitir maki þinn?",
     ),
-    "wizard_partner_profile_pronoun_missing": MessageLookupByLibrary.simpleMessage("Fornafn er nauðsynlegt"),
+    "wizard_partner_profile_pronoun_missing":
+        MessageLookupByLibrary.simpleMessage("Fornafn er nauðsynlegt"),
     "wizard_partner_profile_title": MessageLookupByLibrary.simpleMessage(
       "Byrjum á grunnatriðunum",
     ),
     "wizard_partner_pronouns_hint": MessageLookupByLibrary.simpleMessage(
-      "Veldu fornafn",
+      "Veldu fornöfn maka þíns",
     ),
     "wizard_partner_pronouns_title": MessageLookupByLibrary.simpleMessage(
-      "Hvernig á að ávarpa félaga þinn?",
+      "Hvernig á ég að tala um maka þinn?",
     ),
-    "wizard_partner_relationship_type_explanation": MessageLookupByLibrary.simpleMessage(
-      "[Þetta hjálpar mér að sníða áminningar, skilaboð og tillögur sem passa tegund sambandsins.]",
-    ),
-    "wizard_partner_relationship_type_hint": MessageLookupByLibrary.simpleMessage("Veldu tegund sambands"),
-    "wizard_partner_relationship_type_title": MessageLookupByLibrary.simpleMessage("Tegund sambands"),
-    "wizard_partner_tone_of_voice_explanation": MessageLookupByLibrary.simpleMessage(
-      "[Með því að velja talsmáta hjálpar þú mér að semja skilaboð sem hljóma betur í eyrum félaga þíns.]",
-    ),
+    "wizard_partner_relationship_type_explanation":
+        MessageLookupByLibrary.simpleMessage(
+          "Þetta hjálpar mér að láta áminningar, skilaboð og tillögur passa við stöðuna í sambandinu ykkar",
+        ),
+    "wizard_partner_relationship_type_hint":
+        MessageLookupByLibrary.simpleMessage("Veldu tegund sambands"),
+    "wizard_partner_relationship_type_title":
+        MessageLookupByLibrary.simpleMessage("Tegund sambands"),
+    "wizard_partner_tone_of_voice_explanation":
+        MessageLookupByLibrary.simpleMessage(
+          "Rétti tónninn hjálpar mér að skrifa skilaboð sem hitta í mark hjá maka þínum.",
+        ),
     "wizard_partner_tone_of_voice_hint": MessageLookupByLibrary.simpleMessage(
       "Veldu talsmáta",
     ),
