@@ -1,3 +1,12 @@
+---
+name: caching
+description: >-
+  Add dedicated cache helper classes for infrastructure repositories using Hive
+  cache wrappers, TTL and staleness behavior, serialization, and cache-focused
+  tests.
+tools: []
+---
+
 # Skill: caching
 
 ## Purpose
@@ -187,4 +196,3 @@ class <Feature>Repository implements I<Feature>Repository {
 - Do not store domain entities in cache — store **models** (they have `toJson`/`fromJson`)
 - Do not share box names between unrelated features
 - Do not place non-cache local persistence workflow methods in `*CacheSupport` unless they are true cache invalidation/read-through behavior
-

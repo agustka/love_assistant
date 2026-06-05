@@ -1,3 +1,11 @@
+---
+name: entity-generation
+description: >-
+  Generate immutable domain entities composed of value objects, with identity,
+  validity, behavior, model conversion, equality, and focused tests.
+tools: []
+---
+
 # Skill: entity-generation
 
 ## Purpose
@@ -220,4 +228,3 @@ Country findCountry(String isoCode) {
 - Do not make entities mutable — they are `@immutable`
 - Do not skip the `valid` property — every entity needs validity tracking
 - Do not create a separate class just to hold a `List<Entity>` without behavior — use a collection entity only when it adds domain logic (e.g. `findById`, filtering, computed aggregates). If no behavior is needed, use `List<Entity>` directly on a parent entity
-

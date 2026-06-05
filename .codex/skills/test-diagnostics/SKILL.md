@@ -1,3 +1,12 @@
+---
+name: test-diagnostics
+description: >-
+  Diagnose failed tests by validating implementation first, investigating
+  failures at their source, and producing actionable handoffs for owning layer
+  agents instead of generic failure classifications.
+tools: []
+---
+
 # Test Diagnostics Skill
 
 ## Overview
@@ -114,5 +123,4 @@ Once diagnostic is produced:
 - Testing agent re-runs after fix is applied
 
 This creates a tight feedback loop: **test → diagnose → fix → re-test**.
-
 

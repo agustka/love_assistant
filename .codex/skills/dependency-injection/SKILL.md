@@ -1,3 +1,12 @@
+---
+name: dependency-injection
+description: >-
+  Wire infrastructure, domain, and application dependencies with get_it and
+  injectable while preserving constructor injection and the project's approved
+  direct getIt call sites.
+tools: []
+---
+
 # Skill: dependency-injection
 
 ## Purpose

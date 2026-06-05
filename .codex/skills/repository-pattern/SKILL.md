@@ -1,3 +1,12 @@
+---
+name: repository-pattern
+description: >-
+  Implement infrastructure repositories with the project repository patterns,
+  including service boundaries, mapping, streaming, request deduplication, cache
+  lifecycle behavior, and tests.
+tools: []
+---
+
 # Skill: repository-pattern
 
 ## Purpose

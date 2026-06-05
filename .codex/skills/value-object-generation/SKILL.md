@@ -1,3 +1,11 @@
+---
+name: value-object-generation
+description: >-
+  Generate domain value objects that wrap primitive values with validation,
+  parsing, formatting, failure handling, equality, and focused tests.
+tools: []
+---
+
 # Skill: value-object-generation
 
 ## Purpose
@@ -177,4 +185,3 @@ When a value object wraps an enum:
 - Do not return nullable types from `get` — use `getOr(fallback)` with a safe default
 - Do not put infrastructure concerns (HTTP, JSON, caching) in value objects
 - Do not extend `Equatable` directly — extend `ValueObject<T>` (which extends `Equatable`)
-

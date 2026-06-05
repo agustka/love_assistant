@@ -53,3 +53,8 @@ assets/keys/config.json
 .claude/specs/layout.md
 .claude/handoff/*.md
 .claude/worktrees/
+.codex/specs/api.yaml
+.codex/specs/bdd.md
+.codex/specs/layout.md
+.codex/handoff/*.md
+.codex/worktrees/

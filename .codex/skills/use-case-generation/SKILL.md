@@ -1,3 +1,12 @@
+---
+name: use-case-generation
+description: >-
+  Generate domain-layer use cases that coordinate repositories and domain logic,
+  use the project use case contracts, and return Payload or StreamPayload
+  results.
+tools: []
+---
+
 # Skill: use-case-generation
 
 ## Purpose
