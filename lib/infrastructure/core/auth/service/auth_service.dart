@@ -1,5 +1,6 @@
 import "package:injectable/injectable.dart";
 import "package:la/domain/core/entities/email_password_credentials.dart";
+import "package:la/domain/core/value_objects/email_value_object.dart";
 import "package:la/infrastructure/core/auth/auth_event_type.dart";
 import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
 import "package:la/infrastructure/core/auth/service/i_auth_service.dart";
@@ -58,6 +59,11 @@ class AuthService implements IAuthService {
       email: credentials.email.get,
       type: OtpType.signup,
     );
+  }
+
+  @override
+  Future<void> resetPasswordForEmail(EmailValueObject email) {
+    return _client.auth.resetPasswordForEmail(email.get);
   }
 
   @override

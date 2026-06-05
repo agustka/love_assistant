@@ -5,12 +5,16 @@ import 'package:la/presentation/core/ui_components/atoms/import.dart';
 class LaLinkPromptMolecule extends StatelessWidget {
   final String prompt;
   final String actionText;
+  final Key? promptKey;
+  final Key? actionKey;
   final VoidCallback onTap;
 
   const LaLinkPromptMolecule({
     super.key,
     required this.prompt,
     required this.actionText,
+    this.promptKey,
+    this.actionKey,
     required this.onTap,
   });
 
@@ -28,8 +32,9 @@ class LaLinkPromptMolecule extends StatelessWidget {
           spacing: LaPadding.extraSmall,
           runSpacing: LaPadding.extraSmall,
           children: [
-            Text(prompt, style: promptStyle, textAlign: TextAlign.center),
+            Text(prompt, key: promptKey, style: promptStyle, textAlign: TextAlign.center),
             _LinkLabel(
+              key: actionKey,
               text: actionText,
               style: actionStyle,
               underlineColor: actionColor,
@@ -47,6 +52,7 @@ class _LinkLabel extends StatelessWidget {
   final Color underlineColor;
 
   const _LinkLabel({
+    super.key,
     required this.text,
     required this.style,
     required this.underlineColor,

@@ -104,6 +104,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in to continue.",
     ),
     "auth_login_title": MessageLookupByLibrary.simpleMessage("Welcome back"),
+    "auth_login_under_construction_message":
+        MessageLookupByLibrary.simpleMessage(
+          "Go back for now. The login flow is still being built.",
+        ),
+    "auth_login_under_construction_title": MessageLookupByLibrary.simpleMessage(
+      "Login is not ready yet",
+    ),
     "auth_password_hint": MessageLookupByLibrary.simpleMessage("Password"),
     "auth_password_placeholder": MessageLookupByLibrary.simpleMessage(
       "At least 6 characters",
@@ -137,7 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_signup_google": MessageLookupByLibrary.simpleMessage(
       "Sign up with Google",
     ),
-    "auth_signup_login_action": MessageLookupByLibrary.simpleMessage("Login"),
+    "auth_signup_login_action": MessageLookupByLibrary.simpleMessage("Log in"),
     "auth_signup_login_prompt": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),

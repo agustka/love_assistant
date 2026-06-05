@@ -1,0 +1,292 @@
+# Codex Project Operating Rules
+
+This repository has a Codex-native mirror of the previous Claude setup.
+
+- Treat this file and nested `AGENTS.md` files as the instruction source for Codex.
+- Use `.codex/skills/*/SKILL.md` when a task matches a skill description or when an agent/command calls for that skill.
+- Use `.codex/agents/*.md` as role prompts for Codex subagents. When a command or pipeline step says to dispatch an agent, spawn a Codex subagent with that agent file's instructions in the prompt and require any handoff output to be written under `.codex/handoff/`.
+- Use `.codex/commands/*.md` as command runbooks. In particular, `.codex/commands/pipeline.md` runs the coordinator inline in the main Codex thread and delegates only leaf layer agents.
+- Treat the first token or first short phrase in a user message as a possible Codex command key. Normalize it by lowercasing and converting spaces/underscores/slashes to hyphens, then look for `.codex/commands/<key>.md`. If found, read that file and execute it as the command runbook; the rest of the user message is `$ARGUMENTS` or ticket/prompt context for that command.
+- Support light fuzzy matching for obvious typos against command filenames, especially when the normalized key has edit distance 1-3 or preserves most word parts. Example: `prompt-tocket-specks ...` should invoke `.codex/commands/prompt-ticket-specs.md`. If more than one command plausibly matches, ask one concise clarification.
+- Use `.codex/specs/` and `.codex/handoff/` for Codex pipeline specs and handoffs.
+- Do not modify `.claude/**` or `CLAUDE.md` files unless the user explicitly asks for Claude-side changes.
+- If a copied Codex file still mentions Claude semantics, interpret that as the equivalent Codex workflow and prefer the `.codex` path.
+
+# Dart and Flutter
+
+Best practices from [Effective Dart](https://dart.dev/effective-dart) and [Flutter Architecture Recommendations](https://docs.flutter.dev/app-architecture/recommendations).
+
+## Effective Dart
+
+### Rules
+
+#### Style
+
+##### Identifiers
+
+*   DO name types using `UpperCamelCase`.
+*   DO name extensions using `UpperCamelCase`.
+*   DO name packages, directories, and source files using `lowercase_with_underscores`.
+*   DO name import prefixes using `lowercase_with_underscores`.
+*   DO name other identifiers using `lowerCamelCase`.
+*   PREFER using `lowerCamelCase` for constant names.
+*   DO capitalize acronyms and abbreviations longer than two letters like words.
+*   PREFER using wildcards for unused callback parameters.
+*   DON'T use a leading underscore for identifiers that aren't private.
+*   DON'T use prefix letters.
+*   DON'T explicitly name libraries.
+
+##### Ordering
+
+*   DO place `dart:` imports before other imports.
+*   DO place `package:` imports before relative imports.
+*   DO specify exports in a separate section after all imports.
+*   DO sort sections alphabetically.
+
+##### Formatting
+
+*   DO format your code using `dart format`.
+*   CONSIDER changing your code to make it more formatter-friendly.
+*   PREFER lines 120 characters or fewer.
+*   DO use curly braces for all flow control statements.
+
+##### Member ordering
+
+*   DO order class members by this precedence:
+    1.  Static `const` fields
+    2.  Static fields
+    3.  Member (instance) fields
+    4.  Getters and setters
+    5.  Constructor (the unnamed constructor ALWAYS comes first among constructors, even when it is a `factory` — required by the analyzer's `sort_unnamed_constructors_first`)
+    6.  Private constructors
+    7.  Public named constructors
+    8.  Factory constructors
+    9.  Public static methods
+    10. Public methods
+    11. Private methods
+*   DO place the `toString` override next to last.
+*   DO place the Equatable `props` getter last.
+*   For Flutter widgets (`State` classes), DO follow the same precedence with lifecycle methods ordered as: `initState` before `dispose`, then the remaining lifecycle overrides, then `build`, then the rest.
+*   DON'T put blank lines between consecutive members of the same group (e.g. between field declarations). DO separate the groups above from each other with a single blank line.
+
+#### Documentation
+
+##### Comments
+
+*   DO format comments like sentences.
+*   DON'T use block comments for documentation.
+
+##### Doc comments
+
+*   **CRITICAL: DO NOT write doc comments (`///`) on individual methods, properties, getters, setters, or functions. This is absolutely forbidden and creates unwanted clutter.**
+*   **CRITICAL: Code MUST be self-documenting through clear naming. If you think a comment is needed, improve the naming instead.**
+*   DO use `///` doc comments ONLY at the top of public classes and types.
+*   ONLY write doc comments on a method/function if it involves extremely complex mathematical calculations requiring explanation. This exception should be extremely rare (less than 0.1% of methods).
+*   DO start doc comments with a single-sentence summary.
+*   DO separate the first sentence of a doc comment into its own paragraph.
+*   AVOID redundancy with the surrounding context. 
+*   PREFER starting library or type comments with noun phrases.
+*   DO use square brackets in doc comments to refer to in-scope identifiers.
+*   DO put doc comments before metadata annotations.
+*   **NEVER add explanatory comments like "// Parse the value" or "// Validate input" - these are obvious from the code.**
+
+##### Writing
+
+*   PREFER brevity.
+*   AVOID abbreviations and acronyms unless they are obvious.
+*   PREFER using "this" instead of "the" to refer to a member's instance.
+
+#### Usage
+
+##### Libraries
+
+*   DO use strings in `part of` directives.
+    Example
+    **DO:**
+    ```dart
+    part of '../../my_library.dart';
+    ```
+    
+    **DON'T:**
+    ```dart
+    part of my_library;
+    ```
+
+*   DON'T import libraries that are inside the `src` directory of another package.
+*   DON'T allow an import path to reach into or out of `lib`.
+*   PREFER relative import paths.
+
+##### Null
+
+*   DON'T explicitly initialize variables to `null`.
+*   DON'T use an explicit default value of `null`.
+*   DON'T use `true` or `false` in equality operations.
+*   AVOID `late` variables if you need to check whether they are initialized.
+*   CONSIDER type promotion or null-check patterns for using nullable types.
+
+##### Strings
+
+*   DO use adjacent strings to concatenate string literals.
+*   DO use double quotes for strings.
+*   DON'T use single quotes for strings.
+*   PREFER using interpolation to compose strings and values.
+*   AVOID using curly braces in interpolation when not needed.
+
+##### Collections
+
+*   DO use collection literals when possible.
+*   DON'T use `.length` to see if a collection is empty.
+*   AVOID using `Iterable.forEach()` with a function literal.
+*   DON'T use `List.from()` unless you intend to change the type of the result.
+*   DO use `whereType()` to filter a collection by type.
+*   DON'T use `cast()` when a nearby operation will do.
+*   AVOID using `cast()`.
+
+##### Functions
+
+*   DO use a function declaration to bind a function to a name.
+*   DON'T create a lambda when a tear-off will do.
+
+##### Variables
+
+*   DO follow a consistent rule for `var` and `final` on local variables.
+*   AVOID storing what you can calculate.
+
+##### Members
+
+*   DON'T wrap a field in a getter and setter unnecessarily.
+*   PREFER using a `final` field to make a read-only property.
+*   DO reserve the `=>` arrow body for getters ONLY. Methods, setters, and operators MUST use a block body with an explicit `return`, even when the body is a single expression. Factory and named constructors may use `=>`, and function literals/callbacks (e.g. `list.map((e) => e.name)`) are unaffected.
+*   DON'T use `this.` except to redirect to a named constructor or to avoid shadowing.
+*   DO initialize fields at their declaration when possible.
+
+##### Constructors
+
+*   DO use initializing formals when possible.
+*   DON'T use `late` when a constructor initializer list will do.
+*   DO use `;` instead of `{}` for empty constructor bodies.
+*   DON'T use `new`.
+*   DON'T use `const` redundantly.
+
+##### Error handling
+
+*   AVOID catches without `on` clauses.
+*   DON'T discard errors from catches without `on` clauses.
+*   DO throw objects that implement `Error` only for programmatic errors.
+*   DON'T explicitly catch `Error` or types that implement it.
+*   DO use `rethrow` to rethrow a caught exception.
+
+##### Asynchrony
+
+*   PREFER async/await over using raw futures.
+*   DON'T use `async` when it has no useful effect.
+*   CONSIDER using higher-order methods to transform a stream.
+*   AVOID using Completer directly.
+*   DO test for `Future<T>` when disambiguating a `FutureOr<T>` whose type argument could be `Object`.
+
+#### Design
+
+##### Names
+
+*   DO use terms consistently.
+*   AVOID abbreviations.
+*   PREFER putting the most descriptive noun last.
+*   CONSIDER making the code read like a sentence.
+*   PREFER a noun phrase for a non-boolean property or variable.
+*   PREFER a non-imperative verb phrase for a boolean property or variable.
+*   CONSIDER omitting the verb for a named boolean parameter.
+*   PREFER the "positive" name for a boolean property or variable.
+*   PREFER an imperative verb phrase for a function or method whose main purpose is a side effect.
+*   PREFER a noun phrase or non-imperative verb phrase for a function or method if returning a value is its primary purpose.
+*   CONSIDER an imperative verb phrase for a function or method if you want to draw attention to the work it performs.
+*   AVOID starting a method name with `get`.
+*   PREFER naming a method `to...()` if it copies the object's state to a new object.
+*   PREFER naming a method `as...()` if it returns a different representation backed by the original object.
+*   AVOID describing the parameters in the function's or method's name.
+*   DO follow existing mnemonic conventions when naming type parameters.
+
+##### Libraries
+
+*   PREFER making declarations private.
+*   CONSIDER declaring multiple classes in the same library.
+
+##### Classes and mixins
+
+*   AVOID defining a one-member abstract class when a simple function will do.
+*   AVOID defining classes that contain only static members for behavior or logic.
+*   ALLOW static-only classes when they act purely as a namespace for immutable constants or identifiers (for example: assets, routes, keys, event names, spacing, colors, or API field names).
+*   If a static-only class is used, it should not be instantiated and should not contain business logic.
+*   AVOID extending a class that isn't intended to be subclassed.
+*   DO use class modifiers to control if your class can be extended.
+*   AVOID implementing a class that isn't intended to be an interface.
+*   DO use class modifiers to control if your class can be an interface.
+*   PREFER defining a pure `mixin` or pure `class` to a `mixin class`.
+
+##### Constructors
+
+*   CONSIDER making your constructor `const` if the class supports it.
+
+##### Members
+
+*   PREFER making fields and top-level variables `final`.
+*   DO use getters for operations that conceptually access properties.
+*   DO use setters for operations that conceptually change properties.
+*   DON'T define a setter without a corresponding getter.
+*   AVOID using runtime type tests to fake overloading.
+*   AVOID public `late final` fields without initializers.
+*   AVOID returning nullable `Future`, `Stream`, and collection types.
+*   AVOID returning `this` from methods just to enable a fluent interface.
+
+##### Types
+
+*   DO type annotate variables without initializers.
+*   DO type annotate fields and top-level variables if the type isn't obvious.
+*   DON'T redundantly type annotate initialized local variables.
+*   DO annotate return types on function declarations.
+*   DO annotate parameter types on function declarations.
+*   DON'T annotate inferred parameter types on function expressions.
+*   DON'T type annotate initializing formals.
+*   DO write type arguments on generic invocations that aren't inferred.
+*   DON'T write type arguments on generic invocations that are inferred.
+*   AVOID writing incomplete generic types.
+*   DO annotate with `dynamic` instead of letting inference fail.
+*   PREFER signatures in function type annotations.
+*   DON'T specify a return type for a setter.
+*   DON'T use the legacy typedef syntax.
+*   PREFER inline function types over typedefs.
+*   PREFER using function type syntax for parameters.
+*   AVOID using `dynamic` unless you want to disable static checking.
+*   DO use `Future<void>` as the return type of asynchronous members that do not produce values.
+*   AVOID using `FutureOr<T>` as a return type.
+
+##### Parameters
+
+*   AVOID positional boolean parameters.
+*   AVOID optional positional parameters if the user may want to omit earlier parameters.
+*   AVOID mandatory parameters that accept a special "no argument" value.
+*   DO use inclusive start and exclusive end parameters to accept a range.
+
+##### Equality
+
+*   DO override `hashCode` if you override `==`.
+*   DO make your `==` operator obey the mathematical rules of equality.
+*   AVOID defining custom equality for mutable classes.
+*   DON'T make the parameter to `==` nullable.
+
+## Buildrunner / code generation script
+
+- When using buildrunner, run the python script from project root: `scripts/build.py`
+- Example:
+
+```bash
+python3 scripts/build.py <command>
+```
+
+Commands: `build` (default — injectable + json_serializable + flutter_gen), `watch`, `clean`, `intl` (localization), `all` (`intl` then `build`).
+
+Examples:
+
+```bash
+python3 scripts/build.py
+python3 scripts/build.py intl
+```

@@ -61,7 +61,7 @@ fields are resolved — without writing the files is an incomplete run.
 
 - Prompt from the caller context (required). If missing, stop and ask before doing anything else.
 - Optional extra context:
-    - Screenshots or Figma links
+    - Screenshots or visual references
     - Logs or error output
     - Existing ticket text
     - Endpoint or adapter notes
@@ -266,10 +266,10 @@ Focus on structure, not styling details. Include:
 - Order and hierarchy of elements
 - Key interactions (navigation, buttons, flows)
 
-Figma links and images may be included as supporting references.
-If included, link directly to the relevant screen or component — not an entire file.
-The layout must still be understandable from text alone; images and Figma support
-the description but do not replace it.
+Images may be included as supporting references.
+If included, link directly to the relevant screen or component reference when possible.
+The layout must still be understandable from text alone; images support the description
+but do not replace it.
 
 Do not describe API or data structures (those belong in api.yaml).
 Do not describe behavior in detail (that belongs in bdd.md).

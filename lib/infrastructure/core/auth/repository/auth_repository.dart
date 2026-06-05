@@ -3,6 +3,7 @@ import "dart:async";
 import "package:injectable/injectable.dart";
 import "package:la/domain/core/entities/email_password_credentials.dart";
 import "package:la/domain/core/repositories/i_auth_repository.dart";
+import "package:la/domain/core/value_objects/email_value_object.dart";
 import "package:la/domain/core/value_objects/failures/failure.dart";
 import "package:la/domain/core/value_objects/payload.dart";
 import "package:la/infrastructure/core/auth/auth_event_type.dart";
@@ -67,6 +68,9 @@ class AuthRepository implements IAuthRepository {
     }
     try {
       final AuthUserModel model = await _authService.signInWithEmailAndPassword(credentials);
+      if (model.emailConfirmed == false) {
+        return Payload.failure(_notYetConfirmedFailure());
+      }
       return Payload.success(model);
     } catch (ex, trace) {
       err(ex, trace: trace, location: "AuthRepository.signIn");
@@ -118,6 +122,21 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
+  @override
+  Future<Payload<void>> resetPasswordForEmail(EmailValueObject email) async {
+    final Failure? invalid = email.failure;
+    if (invalid != null) {
+      return Payload.failure(invalid);
+    }
+    try {
+      await _authService.resetPasswordForEmail(email);
+      return Payload.success(null);
+    } catch (ex, trace) {
+      err(ex, trace: trace, location: "AuthRepository.resetPasswordForEmail");
+      return Payload.failure(_mapResetPasswordFailure(ex));
+    }
+  }
+
   Failure? _firstFailure(EmailPasswordCredentials credentials) {
     return credentials.email.failure ?? credentials.password.failure;
   }
@@ -163,6 +182,28 @@ class AuthRepository implements IAuthRepository {
       if (ex.statusCode == "429" || message.contains("rate limit") || message.contains("rate_limit")) {
         return const Failure(
           "Couldn't resend right now. Try again in a moment.",
+          reference: AuthFailureReason.rateLimited,
+        );
+      }
+    }
+    if (_isNetworkError(ex)) {
+      return const Failure(
+        "Could not reach the server. Check your internet connection.",
+        reference: AuthFailureReason.networkError,
+      );
+    }
+    return const Failure(
+      "An unexpected error occurred. Please try again.",
+      reference: AuthFailureReason.unexpectedError,
+    );
+  }
+
+  Failure<AuthFailureReason> _mapResetPasswordFailure(Object ex) {
+    if (ex is AuthException) {
+      final String message = ex.message.toLowerCase();
+      if (ex.statusCode == "429" || message.contains("rate limit") || message.contains("rate_limit")) {
+        return const Failure(
+          "Couldn't send right now. Try again in a moment.",
           reference: AuthFailureReason.rateLimited,
         );
       }

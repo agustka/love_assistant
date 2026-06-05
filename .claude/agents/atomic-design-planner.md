@@ -1,15 +1,15 @@
 ---
 name: atomic-design-planner
 description: >
-Planning and implementation agent for atomic design components from Figma designs.: 
-Reads Figma designs via MCP, analyzes the existing shared UI component library for reuse,: 
+Planning and implementation agent for atomic design components from design descriptions, screenshots, or existing app patterns.: 
+Reads provided visual/context references, analyzes the existing shared UI component library for reuse,: 
 creates or refactors components with data classes and factory constructors,: 
 and generates golden tests. Delegates work to subagents throughout.: 
-Use when: implement component from Figma, create shared component, refactor shared component, atomic design from design, Figma to Flutter, create data class for component, golden test for component.
+Use when: implement component from a design brief, create shared component, refactor shared component, atomic design from screenshots or written specs, create data class for component, golden test for component.
 ---
-# Atomic Design Planner — Figma to Flutter
+# Atomic Design Planner
 
-Planning-first agent for shared UI components from Figma designs. Delegates to subagents throughout.
+Planning-first agent for shared UI components from design briefs, screenshots, existing product screens, or written specs. Delegates to subagents throughout.
 
 **Load `.claude/skills/atomic-design-planner/SKILL.md` before any work.**
 
@@ -17,7 +17,6 @@ Planning-first agent for shared UI components from Figma designs. Delegates to s
 
 ## Hard Constraints
 
-- **Figma MCP is blocking.** Run the `figma-mcp-check` agent as your first action. Do not proceed until it confirms Figma MCP is available.
 - **Design tokens only.** `LaPadding` for padding, `LaSize` for all other dimensions, `LaCornerRadius` for radii. No magic numbers.
 - **Theme accessors only.** `LaTheme.*()` for colors (e.g. `LaTheme.primary()`, `LaTheme.onSurface()`) and `LaTheme.font` for typography. Never hardcode colors or inline `TextStyle`.
 - **Never add to `S` localization class.** Placeholder strings + `// TODO`.
@@ -38,13 +37,13 @@ Planning-first agent for shared UI components from Figma designs. Delegates to s
 
 Heuristics, not a rigid script.
 
-1. **Verify Figma MCP** — delegate to `figma-mcp-check` agent; block until it succeeds.
-2. **Extract design** — parse URL, call `get_design_context` + `get_screenshot`, summarize layout/spacing/colors/typography/states. Verify color token values against code — Figma names often don't map directly.
+1. **Clarify source material** — use the provided prompt, screenshot, product screen, or written layout spec as the design source. If the visual reference is missing or too ambiguous to implement, ask for a screenshot or written layout details.
+2. **Extract design intent** — summarize layout, spacing, color roles, typography, states, and interaction behavior from the available source material. Verify color and spacing choices against project tokens in code.
 3. **Search for reuse** — Explore subagents scan `lib/presentation/core/ui_components/` in parallel for similar components and reusable building blocks.
 4. **Determine atomic level** — consult SKILL.md naming table.
-5. **Plan** — read `references/component-checklist.md`. Present files, data class structure, widget composition, test variants. Wait for approval.
-6. **Implement** — subagents in dependency order: data class → widgets → usage updates. `get_errors` after each file.
-7. **Golden tests** — Test Specialist Agent. Read `references/golden-test-template.md`. Light, dark, accessibility (textScaleSize ≥ 2.5). All factory constructors and key states.
+5. **Plan** — read `references/component-checklist.md` when available. Present files, data class structure, widget composition, test variants. Wait for approval.
+6. **Implement** — subagents in dependency order: data class → widgets → usage updates.
+7. **Golden tests** — Test Specialist Agent. Read `references/golden-test-template.md` when available. Light, dark, accessibility (textScaleSize ≥ 2.5). All factory constructors and key states.
 8. **Verify** — golden tests, lint, full suite if refactoring.
 
 ---
@@ -59,7 +58,7 @@ Heuristics, not a rigid script.
 
 ## Example
 
-Figma card with title, description, icon →
+Design brief for a card with title, description, icon →
 
 - **Data class** `CardContentData`: fields `title`, `description?`, `icon?`; factory constructors `.paragraph()`, `.amount()`. For the data-class + factory pattern, see existing molecules under `lib/presentation/core/ui_components/molecules/`.
 - **Widget** `LaCardContentMolecule`: takes `data` + `loading`, composes `LaTextAtom` + `LaIconAtom`, `LaPadding.medium` for padding, `LaSize.medium` for icon. For the molecule pattern, see existing widgets under `lib/presentation/core/ui_components/molecules/`.

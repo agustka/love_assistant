@@ -40,6 +40,8 @@ class WizardPage extends StatefulWidget {
   static const Key foodsAndGiftsStepKey = Key("WizardPage_foodsAndGiftsStep");
   static const Key hobbiesStepKey = Key("WizardPage_hobbiesStep");
   static const Key nextButtonKey = Key("WizardPage_nextButton");
+  static const Key loginPromptKey = Key("WizardPage_loginPrompt");
+  static const Key loginActionKey = Key("WizardPage_loginAction");
 
   static const String partnerNameFieldId = "WizardStep2_partnerNameFieldId";
   static const String partnerPronounFieldId = "WizardStep2_partnerPronounFieldId";
@@ -284,6 +286,15 @@ class _WizardPageState extends State<WizardPage> {
             },
           ),
       ],
+      belowButtonsWidget: _page <= 0
+          ? LaLinkPromptMolecule(
+              key: WizardPage.loginPromptKey,
+              actionKey: WizardPage.loginActionKey,
+              prompt: S.of(context).auth_signup_login_prompt,
+              actionText: S.of(context).auth_signup_login_action,
+              onTap: () => Navigator.of(context).pushNamed(PageName.login.route),
+            )
+          : null,
     );
   }
 }
