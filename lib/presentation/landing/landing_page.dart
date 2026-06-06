@@ -3,7 +3,6 @@ import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/ui_components/molecules/la_bottom_buttons_molecule.dart';
-import 'package:la/presentation/core/ui_components/molecules/la_link_prompt_molecule.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/presentation/landing/widgets/landing_actions_organism.dart';
@@ -63,6 +62,11 @@ class _LandingView extends StatelessWidget {
           text: strings.landing_reassurance_trial,
         ),
       ],
+      loginPrompt: strings.auth_signup_login_prompt,
+      loginAction: strings.auth_signup_login_action,
+      loginPromptKey: LandingPage.loginPromptKey,
+      loginActionKey: LandingPage.loginActionKey,
+      onLogin: () => Navigator.of(context).pushNamed(PageName.login.route),
     );
   }
 
@@ -76,13 +80,6 @@ class _LandingView extends StatelessWidget {
           onTap: () => Navigator.of(context).pushNamed(PageName.signUp.route),
         ),
       ],
-      belowButtonsWidget: LaLinkPromptMolecule(
-        key: LandingPage.loginPromptKey,
-        actionKey: LandingPage.loginActionKey,
-        prompt: strings.auth_signup_login_prompt,
-        actionText: strings.auth_signup_login_action,
-        onTap: () => Navigator.of(context).pushNamed(PageName.login.route),
-      ),
     );
   }
 

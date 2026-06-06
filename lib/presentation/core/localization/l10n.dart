@@ -1384,10 +1384,10 @@ class S {
     );
   }
 
-  /// `Velkomin aftur`
+  /// `Velkomin(n) aftur`
   String get auth_login_title {
     return Intl.message(
-      'Velkomin aftur',
+      'Velkomin(n) aftur',
       name: 'auth_login_title',
       desc: '',
       args: [],
@@ -1569,10 +1569,10 @@ class S {
     );
   }
 
-  /// `[Log in]`
+  /// `Skrá inn`
   String get auth_login_action {
     return Intl.message(
-      '[Log in]',
+      'Skrá inn',
       name: 'auth_login_action',
       desc: '',
       args: [],
@@ -1589,10 +1589,10 @@ class S {
     );
   }
 
-  /// `[That email doesn't look right. Try again.]`
+  /// `Þetta netfang lítur ekki rétt út. Reyndu aftur.`
   String get auth_login_email_invalid {
     return Intl.message(
-      '[That email doesn\'t look right. Try again.]',
+      'Þetta netfang lítur ekki rétt út. Reyndu aftur.',
       name: 'auth_login_email_invalid',
       desc: '',
       args: [],
@@ -1609,10 +1609,10 @@ class S {
     );
   }
 
-  /// `[Password must be at least 6 characters.]`
+  /// `Lykilorðið þarf að vera að minnsta kosti 6 stafir.`
   String get auth_login_password_too_short {
     return Intl.message(
-      '[Password must be at least 6 characters.]',
+      'Lykilorðið þarf að vera að minnsta kosti 6 stafir.',
       name: 'auth_login_password_too_short',
       desc: '',
       args: [],
@@ -1629,10 +1629,10 @@ class S {
     );
   }
 
-  /// `[Enter your password.]`
+  /// `Sláðu inn lykilorðið þitt.`
   String get auth_login_password_empty {
     return Intl.message(
-      '[Enter your password.]',
+      'Sláðu inn lykilorðið þitt.',
       name: 'auth_login_password_empty',
       desc: '',
       args: [],
@@ -1649,10 +1649,10 @@ class S {
     );
   }
 
-  /// `[That email or password is wrong.]`
+  /// `Netfangið eða lykilorðið er rangt.`
   String get auth_login_error_invalid_credentials {
     return Intl.message(
-      '[That email or password is wrong.]',
+      'Netfangið eða lykilorðið er rangt.',
       name: 'auth_login_error_invalid_credentials',
       desc: '',
       args: [],

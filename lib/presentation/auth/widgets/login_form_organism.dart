@@ -23,9 +23,14 @@ class LoginFormDefinition {
   final String? emailError;
   final String? passwordError;
   final String? formError;
+  final String signUpPrompt;
+  final String signUpAction;
+  final Key signUpPromptKey;
+  final Key signUpActionKey;
   final bool busy;
   final void Function(String input) onEmailChanged;
   final void Function(String input) onPasswordChanged;
+  final void Function() onSignUp;
   final FocusNode? emailFocusNode;
   final FocusNode? passwordFocusNode;
   final void Function()? onEmailSubmitted;
@@ -51,9 +56,14 @@ class LoginFormDefinition {
     required this.emailError,
     required this.passwordError,
     required this.formError,
+    required this.signUpPrompt,
+    required this.signUpAction,
+    required this.signUpPromptKey,
+    required this.signUpActionKey,
     required this.busy,
     required this.onEmailChanged,
     required this.onPasswordChanged,
+    required this.onSignUp,
     this.emailFocusNode,
     this.passwordFocusNode,
     this.onEmailSubmitted,
@@ -80,6 +90,14 @@ class LoginFormOrganism extends StatelessWidget {
         _EmailCard(definition: definition),
         _PasswordCard(definition: definition),
         _FormError(key: definition.formErrorKey, message: definition.formError),
+        const LaSizedBoxAtom(height: LaPadding.extraSmall),
+        LaLinkPromptMolecule(
+          promptKey: definition.signUpPromptKey,
+          actionKey: definition.signUpActionKey,
+          prompt: definition.signUpPrompt,
+          actionText: definition.signUpAction,
+          onTap: definition.onSignUp,
+        ),
       ],
     );
   }

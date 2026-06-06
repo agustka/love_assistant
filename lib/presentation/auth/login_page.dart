@@ -162,13 +162,7 @@ class _LoginPageState extends State<LoginPage> {
               actionLabel: _emailFocused ? strings.wizard_next : strings.global_done,
               onActionPressed: _emailFocused ? _advanceToPassword : _dismissKeyboard,
             )
-          : LaLinkPromptMolecule(
-              promptKey: LoginPage.signUpPromptKey,
-              actionKey: LoginPage.signUpActionKey,
-              prompt: strings.auth_login_signup_prompt,
-              actionText: strings.auth_login_signup_action,
-              onTap: _onSignUp,
-            ),
+          : null,
     );
   }
 
@@ -196,6 +190,11 @@ class _LoginPageState extends State<LoginPage> {
       emailError: state.emailError ? strings.auth_login_email_invalid : null,
       passwordError: _passwordError(strings, state),
       formError: _formError(strings, state.formError),
+      signUpPrompt: strings.auth_login_signup_prompt,
+      signUpAction: strings.auth_login_signup_action,
+      signUpPromptKey: LoginPage.signUpPromptKey,
+      signUpActionKey: LoginPage.signUpActionKey,
+      onSignUp: _onSignUp,
       busy: state.isSubmitting,
       onEmailChanged: cubit.onEmailChanged,
       onPasswordChanged: cubit.onPasswordChanged,

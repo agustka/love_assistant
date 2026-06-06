@@ -27,19 +27,24 @@ class LaLinkPromptMolecule extends StatelessWidget {
     return LaCenterAtom(
       child: LaTapVisualAtom(
         onTap: onTap,
-        child: LaWrapAtom(
-          alignment: WrapAlignment.center,
-          spacing: LaPadding.extraSmall,
-          runSpacing: LaPadding.extraSmall,
-          children: [
-            Text(prompt, key: promptKey, style: promptStyle, textAlign: TextAlign.center),
-            _LinkLabel(
-              key: actionKey,
-              text: actionText,
-              style: actionStyle,
-              underlineColor: actionColor,
+        child: LaConstrainedBoxAtom(
+          constraints: const BoxConstraints(minHeight: 48),
+          child: LaCenterAtom(
+            child: LaWrapAtom(
+              alignment: WrapAlignment.center,
+              spacing: LaPadding.extraSmall,
+              runSpacing: LaPadding.extraSmall,
+              children: [
+                Text(prompt, key: promptKey, style: promptStyle, textAlign: TextAlign.center),
+                _LinkLabel(
+                  key: actionKey,
+                  text: actionText,
+                  style: actionStyle,
+                  underlineColor: actionColor,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
