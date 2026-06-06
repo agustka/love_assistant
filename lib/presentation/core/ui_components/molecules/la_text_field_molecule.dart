@@ -5,6 +5,7 @@ import 'package:la/presentation/core/ui_components/import.dart';
 
 class LaTextField extends StatefulWidget {
   final String fieldId;
+  final Key? editableKey;
   final String? title;
   final String hint;
   final bool obscureText;
@@ -31,6 +32,7 @@ class LaTextField extends StatefulWidget {
     super.key,
     this.title,
     required this.fieldId,
+    this.editableKey,
     required this.hint,
     this.obscureText = false,
     this.keyboardType,
@@ -106,6 +108,7 @@ class _LaTextField extends State<LaTextField> {
           children: [
             LaExpandedAtom(
               child: LaCupertinoTextFieldAtom(
+                key: widget.editableKey,
                 enabled: widget.enabled,
                 controller: widget.controller ?? _fallbackController,
                 onChanged: widget.onChanged,
@@ -152,6 +155,7 @@ class _LaTextField extends State<LaTextField> {
           children: [
             LaExpandedAtom(
               child: LaMaterialTextFieldAtom(
+                key: widget.editableKey,
                 enabled: widget.enabled,
                 controller: widget.controller ?? _fallbackController,
                 onChanged: widget.onChanged,

@@ -1569,11 +1569,31 @@ class S {
     );
   }
 
+  /// `[Log in]`
+  String get auth_login_action {
+    return Intl.message(
+      '[Log in]',
+      name: 'auth_login_action',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Þetta netfang lítur ekki rétt út. Reyndu aftur.`
   String get auth_signup_email_invalid {
     return Intl.message(
       'Þetta netfang lítur ekki rétt út. Reyndu aftur.',
       name: 'auth_signup_email_invalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[That email doesn't look right. Try again.]`
+  String get auth_login_email_invalid {
+    return Intl.message(
+      '[That email doesn\'t look right. Try again.]',
+      name: 'auth_login_email_invalid',
       desc: '',
       args: [],
     );
@@ -1589,6 +1609,16 @@ class S {
     );
   }
 
+  /// `[Password must be at least 6 characters.]`
+  String get auth_login_password_too_short {
+    return Intl.message(
+      '[Password must be at least 6 characters.]',
+      name: 'auth_login_password_too_short',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sláðu inn lykilorðið þitt.`
   String get auth_signup_password_empty {
     return Intl.message(
@@ -1599,11 +1629,31 @@ class S {
     );
   }
 
+  /// `[Enter your password.]`
+  String get auth_login_password_empty {
+    return Intl.message(
+      '[Enter your password.]',
+      name: 'auth_login_password_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Það er nú þegar til aðgangur með þessu netfangi.`
   String get auth_signup_error_email_exists {
     return Intl.message(
       'Það er nú þegar til aðgangur með þessu netfangi.',
       name: 'auth_signup_error_email_exists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `[That email or password is wrong.]`
+  String get auth_login_error_invalid_credentials {
+    return Intl.message(
+      '[That email or password is wrong.]',
+      name: 'auth_login_error_invalid_credentials',
       desc: '',
       args: [],
     );

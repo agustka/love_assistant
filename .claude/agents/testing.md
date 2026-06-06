@@ -55,6 +55,7 @@ These rules are non-negotiable. Violation of any one is a hard failure.
 8. **Write tests directly to their final suite path — in every mode, including scaffold.** No temporary, scratch, or staging directories. A failing test in the right place is correct TDD; an orphaned test in a scratch folder is a hard failure.
 9. **NEVER use `_scaffold` in test file names.** Test files must always be named `<page>_test.dart` — never `<page>_scaffold_test.dart`, `<page>_scaffold.dart`, or any variant containing `scaffold`. This applies in ALL modes including scaffold mode. The scaffold mode controls the *body* of the test (e.g. `markTestSkipped`), not the file name.
 10. **Every `testWidgets` body in `test/user_acceptance_tests/` MUST contain `// Given`, `// When`, and `// Then` comments** — aligned to the AC wording from `bdd.md`. This is mandatory in every mode: scaffold, generative, and regression. Omitting these comments is a hard failure.
+11. **Page presence and absence assertions belong to `AppDriver`, not feature drivers.** Use `AppDriver.assertIsOnPage(pageKey)` / `assertPageExists(pageKey)` and `AppDriver.assertPageDoesNotExist(pageKey)`. Do not create or use feature-driver helpers such as `assertOnLoginPage()`, `assertOnMainPage()`, `assertAuthStackCleared()`, or `assertXPageDoesNotExist()` when the assertion is only page presence or absence.
 
 ---
 
@@ -101,6 +102,8 @@ Codebase conventions take precedence over skill templates.
 
 1. **Convention baseline** — read from `know-the-code.handoff.md` as described in Convention Discovery above. Fall back to calling know-the-code agent only if the handoff is missing or does not cover testing conventions.
 2. **test-driver-generation** skill — create/update drivers and builders
+   - Feature drivers own feature-specific interactions and assertions only.
+   - Page-level assertions are cross-cutting and must stay in `AppDriver`.
 
 ### Pass 2 — Test composition (only after Pass 1)
 
@@ -204,4 +207,3 @@ ambiguity_flags: "[<flag>, ...] | []"
 failure_signature: "<stable identifier> | null"
 suggested_tier: "cheap | medium | strong | null"
 ```
-

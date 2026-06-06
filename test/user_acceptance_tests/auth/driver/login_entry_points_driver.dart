@@ -13,16 +13,15 @@ import "package:la/setup.dart";
 import "../../../_core/test_setup/driver/i_driver.dart";
 
 class LoginEntryPointsDriver extends BaseDriver {
-  Finder get _wizardPageFinder => find.byKey(WizardPage.greetingsStepKey);
   Finder get _wizardPrimaryActionFinder => find.byKey(WizardPage.nextButtonKey);
   Finder get _wizardLoginPromptFinder => find.byKey(WizardPage.loginPromptKey);
   Finder get _wizardLoginActionFinder => find.byKey(WizardPage.loginActionKey);
-  Finder get _landingPageFinder => find.byKey(LandingPage.pageKey);
   Finder get _landingPrimaryActionFinder => find.byKey(LandingPage.signUpButtonKey);
   Finder get _landingLoginPromptFinder => find.byKey(LandingPage.loginPromptKey);
   Finder get _landingLoginActionFinder => find.byKey(LandingPage.loginActionKey);
-  Finder get _loginPageFinder => find.byKey(LoginPage.pageKey);
-  Finder get _loginUnderConstructionFinder => find.byKey(LoginPage.underConstructionKey);
+  Finder get _loginEmailFieldFinder => find.byKey(LoginPage.emailEditableKey);
+  Finder get _loginPasswordFieldFinder => find.byKey(LoginPage.passwordEditableKey);
+  Finder get _loginSubmitButtonFinder => find.byKey(LoginPage.submitButtonKey);
   Finder get _backButtonFinder => find.byKey(LaAppBarOrganism.backButtonKey);
 
   LoginEntryPointsDriver({required super.tester, super.builders});
@@ -44,10 +43,6 @@ class LoginEntryPointsDriver extends BaseDriver {
     );
   }
 
-  void assertOnWizardPage() {
-    expect(_wizardPageFinder, findsOneWidget);
-  }
-
   void assertWizardLoginAffordanceVisible() {
     expect(_wizardLoginPromptFinder, findsOneWidget);
     expect(_wizardLoginActionFinder, findsOneWidget);
@@ -55,10 +50,6 @@ class LoginEntryPointsDriver extends BaseDriver {
 
   void assertWizardPrimaryActionVisible() {
     expect(_wizardPrimaryActionFinder, findsOneWidget);
-  }
-
-  void assertOnLandingPage() {
-    expect(_landingPageFinder, findsOneWidget);
   }
 
   void assertLandingLoginAffordanceVisible() {
@@ -70,12 +61,10 @@ class LoginEntryPointsDriver extends BaseDriver {
     expect(_landingPrimaryActionFinder, findsOneWidget);
   }
 
-  void assertOnLoginPage() {
-    expect(_loginPageFinder, findsOneWidget);
-  }
-
-  void assertLoginUnderConstructionVisible() {
-    expect(_loginUnderConstructionFinder, findsOneWidget);
+  void assertLoginFormVisible() {
+    expect(_loginEmailFieldFinder, findsOneWidget);
+    expect(_loginPasswordFieldFinder, findsOneWidget);
+    expect(_loginSubmitButtonFinder, findsOneWidget);
   }
 
   void assertBackButtonVisible() {

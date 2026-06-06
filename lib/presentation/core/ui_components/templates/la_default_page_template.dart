@@ -5,11 +5,17 @@ import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_scaffold_organism.dart';
 
+enum LaDefaultPageTemplatePadding {
+  large,
+  medium,
+}
+
 class LaDefaultPageTemplate extends StatelessWidget {
   final Widget child;
   final LaAppBarOrganism? appBar;
   final BottomButtonsDefinition? bottomButtons;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
+  final LaDefaultPageTemplatePadding paddingPreset;
   final bool centerContent;
   final bool scrollable;
 
@@ -18,7 +24,8 @@ class LaDefaultPageTemplate extends StatelessWidget {
     required this.child,
     this.appBar,
     this.bottomButtons,
-    this.padding = const EdgeInsets.all(LaPadding.large),
+    this.padding,
+    this.paddingPreset = LaDefaultPageTemplatePadding.large,
     this.centerContent = false,
     this.scrollable = true,
   });
@@ -35,7 +42,7 @@ class LaDefaultPageTemplate extends StatelessWidget {
           child: LaLayoutBuilderAtom(
             builder: (BuildContext context, BoxConstraints constraints) {
               Widget content = LaPaddingAtom(
-                padding: padding,
+                padding: padding ?? _resolvedPadding,
                 child: child,
               );
 
@@ -61,5 +68,14 @@ class LaDefaultPageTemplate extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  EdgeInsetsGeometry get _resolvedPadding {
+    switch (paddingPreset) {
+      case LaDefaultPageTemplatePadding.large:
+        return const EdgeInsets.all(LaPadding.large);
+      case LaDefaultPageTemplatePadding.medium:
+        return const EdgeInsets.symmetric(horizontal: LaPadding.medium, vertical: LaPadding.medium);
+    }
   }
 }

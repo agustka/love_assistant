@@ -35,6 +35,7 @@ part "widgets/wizard_step_4.dart";
 part "widgets/wizard_step_5.dart";
 
 class WizardPage extends StatefulWidget {
+  static const Key pageKey = Key("WizardPage_page");
   static const Key greetingsStepKey = Key("WizardPage_greetingsStep");
   static const Key basicInfoStepKey = Key("WizardPage_basicInfoStep");
   static const Key foodsAndGiftsStepKey = Key("WizardPage_foodsAndGiftsStep");
@@ -85,6 +86,7 @@ class _WizardPageState extends State<WizardPage> {
         builder: (BuildContext context, WizardState state) {
           if (state.status == WizardStatus.loading) {
             return LaWizardTemplate(
+              key: WizardPage.pageKey,
               body: LaPagerOrganism(
                 itemCount: 0,
                 itemBuilder: (BuildContext context, int index) => _buildStep(state, index),
@@ -99,6 +101,7 @@ class _WizardPageState extends State<WizardPage> {
             onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
             onInitialSetupCompleted: (UserPartnerProfile profile) => _onInitialSetupCompleted(context, profile),
             child: LaWizardTemplate(
+              key: WizardPage.pageKey,
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
                 showBack: false,

@@ -86,14 +86,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_error_unexpected": MessageLookupByLibrary.simpleMessage(
       "Eitthvað fór úrskeiðis. Reyndu aftur.",
     ),
+    "auth_login_action": MessageLookupByLibrary.simpleMessage("[Log in]"),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Skrá inn með Apple",
     ),
     "auth_login_email": MessageLookupByLibrary.simpleMessage(
       "Skrá inn með netfangi",
     ),
+    "auth_login_email_invalid": MessageLookupByLibrary.simpleMessage(
+      "[That email doesn\'t look right. Try again.]",
+    ),
+    "auth_login_error_invalid_credentials":
+        MessageLookupByLibrary.simpleMessage(
+          "[That email or password is wrong.]",
+        ),
     "auth_login_google": MessageLookupByLibrary.simpleMessage(
       "Skrá inn með Google",
+    ),
+    "auth_login_password_empty": MessageLookupByLibrary.simpleMessage(
+      "[Enter your password.]",
+    ),
+    "auth_login_password_too_short": MessageLookupByLibrary.simpleMessage(
+      "[Password must be at least 6 characters.]",
     ),
     "auth_login_signup_action": MessageLookupByLibrary.simpleMessage(
       "Nýskráning",
