@@ -9,13 +9,15 @@ enum AppBarStyle {
 }
 
 class AppBarActionDefinition {
+  final Key? key;
   final IconData icon;
   final void Function() onTap;
 
-  AppBarActionDefinition({required this.icon, required this.onTap});
+  AppBarActionDefinition({this.key, required this.icon, required this.onTap});
 
   Widget toWidget({required AppBarStyle style}) {
     return LaTapVisualAtom(
+      key: key,
       onTap: onTap,
       child: LaPaddingAtom.all(
         value: PlatformDetector.isIOS ? 0 : LaPadding.medium,

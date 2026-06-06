@@ -7,6 +7,7 @@ import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
+import 'package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/setup.dart';
 
@@ -77,8 +78,9 @@ class _LoginPageState extends State<LoginPage> {
                 child: LaDefaultPageTemplate(
                   key: LoginPage.pageKey,
                   paddingPreset: LaDefaultPageTemplatePadding.medium,
-                  appBar: const LaAppBarOrganism(
+                  appBar: LaAppBarOrganism(
                     style: AppBarStyle.background,
+                    action: LaLanguageAppBarActionOrganism.action(context),
                   ),
                   bottomButtons: _bottomButtons(context, state),
                   child: LoginFormOrganism(

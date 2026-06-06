@@ -6,6 +6,7 @@ import "package:la/presentation/auth/login_page.dart";
 import "package:la/presentation/auth/sign_up_page.dart";
 import "package:la/presentation/core/app.dart";
 import "package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart";
+import "package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart";
 import "package:la/presentation/landing/landing_page.dart";
 import "package:la/presentation/wizard/wizard_page.dart";
 import "package:la/setup.dart";
@@ -23,6 +24,7 @@ class LoginEntryPointsDriver extends BaseDriver {
   Finder get _loginPasswordFieldFinder => find.byKey(LoginPage.passwordEditableKey);
   Finder get _loginSubmitButtonFinder => find.byKey(LoginPage.submitButtonKey);
   Finder get _backButtonFinder => find.byKey(LaAppBarOrganism.backButtonKey);
+  Finder get _languageSelectorFinder => find.byKey(LaLanguageAppBarActionOrganism.actionKey);
 
   LoginEntryPointsDriver({required super.tester, super.builders});
 
@@ -39,6 +41,20 @@ class LoginEntryPointsDriver extends BaseDriver {
   Future<void> openLandingPage() async {
     await launchApplication(
       home: const LandingPage(),
+      routes: _routes,
+    );
+  }
+
+  Future<void> openLoginPage() async {
+    await launchApplication(
+      home: const LoginPage(),
+      routes: _routes,
+    );
+  }
+
+  Future<void> openSignUpPage() async {
+    await launchApplication(
+      home: const SignUpPage(),
       routes: _routes,
     );
   }
@@ -67,6 +83,15 @@ class LoginEntryPointsDriver extends BaseDriver {
     expect(_loginSubmitButtonFinder, findsOneWidget);
   }
 
+  void assertLanguageSelectorVisible() {
+    expect(_languageSelectorFinder, findsOneWidget);
+  }
+
+  void assertLanguageOptionsVisible() {
+    expect(find.text("English"), findsOneWidget);
+    expect(find.text("Íslenska"), findsOneWidget);
+  }
+
   void assertBackButtonVisible() {
     expect(_backButtonFinder, findsOneWidget);
   }
@@ -78,6 +103,11 @@ class LoginEntryPointsDriver extends BaseDriver {
 
   Future<void> tapLandingLogin() async {
     await tester.tap(_landingLoginActionFinder);
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> tapLanguageSelector() async {
+    await tester.tap(_languageSelectorFinder);
     await tester.pumpAndSettle();
   }
 

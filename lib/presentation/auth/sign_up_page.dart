@@ -7,6 +7,7 @@ import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
+import 'package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/setup.dart';
 
@@ -68,8 +69,9 @@ class _SignUpPageState extends State<SignUpPage> {
             child: LaDefaultPageTemplate(
               key: SignUpPage.pageKey,
               padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium, vertical: LaPadding.medium),
-              appBar: const LaAppBarOrganism(
+              appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
+                action: LaLanguageAppBarActionOrganism.action(context),
               ),
               bottomButtons: _bottomButtons(context, state),
               child: SignUpFormOrganism(
@@ -118,8 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
     // Platform detection uses defaultTargetPlatform (not PlatformDetector.isIOS / dart:io)
     // so the toolbar is exercisable under a test platform override. This is a spec-mandated
     // departure from the codebase's PlatformDetector convention — do not revert to PlatformDetector.
-    final bool showAccessoryBar =
-        defaultTargetPlatform == TargetPlatform.iOS && (_emailFocused || _passwordFocused);
+    final bool showAccessoryBar = defaultTargetPlatform == TargetPlatform.iOS && (_emailFocused || _passwordFocused);
 
     return BottomButtonsDefinition(
       buttons: [
