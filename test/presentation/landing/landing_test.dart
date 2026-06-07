@@ -5,6 +5,8 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import '../../_core/test_rig.dart';
 import 'driver/landing_driver.dart';
 
+const Size _compactPhone = Size(375, 667);
+
 void main() {
   tearDown(() async {
     await closeApp();
@@ -12,14 +14,19 @@ void main() {
 
   group("Landing page", () {
     testGoldens("Light mode", (WidgetTester tester) async {
-      final LandingDriver driver = LandingDriver(tester: tester, goldenTest: true);
+      final LandingDriver driver = LandingDriver(tester: tester, goldenTest: true, size: _compactPhone);
       await driver.openPage();
 
       await screenMatchesGolden(tester, "landing_page_light");
     });
 
     testGoldens("Dark mode", (WidgetTester tester) async {
-      final LandingDriver driver = LandingDriver(tester: tester, goldenTest: true, brightness: Brightness.dark);
+      final LandingDriver driver = LandingDriver(
+        tester: tester,
+        goldenTest: true,
+        brightness: Brightness.dark,
+        size: _compactPhone,
+      );
       await driver.openPage();
 
       await screenMatchesGolden(tester, "landing_page_dark");
@@ -30,6 +37,7 @@ void main() {
         tester: tester,
         goldenTest: true,
         accessibilityMode: true,
+        size: _compactPhone,
       );
       await driver.openPage();
 
