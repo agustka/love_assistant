@@ -34,7 +34,7 @@ class SignUpDriver extends BaseDriver {
   }
 
   void assertOnSignUpPage() {
-    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(SignUpPage.pageKey));
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.signUp));
   }
 
   void assertEmailFieldFocused() {
@@ -52,13 +52,13 @@ class SignUpDriver extends BaseDriver {
   }
 
   void assertOnConfirmationPage() {
-    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(EmailConfirmationPage.pageKey));
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.emailConfirmation));
   }
 
   void assertNotOnConfirmationPage() {
     expect(
       AppPages.navigationObserver.stack,
-      isNot(contains(AppPages.descriptorForIdentityKey(EmailConfirmationPage.pageKey))),
+      isNot(contains(AppPages.descriptorForName(PageName.emailConfirmation))),
     );
   }
 

@@ -19,20 +19,16 @@ class AppDriver extends BaseDriver {
     expect(find.byKey(key), findsNothing);
   }
 
-  void assertIsOnPage(Key pageKey) {
-    final AppPageDescriptor? expectedPage = AppPages.descriptorForIdentityKey(pageKey);
-    expect(expectedPage, isNotNull);
-    expect(AppPages.navigationObserver.currentPage, expectedPage);
+  void assertIsOnPage(PageName pageName) {
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(pageName));
   }
 
-  void assertPageExists(Key pageKey) {
-    assertIsOnPage(pageKey);
+  void assertPageExists(PageName pageName) {
+    assertIsOnPage(pageName);
   }
 
-  void assertPageDoesNotExist(Key pageKey) {
-    final AppPageDescriptor? expectedPage = AppPages.descriptorForIdentityKey(pageKey);
-    expect(expectedPage, isNotNull);
-    expect(AppPages.navigationObserver.stack, isNot(contains(expectedPage)));
+  void assertPageDoesNotExist(PageName pageName) {
+    expect(AppPages.navigationObserver.stack, isNot(contains(AppPages.descriptorForName(pageName))));
   }
 
   Future<void> tap(Key key) async {

@@ -36,7 +36,7 @@ Composition flows one direction only; lower levels never import or depend on hig
 
 - **Pages must use an atomic design template.** A page builds the template's inputs from cubit state and passes them in; it never lays out atoms or raw Flutter widgets directly.
 - **Templates accept only definitions, organisms, and molecules.** A template must never take atoms or raw Flutter widgets in its public API.
-- **Page identity belongs to routing.** Pages must not pass `<Page>.pageKey` into templates; route/page descriptors and page constructors are responsible for identity keys used by tests.
+- **Page identity belongs to routing.** Pages must not declare page-level identity `Key` constants or pass identity keys into templates. Tests assert page presence through route/page descriptors and `PageName`, not widget keys.
 - **Organisms** compose molecules and atoms. **Molecules** compose atoms. **Atoms** are the leaf primitives.
 
 A *definition* is an immutable data/config object (view data, labels, callbacks) that a page builds from cubit state and hands to a template or organism, instead of passing loose primitives.

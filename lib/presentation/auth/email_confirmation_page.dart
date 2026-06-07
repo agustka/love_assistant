@@ -14,7 +14,6 @@ enum _ResendOutcome {
 }
 
 class EmailConfirmationPage extends StatefulWidget {
-  static const Key pageKey = Key("EmailConfirmationPage_page");
   static const Key confirmButtonKey = Key("email_confirmation_confirm_button");
   static const Key confirmLoadingKey = Key("email_confirmation_confirm_loading");
   static const Key resendButtonKey = Key("email_confirmation_resend_button");

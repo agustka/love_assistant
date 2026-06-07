@@ -12,7 +12,6 @@ import 'package:la/presentation/core/ui_components/templates/la_default_page_tem
 import 'package:la/presentation/landing/widgets/landing_actions_organism.dart';
 
 class LandingPage extends StatelessWidget {
-  static const Key pageKey = Key("LandingPage_page");
   static const Key loginPromptKey = Key("LandingPage_loginPrompt");
   static const Key loginActionKey = Key("LandingPage_loginAction");
   static const Key signUpButtonKey = Key("LandingPage_signUpButton");

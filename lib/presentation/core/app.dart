@@ -44,7 +44,6 @@ enum AppPageTransition {
 
 class AppPageDescriptor {
   final PageName name;
-  final Key? identityKey;
   final Set<AppPageType> pageTypes;
   final AppPageTransition transition;
   final WidgetBuilder builder;
@@ -56,7 +55,6 @@ class AppPageDescriptor {
   const AppPageDescriptor({
     required this.name,
     required this.builder,
-    this.identityKey,
     this.pageTypes = const {
       AppPageType.cupertino,
       AppPageType.material,
@@ -145,32 +143,26 @@ class AppPages {
     ),
     AppPageDescriptor(
       name: PageName.landing,
-      identityKey: LandingPage.pageKey,
       builder: _landing,
     ),
     AppPageDescriptor(
       name: PageName.main,
-      identityKey: MainPage.pageKey,
       builder: _main,
     ),
     AppPageDescriptor(
       name: PageName.wizard,
-      identityKey: WizardPage.pageKey,
       builder: _wizard,
     ),
     AppPageDescriptor(
       name: PageName.login,
-      identityKey: LoginPage.pageKey,
       builder: _login,
     ),
     AppPageDescriptor(
       name: PageName.signUp,
-      identityKey: SignUpPage.pageKey,
       builder: _signUp,
     ),
     AppPageDescriptor(
       name: PageName.emailConfirmation,
-      identityKey: EmailConfirmationPage.pageKey,
       builder: _emailConfirmation,
     ),
   ];
@@ -191,13 +183,13 @@ class AppPages {
     return null;
   }
 
-  static AppPageDescriptor? descriptorForIdentityKey(Key pageKey) {
+  static AppPageDescriptor descriptorForName(PageName name) {
     for (final AppPageDescriptor descriptor in all) {
-      if (descriptor.identityKey == pageKey) {
+      if (descriptor.name == name) {
         return descriptor;
       }
     }
-    return null;
+    throw ArgumentError.value(name, "name", "No app page descriptor is registered for this page name.");
   }
 
   static PageName? pageNameForWidget(Widget widget) {

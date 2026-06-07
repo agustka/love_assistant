@@ -14,7 +14,6 @@ import 'package:la/presentation/core/ui_components/templates/la_default_page_tem
 import 'package:la/setup.dart';
 
 class SignUpPage extends StatefulWidget {
-  static const Key pageKey = Key("SignUpPage_page");
   static const Key emailFieldKey = Key("sign_up_email_field");
   static const Key passwordFieldKey = Key("sign_up_password_field");
   static const Key passwordVisibilityToggleKey = Key("sign_up_password_visibility_toggle");

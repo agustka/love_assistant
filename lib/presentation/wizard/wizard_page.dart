@@ -36,7 +36,6 @@ part "widgets/wizard_step_4.dart";
 part "widgets/wizard_step_5.dart";
 
 class WizardPage extends StatefulWidget {
-  static const Key pageKey = Key("WizardPage_page");
   static const Key greetingsStepKey = Key("WizardPage_greetingsStep");
   static const Key basicInfoStepKey = Key("WizardPage_basicInfoStep");
   static const Key foodsAndGiftsStepKey = Key("WizardPage_foodsAndGiftsStep");

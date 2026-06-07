@@ -40,10 +40,10 @@ class BackNavigationDriver extends BaseDriver {
   }
 
   void assertOnLandingPage() {
-    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(LandingPage.pageKey));
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.landing));
   }
 
   void assertOnSignUpPage() {
-    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(SignUpPage.pageKey));
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.signUp));
   }
 }

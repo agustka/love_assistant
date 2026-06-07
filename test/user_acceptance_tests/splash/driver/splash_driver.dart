@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:la/presentation/core/app.dart';
-import 'package:la/presentation/landing/landing_page.dart';
-import 'package:la/presentation/main/main_page.dart';
 import 'package:la/presentation/wizard/wizard_page.dart';
 
 import '../../../_core/test_setup/driver/i_driver.dart';
@@ -34,18 +32,18 @@ class SplashDriver extends BaseDriver {
   }
 
   void assertOnLanding() {
-    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(LandingPage.pageKey));
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.landing));
   }
 
   void assertNotOnLanding() {
     expect(
       AppPages.navigationObserver.stack,
-      isNot(contains(AppPages.descriptorForIdentityKey(LandingPage.pageKey))),
+      isNot(contains(AppPages.descriptorForName(PageName.landing))),
     );
   }
 
   void assertOnMain() {
-    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(MainPage.pageKey));
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.main));
   }
 
   void assertNotOnWizard() {

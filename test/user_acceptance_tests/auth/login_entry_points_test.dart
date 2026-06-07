@@ -1,8 +1,5 @@
 import "package:flutter_test/flutter_test.dart";
-import "package:la/presentation/auth/login_page.dart";
-import "package:la/presentation/auth/sign_up_page.dart";
-import "package:la/presentation/landing/landing_page.dart";
-import "package:la/presentation/wizard/wizard_page.dart";
+import "package:la/presentation/core/app.dart";
 
 import "../../_core/test_rig.dart";
 import "../../_core/test_setup/driver/app_driver.dart";
@@ -19,7 +16,7 @@ void main() {
       final AppDriver appDriver = AppDriver(tester: tester);
       final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
       await driver.openLandingPage();
-      appDriver.assertIsOnPage(LandingPage.pageKey);
+      appDriver.assertIsOnPage(PageName.landing);
       driver.assertLanguageSelectorVisible();
       driver.assertLandingLoginAffordanceVisible();
 
@@ -27,7 +24,7 @@ void main() {
       await driver.tapLandingLogin();
 
       // Then the login page shows an email field, password field, and login action.
-      appDriver.assertIsOnPage(LoginPage.pageKey);
+      appDriver.assertIsOnPage(PageName.login);
       driver.assertLanguageSelectorVisible();
       driver.assertLoginFormVisible();
     });
@@ -39,7 +36,7 @@ void main() {
       await driver.openSignUpPage();
 
       // Then they can change language before creating an account.
-      appDriver.assertIsOnPage(SignUpPage.pageKey);
+      appDriver.assertIsOnPage(PageName.signUp);
       driver.assertLanguageSelectorVisible();
       await driver.tapLanguageSelector();
       driver.assertLanguageOptionsVisible();
@@ -52,7 +49,7 @@ void main() {
       await driver.openLoginPage();
 
       // Then they can change language before signing in.
-      appDriver.assertIsOnPage(LoginPage.pageKey);
+      appDriver.assertIsOnPage(PageName.login);
       driver.assertLanguageSelectorVisible();
     });
 
@@ -61,14 +58,14 @@ void main() {
       final AppDriver appDriver = AppDriver(tester: tester);
       final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
       await driver.openWizardPage();
-      appDriver.assertIsOnPage(WizardPage.pageKey);
+      appDriver.assertIsOnPage(PageName.wizard);
       driver.assertWizardLoginAffordanceVisible();
 
       // When they choose to log in.
       await driver.tapWizardLogin();
 
       // Then the login page shows an email field, password field, and login action.
-      appDriver.assertIsOnPage(LoginPage.pageKey);
+      appDriver.assertIsOnPage(PageName.login);
       driver.assertLoginFormVisible();
     });
   });

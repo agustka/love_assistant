@@ -4,8 +4,6 @@ import 'package:la/presentation/core/ui_components/templates/la_default_page_tem
 import 'package:la/presentation/main/widgets/main_under_construction_organism.dart';
 
 class MainPage extends StatelessWidget {
-  static const Key pageKey = Key("MainPage_page");
-
   const MainPage({super.key});
 
   @override

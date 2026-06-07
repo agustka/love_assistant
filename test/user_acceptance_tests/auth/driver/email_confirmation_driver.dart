@@ -4,9 +4,7 @@ import 'package:la/infrastructure/core/auth/auth_event_type.dart';
 import 'package:la/infrastructure/core/auth/service/i_auth_service.dart';
 import 'package:la/infrastructure/core/auth/service/offline/offline_auth_service.dart';
 import 'package:la/presentation/auth/email_confirmation_page.dart';
-import 'package:la/presentation/auth/sign_up_page.dart';
 import 'package:la/presentation/core/app.dart';
-import 'package:la/presentation/main/main_page.dart';
 import 'package:la/setup.dart';
 
 import '../../../_core/test_setup/driver/i_driver.dart';
@@ -22,18 +20,15 @@ class EmailConfirmationDriver extends BaseDriver {
   EmailConfirmationDriver({required super.tester});
 
   void assertOnConfirmationPage() {
-    expect(
-      AppPages.navigationObserver.currentPage,
-      AppPages.descriptorForIdentityKey(EmailConfirmationPage.pageKey),
-    );
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.emailConfirmation));
   }
 
   void assertOnSignUpPage() {
-    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(SignUpPage.pageKey));
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.signUp));
   }
 
   void assertOnMainPage() {
-    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(MainPage.pageKey));
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.main));
   }
 
   void assertPendingMessageVisible() {

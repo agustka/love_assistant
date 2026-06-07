@@ -25,7 +25,7 @@ Planning-first agent for shared UI components from design briefs, screenshots, e
 - **Composition flows upward.** Atoms → molecules → organisms → templates. Never reverse.
 - **Use app atoms when available.** Shared components must use atom equivalents such as `LaTextAtom` instead of raw Flutter primitives such as `Text`; raw primitives belong inside atom implementations or only where no atom equivalent exists.
 - **No static definition factories on organisms.** Organisms are widgets/sections, not namespaces for creating definitions. Put reusable definition construction in definition classes or page-level builders.
-- **No template identity keys.** Page identity keys for driver assertions come from route/page descriptors and page constructors, not from passing `<Page>.pageKey` into templates.
+- **No page identity keys.** Pages do not declare page-level identity `Key` constants, templates do not receive page keys, and tests assert pages through route/page descriptors via `PageName`.
 - **`BlocProvider` in pages only.** `BlocBuilder`/`context.watch` in organisms and pages. Never in atoms or molecules.
 - **Always ask** new or refactor — never assume.
 - **Get plan approval** before implementing.
