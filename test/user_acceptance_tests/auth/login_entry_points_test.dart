@@ -1,6 +1,11 @@
 import "package:flutter_test/flutter_test.dart";
+import "package:la/presentation/auth/login_page.dart";
+import "package:la/presentation/auth/sign_up_page.dart";
+import "package:la/presentation/landing/landing_page.dart";
+import "package:la/presentation/wizard/wizard_page.dart";
 
 import "../../_core/test_rig.dart";
+import "../../_core/test_setup/driver/app_driver.dart";
 import "driver/login_entry_points_driver.dart";
 
 void main() {
@@ -9,98 +14,62 @@ void main() {
   });
 
   group("Login entry points", () {
-    testWidgets("First wizard page shows secondary login affordance", (WidgetTester tester) async {
-      // Given the user opens the first wizard page.
+    testWidgets("Landing login entry point shows the wired page", (WidgetTester tester) async {
+      // Given a user is on a screen that offers login as the secondary account action.
+      final AppDriver appDriver = AppDriver(tester: tester);
       final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
-
-      // When the first wizard page is displayed.
-      await driver.openWizardPage();
-
-      // Then a secondary login affordance is visible without competing with the primary wizard action.
-      driver.assertOnWizardPage();
-      driver.assertWizardPrimaryActionVisible();
-      driver.assertWizardLoginAffordanceVisible();
-    });
-
-    testWidgets("First wizard page login action opens login page", (WidgetTester tester) async {
-      // Given the user is on the first wizard page.
-      final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
-      await driver.openWizardPage();
-
-      // When the user taps the "Log in" action.
-      await driver.tapWizardLogin();
-
-      // Then the user is taken to the login page.
-      driver.assertOnLoginPage();
-      driver.assertLoginUnderConstructionVisible();
-    });
-
-    testWidgets("Post-wizard account page shows secondary login affordance", (WidgetTester tester) async {
-      // Given the user completes the wizard and reaches the account option page.
-      final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
-
-      // When the account option page is displayed.
       await driver.openLandingPage();
-
-      // Then a secondary login affordance is visible while sign-up remains the most prominent action.
-      driver.assertOnLandingPage();
-      driver.assertLandingPrimaryActionVisible();
+      appDriver.assertIsOnPage(LandingPage.pageKey);
+      driver.assertLanguageSelectorVisible();
       driver.assertLandingLoginAffordanceVisible();
-    });
 
-    testWidgets("Post-wizard account page login action opens login page", (WidgetTester tester) async {
-      // Given the user is on the account option page after the wizard.
-      final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
-      await driver.openLandingPage();
-
-      // When the user taps the "Log in" action.
+      // When they choose to log in.
       await driver.tapLandingLogin();
 
-      // Then the user is taken to the login page.
-      driver.assertOnLoginPage();
-      driver.assertLoginUnderConstructionVisible();
+      // Then the login page shows an email field, password field, and login action.
+      appDriver.assertIsOnPage(LoginPage.pageKey);
+      driver.assertLanguageSelectorVisible();
+      driver.assertLoginFormVisible();
     });
 
-    testWidgets("Wizard login page shows under-construction state", (WidgetTester tester) async {
-      // Given the user navigates to the login page.
+    testWidgets("Sign-up page shows the language selector", (WidgetTester tester) async {
+      // Given a user is on the sign-up page.
+      final AppDriver appDriver = AppDriver(tester: tester);
+      final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
+      await driver.openSignUpPage();
+
+      // Then they can change language before creating an account.
+      appDriver.assertIsOnPage(SignUpPage.pageKey);
+      driver.assertLanguageSelectorVisible();
+      await driver.tapLanguageSelector();
+      driver.assertLanguageOptionsVisible();
+    });
+
+    testWidgets("Login page shows the language selector", (WidgetTester tester) async {
+      // Given a user is on the login page.
+      final AppDriver appDriver = AppDriver(tester: tester);
+      final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
+      await driver.openLoginPage();
+
+      // Then they can change language before signing in.
+      appDriver.assertIsOnPage(LoginPage.pageKey);
+      driver.assertLanguageSelectorVisible();
+    });
+
+    testWidgets("Wizard login entry point shows the wired page", (WidgetTester tester) async {
+      // Given a user is on a screen that offers login as the secondary account action.
+      final AppDriver appDriver = AppDriver(tester: tester);
       final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
       await driver.openWizardPage();
+      appDriver.assertIsOnPage(WizardPage.pageKey);
+      driver.assertWizardLoginAffordanceVisible();
 
-      // When the login page opens.
+      // When they choose to log in.
       await driver.tapWizardLogin();
 
-      // Then an under-construction state is visible with a way to go back.
-      driver.assertOnLoginPage();
-      driver.assertLoginUnderConstructionVisible();
-      driver.assertBackButtonVisible();
-    });
-
-    testWidgets("Back from wizard login returns to wizard origin", (WidgetTester tester) async {
-      // Given the user is on the under-construction login page.
-      final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
-      await driver.openWizardPage();
-      await driver.tapWizardLogin();
-      driver.assertOnLoginPage();
-
-      // When the user goes back.
-      await driver.tapBack();
-
-      // Then they return to the page they came from.
-      driver.assertOnWizardPage();
-    });
-
-    testWidgets("Back from account login returns to account origin", (WidgetTester tester) async {
-      // Given the user is on the under-construction login page from the account option page.
-      final LoginEntryPointsDriver driver = LoginEntryPointsDriver(tester: tester);
-      await driver.openLandingPage();
-      await driver.tapLandingLogin();
-      driver.assertOnLoginPage();
-
-      // When the user goes back.
-      await driver.tapBack();
-
-      // Then they return to the page they came from.
-      driver.assertOnLandingPage();
+      // Then the login page shows an email field, password field, and login action.
+      appDriver.assertIsOnPage(LoginPage.pageKey);
+      driver.assertLoginFormVisible();
     });
   });
 }

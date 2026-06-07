@@ -87,14 +87,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_error_unexpected": MessageLookupByLibrary.simpleMessage(
       "Something went wrong. Try again.",
     ),
+    "auth_login_action": MessageLookupByLibrary.simpleMessage("Log in"),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Sign in with Apple",
     ),
     "auth_login_email": MessageLookupByLibrary.simpleMessage(
       "Sign in with email",
     ),
+    "auth_login_email_invalid": MessageLookupByLibrary.simpleMessage(
+      "That email doesn\'t look right. Try again.",
+    ),
+    "auth_login_error_invalid_credentials":
+        MessageLookupByLibrary.simpleMessage(
+          "That email or password is wrong.",
+        ),
     "auth_login_google": MessageLookupByLibrary.simpleMessage(
       "Sign in with Google",
+    ),
+    "auth_login_password_empty": MessageLookupByLibrary.simpleMessage(
+      "Enter your password.",
+    ),
+    "auth_login_password_too_short": MessageLookupByLibrary.simpleMessage(
+      "Password must be at least 6 characters.",
     ),
     "auth_login_signup_action": MessageLookupByLibrary.simpleMessage("Sign up"),
     "auth_login_signup_prompt": MessageLookupByLibrary.simpleMessage(

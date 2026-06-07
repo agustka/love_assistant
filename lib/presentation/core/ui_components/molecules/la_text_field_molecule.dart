@@ -5,10 +5,14 @@ import 'package:la/presentation/core/ui_components/import.dart';
 
 class LaTextField extends StatefulWidget {
   final String fieldId;
+  final Key? editableKey;
   final String? title;
   final String hint;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final TextCapitalization textCapitalization;
+  final bool autocorrect;
+  final bool enableSuggestions;
   final bool optional;
   final TextEditingController? controller;
   final String? initialValue;
@@ -31,9 +35,13 @@ class LaTextField extends StatefulWidget {
     super.key,
     this.title,
     required this.fieldId,
+    this.editableKey,
     required this.hint,
     this.obscureText = false,
     this.keyboardType,
+    this.textCapitalization = TextCapitalization.sentences,
+    this.autocorrect = true,
+    this.enableSuggestions = true,
     this.optional = true,
     this.showCard = true,
     this.controller,
@@ -106,11 +114,14 @@ class _LaTextField extends State<LaTextField> {
           children: [
             LaExpandedAtom(
               child: LaCupertinoTextFieldAtom(
+                key: widget.editableKey,
                 enabled: widget.enabled,
                 controller: widget.controller ?? _fallbackController,
                 onChanged: widget.onChanged,
                 focusNode: widget.focusNode ?? _fallbackFocusNode,
-                textCapitalization: TextCapitalization.sentences,
+                textCapitalization: widget.textCapitalization,
+                autocorrect: widget.autocorrect,
+                enableSuggestions: widget.enableSuggestions,
                 keyboardType: widget.keyboardType,
                 placeholder: widget.hint,
                 obscureText: _obscured,
@@ -152,11 +163,14 @@ class _LaTextField extends State<LaTextField> {
           children: [
             LaExpandedAtom(
               child: LaMaterialTextFieldAtom(
+                key: widget.editableKey,
                 enabled: widget.enabled,
                 controller: widget.controller ?? _fallbackController,
                 onChanged: widget.onChanged,
                 focusNode: widget.focusNode ?? _fallbackFocusNode,
-                textCapitalization: TextCapitalization.sentences,
+                textCapitalization: widget.textCapitalization,
+                autocorrect: widget.autocorrect,
+                enableSuggestions: widget.enableSuggestions,
                 keyboardType: widget.keyboardType,
                 obscureText: _obscured,
                 decoration: InputDecoration(

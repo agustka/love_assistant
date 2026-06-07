@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:la/domain/core/auth/value_objects/password_strength_evaluator.dart';
 import 'package:la/presentation/core/theme/la_theme.dart';
 import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 
-class SignUpFormDefinition {
+class LoginFormDefinition {
   final String title;
   final String subtitle;
   final String emailFieldId;
   final String passwordFieldId;
   final Key emailFieldKey;
+  final Key emailEditableKey;
   final Key passwordFieldKey;
+  final Key passwordEditableKey;
   final Key passwordVisibilityToggleKey;
   final Key emailErrorKey;
   final Key passwordErrorKey;
@@ -19,25 +20,31 @@ class SignUpFormDefinition {
   final String passwordHeading;
   final String emailHint;
   final String passwordHint;
-  final PasswordStrength passwordStrength;
   final String? emailError;
   final String? passwordError;
   final String? formError;
+  final String signUpPrompt;
+  final String signUpAction;
+  final Key signUpPromptKey;
+  final Key signUpActionKey;
   final bool busy;
   final void Function(String input) onEmailChanged;
   final void Function(String input) onPasswordChanged;
+  final void Function() onSignUp;
   final FocusNode? emailFocusNode;
   final FocusNode? passwordFocusNode;
   final void Function()? onEmailSubmitted;
   final void Function()? onPasswordSubmitted;
 
-  const SignUpFormDefinition({
+  const LoginFormDefinition({
     required this.title,
     required this.subtitle,
     required this.emailFieldId,
     required this.passwordFieldId,
     required this.emailFieldKey,
+    required this.emailEditableKey,
     required this.passwordFieldKey,
+    required this.passwordEditableKey,
     required this.passwordVisibilityToggleKey,
     required this.emailErrorKey,
     required this.passwordErrorKey,
@@ -46,13 +53,17 @@ class SignUpFormDefinition {
     required this.passwordHeading,
     required this.emailHint,
     required this.passwordHint,
-    required this.passwordStrength,
     required this.emailError,
     required this.passwordError,
     required this.formError,
+    required this.signUpPrompt,
+    required this.signUpAction,
+    required this.signUpPromptKey,
+    required this.signUpActionKey,
     required this.busy,
     required this.onEmailChanged,
     required this.onPasswordChanged,
+    required this.onSignUp,
     this.emailFocusNode,
     this.passwordFocusNode,
     this.onEmailSubmitted,
@@ -60,10 +71,10 @@ class SignUpFormDefinition {
   });
 }
 
-class SignUpFormOrganism extends StatelessWidget {
-  final SignUpFormDefinition definition;
+class LoginFormOrganism extends StatelessWidget {
+  final LoginFormDefinition definition;
 
-  const SignUpFormOrganism({
+  const LoginFormOrganism({
     super.key,
     required this.definition,
   });
@@ -79,6 +90,14 @@ class SignUpFormOrganism extends StatelessWidget {
         _EmailCard(definition: definition),
         _PasswordCard(definition: definition),
         _FormError(key: definition.formErrorKey, message: definition.formError),
+        const LaSizedBoxAtom(height: LaPadding.extraSmall),
+        LaLinkPromptMolecule(
+          promptKey: definition.signUpPromptKey,
+          actionKey: definition.signUpActionKey,
+          prompt: definition.signUpPrompt,
+          actionText: definition.signUpAction,
+          onTap: definition.onSignUp,
+        ),
       ],
     );
   }
@@ -113,7 +132,7 @@ class _Heading extends StatelessWidget {
 }
 
 class _EmailCard extends StatelessWidget {
-  final SignUpFormDefinition definition;
+  final LoginFormDefinition definition;
 
   const _EmailCard({required this.definition});
 
@@ -121,6 +140,7 @@ class _EmailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LaTextField(
       key: definition.emailFieldKey,
+      editableKey: definition.emailEditableKey,
       fieldId: definition.emailFieldId,
       title: definition.emailHeading,
       hint: definition.emailHint,
@@ -143,7 +163,7 @@ class _EmailCard extends StatelessWidget {
 }
 
 class _PasswordCard extends StatelessWidget {
-  final SignUpFormDefinition definition;
+  final LoginFormDefinition definition;
 
   const _PasswordCard({required this.definition});
 
@@ -151,6 +171,7 @@ class _PasswordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LaTextField(
       key: definition.passwordFieldKey,
+      editableKey: definition.passwordEditableKey,
       fieldId: definition.passwordFieldId,
       title: definition.passwordHeading,
       hint: definition.passwordHint,
@@ -166,15 +187,7 @@ class _PasswordCard extends StatelessWidget {
       focusNode: definition.passwordFocusNode,
       textInputAction: TextInputAction.done,
       onSubmitted: (_) => definition.onPasswordSubmitted?.call(),
-      belowField: LaColumnAtom(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const LaSizedBoxAtom(height: LaPadding.small),
-          LaPasswordStrengthMolecule(strength: definition.passwordStrength),
-          _FieldError(key: definition.passwordErrorKey, message: definition.passwordError),
-        ],
-      ),
+      belowField: _FieldError(key: definition.passwordErrorKey, message: definition.passwordError),
     );
   }
 }

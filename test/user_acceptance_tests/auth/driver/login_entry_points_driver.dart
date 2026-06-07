@@ -6,6 +6,7 @@ import "package:la/presentation/auth/login_page.dart";
 import "package:la/presentation/auth/sign_up_page.dart";
 import "package:la/presentation/core/app.dart";
 import "package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart";
+import "package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart";
 import "package:la/presentation/landing/landing_page.dart";
 import "package:la/presentation/wizard/wizard_page.dart";
 import "package:la/setup.dart";
@@ -13,17 +14,17 @@ import "package:la/setup.dart";
 import "../../../_core/test_setup/driver/i_driver.dart";
 
 class LoginEntryPointsDriver extends BaseDriver {
-  Finder get _wizardPageFinder => find.byKey(WizardPage.greetingsStepKey);
   Finder get _wizardPrimaryActionFinder => find.byKey(WizardPage.nextButtonKey);
   Finder get _wizardLoginPromptFinder => find.byKey(WizardPage.loginPromptKey);
   Finder get _wizardLoginActionFinder => find.byKey(WizardPage.loginActionKey);
-  Finder get _landingPageFinder => find.byKey(LandingPage.pageKey);
   Finder get _landingPrimaryActionFinder => find.byKey(LandingPage.signUpButtonKey);
   Finder get _landingLoginPromptFinder => find.byKey(LandingPage.loginPromptKey);
   Finder get _landingLoginActionFinder => find.byKey(LandingPage.loginActionKey);
-  Finder get _loginPageFinder => find.byKey(LoginPage.pageKey);
-  Finder get _loginUnderConstructionFinder => find.byKey(LoginPage.underConstructionKey);
+  Finder get _loginEmailFieldFinder => find.byKey(LoginPage.emailEditableKey);
+  Finder get _loginPasswordFieldFinder => find.byKey(LoginPage.passwordEditableKey);
+  Finder get _loginSubmitButtonFinder => find.byKey(LoginPage.submitButtonKey);
   Finder get _backButtonFinder => find.byKey(LaAppBarOrganism.backButtonKey);
+  Finder get _languageSelectorFinder => find.byKey(LaLanguageAppBarActionOrganism.actionKey);
 
   LoginEntryPointsDriver({required super.tester, super.builders});
 
@@ -44,8 +45,18 @@ class LoginEntryPointsDriver extends BaseDriver {
     );
   }
 
-  void assertOnWizardPage() {
-    expect(_wizardPageFinder, findsOneWidget);
+  Future<void> openLoginPage() async {
+    await launchApplication(
+      home: const LoginPage(),
+      routes: _routes,
+    );
+  }
+
+  Future<void> openSignUpPage() async {
+    await launchApplication(
+      home: const SignUpPage(),
+      routes: _routes,
+    );
   }
 
   void assertWizardLoginAffordanceVisible() {
@@ -57,10 +68,6 @@ class LoginEntryPointsDriver extends BaseDriver {
     expect(_wizardPrimaryActionFinder, findsOneWidget);
   }
 
-  void assertOnLandingPage() {
-    expect(_landingPageFinder, findsOneWidget);
-  }
-
   void assertLandingLoginAffordanceVisible() {
     expect(_landingLoginPromptFinder, findsOneWidget);
     expect(_landingLoginActionFinder, findsOneWidget);
@@ -70,12 +77,19 @@ class LoginEntryPointsDriver extends BaseDriver {
     expect(_landingPrimaryActionFinder, findsOneWidget);
   }
 
-  void assertOnLoginPage() {
-    expect(_loginPageFinder, findsOneWidget);
+  void assertLoginFormVisible() {
+    expect(_loginEmailFieldFinder, findsOneWidget);
+    expect(_loginPasswordFieldFinder, findsOneWidget);
+    expect(_loginSubmitButtonFinder, findsOneWidget);
   }
 
-  void assertLoginUnderConstructionVisible() {
-    expect(_loginUnderConstructionFinder, findsOneWidget);
+  void assertLanguageSelectorVisible() {
+    expect(_languageSelectorFinder, findsOneWidget);
+  }
+
+  void assertLanguageOptionsVisible() {
+    expect(find.text("English"), findsOneWidget);
+    expect(find.text("Íslenska"), findsOneWidget);
   }
 
   void assertBackButtonVisible() {
@@ -89,6 +103,11 @@ class LoginEntryPointsDriver extends BaseDriver {
 
   Future<void> tapLandingLogin() async {
     await tester.tap(_landingLoginActionFinder);
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> tapLanguageSelector() async {
+    await tester.tap(_languageSelectorFinder);
     await tester.pumpAndSettle();
   }
 

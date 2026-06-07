@@ -33,6 +33,9 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Golden test failure output
+test/**/failures/
+
 # Symbolication related
 app.*.symbols
 

@@ -14,6 +14,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:la/application/core/auth/email_confirmation_cubit.dart'
     as _i344;
+import 'package:la/application/core/auth/login_cubit.dart' as _i323;
 import 'package:la/application/core/auth/sign_up_cubit.dart' as _i249;
 import 'package:la/application/core/language/language_cubit.dart' as _i953;
 import 'package:la/application/splash/splash_cubit.dart' as _i247;
@@ -26,6 +27,7 @@ import 'package:la/domain/core/auth/use_cases/get_email_confirmation_use_case.da
     as _i1063;
 import 'package:la/domain/core/auth/use_cases/has_active_session_use_case.dart'
     as _i850;
+import 'package:la/domain/core/auth/use_cases/sign_in_use_case.dart' as _i198;
 import 'package:la/domain/core/auth/use_cases/watch_auth_events_use_case.dart'
     as _i211;
 import 'package:la/domain/core/repositories/i_auth_repository.dart' as _i742;
@@ -134,6 +136,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1063.GetEmailConfirmationUseCase>(
       () => _i1063.GetEmailConfirmationUseCase(gh<_i742.IAuthRepository>()),
     );
+    gh.factory<_i198.SignInUseCase>(
+      () => _i198.SignInUseCase(gh<_i742.IAuthRepository>()),
+    );
     gh.factory<_i211.WatchAuthEventsUseCase>(
       () => _i211.WatchAuthEventsUseCase(gh<_i742.IAuthRepository>()),
     );
@@ -164,6 +169,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i1010.SaveLocalPartnerProfileUseCase(
         gh<_i667.IPartnerProfileLocalStore>(),
       ),
+    );
+    gh.factory<_i323.LoginCubit>(
+      () => _i323.LoginCubit(gh<_i198.SignInUseCase>()),
     );
     gh.factory<_i167.WizardCubit>(
       () => _i167.WizardCubit(

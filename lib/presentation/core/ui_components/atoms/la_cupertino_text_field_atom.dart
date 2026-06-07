@@ -17,6 +17,8 @@ class LaCupertinoTextFieldAtom extends CupertinoTextField {
     super.obscureText = false,
     super.onChanged,
     super.textCapitalization = TextCapitalization.none,
+    super.autocorrect = true,
+    super.enableSuggestions = true,
     super.autofocus = false,
     super.textInputAction,
     super.onSubmitted,

@@ -1384,10 +1384,10 @@ class S {
     );
   }
 
-  /// `Velkomin aftur`
+  /// `Velkomin(n) aftur`
   String get auth_login_title {
     return Intl.message(
-      'Velkomin aftur',
+      'Velkomin(n) aftur',
       name: 'auth_login_title',
       desc: '',
       args: [],
@@ -1569,11 +1569,31 @@ class S {
     );
   }
 
+  /// `Skrá inn`
+  String get auth_login_action {
+    return Intl.message(
+      'Skrá inn',
+      name: 'auth_login_action',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Þetta netfang lítur ekki rétt út. Reyndu aftur.`
   String get auth_signup_email_invalid {
     return Intl.message(
       'Þetta netfang lítur ekki rétt út. Reyndu aftur.',
       name: 'auth_signup_email_invalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Þetta netfang lítur ekki rétt út. Reyndu aftur.`
+  String get auth_login_email_invalid {
+    return Intl.message(
+      'Þetta netfang lítur ekki rétt út. Reyndu aftur.',
+      name: 'auth_login_email_invalid',
       desc: '',
       args: [],
     );
@@ -1589,6 +1609,16 @@ class S {
     );
   }
 
+  /// `Lykilorðið þarf að vera að minnsta kosti 6 stafir.`
+  String get auth_login_password_too_short {
+    return Intl.message(
+      'Lykilorðið þarf að vera að minnsta kosti 6 stafir.',
+      name: 'auth_login_password_too_short',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sláðu inn lykilorðið þitt.`
   String get auth_signup_password_empty {
     return Intl.message(
@@ -1599,11 +1629,31 @@ class S {
     );
   }
 
+  /// `Sláðu inn lykilorðið þitt.`
+  String get auth_login_password_empty {
+    return Intl.message(
+      'Sláðu inn lykilorðið þitt.',
+      name: 'auth_login_password_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Það er nú þegar til aðgangur með þessu netfangi.`
   String get auth_signup_error_email_exists {
     return Intl.message(
       'Það er nú þegar til aðgangur með þessu netfangi.',
       name: 'auth_signup_error_email_exists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Netfangið eða lykilorðið er rangt.`
+  String get auth_login_error_invalid_credentials {
+    return Intl.message(
+      'Netfangið eða lykilorðið er rangt.',
+      name: 'auth_login_error_invalid_credentials',
       desc: '',
       args: [],
     );

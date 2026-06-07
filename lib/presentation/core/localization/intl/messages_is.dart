@@ -86,14 +86,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_error_unexpected": MessageLookupByLibrary.simpleMessage(
       "Eitthvað fór úrskeiðis. Reyndu aftur.",
     ),
+    "auth_login_action": MessageLookupByLibrary.simpleMessage("Skrá inn"),
     "auth_login_apple": MessageLookupByLibrary.simpleMessage(
       "Skrá inn með Apple",
     ),
     "auth_login_email": MessageLookupByLibrary.simpleMessage(
       "Skrá inn með netfangi",
     ),
+    "auth_login_email_invalid": MessageLookupByLibrary.simpleMessage(
+      "Þetta netfang lítur ekki rétt út. Reyndu aftur.",
+    ),
+    "auth_login_error_invalid_credentials":
+        MessageLookupByLibrary.simpleMessage(
+          "Netfangið eða lykilorðið er rangt.",
+        ),
     "auth_login_google": MessageLookupByLibrary.simpleMessage(
       "Skrá inn með Google",
+    ),
+    "auth_login_password_empty": MessageLookupByLibrary.simpleMessage(
+      "Sláðu inn lykilorðið þitt.",
+    ),
+    "auth_login_password_too_short": MessageLookupByLibrary.simpleMessage(
+      "Lykilorðið þarf að vera að minnsta kosti 6 stafir.",
     ),
     "auth_login_signup_action": MessageLookupByLibrary.simpleMessage(
       "Nýskráning",
@@ -104,7 +118,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "auth_login_subtitle": MessageLookupByLibrary.simpleMessage(
       "Skráðu þig inn til að halda áfram.",
     ),
-    "auth_login_title": MessageLookupByLibrary.simpleMessage("Velkomin aftur"),
+    "auth_login_title": MessageLookupByLibrary.simpleMessage(
+      "Velkomin(n) aftur",
+    ),
     "auth_login_under_construction_message":
         MessageLookupByLibrary.simpleMessage(
           "Farðu til baka í bili. Enn er verið að smíða innskráningarflæðið.",

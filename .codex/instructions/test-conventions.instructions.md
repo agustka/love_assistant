@@ -49,8 +49,10 @@ applyTo: "test/**/*.dart"
 - Avoid `find.byType()` — it is not specific enough and may match multiple widgets. Always prefer `find.byKey()` with static `Key` constants from the presentation layer.
 - If a widget lacks the needed static `Key`, add one to the presentation widget rather than falling back to `find.byType()` or `find.descendant()`.
 - If a scenario appears to need `tester.pumpAndSettle()` or any other raw `tester.*` call, add or reuse a driver/`AppDriver` method instead of writing it in the test file.
-- Use `AppDriver(tester: tester)` for cross-cutting concerns (navigation assertions, page existence assertions, dialogs, pop).
-- Do not add feature-driver helpers like `assertIsOnAmountPage()` or `assertAmountPageDoesNotExist()` when `AppDriver.assertIsOnPage()`, `assertPageExists()`, or `assertPageDoesNotExist()` already covers the assertion.
+- Use `AppDriver(tester: tester)` for cross-cutting concerns (navigation assertions, page existence assertions, dialogs, pop, generic tap).
+- Being on a page is always asserted with `AppDriver.assertIsOnPage(pageKey)` or `AppDriver.assertPageExists(pageKey)`.
+- Checking that a page is absent is always asserted with `AppDriver.assertPageDoesNotExist(pageKey)`.
+- Do not add feature-driver helpers like `assertOnLoginPage()`, `assertIsOnAmountPage()`, `assertAuthStackCleared()`, or `assertAmountPageDoesNotExist()` when `AppDriver.assertIsOnPage()`, `assertPageExists()`, or `assertPageDoesNotExist()` already covers the assertion.
 - Keep generated and edited test code formatter-friendly with a max line width of 120.
 
 ## Builders (`test/_core/test_setup/builders/`)

@@ -1,7 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/domain/core/value_objects/favorite_food_value_object.dart';
@@ -15,7 +14,6 @@ import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/dialogs/import.dart';
-import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/import.dart';
@@ -35,6 +33,7 @@ part "widgets/wizard_step_4.dart";
 part "widgets/wizard_step_5.dart";
 
 class WizardPage extends StatefulWidget {
+  static const Key pageKey = Key("WizardPage_page");
   static const Key greetingsStepKey = Key("WizardPage_greetingsStep");
   static const Key basicInfoStepKey = Key("WizardPage_basicInfoStep");
   static const Key foodsAndGiftsStepKey = Key("WizardPage_foodsAndGiftsStep");
@@ -85,6 +84,7 @@ class _WizardPageState extends State<WizardPage> {
         builder: (BuildContext context, WizardState state) {
           if (state.status == WizardStatus.loading) {
             return LaWizardTemplate(
+              key: WizardPage.pageKey,
               body: LaPagerOrganism(
                 itemCount: 0,
                 itemBuilder: (BuildContext context, int index) => _buildStep(state, index),
@@ -99,10 +99,11 @@ class _WizardPageState extends State<WizardPage> {
             onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
             onInitialSetupCompleted: (UserPartnerProfile profile) => _onInitialSetupCompleted(context, profile),
             child: LaWizardTemplate(
+              key: WizardPage.pageKey,
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
                 showBack: false,
-                action: _getAppBarAction(),
+                action: LaLanguageAppBarActionOrganism.action(context),
               ),
               bottomButtons: _getBottomButtons(context, state),
               body: LaPagerOrganism(
@@ -140,10 +141,6 @@ class _WizardPageState extends State<WizardPage> {
     }
 
     await Navigator.of(context).pushNamed(PageName.landing.route, arguments: profile);
-  }
-
-  List<Language> get _availableLanguages {
-    return Language.values.where((Language language) => language != Language.invalid).toList();
   }
 
   Widget _buildStep(WizardState state, int index) {
@@ -236,29 +233,6 @@ class _WizardPageState extends State<WizardPage> {
           );
         }
     }
-  }
-
-  AppBarActionDefinition _getAppBarAction() {
-    return AppBarActionDefinition(
-      icon: LaIcons.language,
-      onTap: () {
-        LaPicker.showPicker(
-          context,
-          entries: PickerEntries(
-            title: S.of(context).settings_pick_language,
-            entries: _availableLanguages
-                .map(
-                  (Language e) => PickerEntry(
-                    text: e.properName,
-                    svg: e.flagIcon,
-                    onTap: () => context.read<LanguageCubit>().setLanguage(e),
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      },
-    );
   }
 
   BottomButtonsDefinition _getBottomButtons(BuildContext context, WizardState state) {

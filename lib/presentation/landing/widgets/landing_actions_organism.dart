@@ -4,6 +4,7 @@ import 'package:la/presentation/core/ui_components/atoms/import.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/la_auth_illustration_molecule.dart';
 import 'package:la/presentation/core/ui_components/molecules/la_feature_heading_molecule.dart';
+import 'package:la/presentation/core/ui_components/molecules/la_link_prompt_molecule.dart';
 
 class LandingReassurance {
   final IconData icon;
@@ -16,11 +17,21 @@ class LandingDefinition {
   final String title;
   final String subtitle;
   final List<LandingReassurance> reassurances;
+  final String loginPrompt;
+  final String loginAction;
+  final Key loginPromptKey;
+  final Key loginActionKey;
+  final VoidCallback onLogin;
 
   const LandingDefinition({
     required this.title,
     required this.subtitle,
     required this.reassurances,
+    required this.loginPrompt,
+    required this.loginAction,
+    required this.loginPromptKey,
+    required this.loginActionKey,
+    required this.onLogin,
   });
 }
 
@@ -51,6 +62,14 @@ class LandingActionsOrganism extends StatelessWidget {
         LaFeatureHeadingMolecule(
           title: definition.title,
           subtitle: definition.subtitle,
+        ),
+        const LaSizedBoxAtom(height: LaPadding.mediumSmall),
+        LaLinkPromptMolecule(
+          promptKey: definition.loginPromptKey,
+          actionKey: definition.loginActionKey,
+          prompt: definition.loginPrompt,
+          actionText: definition.loginAction,
+          onTap: definition.onLogin,
         ),
         const LaSizedBoxAtom(height: LaPadding.medium),
         _ReassurancePanel(reassurances: definition.reassurances),
