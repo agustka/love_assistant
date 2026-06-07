@@ -1,6 +1,7 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/application/wizard/wizard_cubit.dart';
 import 'package:la/domain/core/extensions/common_extensions.dart';
 import 'package:la/domain/core/value_objects/favorite_food_value_object.dart';
@@ -14,6 +15,8 @@ import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/dialogs/import.dart';
+import 'package:la/presentation/core/localization/user_locale.dart';
+import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/import.dart';
@@ -33,7 +36,6 @@ part "widgets/wizard_step_4.dart";
 part "widgets/wizard_step_5.dart";
 
 class WizardPage extends StatefulWidget {
-  static const Key pageKey = Key("WizardPage_page");
   static const Key greetingsStepKey = Key("WizardPage_greetingsStep");
   static const Key basicInfoStepKey = Key("WizardPage_basicInfoStep");
   static const Key foodsAndGiftsStepKey = Key("WizardPage_foodsAndGiftsStep");
@@ -84,7 +86,6 @@ class _WizardPageState extends State<WizardPage> {
         builder: (BuildContext context, WizardState state) {
           if (state.status == WizardStatus.loading) {
             return LaWizardTemplate(
-              key: WizardPage.pageKey,
               body: LaPagerOrganism(
                 itemCount: 0,
                 itemBuilder: (BuildContext context, int index) => _buildStep(state, index),
@@ -99,11 +100,12 @@ class _WizardPageState extends State<WizardPage> {
             onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
             onInitialSetupCompleted: (UserPartnerProfile profile) => _onInitialSetupCompleted(context, profile),
             child: LaWizardTemplate(
-              key: WizardPage.pageKey,
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
                 showBack: false,
-                action: LaLanguageAppBarActionOrganism.action(context),
+                action: LaLanguageAppBarActionDefinition(
+                  onTap: () => _showLanguagePicker(context),
+                ),
               ),
               bottomButtons: _getBottomButtons(context, state),
               body: LaPagerOrganism(
@@ -133,6 +135,30 @@ class _WizardPageState extends State<WizardPage> {
     _page = initialPage.toDouble();
     _controller = controller;
     return controller;
+  }
+
+  void _showLanguagePicker(BuildContext context) {
+    LaPicker.showPicker(
+      context,
+      entries: PickerEntries(
+        title: S.of(context).settings_pick_language,
+        entries: _availableLanguages
+            .map(
+              (Language language) => PickerEntry(
+                text: language.properName,
+                svg: language.flagIcon,
+                onTap: () {
+                  context.read<LanguageCubit>().setLanguage(language);
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  List<Language> get _availableLanguages {
+    return Language.values.where((Language language) => language != Language.invalid).toList();
   }
 
   Future<void> _onInitialSetupCompleted(BuildContext context, UserPartnerProfile profile) async {
@@ -288,21 +314,23 @@ class _WizardPageEventListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LaEventBusListener<WizardEventGoToPage>(
-      onMessage: (WizardEventGoToPage event) {
-        pageController.animateToPage(
-          event.page,
-          duration: 300.milliseconds,
-          curve: Curves.easeInOut,
-        );
-      },
-      child: LaEventBusListener<WizardEvent>(
-        onMessage: onWizardMessage,
-        child: LaEventBusListener<WizardInitialSetupCompletedEvent>(
-          onMessage: (WizardInitialSetupCompletedEvent event) => onInitialSetupCompleted(event.profile),
-          child: child,
+    return LaMultiEventBusListener(
+      listeners: [
+        LaTypedEventBusListenerDefinition<WizardEventGoToPage>(
+          onMessage: (WizardEventGoToPage event) {
+            pageController.animateToPage(
+              event.page,
+              duration: 300.milliseconds,
+              curve: Curves.easeInOut,
+            );
+          },
         ),
-      ),
+        LaTypedEventBusListenerDefinition<WizardEvent>(onMessage: onWizardMessage),
+        LaTypedEventBusListenerDefinition<WizardInitialSetupCompletedEvent>(
+          onMessage: (WizardInitialSetupCompletedEvent event) => onInitialSetupCompleted(event.profile),
+        ),
+      ],
+      child: child,
     );
   }
 }

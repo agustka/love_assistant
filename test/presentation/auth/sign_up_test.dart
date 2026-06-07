@@ -5,7 +5,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import '../../_core/test_rig.dart';
 import 'driver/sign_up_golden_driver.dart';
 
-const Size _narrowPhone = Size(320, 844);
+const Size _compactPhone = Size(375, 667);
 
 void main() {
   tearDown(() async {
@@ -14,7 +14,7 @@ void main() {
 
   group("Sign-up page", () {
     testGoldens("Light mode", (WidgetTester tester) async {
-      final SignUpGoldenDriver driver = SignUpGoldenDriver(tester: tester, goldenTest: true, size: _narrowPhone);
+      final SignUpGoldenDriver driver = SignUpGoldenDriver(tester: tester, goldenTest: true, size: _compactPhone);
       await driver.openPage();
 
       await screenMatchesGolden(tester, "sign_up_page_light");
@@ -25,7 +25,7 @@ void main() {
         tester: tester,
         goldenTest: true,
         brightness: Brightness.dark,
-        size: _narrowPhone,
+        size: _compactPhone,
       );
       await driver.openPage();
 
@@ -37,7 +37,7 @@ void main() {
         tester: tester,
         goldenTest: true,
         accessibilityMode: true,
-        size: _narrowPhone,
+        size: _compactPhone,
       );
       await driver.openPage();
 

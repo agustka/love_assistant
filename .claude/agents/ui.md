@@ -23,11 +23,11 @@ The UI layer renders state and forwards user interactions. It contains no busine
 
 ## Input
 
-- .claude/specs/layout.md (required)
-- .claude/specs/bdd.md (required)
-- .claude/handoff/application.handoff.md (required)
-- .claude/handoff/review.handoff.md (optional — consumed during iterations when the review agent reports UI-layer violations)
-- .claude/handoff/testing.handoff.md (optional — consumed during iterations when tests report UI behavior failures)
+- agents/specs/layout.md (required)
+- agents/specs/bdd.md (required)
+- agents/handoff/application.handoff.md (required)
+- agents/handoff/review.handoff.md (optional — consumed during iterations when the review agent reports UI-layer violations)
+- agents/handoff/testing.handoff.md (optional — consumed during iterations when tests report UI behavior failures)
 
 ---
 
@@ -38,7 +38,7 @@ The UI layer renders state and forwards user interactions. It contains no busine
     - dialogs
     - drawers
 
-- .claude/handoff/ui.handoff.md
+- agents/handoff/ui.handoff.md
 
 ---
 
@@ -91,6 +91,9 @@ The agent must:
 - Must not create new **shared** atoms, molecules, organisms, or templates in `lib/presentation/core/ui_components/`
 - Must not create new templates — use only approved templates
 - Must not create new dialog widgets unless `bdd.md` explicitly defines a custom dialog — standard error/warning/info dialogs use `AlertDialogPage.show(...)`
+- Must not pass page identity keys into templates. Page identity for driver assertions belongs in the route/page descriptor and page constructor identity path.
+- Must not use raw Flutter primitives inside shared atomic components when an app atom equivalent exists. For example, use `LaTextAtom` instead of raw `Text` outside text-specific atom internals.
+- Must not expose static organism methods that fabricate definitions. Definitions belong in definition classes or page-built definition objects, then flow into organisms/templates.
 
 - **May** create feature-specific side widgets to organize large page files:
     - side widgets are always private (`_WidgetName`) and connected via `part of`
@@ -113,8 +116,8 @@ The agent must:
 - Must not introduce independent state outside cubit-driven state
 - Must not create, modify, or delete test artifacts under `test/**` (including acceptance, unit, golden, driver, builder, and use-case tests)
 - If UI changes imply test updates, record a testing-owned gap and do not edit tests
-- Inter-agent communication is allowed only through `.claude/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.claude/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `agents/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `agents/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - **Scope guard**: Work in the current feature directory by default. Navigation registration required to make newly introduced pages/drawers/dialogs routable is also in-scope UI work (not a gap). Any other cross-feature/shared-layer modification remains out-of-scope and must be reported as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`.
 
@@ -130,7 +133,7 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 
 Follow this order when generating UI layer code:
 
-1. **Convention baseline** — read `.claude/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the UI conventions (template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern, PageName/NamedRoute/RouteLink registration). If the handoff does not cover UI conventions or is missing, call the know-the-code agent as a fallback with: `"What are the page, template, and route registration conventions for the <feature> area? Show me a complete precedent page file: template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern (part of), and PageName/NamedRoute/RouteLink registration."`
+1. **Convention baseline** — read `agents/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the UI conventions (template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern, PageName/NamedRoute/RouteLink registration). If the handoff does not cover UI conventions or is missing, call the know-the-code agent as a fallback with: `"What are the page, template, and route registration conventions for the <feature> area? Show me a complete precedent page file: template usage, BlocBuilder/BlocListener wiring, Definition objects, onMessage handler, side widget pattern (part of), and PageName/NamedRoute/RouteLink registration."`
 2. **Component discovery** — discover available organisms and templates that match the layout requirements
 3. **Composition planning** — plan the composition: choose template, identify organisms, define Definition objects
 4. **Scaffolding** — scaffold page/drawer files, create route registrations (PageName, NamedRoute, RouteLink), create keys file
@@ -206,7 +209,7 @@ Blocking component gaps cause the agent to stop and mark status as `failed`.
 
 ## Handoff Contract
 
-Produce `.claude/handoff/ui.handoff.md` with:
+Produce `agents/handoff/ui.handoff.md` with:
 
 - summary
 - artifacts (pages, drawers, dialogs created or modified)
@@ -220,13 +223,16 @@ The invariants section must list the architectural rules that the generated code
 
 - All pages use approved templates (min 1, max 3)
 - Templates receive only definitions, organisms, and molecules — never atoms or raw Flutter widgets
+- Page identity keys are not passed into templates; route/page descriptors and page constructors provide identity for driver assertions
 - No atoms or raw Flutter widgets composed directly at page level (the page builds definitions/organisms/molecules and passes them into the template)
+- Shared atomic components use app atoms when equivalents exist, except atom internals that wrap framework primitives
+- Organisms do not expose static definition factories
 - No `EdgeInsets`, hardcoded sizes, or raw Flutter widgets at page level
 - All strings via `S.of(context).*` — no hardcoded strings
 - Cubits provided via `getIt<T>()` only — no direct construction
 - Side widgets are private and connected via `part of`, and compose only definitions/organisms/molecules/templates — never atoms or raw Flutter widgets
 - No atoms composed outside an approved shared component — no pure atom-composition inlined as a feature widget, side widget, or private page class (would-be molecules are reported as `needs shared component` gaps)
-- Route registration complete (PageName + NamedRoute + RouteLink)
+- Route registration complete (`PageName` + route/page descriptor; keep legacy `NamedRoute`/`RouteLink` only if already present in the codebase)
 - Drawers follow the project route-driven navigation convention (no direct modal bottom-sheet opening for standard flows)
 - Event bus messages handled via template `onMessage` parameter
 - No business logic in the UI layer
@@ -277,4 +283,3 @@ suggested_tier: cheap | medium | strong | null
 ```
 
 See `.claude/instructions/pipeline.reference.md` → Model Escalation Rules → Routing Signals Contract for field definitions. The `suggested_tier` is advisory only — the pipeline decides the actual model tier.
-

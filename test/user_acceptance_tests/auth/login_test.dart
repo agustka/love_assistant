@@ -1,7 +1,5 @@
 import "package:flutter_test/flutter_test.dart";
-import "package:la/presentation/auth/email_confirmation_page.dart";
-import "package:la/presentation/auth/login_page.dart";
-import "package:la/presentation/main/main_page.dart";
+import "package:la/presentation/core/app.dart";
 
 import "../../_core/test_rig.dart";
 import "../../_core/test_setup/builders/auth/auth_login_builder.dart";
@@ -29,12 +27,12 @@ void main() {
       await driver.tapLogin();
 
       // Then they land on the home screen and auth screens are removed from the navigation stack.
-      appDriver.assertIsOnPage(MainPage.pageKey);
+      appDriver.assertIsOnPage(PageName.main);
       driver.assertSignInRequestSent();
       await appDriver.popRoute();
-      appDriver.assertIsOnPage(MainPage.pageKey);
-      appDriver.assertPageDoesNotExist(LoginPage.pageKey);
-      appDriver.assertPageDoesNotExist(EmailConfirmationPage.pageKey);
+      appDriver.assertIsOnPage(PageName.main);
+      appDriver.assertPageDoesNotExist(PageName.login);
+      appDriver.assertPageDoesNotExist(PageName.emailConfirmation);
     });
 
     testWidgets("Invalid email shows inline validation", (WidgetTester tester) async {
@@ -78,7 +76,7 @@ void main() {
       await driver.tapLogin();
 
       // Then the page stays on login and shows a clear email-or-password error.
-      appDriver.assertIsOnPage(LoginPage.pageKey);
+      appDriver.assertIsOnPage(PageName.login);
       driver.assertFormErrorVisible();
     });
 
@@ -94,7 +92,7 @@ void main() {
       await driver.tapLogin();
 
       // Then they are taken to email confirmation with credentials available for checks and resends.
-      appDriver.assertIsOnPage(EmailConfirmationPage.pageKey);
+      appDriver.assertIsOnPage(PageName.emailConfirmation);
       await driver.tapConfirmationRecheck();
       await driver.tapConfirmationResend();
       driver.assertConfirmationCredentialsAvailable(email: _validEmail, password: _validPassword);
@@ -112,7 +110,7 @@ void main() {
       await driver.tapLogin();
 
       // Then the page stays on login and shows the appropriate existing auth error message.
-      appDriver.assertIsOnPage(LoginPage.pageKey);
+      appDriver.assertIsOnPage(PageName.login);
       driver.assertFormErrorVisible();
     });
 
@@ -131,7 +129,7 @@ void main() {
       await driver.waitForLoginToComplete();
 
       // Then only one login attempt is processed and the form remains submitting until completion.
-      appDriver.assertIsOnPage(MainPage.pageKey);
+      appDriver.assertIsOnPage(PageName.main);
       driver.assertSignInRequestSent();
       driver.assertOneSignInAttemptProcessed();
     });

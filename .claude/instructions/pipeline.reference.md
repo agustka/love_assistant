@@ -60,11 +60,11 @@ When adding ACs to a feature that already has implementation on the branch:
 
 After every agent delegation, validate the output before proceeding:
 
-1. **Handoff exists** — the expected `.claude/handoff/<agent>.handoff.md` file was created or updated
+1. **Handoff exists** — the expected `agents/handoff/<agent>.handoff.md` file was created or updated
 2. **Handoff structure** — contains all required sections: summary, artifacts, invariants, gaps, status, routing signals
 3. **Status is recognized** — value is one of the agent's declared status values
 4. **Artifacts are real** — at least one artifact file path listed in the handoff actually exists on disk
-5. **No rogue artifacts** — no `.md`/`.txt` files were created outside `.claude/handoff/`
+5. **No rogue artifacts** — no `.md`/`.txt` files were created outside `agents/handoff/`
 
 If validation fails:
 - If handoff is missing entirely → count as agent timeout (see Agent Timeout Policy)
@@ -358,7 +358,7 @@ When implementation is complete and there are no blocking failures, prefer fast 
 - do not run repeated diff-analysis loops once required layer handoffs are complete and consistent
 - run testing/review agents only when explicitly requested by the user, when a blocking failure is present, or when a prior handoff is invalid/stale/incomplete
 - if uncertainty remains but there is no blocker, record it as a concise handoff note and stop; defer deep validation to human follow-up
-- enforce artifact discipline: agent coordination artifacts must live only in `.claude/handoff/`; reject standalone `.md`/`.txt` reports elsewhere
+- enforce artifact discipline: agent coordination artifacts must live only in `agents/handoff/`; reject standalone `.md`/`.txt` reports elsewhere
 
 The default terminal behavior is: generate required changes, satisfy required handoff completion, and stop without extra self-review iterations.
 

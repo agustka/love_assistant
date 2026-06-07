@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/presentation/core/app.dart';
-import 'package:la/presentation/core/localization/l10n.dart';
+import 'package:la/presentation/core/localization/user_locale.dart';
+import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
+import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/la_bottom_buttons_molecule.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
-import 'package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/presentation/landing/widgets/landing_actions_organism.dart';
 
 class LandingPage extends StatelessWidget {
-  static const Key pageKey = Key("LandingPage_page");
   static const Key loginPromptKey = Key("LandingPage_loginPrompt");
   static const Key loginActionKey = Key("LandingPage_loginAction");
   static const Key signUpButtonKey = Key("LandingPage_signUpButton");
@@ -32,10 +34,12 @@ class _LandingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LaDefaultPageTemplate(
-      key: LandingPage.pageKey,
       appBar: LaAppBarOrganism(
         style: AppBarStyle.background,
-        action: LaLanguageAppBarActionOrganism.action(context),
+        action: LaLanguageAppBarActionDefinition(
+          onTap: () => _showLanguagePicker(context),
+          showsIcon: false,
+        ),
       ),
       centerContent: true,
       bottomButtons: _bottomButtons(context),
@@ -70,6 +74,30 @@ class _LandingView extends StatelessWidget {
       loginActionKey: LandingPage.loginActionKey,
       onLogin: () => Navigator.of(context).pushNamed(PageName.login.route),
     );
+  }
+
+  void _showLanguagePicker(BuildContext context) {
+    LaPicker.showPicker(
+      context,
+      entries: PickerEntries(
+        title: S.of(context).settings_pick_language,
+        entries: _availableLanguages
+            .map(
+              (Language language) => PickerEntry(
+                text: language.properName,
+                svg: language.flagIcon,
+                onTap: () {
+                  context.read<LanguageCubit>().setLanguage(language);
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  List<Language> get _availableLanguages {
+    return Language.values.where((Language language) => language != Language.invalid).toList();
   }
 
   BottomButtonsDefinition _bottomButtons(BuildContext context) {

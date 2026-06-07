@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:la/presentation/core/app.dart';
 
 import '../../test_rig.dart';
 import '../builders/base_builder.dart';
@@ -27,11 +28,16 @@ class BaseDriver {
     this.size = const Size(390, 844),
   });
 
-  Future<void> launchApplication({required Widget home, Map<String, WidgetBuilder> routes = const {}}) async {
+  Future<void> launchApplication({
+    required Widget home,
+    Map<String, WidgetBuilder> routes = const {},
+    PageName? initialPageName,
+  }) async {
     await launchApp(
       tester,
       home: home,
       routes: routes,
+      initialPageName: initialPageName,
       builders: builders,
       brightness: brightness,
       accessibilityMode: accessibilityMode,

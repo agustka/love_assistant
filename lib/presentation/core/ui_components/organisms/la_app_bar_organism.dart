@@ -11,9 +11,15 @@ enum AppBarStyle {
 class AppBarActionDefinition {
   final Key? key;
   final IconData icon;
+  final bool showsIcon;
   final void Function() onTap;
 
-  AppBarActionDefinition({this.key, required this.icon, required this.onTap});
+  AppBarActionDefinition({
+    this.key,
+    required this.icon,
+    required this.onTap,
+    this.showsIcon = true,
+  });
 
   Widget toWidget({required AppBarStyle style}) {
     return LaTapVisualAtom(
@@ -24,7 +30,7 @@ class AppBarActionDefinition {
         child: LaIconAtom(
           icon,
           size: LaSize.large,
-          color: style.foregroundColor,
+          color: showsIcon ? style.foregroundColor : Colors.transparent,
         ),
       ),
     );

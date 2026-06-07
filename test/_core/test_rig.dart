@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/localization/l10n.dart';
 import 'package:la/presentation/core/localization/user_locale.dart';
@@ -25,6 +27,7 @@ Future<void> launchApp(
   bool accessibilityMode = false,
   double accessibilityTextScaleFactor = 2.0,
   Size size = const Size(390, 844),
+  PageName? initialPageName,
 }) async {
   await _bootstrapOfflineDependencies(builders);
 
@@ -38,34 +41,74 @@ Future<void> launchApp(
   addTearDown(tester.view.resetDevicePixelRatio);
   addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
 
+  final PageName? effectiveInitialPageName = initialPageName ?? AppPages.pageNameForWidget(home);
+  final Map<String, WidgetBuilder> effectiveRoutes = _routesFor(
+    home: home,
+    routes: routes,
+    initialPageName: effectiveInitialPageName,
+  );
+  AppPages.navigationObserver.reset();
+
   await tester.pumpWidget(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: _testLocale,
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      theme: LaTheme.materialTheme(brightness),
-      builder: (BuildContext context, Widget? child) {
-        if (!accessibilityMode) {
-          return child!;
-        }
-        final MediaQueryData data = MediaQuery.of(context);
-        return MediaQuery(
-          data: data.copyWith(textScaler: TextScaler.linear(accessibilityTextScaleFactor)),
-          child: child!,
-        );
+    BlocProvider<LanguageCubit>(
+      create: (BuildContext context) {
+        return getIt<LanguageCubit>();
       },
-      routes: routes,
-      home: home,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: _testLocale,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        theme: LaTheme.materialTheme(brightness),
+        builder: (BuildContext context, Widget? child) {
+          if (!accessibilityMode) {
+            return child!;
+          }
+          final MediaQueryData data = MediaQuery.of(context);
+          return MediaQuery(
+            data: data.copyWith(textScaler: TextScaler.linear(accessibilityTextScaleFactor)),
+            child: child!,
+          );
+        },
+        navigatorObservers: [AppPages.navigationObserver],
+        routes: effectiveRoutes,
+        initialRoute: effectiveInitialPageName?.route,
+        onGenerateInitialRoutes: effectiveInitialPageName == null
+            ? null
+            : (String initialRoute) {
+                return [
+                  MaterialPageRoute<void>(
+                    settings: RouteSettings(name: initialRoute),
+                    builder: effectiveRoutes[initialRoute]!,
+                  ),
+                ];
+              },
+        home: effectiveInitialPageName == null ? home : null,
+      ),
     ),
   );
 
   await tester.pumpAndSettle();
+}
+
+Map<String, WidgetBuilder> _routesFor({
+  required Widget home,
+  required Map<String, WidgetBuilder> routes,
+  required PageName? initialPageName,
+}) {
+  if (initialPageName == null) {
+    return routes;
+  }
+  return {
+    ...AppPages.routesFor(AppPageType.material),
+    ...routes,
+    initialPageName.route: (BuildContext context) => home,
+  };
 }
 
 Future<void> closeApp() async {

@@ -61,3 +61,7 @@ assets/keys/config.json
 .codex/specs/layout.md
 .codex/handoff/*.md
 .codex/worktrees/
+agents/specs/api.yaml
+agents/specs/bdd.md
+agents/specs/layout.md
+agents/handoff/**

@@ -37,3 +37,38 @@ class _LaEventBusListenerState<B> extends State<LaEventBusListener<B>> {
     return widget.child;
   }
 }
+
+abstract interface class LaEventBusListenerDefinition {
+  Widget wrap(Widget child);
+}
+
+class LaTypedEventBusListenerDefinition<A> implements LaEventBusListenerDefinition {
+  final void Function(A message) onMessage;
+
+  const LaTypedEventBusListenerDefinition({required this.onMessage});
+
+  @override
+  Widget wrap(Widget child) {
+    return LaEventBusListener<A>(onMessage: onMessage, child: child);
+  }
+}
+
+class LaMultiEventBusListener extends StatelessWidget {
+  final List<LaEventBusListenerDefinition> listeners;
+  final Widget child;
+
+  const LaMultiEventBusListener({
+    super.key,
+    required this.listeners,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Widget current = child;
+    for (final LaEventBusListenerDefinition listener in listeners.reversed) {
+      current = listener.wrap(current);
+    }
+    return current;
+  }
+}

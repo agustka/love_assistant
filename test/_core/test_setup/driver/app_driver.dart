@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_test/flutter_test.dart";
+import "package:la/presentation/core/app.dart";
 
 import "i_driver.dart";
 
@@ -18,16 +19,16 @@ class AppDriver extends BaseDriver {
     expect(find.byKey(key), findsNothing);
   }
 
-  void assertIsOnPage(Key pageKey) {
-    expect(find.byKey(pageKey), findsOneWidget);
+  void assertIsOnPage(PageName pageName) {
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(pageName));
   }
 
-  void assertPageExists(Key pageKey) {
-    assertIsOnPage(pageKey);
+  void assertPageExists(PageName pageName) {
+    assertIsOnPage(pageName);
   }
 
-  void assertPageDoesNotExist(Key pageKey) {
-    expect(find.byKey(pageKey), findsNothing);
+  void assertPageDoesNotExist(PageName pageName) {
+    expect(AppPages.navigationObserver.stack, isNot(contains(AppPages.descriptorForName(pageName))));
   }
 
   Future<void> tap(Key key) async {

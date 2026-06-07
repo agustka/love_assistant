@@ -2,17 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/login_cubit.dart';
+import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/presentation/auth/widgets/login_form_organism.dart';
 import 'package:la/presentation/core/app.dart';
+import 'package:la/presentation/core/localization/user_locale.dart';
+import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
-import 'package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/setup.dart';
 
 class LoginPage extends StatefulWidget {
-  static const Key pageKey = Key("LoginPage_page");
   static const Key emailFieldKey = Key("login_email_field");
   static const Key emailEditableKey = Key("login_email_editable");
   static const Key passwordFieldKey = Key("login_password_field");
@@ -68,25 +69,29 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (BuildContext context, LoginState state) {
-          return LaEventBusListener<LoginNavigateToMainEvent>(
-            onMessage: (LoginNavigateToMainEvent event) => _onNavigateToMain(context),
-            child: LaEventBusListener<LoginNavigateToEmailConfirmationEvent>(
-              onMessage: (LoginNavigateToEmailConfirmationEvent event) =>
-                  _onNavigateToEmailConfirmation(context, event),
-              child: LaEventBusListener<LoginEvent>(
-                onMessage: _onLoginEvent,
-                child: LaDefaultPageTemplate(
-                  key: LoginPage.pageKey,
-                  paddingPreset: LaDefaultPageTemplatePadding.medium,
-                  appBar: LaAppBarOrganism(
-                    style: AppBarStyle.background,
-                    action: LaLanguageAppBarActionOrganism.action(context),
-                  ),
-                  bottomButtons: _bottomButtons(context, state),
-                  child: LoginFormOrganism(
-                    definition: _formDefinition(context, state),
-                  ),
+          return LaMultiEventBusListener(
+            listeners: [
+              LaTypedEventBusListenerDefinition<LoginNavigateToMainEvent>(
+                onMessage: (LoginNavigateToMainEvent event) => _onNavigateToMain(context),
+              ),
+              LaTypedEventBusListenerDefinition<LoginNavigateToEmailConfirmationEvent>(
+                onMessage: (LoginNavigateToEmailConfirmationEvent event) =>
+                    _onNavigateToEmailConfirmation(context, event),
+              ),
+              LaTypedEventBusListenerDefinition<LoginEvent>(onMessage: _onLoginEvent),
+            ],
+            child: LaDefaultPageTemplate(
+              paddingPreset: LaDefaultPageTemplatePadding.medium,
+              appBar: LaAppBarOrganism(
+                style: AppBarStyle.background,
+                action: LaLanguageAppBarActionDefinition(
+                  onTap: () => _showLanguagePicker(context),
+                  showsIcon: false,
                 ),
+              ),
+              bottomButtons: _bottomButtons(context, state),
+              child: LoginFormOrganism(
+                definition: _formDefinition(context, state),
               ),
             ),
           );
@@ -209,6 +214,30 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onSignUp() {
     Navigator.of(context).pushNamed(PageName.signUp.route);
+  }
+
+  void _showLanguagePicker(BuildContext context) {
+    LaPicker.showPicker(
+      context,
+      entries: PickerEntries(
+        title: S.of(context).settings_pick_language,
+        entries: _availableLanguages
+            .map(
+              (Language language) => PickerEntry(
+                text: language.properName,
+                svg: language.flagIcon,
+                onTap: () {
+                  context.read<LanguageCubit>().setLanguage(language);
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  List<Language> get _availableLanguages {
+    return Language.values.where((Language language) => language != Language.invalid).toList();
   }
 
   String? _passwordError(S strings, LoginState state) {

@@ -14,6 +14,6 @@ Do this:
 2. Execute the mandatory startup steps yourself (handoff cleanup via `rm -f`, output enforcement).
 3. Drive the loop by dispatching the **layer agents** as subagents via the Task/Agent tool — `testing-agent`, `domain-agent`, `infrastructure-agent`, `application-agent`, `ui-agent`, `review-agent`, and the know-the-code agent. These are leaf workers; they spawn nothing, so running them as subagents is correct.
 4. Respect the coordinator constraints from `pipeline.manual.md`: you only coordinate. Do not modify code, investigate source, or run code-search/`dart analyze` yourself — delegate all of that. Computing the branch diff for layer scoping is allowed.
-5. Maintain `.codex/handoff/coordination.plan.md` per the output spec, and keep delegating until a terminal state (`complete` or `blocked`) is reached. Do not return a plan with outstanding eligible work.
+5. Maintain `agents/handoff/coordination.plan.md` per the output spec, and keep delegating until a terminal state (`complete` or `blocked`) is reached. Do not return a plan with outstanding eligible work.
 
 If the user provides an optional focus or note, treat it as additional context only.

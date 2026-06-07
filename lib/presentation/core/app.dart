@@ -33,6 +33,214 @@ enum PageName {
   const PageName(this.route);
 }
 
+enum AppPageType {
+  cupertino,
+  material,
+}
+
+enum AppPageTransition {
+  platformDefault,
+}
+
+class AppPageDescriptor {
+  final PageName name;
+  final Set<AppPageType> pageTypes;
+  final AppPageTransition transition;
+  final WidgetBuilder builder;
+
+  String get route {
+    return name.route;
+  }
+
+  const AppPageDescriptor({
+    required this.name,
+    required this.builder,
+    this.pageTypes = const {
+      AppPageType.cupertino,
+      AppPageType.material,
+    },
+    this.transition = AppPageTransition.platformDefault,
+  });
+
+  bool supports(AppPageType pageType) {
+    return pageTypes.contains(pageType);
+  }
+
+  Widget build(BuildContext context) {
+    return builder(context);
+  }
+}
+
+class AppPageNavigationObserver extends NavigatorObserver {
+  final List<AppPageDescriptor> _stack = [];
+
+  AppPageDescriptor? get currentPage {
+    if (_stack.isEmpty) {
+      return null;
+    }
+    return _stack.last;
+  }
+
+  List<AppPageDescriptor> get stack {
+    return List.unmodifiable(_stack);
+  }
+
+  void reset() {
+    _stack.clear();
+  }
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    final AppPageDescriptor? descriptor = AppPages.descriptorForRoute(route.settings.name);
+    if (descriptor != null) {
+      _stack.add(descriptor);
+    }
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    final AppPageDescriptor? descriptor = AppPages.descriptorForRoute(route.settings.name);
+    if (descriptor != null) {
+      _removeLast(descriptor);
+    }
+  }
+
+  @override
+  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    final AppPageDescriptor? descriptor = AppPages.descriptorForRoute(route.settings.name);
+    if (descriptor != null) {
+      _removeLast(descriptor);
+    }
+  }
+
+  @override
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
+    final AppPageDescriptor? oldDescriptor = AppPages.descriptorForRoute(oldRoute?.settings.name);
+    final AppPageDescriptor? newDescriptor = AppPages.descriptorForRoute(newRoute?.settings.name);
+    if (oldDescriptor != null) {
+      _removeLast(oldDescriptor);
+    }
+    if (newDescriptor != null) {
+      _stack.add(newDescriptor);
+    }
+  }
+
+  void _removeLast(AppPageDescriptor descriptor) {
+    for (int index = _stack.length - 1; index >= 0; index -= 1) {
+      if (_stack[index] == descriptor) {
+        _stack.removeAt(index);
+        return;
+      }
+    }
+  }
+}
+
+class AppPages {
+  static const List<AppPageDescriptor> all = [
+    AppPageDescriptor(
+      name: PageName.splash,
+      builder: _splash,
+    ),
+    AppPageDescriptor(
+      name: PageName.landing,
+      builder: _landing,
+    ),
+    AppPageDescriptor(
+      name: PageName.main,
+      builder: _main,
+    ),
+    AppPageDescriptor(
+      name: PageName.wizard,
+      builder: _wizard,
+    ),
+    AppPageDescriptor(
+      name: PageName.login,
+      builder: _login,
+    ),
+    AppPageDescriptor(
+      name: PageName.signUp,
+      builder: _signUp,
+    ),
+    AppPageDescriptor(
+      name: PageName.emailConfirmation,
+      builder: _emailConfirmation,
+    ),
+  ];
+
+  static final AppPageNavigationObserver navigationObserver = AppPageNavigationObserver();
+
+  const AppPages._();
+
+  static AppPageDescriptor? descriptorForRoute(String? route) {
+    if (route == null) {
+      return null;
+    }
+    for (final AppPageDescriptor descriptor in all) {
+      if (descriptor.route == route) {
+        return descriptor;
+      }
+    }
+    return null;
+  }
+
+  static AppPageDescriptor descriptorForName(PageName name) {
+    for (final AppPageDescriptor descriptor in all) {
+      if (descriptor.name == name) {
+        return descriptor;
+      }
+    }
+    throw ArgumentError.value(name, "name", "No app page descriptor is registered for this page name.");
+  }
+
+  static PageName? pageNameForWidget(Widget widget) {
+    return switch (widget) {
+      SplashPage() => PageName.splash,
+      LandingPage() => PageName.landing,
+      MainPage() => PageName.main,
+      WizardPage() => PageName.wizard,
+      LoginPage() => PageName.login,
+      SignUpPage() => PageName.signUp,
+      EmailConfirmationPage() => PageName.emailConfirmation,
+      _ => null,
+    };
+  }
+
+  static Map<String, WidgetBuilder> routesFor(AppPageType pageType) {
+    return {
+      for (final AppPageDescriptor page in all)
+        if (page.supports(pageType)) page.route: page.build,
+    };
+  }
+
+  static Widget _splash(BuildContext context) {
+    return const SplashPage();
+  }
+
+  static Widget _landing(BuildContext context) {
+    return const LandingPage();
+  }
+
+  static Widget _main(BuildContext context) {
+    return const MainPage();
+  }
+
+  static Widget _wizard(BuildContext context) {
+    return const WizardPage();
+  }
+
+  static Widget _login(BuildContext context) {
+    return const LoginPage();
+  }
+
+  static Widget _signUp(BuildContext context) {
+    return const SignUpPage();
+  }
+
+  static Widget _emailConfirmation(BuildContext context) {
+    return const EmailConfirmationPage();
+  }
+}
+
 class App extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static UserLocale? userLocale;
@@ -48,6 +256,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
+    AppPages.navigationObserver.reset();
     super.initState();
   }
 
@@ -78,15 +287,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         ? CupertinoApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
             navigatorKey: App.navigatorKey,
-            routes: {
-              PageName.splash.route: (BuildContext context) => const SplashPage(),
-              PageName.landing.route: (BuildContext context) => const LandingPage(),
-              PageName.main.route: (BuildContext context) => const MainPage(),
-              PageName.wizard.route: (BuildContext context) => const WizardPage(),
-              PageName.login.route: (BuildContext context) => const LoginPage(),
-              PageName.signUp.route: (BuildContext context) => const SignUpPage(),
-              PageName.emailConfirmation.route: (BuildContext context) => const EmailConfirmationPage(),
-            },
+            navigatorObservers: [AppPages.navigationObserver],
+            routes: AppPages.routesFor(AppPageType.cupertino),
             initialRoute: PageName.splash.route,
             localizationsDelegates: const [
               S.delegate,
@@ -102,15 +304,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         : MaterialApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
             navigatorKey: App.navigatorKey,
-            routes: {
-              PageName.splash.route: (BuildContext context) => const SplashPage(),
-              PageName.landing.route: (BuildContext context) => const LandingPage(),
-              PageName.main.route: (BuildContext context) => const MainPage(),
-              PageName.wizard.route: (BuildContext context) => const WizardPage(),
-              PageName.login.route: (BuildContext context) => const LoginPage(),
-              PageName.signUp.route: (BuildContext context) => const SignUpPage(),
-              PageName.emailConfirmation.route: (BuildContext context) => const EmailConfirmationPage(),
-            },
+            navigatorObservers: [AppPages.navigationObserver],
+            routes: AppPages.routesFor(AppPageType.material),
             initialRoute: PageName.splash.route,
             localizationsDelegates: const [
               S.delegate,

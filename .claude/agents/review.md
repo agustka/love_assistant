@@ -26,14 +26,14 @@ It acts as a **gatekeeper** before code is accepted or further processing contin
 ## Input
 
 - uncommitted diff (new and modified files not yet checked in, obtained via `git-diff` skill against the main branch)
-- .claude/specs/bdd.md
-- .claude/specs/api.yaml
-- .claude/specs/layout.md (when present — used to validate UI layout correctness)
-- .claude/handoff/coordination.plan.md (required — provides `required_layers` and `work_type` to scope review)
-- .claude/handoff/infrastructure.handoff.md
-- .claude/handoff/domain.handoff.md
-- .claude/handoff/application.handoff.md
-- .claude/handoff/ui.handoff.md
+- agents/specs/bdd.md
+- agents/specs/api.yaml
+- agents/specs/layout.md (when present — used to validate UI layout correctness)
+- agents/handoff/coordination.plan.md (required — provides `required_layers` and `work_type` to scope review)
+- agents/handoff/infrastructure.handoff.md
+- agents/handoff/domain.handoff.md
+- agents/handoff/application.handoff.md
+- agents/handoff/ui.handoff.md
 
 Only handoffs for layers listed in `required_layers` from the coordination plan are reviewed. Non-required layers are ignored.
 
@@ -41,7 +41,7 @@ Only handoffs for layers listed in `required_layers` from the coordination plan 
 
 ## Output
 
-- .claude/handoff/review.handoff.md
+- agents/handoff/review.handoff.md
 
 The output must be a structured contract that:
 - lists all findings
@@ -80,8 +80,8 @@ The agent must:
 - Treat missing or unclear specification as a failure condition
 - If API usage is detected in code but not defined in `api.yaml` → flag as violation
 - **Only evaluate files present in the diff. Do not read beyond the diff boundary.**
-- Inter-agent communication is allowed only through `.claude/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.claude/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `agents/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `agents/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 
 ---
@@ -133,7 +133,9 @@ The agent must combine results from all applicable skills into a single, structu
 - **If an AC is covered only by non-UAT tests** (for example domain/unit/golden) and has no corresponding scenario in `test/user_acceptance_tests/` → **blocking violation**: `"missing user acceptance tests: <scenario>"`.
 - **Never downgrade missing user acceptance tests to warning/note/risk**. This finding is always blocking for `feature`, `refactor`, and `bug` work types.
 - **If test files exist in scratch/temp directories** instead of correct suite paths (`test/user_acceptance_tests/`, `test/domain/`, `test/presentation/`) → **blocking violation**: `"test not in correct suite: <file path>"`.
-- **If a UAT feature driver adds or uses page-presence/page-absence helpers** such as `assertOnLoginPage()`, `assertOnMainPage()`, `assertAuthStackCleared()`, or `assertXPageDoesNotExist()` instead of `AppDriver.assertIsOnPage(pageKey)`, `assertPageExists(pageKey)`, or `assertPageDoesNotExist(pageKey)` → **blocking violation**: `"UAT page assertion must use AppDriver: <file path>"`.
+- **If a page declares a page-level identity `Key`, a driver uses a page-presence widget-key finder, or a UAT asserts page presence without `AppDriver.assertIsOnPage(PageName.<page>)`, `assertPageExists(PageName.<page>)`, or `assertPageDoesNotExist(PageName.<page>)`** → **blocking violation**: `"page assertion must use route descriptor: <file path>"`.
+- **If a presentation definition class accepts `BuildContext` or stores context-dependent behavior instead of receiving data and callbacks from the widget/page that owns the context** → **blocking violation**: `"definition must not take BuildContext: <file path>"`.
+- **If presentation code resolves any cubit with `getIt<...Cubit>()` outside a `BlocProvider.create` callback** → **blocking violation**: `"cubit must be read from context: <file path>"`. Cubits are provided with `getIt` only when the provider creates them; consumers must use `context.read`, `context.watch`, or `context.select`.
 - **If application/domain/infrastructure business logic resolves dependencies via `getIt<T>()` instead of constructor injection** — except `getIt<Navigation>()` and `getIt<EventBus>()` — → **blocking violation**: `"dependency injection violation: <file path>"`. Cite `.claude/skills/dependency-injection/SKILL.md` and the relevant layer rules in the finding.
 - **If the diff contains modifications to a pre-existing file outside the current feature's directory scope** → record a **note** or **risk** only: `"out-of-scope modification present: <file path>"`. This is non-blocking because the user may be working on unrelated changes concurrently. Only escalate it if that exact file introduces an independent spec, architecture, test, or safety violation.
 - **When a blocking finding is fixable and the owning layer is clear**, the required action must name that owner explicitly (for example `application`, `domain`, `ui`, `testing`) rather than saying human intervention is required.

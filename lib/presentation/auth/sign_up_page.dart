@@ -2,17 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/sign_up_cubit.dart';
+import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/presentation/auth/widgets/sign_up_form_organism.dart';
 import 'package:la/presentation/core/app.dart';
+import 'package:la/presentation/core/localization/user_locale.dart';
+import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
-import 'package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/setup.dart';
 
 class SignUpPage extends StatefulWidget {
-  static const Key pageKey = Key("SignUpPage_page");
   static const Key emailFieldKey = Key("sign_up_email_field");
   static const Key passwordFieldKey = Key("sign_up_password_field");
   static const Key passwordVisibilityToggleKey = Key("sign_up_password_visibility_toggle");
@@ -67,11 +68,13 @@ class _SignUpPageState extends State<SignUpPage> {
           return LaEventBusListener<SignUpNavigateToConfirmationEvent>(
             onMessage: (SignUpNavigateToConfirmationEvent event) => _onNavigateToConfirmation(context, event),
             child: LaDefaultPageTemplate(
-              key: SignUpPage.pageKey,
               padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium, vertical: LaPadding.medium),
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
-                action: LaLanguageAppBarActionOrganism.action(context),
+                action: LaLanguageAppBarActionDefinition(
+                  onTap: () => _showLanguagePicker(context),
+                  showsIcon: false,
+                ),
               ),
               bottomButtons: _bottomButtons(context, state),
               child: SignUpFormOrganism(
@@ -108,6 +111,30 @@ class _SignUpPageState extends State<SignUpPage> {
       PageName.emailConfirmation.route,
       arguments: event.credentials,
     );
+  }
+
+  void _showLanguagePicker(BuildContext context) {
+    LaPicker.showPicker(
+      context,
+      entries: PickerEntries(
+        title: S.of(context).settings_pick_language,
+        entries: _availableLanguages
+            .map(
+              (Language language) => PickerEntry(
+                text: language.properName,
+                svg: language.flagIcon,
+                onTap: () {
+                  context.read<LanguageCubit>().setLanguage(language);
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  List<Language> get _availableLanguages {
+    return Language.values.where((Language language) => language != Language.invalid).toList();
   }
 
   BottomButtonsDefinition _bottomButtons(BuildContext context, SignUpState state) {

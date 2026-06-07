@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:la/presentation/core/app.dart';
-import 'package:la/presentation/landing/landing_page.dart';
-import 'package:la/presentation/main/main_page.dart';
 import 'package:la/presentation/wizard/wizard_page.dart';
 
 import '../../../_core/test_setup/driver/i_driver.dart';
@@ -10,8 +8,6 @@ import '../../../_core/test_setup/driver/i_driver.dart';
 /// routing performed by `SplashCubit` through `App.navigatorKey` is observable.
 class SplashDriver extends BaseDriver {
   Finder get _wizardGreetingsFinder => find.byKey(WizardPage.greetingsStepKey);
-  Finder get _landingPageFinder => find.byKey(LandingPage.pageKey);
-  Finder get _mainPageFinder => find.byKey(MainPage.pageKey);
 
   SplashDriver({required super.tester, super.builders});
 
@@ -36,15 +32,18 @@ class SplashDriver extends BaseDriver {
   }
 
   void assertOnLanding() {
-    expect(_landingPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.landing));
   }
 
   void assertNotOnLanding() {
-    expect(_landingPageFinder, findsNothing);
+    expect(
+      AppPages.navigationObserver.stack,
+      isNot(contains(AppPages.descriptorForName(PageName.landing))),
+    );
   }
 
   void assertOnMain() {
-    expect(_mainPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.main));
   }
 
   void assertNotOnWizard() {

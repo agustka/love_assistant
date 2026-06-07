@@ -36,6 +36,7 @@ Composition flows one direction only; lower levels never import or depend on hig
 
 - **Pages must use an atomic design template.** A page builds the template's inputs from cubit state and passes them in; it never lays out atoms or raw Flutter widgets directly.
 - **Templates accept only definitions, organisms, and molecules.** A template must never take atoms or raw Flutter widgets in its public API.
+- **Page identity belongs to routing.** Pages must not declare page-level identity `Key` constants or pass identity keys into templates. Tests assert page presence through route/page descriptors and `PageName`, not widget keys.
 - **Organisms** compose molecules and atoms. **Molecules** compose atoms. **Atoms** are the leaf primitives.
 
 A *definition* is an immutable data/config object (view data, labels, callbacks) that a page builds from cubit state and hands to a template or organism, instead of passing loose primitives.
@@ -50,6 +51,8 @@ The shared, reusable UI components for the whole app live under `lib/presentatio
 Use these shared components for common patterns across features. Feature-specific widgets should be placed under `lib/presentation/<feature>/widgets`.
 
 Lower atomic levels must not import higher levels, and feature widgets should not modify shared components directly.
+
+Shared atomic components must use the app's atom equivalents whenever they exist. For example, use `LaTextAtom` instead of raw Flutter `Text` outside text-specific atom internals. Raw Flutter primitives are allowed inside atom implementations and only when no atom equivalent exists for the primitive's responsibility.
 
 ### 1. Atoms 🔬
 Smallest visual / interactive primitives.
@@ -69,6 +72,7 @@ Composable UI sections made of molecules & atoms.
 - Arrange and coordinate child widgets visually
 - Subscribe to Cubit/Bloc state (read-only) when necessary
 - We intentionally restrict organisms to UI coordination only — no domain/business logic.
+- Do not expose static methods that fabricate definitions. Definitions belong in definition classes or are built by pages and passed into organisms.
 - Break down if responsibilities drift (keep cohesive)
 
 ### 4. Templates 📋
@@ -129,7 +133,10 @@ Concrete screen instances binding a template with real content and Cubit state.
 
 ## Common Anti-Patterns - AVOID
 - Building complex inline UI in page build method (extract organisms)
+- Passing page identity keys into templates instead of using the route/page descriptor and page constructor identity path
 - Passing `BuildContext` deeply when not needed (prefer data-only parameters)
 - Instantiating blocs/cubits inside widgets (use DI/injection layer)
+- Using raw Flutter widgets in shared components when an app atom equivalent exists
+- Static-only organisms or organism static methods that return definition objects
 - Hardcoded colors/strings/spacings
 - Mixing layout and data transformation logic

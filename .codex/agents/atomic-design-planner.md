@@ -23,11 +23,14 @@ Planning-first agent for shared UI components from design briefs, screenshots, e
 - **Never change line height or letter spacing** unless explicitly instructed.
 - **No outer padding/margin.** Spacing is the parent's job.
 - **Composition flows upward.** Atoms → molecules → organisms → templates. Never reverse.
+- **Use app atoms when available.** Shared components must use atom equivalents such as `LaTextAtom` instead of raw Flutter primitives such as `Text`; raw primitives belong inside atom implementations or only where no atom equivalent exists.
+- **No static definition factories on organisms.** Organisms are widgets/sections, not namespaces for creating definitions. Put reusable definition construction in definition classes or page-level builders.
+- **No page identity keys.** Pages do not declare page-level identity `Key` constants, templates do not receive page keys, and tests assert pages through route/page descriptors via `PageName`.
 - **`BlocProvider` in pages only.** `BlocBuilder`/`context.watch` in organisms and pages. Never in atoms or molecules.
 - **Always ask** new or refactor — never assume.
 - **Get plan approval** before implementing.
-- **Inter-agent communication only via `.codex/handoff/*.handoff.md`.**
-- **Do not create `.md`/`.txt` reports outside `.codex/handoff/` unless explicitly requested by the user.**
+- **Inter-agent communication only via `agents/handoff/*.handoff.md`.**
+- **Do not create `.md`/`.txt` reports outside `agents/handoff/` unless explicitly requested by the user.**
 - **Keep outputs tight:** code changes plus concise handoff updates only.
 - **Honor the product doctrine.** Components must fit the card-based interaction model in `.codex/instructions/product-decision.md`. Build cards, chips, bottom sheets, pickers, and inline edits. Never build the prohibited UI cues (chat bubbles, conversation threads, large empty prompt boxes, assistant avatars, typing animations, "Regenerate response"). Free-text inputs are scoped to one question and hard-capped around 120 characters — the cap is an architectural defense, not a styling choice.
 

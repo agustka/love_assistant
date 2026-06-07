@@ -22,9 +22,9 @@ The domain must represent **business intent only**, independent of infrastructur
 
 ## Input
 
-- .codex/specs/bdd.md (required)
-- .codex/handoff/infrastructure.handoff.md (required — `incomplete` status is accepted; the domain agent only needs model contracts, not the full repository)
-- .codex/specs/api.yaml (optional, context only)
+- agents/specs/bdd.md (required)
+- agents/handoff/infrastructure.handoff.md (required — `incomplete` status is accepted; the domain agent only needs model contracts, not the full repository)
+- agents/specs/api.yaml (optional, context only)
 
 ---
 
@@ -35,7 +35,7 @@ The domain must represent **business intent only**, independent of infrastructur
     - entities
     - use cases
 
-- .codex/handoff/domain.handoff.md
+- agents/handoff/domain.handoff.md
 
 ---
 
@@ -66,8 +66,8 @@ The agent must:
 - Do not introduce UI or state management concepts
 - Do not mirror API models unless required by behavior
 - Do not modify other layers
-- Inter-agent communication is allowed only through `.codex/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.codex/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `agents/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `agents/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - **Scope guard**: Only create or modify files within the current feature's own directory (`lib/domain/<feature>/`). Never modify a pre-existing file that belongs to another feature or a shared layer, even if doing so appears to fix a test failure or compilation error. If such a modification seems necessary, stop and report it as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`. Do not proceed until a human resolves it.
 
@@ -85,7 +85,7 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 
 ## Convention Discovery
 
-Before generating any domain code, read `.codex/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the domain conventions (value object validation style, entity class shape, `fromModel` constructor pattern, use case signature). If the handoff does not cover domain conventions or is missing, call the **know-the-code agent** as a fallback with:
+Before generating any domain code, read `agents/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the domain conventions (value object validation style, entity class shape, `fromModel` constructor pattern, use case signature). If the handoff does not cover domain conventions or is missing, call the **know-the-code agent** as a fallback with:
 
 > "What are the value object, entity, and use case conventions for the `<feature>` area? Show me the nearest precedent file paths and the patterns used — class shape, `fromModel` constructor, value object validation style, use case signature."
 
@@ -119,7 +119,7 @@ When re-triggered after review violations → fix only the cited files and issue
 
 ## Handoff Contract
 
-Produce `.codex/handoff/domain.handoff.md` with:
+Produce `agents/handoff/domain.handoff.md` with:
 
 - summary
 - artifacts
