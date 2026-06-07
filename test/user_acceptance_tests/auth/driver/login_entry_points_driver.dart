@@ -35,6 +35,7 @@ class LoginEntryPointsDriver extends BaseDriver {
         child: const WizardPage(),
       ),
       routes: _routes,
+      initialPageName: PageName.wizard,
     );
   }
 

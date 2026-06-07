@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/sign_up_cubit.dart';
+import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/presentation/auth/widgets/sign_up_form_organism.dart';
 import 'package:la/presentation/core/app.dart';
+import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
@@ -24,7 +26,7 @@ class SignUpPage extends StatefulWidget {
   static const String emailFieldId = "sign_up_email_field";
   static const String passwordFieldId = "sign_up_password_field";
 
-  const SignUpPage({super.key = pageKey});
+  const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() {
@@ -70,7 +72,10 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium, vertical: LaPadding.medium),
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
-                action: LaLanguageAppBarActionDefinition(context, showsIcon: false),
+                action: LaLanguageAppBarActionDefinition(
+                  onTap: () => _showLanguagePicker(context),
+                  showsIcon: false,
+                ),
               ),
               bottomButtons: _bottomButtons(context, state),
               child: SignUpFormOrganism(
@@ -107,6 +112,30 @@ class _SignUpPageState extends State<SignUpPage> {
       PageName.emailConfirmation.route,
       arguments: event.credentials,
     );
+  }
+
+  void _showLanguagePicker(BuildContext context) {
+    LaPicker.showPicker(
+      context,
+      entries: PickerEntries(
+        title: S.of(context).settings_pick_language,
+        entries: _availableLanguages
+            .map(
+              (Language language) => PickerEntry(
+                text: language.properName,
+                svg: language.flagIcon,
+                onTap: () {
+                  context.read<LanguageCubit>().setLanguage(language);
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  List<Language> get _availableLanguages {
+    return Language.values.where((Language language) => language != Language.invalid).toList();
   }
 
   BottomButtonsDefinition _bottomButtons(BuildContext context, SignUpState state) {

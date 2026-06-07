@@ -5,15 +5,13 @@ import 'package:la/infrastructure/core/auth/service/i_auth_service.dart';
 import 'package:la/infrastructure/core/auth/service/offline/offline_auth_service.dart';
 import 'package:la/presentation/auth/email_confirmation_page.dart';
 import 'package:la/presentation/auth/sign_up_page.dart';
+import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/main/main_page.dart';
 import 'package:la/setup.dart';
 
 import '../../../_core/test_setup/driver/i_driver.dart';
 
 class EmailConfirmationDriver extends BaseDriver {
-  Finder get _pageFinder => find.byKey(EmailConfirmationPage.pageKey);
-  Finder get _signUpPageFinder => find.byKey(SignUpPage.pageKey);
-  Finder get _mainPageFinder => find.byKey(MainPage.pageKey);
   Finder get _confirmButtonFinder => find.byKey(EmailConfirmationPage.confirmButtonKey);
   Finder get _resendButtonFinder => find.byKey(EmailConfirmationPage.resendButtonKey);
   Finder get _pendingErrorFinder => find.byKey(EmailConfirmationPage.pendingErrorKey);
@@ -24,15 +22,18 @@ class EmailConfirmationDriver extends BaseDriver {
   EmailConfirmationDriver({required super.tester});
 
   void assertOnConfirmationPage() {
-    expect(_pageFinder, findsOneWidget);
+    expect(
+      AppPages.navigationObserver.currentPage,
+      AppPages.descriptorForIdentityKey(EmailConfirmationPage.pageKey),
+    );
   }
 
   void assertOnSignUpPage() {
-    expect(_signUpPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(SignUpPage.pageKey));
   }
 
   void assertOnMainPage() {
-    expect(_mainPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(MainPage.pageKey));
   }
 
   void assertPendingMessageVisible() {

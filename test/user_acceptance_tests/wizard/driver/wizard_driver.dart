@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:la/application/core/language/language_cubit.dart';
+import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/wizard/wizard_page.dart';
 import 'package:la/setup.dart';
 
@@ -20,6 +21,7 @@ class WizardDriver extends BaseDriver {
         create: (_) => getIt<LanguageCubit>(),
         child: const WizardPage(),
       ),
+      initialPageName: PageName.wizard,
     );
   }
 

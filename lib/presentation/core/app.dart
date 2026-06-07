@@ -47,7 +47,7 @@ class AppPageDescriptor {
   final Key? identityKey;
   final Set<AppPageType> pageTypes;
   final AppPageTransition transition;
-  final Widget Function(BuildContext context, Key? identityKey) builder;
+  final WidgetBuilder builder;
 
   String get route {
     return name.route;
@@ -69,7 +69,71 @@ class AppPageDescriptor {
   }
 
   Widget build(BuildContext context) {
-    return builder(context, identityKey);
+    return builder(context);
+  }
+}
+
+class AppPageNavigationObserver extends NavigatorObserver {
+  final List<AppPageDescriptor> _stack = [];
+
+  AppPageDescriptor? get currentPage {
+    if (_stack.isEmpty) {
+      return null;
+    }
+    return _stack.last;
+  }
+
+  List<AppPageDescriptor> get stack {
+    return List.unmodifiable(_stack);
+  }
+
+  void reset() {
+    _stack.clear();
+  }
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    final AppPageDescriptor? descriptor = AppPages.descriptorForRoute(route.settings.name);
+    if (descriptor != null) {
+      _stack.add(descriptor);
+    }
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    final AppPageDescriptor? descriptor = AppPages.descriptorForRoute(route.settings.name);
+    if (descriptor != null) {
+      _removeLast(descriptor);
+    }
+  }
+
+  @override
+  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    final AppPageDescriptor? descriptor = AppPages.descriptorForRoute(route.settings.name);
+    if (descriptor != null) {
+      _removeLast(descriptor);
+    }
+  }
+
+  @override
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
+    final AppPageDescriptor? oldDescriptor = AppPages.descriptorForRoute(oldRoute?.settings.name);
+    final AppPageDescriptor? newDescriptor = AppPages.descriptorForRoute(newRoute?.settings.name);
+    if (oldDescriptor != null) {
+      _removeLast(oldDescriptor);
+    }
+    if (newDescriptor != null) {
+      _stack.add(newDescriptor);
+    }
+  }
+
+  void _removeLast(AppPageDescriptor descriptor) {
+    for (int index = _stack.length - 1; index >= 0; index -= 1) {
+      if (_stack[index] == descriptor) {
+        _stack.removeAt(index);
+        return;
+      }
+    }
   }
 }
 
@@ -111,7 +175,43 @@ class AppPages {
     ),
   ];
 
+  static final AppPageNavigationObserver navigationObserver = AppPageNavigationObserver();
+
   const AppPages._();
+
+  static AppPageDescriptor? descriptorForRoute(String? route) {
+    if (route == null) {
+      return null;
+    }
+    for (final AppPageDescriptor descriptor in all) {
+      if (descriptor.route == route) {
+        return descriptor;
+      }
+    }
+    return null;
+  }
+
+  static AppPageDescriptor? descriptorForIdentityKey(Key pageKey) {
+    for (final AppPageDescriptor descriptor in all) {
+      if (descriptor.identityKey == pageKey) {
+        return descriptor;
+      }
+    }
+    return null;
+  }
+
+  static PageName? pageNameForWidget(Widget widget) {
+    return switch (widget) {
+      SplashPage() => PageName.splash,
+      LandingPage() => PageName.landing,
+      MainPage() => PageName.main,
+      WizardPage() => PageName.wizard,
+      LoginPage() => PageName.login,
+      SignUpPage() => PageName.signUp,
+      EmailConfirmationPage() => PageName.emailConfirmation,
+      _ => null,
+    };
+  }
 
   static Map<String, WidgetBuilder> routesFor(AppPageType pageType) {
     return {
@@ -120,32 +220,32 @@ class AppPages {
     };
   }
 
-  static Widget _splash(BuildContext context, Key? identityKey) {
-    return SplashPage(key: identityKey);
+  static Widget _splash(BuildContext context) {
+    return const SplashPage();
   }
 
-  static Widget _landing(BuildContext context, Key? identityKey) {
-    return LandingPage(key: identityKey);
+  static Widget _landing(BuildContext context) {
+    return const LandingPage();
   }
 
-  static Widget _main(BuildContext context, Key? identityKey) {
-    return MainPage(key: identityKey);
+  static Widget _main(BuildContext context) {
+    return const MainPage();
   }
 
-  static Widget _wizard(BuildContext context, Key? identityKey) {
-    return WizardPage(key: identityKey);
+  static Widget _wizard(BuildContext context) {
+    return const WizardPage();
   }
 
-  static Widget _login(BuildContext context, Key? identityKey) {
-    return LoginPage(key: identityKey);
+  static Widget _login(BuildContext context) {
+    return const LoginPage();
   }
 
-  static Widget _signUp(BuildContext context, Key? identityKey) {
-    return SignUpPage(key: identityKey);
+  static Widget _signUp(BuildContext context) {
+    return const SignUpPage();
   }
 
-  static Widget _emailConfirmation(BuildContext context, Key? identityKey) {
-    return EmailConfirmationPage(key: identityKey);
+  static Widget _emailConfirmation(BuildContext context) {
+    return const EmailConfirmationPage();
   }
 }
 
@@ -164,6 +264,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
+    AppPages.navigationObserver.reset();
     super.initState();
   }
 
@@ -194,6 +295,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         ? CupertinoApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
             navigatorKey: App.navigatorKey,
+            navigatorObservers: [AppPages.navigationObserver],
             routes: AppPages.routesFor(AppPageType.cupertino),
             initialRoute: PageName.splash.route,
             localizationsDelegates: const [
@@ -210,6 +312,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         : MaterialApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
             navigatorKey: App.navigatorKey,
+            navigatorObservers: [AppPages.navigationObserver],
             routes: AppPages.routesFor(AppPageType.material),
             initialRoute: PageName.splash.route,
             localizationsDelegates: const [

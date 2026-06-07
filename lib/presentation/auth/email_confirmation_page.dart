@@ -23,7 +23,7 @@ class EmailConfirmationPage extends StatefulWidget {
   static const Key resendSuccessKey = Key("email_confirmation_resend_success");
   static const Key resendErrorKey = Key("email_confirmation_resend_error");
 
-  const EmailConfirmationPage({super.key = pageKey});
+  const EmailConfirmationPage({super.key});
 
   @override
   State<EmailConfirmationPage> createState() {

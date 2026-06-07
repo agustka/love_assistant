@@ -12,8 +12,6 @@ import 'package:la/presentation/main/main_page.dart';
 import '../../../_core/test_setup/driver/i_driver.dart';
 
 class BackNavigationDriver extends BaseDriver {
-  Finder get _landingPageFinder => find.byKey(LandingPage.pageKey);
-  Finder get _signUpPageFinder => find.byKey(SignUpPage.pageKey);
   Finder get _backButtonFinder => find.byKey(LaAppBarOrganism.backButtonKey);
 
   BackNavigationDriver({required super.tester, super.builders});
@@ -42,10 +40,10 @@ class BackNavigationDriver extends BaseDriver {
   }
 
   void assertOnLandingPage() {
-    expect(_landingPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(LandingPage.pageKey));
   }
 
   void assertOnSignUpPage() {
-    expect(_signUpPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(SignUpPage.pageKey));
   }
 }

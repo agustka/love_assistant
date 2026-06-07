@@ -6,7 +6,7 @@ import 'package:la/presentation/main/widgets/main_under_construction_organism.da
 class MainPage extends StatelessWidget {
   static const Key pageKey = Key("MainPage_page");
 
-  const MainPage({super.key = pageKey});
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {

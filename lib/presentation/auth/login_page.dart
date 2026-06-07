@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/login_cubit.dart';
+import 'package:la/application/core/language/language_cubit.dart';
 import 'package:la/presentation/auth/widgets/login_form_organism.dart';
 import 'package:la/presentation/core/app.dart';
+import 'package:la/presentation/core/localization/user_locale.dart';
 import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
@@ -28,7 +30,7 @@ class LoginPage extends StatefulWidget {
   static const String emailFieldId = "login_email_field";
   static const String passwordFieldId = "login_password_field";
 
-  const LoginPage({super.key = pageKey});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() {
@@ -83,7 +85,10 @@ class _LoginPageState extends State<LoginPage> {
               paddingPreset: LaDefaultPageTemplatePadding.medium,
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
-                action: LaLanguageAppBarActionDefinition(context, showsIcon: false),
+                action: LaLanguageAppBarActionDefinition(
+                  onTap: () => _showLanguagePicker(context),
+                  showsIcon: false,
+                ),
               ),
               bottomButtons: _bottomButtons(context, state),
               child: LoginFormOrganism(
@@ -210,6 +215,30 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onSignUp() {
     Navigator.of(context).pushNamed(PageName.signUp.route);
+  }
+
+  void _showLanguagePicker(BuildContext context) {
+    LaPicker.showPicker(
+      context,
+      entries: PickerEntries(
+        title: S.of(context).settings_pick_language,
+        entries: _availableLanguages
+            .map(
+              (Language language) => PickerEntry(
+                text: language.properName,
+                svg: language.flagIcon,
+                onTap: () {
+                  context.read<LanguageCubit>().setLanguage(language);
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  List<Language> get _availableLanguages {
+    return Language.values.where((Language language) => language != Language.invalid).toList();
   }
 
   String? _passwordError(S strings, LoginState state) {

@@ -10,8 +10,6 @@ import '../../../_core/test_setup/driver/i_driver.dart';
 /// routing performed by `SplashCubit` through `App.navigatorKey` is observable.
 class SplashDriver extends BaseDriver {
   Finder get _wizardGreetingsFinder => find.byKey(WizardPage.greetingsStepKey);
-  Finder get _landingPageFinder => find.byKey(LandingPage.pageKey);
-  Finder get _mainPageFinder => find.byKey(MainPage.pageKey);
 
   SplashDriver({required super.tester, super.builders});
 
@@ -36,15 +34,18 @@ class SplashDriver extends BaseDriver {
   }
 
   void assertOnLanding() {
-    expect(_landingPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(LandingPage.pageKey));
   }
 
   void assertNotOnLanding() {
-    expect(_landingPageFinder, findsNothing);
+    expect(
+      AppPages.navigationObserver.stack,
+      isNot(contains(AppPages.descriptorForIdentityKey(LandingPage.pageKey))),
+    );
   }
 
   void assertOnMain() {
-    expect(_mainPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(MainPage.pageKey));
   }
 
   void assertNotOnWizard() {

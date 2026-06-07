@@ -9,7 +9,6 @@ import 'package:la/presentation/main/main_page.dart';
 import '../../../_core/test_setup/driver/i_driver.dart';
 
 class SignUpDriver extends BaseDriver {
-  Finder get _pageFinder => find.byKey(SignUpPage.pageKey);
   Finder get _emailFieldFinder =>
       find.descendant(of: find.byKey(SignUpPage.emailFieldKey), matching: find.byType(EditableText));
   Finder get _passwordFieldFinder =>
@@ -20,7 +19,6 @@ class SignUpDriver extends BaseDriver {
   Finder get _passwordErrorFinder => find.byKey(SignUpPage.passwordErrorKey);
   Finder get _formErrorFinder => find.byKey(SignUpPage.formErrorKey);
   Finder get _strengthMeterFinder => find.byKey(LaPasswordStrengthMolecule.meterKey);
-  Finder get _confirmationPageFinder => find.byKey(EmailConfirmationPage.pageKey);
 
   SignUpDriver({required super.tester, super.builders});
 
@@ -36,7 +34,7 @@ class SignUpDriver extends BaseDriver {
   }
 
   void assertOnSignUpPage() {
-    expect(_pageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(SignUpPage.pageKey));
   }
 
   void assertEmailFieldFocused() {
@@ -54,11 +52,14 @@ class SignUpDriver extends BaseDriver {
   }
 
   void assertOnConfirmationPage() {
-    expect(_confirmationPageFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForIdentityKey(EmailConfirmationPage.pageKey));
   }
 
   void assertNotOnConfirmationPage() {
-    expect(_confirmationPageFinder, findsNothing);
+    expect(
+      AppPages.navigationObserver.stack,
+      isNot(contains(AppPages.descriptorForIdentityKey(EmailConfirmationPage.pageKey))),
+    );
   }
 
   void assertStrengthMeterVisible() {
