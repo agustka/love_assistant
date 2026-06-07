@@ -20,22 +20,22 @@ Read `.codex/instructions/pipeline.reference.md` at the start of every iteration
 
 **Handoff cleanup**: Always delete all stale handoffs before starting — no exceptions, regardless of invocation arguments. Use explicit `rm -f` commands only (do not use `find` for deletion):
 ```bash
-rm -f .codex/handoff/*.handoff.md
-rm -f .codex/handoff/coordination.plan.md
+rm -f agents/handoff/*.handoff.md
+rm -f agents/handoff/coordination.plan.md
 ```
 
-**Output enforcement**: All agent-to-agent communication must be written only to `.codex/handoff/*.handoff.md` and `.codex/handoff/coordination.plan.md`. Do not allow agents to create standalone `.md`/`.txt` reports outside `.codex/handoff/`. Prefer tight execution: code changes + concise handoff updates only.
+**Output enforcement**: All agent-to-agent communication must be written only to `agents/handoff/*.handoff.md` and `agents/handoff/coordination.plan.md`. Do not allow agents to create standalone `.md`/`.txt` reports outside `agents/handoff/`. Prefer tight execution: code changes + concise handoff updates only.
 
 ---
 
 ## Input
 
-- .codex/specs/bdd.md (required — must contain a `Work Type` field and optionally an `AC Scope` field)
+- agents/specs/bdd.md (required — must contain a `Work Type` field and optionally an `AC Scope` field)
   - `AC Scope` (optional): explicit feature directory/directories that the current ACs apply to. When present, overrides automatic AC scope detection.
-- .codex/specs/api.yaml (optional)
-- .codex/specs/layout.md (optional)
+- agents/specs/api.yaml (optional)
+- agents/specs/layout.md (optional)
 - code changes (AC-scoped diff against main branch; fallback to full branch diff only when AC scope cannot be derived)
-- .codex/handoff/*.handoff.md (all layer handoffs, if available)
+- agents/handoff/*.handoff.md (all layer handoffs, if available)
 
 `bdd.md` and `api.yaml` may include explicit layer opt-outs. Detection rules and contradiction safety checks are in `pipeline.reference.md`.
 
@@ -45,7 +45,7 @@ Before starting any iteration, run Pre-flight Validation (see `pipeline.referenc
 
 ## Output
 
-`.codex/handoff/coordination.plan.md`:
+`agents/handoff/coordination.plan.md`:
 
 ```
 ## Pipeline State
@@ -118,7 +118,7 @@ Implementation is **stable** when all required layer handoffs have `status: comp
 0. **Scaffold** — run testing agent (`tdd_phase: scaffold`, input: `bdd.md` only)
    - Skip if `testing.handoff.md` already has `status: scaffolded`
    - Block if scaffold reports untestable ACs or ambiguous behavior — require spec update before proceeding
-0.5. **Convention Discovery** — run know-the-code agent once to produce `.codex/handoff/know-the-code.handoff.md`
+0.5. **Convention Discovery** — run know-the-code agent once to produce `agents/handoff/know-the-code.handoff.md`
    - Call with a consolidated question covering all required layers: `"What are the conventions for the <feature> area across all layers? Cover: model/service/repository patterns (infrastructure), value object/entity/use case patterns (domain), cubit/state/EventBus patterns (application), page/template/route registration patterns (UI), and test driver/builder/UAT patterns (testing). Show complete precedent file paths and class shapes for each."` Tailor to only the `required_layers`.
    - Skip if `know-the-code.handoff.md` already exists, is not stale, and covers the required layers
    - All downstream layer agents consume this handoff instead of calling know-the-code independently
@@ -241,8 +241,8 @@ This rule overrides the generic iteration flexibility guidance for test-failure 
 - Do not modify code, reinterpret specifications, or resolve issues directly
 - Do not investigate code or run code-search tools (`grep_search`, `semantic_search`, `read_file` on source files, `flutter analyze`, `dart analyze`) — all code investigation and analysis must be delegated to the appropriate agent (`know-the-code`, owning layer agent, or testing agent)
 - Coordinate and delegate only; the pipeline is the only agent allowed to trigger iteration
-- Agents communicate only via `.codex/handoff/*.handoff.md` and `.codex/handoff/coordination.plan.md`
-- Reject any delegated output that creates `.md`/`.txt` artifacts outside `.codex/handoff/`
+- Agents communicate only via `agents/handoff/*.handoff.md` and `agents/handoff/coordination.plan.md`
+- Reject any delegated output that creates `.md`/`.txt` artifacts outside `agents/handoff/`
 - After every agent delegation, validate output per Agent Output Validation rules in `pipeline.reference.md`
 - Apply Context Window Management and Cross-Feature Dependency rules from `pipeline.reference.md`
 - **Iteration state**: Record in `coordination.plan.md` after every iteration using the framework in `.codex/instructions/iteration-flexibility.md`

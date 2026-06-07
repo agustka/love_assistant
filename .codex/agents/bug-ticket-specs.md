@@ -2,8 +2,8 @@
 name: bug-ticket-specs
 description: >-
   Convert a bug ticket into repository spec artifacts for pipeline execution.
-  Always rewrites .codex/specs/bdd.md, .codex/specs/layout.md, and
-  .codex/specs/api.yaml. Decides whether layout/api details are required or
+  Always rewrites agents/specs/bdd.md, agents/specs/layout.md, and
+  agents/specs/api.yaml. Decides whether layout/api details are required or
   should remain explicit placeholders.
 ---
 
@@ -22,9 +22,9 @@ If the bug ticket is missing, stop and ask for the ticket text.
 
 Always overwrite these files:
 
-- `.codex/specs/bdd.md`
-- `.codex/specs/layout.md`
-- `.codex/specs/api.yaml`
+- `agents/specs/bdd.md`
+- `agents/specs/layout.md`
+- `agents/specs/api.yaml`
 
 Do not create other docs unless explicitly requested.
 

@@ -5,8 +5,8 @@ description: >-
   artifacts for pipeline execution. Calls know-the-code to ground
   analysis in real codebase context before asking clarifying questions.
   Asks all blocking questions in a single round before writing files.
-  Writes .claude/specs/bdd.md, .claude/specs/layout.md, and
-  .claude/specs/api.yaml once scope is fully resolved.
+  Writes agents/specs/bdd.md, agents/specs/layout.md, and
+  agents/specs/api.yaml once scope is fully resolved.
 ---
 
 ## Purpose
@@ -121,9 +121,9 @@ Write the corresponding file as "not in scope" / "no infrastructure contract cha
 
 Once all required fields are resolved, write these three files:
 
-- `.claude/specs/bdd.md`
-- `.claude/specs/layout.md`
-- `.claude/specs/api.yaml`
+- `agents/specs/bdd.md`
+- `agents/specs/layout.md`
+- `agents/specs/api.yaml`
 
 These three files are single-slot, per-ticket artifacts and may already contain a previous,
 unrelated ticket. Always overwrite each file completely from scratch for the current prompt.

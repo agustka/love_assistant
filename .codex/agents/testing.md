@@ -23,7 +23,7 @@ It is the source of truth for **behavior correctness**.
 ## Input
 
 - .codex/skills/bdd-ac-testing/SKILL.md (required)
-- .codex/handoff/coordination.plan.md (required — provides `required_layers`, `work_type`, and `tdd_phase` to scope testing)
+- agents/handoff/coordination.plan.md (required — provides `required_layers`, `work_type`, and `tdd_phase` to scope testing)
 - Layer handoffs (required only for layers listed in `required_layers`; not required in scaffold mode):
   - domain.handoff.md, application.handoff.md, ui.handoff.md, infrastructure.handoff.md
 
@@ -37,7 +37,7 @@ It is the source of truth for **behavior correctness**.
     - entity tests under `test/domain/<feature>/entities/` (only when entity business logic exists)
     - golden tests under `test/presentation/<feature>/` (when UI handoff is present)
 
-- .codex/handoff/testing.handoff.md
+- agents/handoff/testing.handoff.md
 
 ---
 
@@ -50,8 +50,8 @@ These rules are non-negotiable. Violation of any one is a hard failure.
 3. **Skills are mandatory format contracts.** Follow the exact templates in the referenced skills for file location, import structure, class shape, and naming. Deviations are invalid output.
 4. **Do not modify implementation code** — only test code.
 5. **Do not create tests outside allowed paths**: `test/user_acceptance_tests/`, `test/domain/<feature>/value_objects/`, `test/domain/<feature>/entities/`, `test/presentation/<feature>/`. Forbidden: `test/domain/**/use_cases/`, `test/application/**`, `test/infrastructure/**`.
-6. **Inter-agent communication only through** `.codex/handoff/*.handoff.md`.
-7. **No standalone reports** outside `.codex/handoff/`.
+6. **Inter-agent communication only through** `agents/handoff/*.handoff.md`.
+7. **No standalone reports** outside `agents/handoff/`.
 8. **Write tests directly to their final suite path — in every mode, including scaffold.** No temporary, scratch, or staging directories. A failing test in the right place is correct TDD; an orphaned test in a scratch folder is a hard failure.
 9. **NEVER use `_scaffold` in test file names.** Test files must always be named `<page>_test.dart` — never `<page>_scaffold_test.dart`, `<page>_scaffold.dart`, or any variant containing `scaffold`. This applies in ALL modes including scaffold mode. The scaffold mode controls the *body* of the test (e.g. `markTestSkipped`), not the file name.
 10. **Every `testWidgets` body in `test/user_acceptance_tests/` MUST contain `// Given`, `// When`, and `// Then` comments** — aligned to the AC wording from `bdd.md`. This is mandatory in every mode: scaffold, generative, and regression. Omitting these comments is a hard failure.
@@ -88,7 +88,7 @@ Execute existing tests against changed code. Do not generate new tests unless pu
 
 ## Convention Discovery
 
-Before generating any test code, read `.codex/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the testing conventions (driver class structure, offline client setup, builder class shape, UAT test file composition). If the handoff does not cover testing conventions or is missing, call the **know-the-code agent** as a fallback with:
+Before generating any test code, read `agents/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the testing conventions (driver class structure, offline client setup, builder class shape, UAT test file composition). If the handoff does not cover testing conventions or is missing, call the **know-the-code agent** as a fallback with:
 
 > "What are the test driver, builder, and acceptance test conventions for the `<feature>` area? Show me a complete precedent: driver class structure, offline client setup, builder class shape, and a UAT test file showing how scenarios are composed."
 
@@ -173,7 +173,7 @@ When tests fail:
 
 ## Handoff Contract
 
-Produce `.codex/handoff/testing.handoff.md` with:
+Produce `agents/handoff/testing.handoff.md` with:
 
 - summary
 - artifacts (tests created/modified)

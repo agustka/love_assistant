@@ -58,8 +58,10 @@ Treat these as existing debt unless the change makes the coupling worse.
 
 ### Navigation model
 
-- Plain `MaterialApp.routes` map keyed by `PageName.x.route`
+- `MaterialApp.routes` / `CupertinoApp.routes` are built from route/page descriptors keyed by `PageName.x.route`
 - `PageName` enum lives in `lib/presentation/core/app.dart`
+- The route/page descriptor centralizes route name, page construction, page identity key, page type support, and transition semantics
+- Page identity keys used by driver assertions must not be passed into templates; descriptors and page constructors own identity
 - Navigation is done via `App.navigatorKey.currentState?.pushNamed(...)` / `pushReplacementNamed(...)` directly
 - There is **no** `Navigation` cubit/service, `RouteLink`, `NamedRoute`, or `RouteArguments` in this codebase
 
@@ -110,6 +112,9 @@ For `lib/presentation/**` changes:
 - pages build definitions/organisms/molecules from state and pass them into the template — no atoms or raw layout widgets composed directly at page level
 - design tokens from `LaTheme` / `LaPadding` etc. instead of hardcoded values
 - no `EdgeInsets`/`SizedBox` at page level — that's a template/organism concern
+- page identity keys are not threaded into templates; route/page descriptors and page constructors provide identity for tests
+- shared atomic components use app atoms when atom equivalents exist (for example `LaTextAtom` instead of raw `Text`), except atom internals that necessarily wrap Flutter primitives
+- organisms do not expose static methods that fabricate definitions; reusable definition construction belongs in definition classes or page-built definition objects
 - **every widget is a classified tier** (atom/molecule/organism/template) — there is no unclassified "loose page widget". Flag any widget under a feature `lib/presentation/<feature>/widgets/` folder (or a `part of` page side-widget, or a private page-level class) whose build is a **pure composition of atoms** (only `La*Atom`s + callbacks, no organisms/molecules, no domain knowledge). That is a misplaced molecule: it must live in `lib/presentation/core/ui_components/molecules/` as a public, feature-agnostic component. Report as a **violation** with recommended action "extract to shared molecule". Feature `widgets/` may hold only feature-specific organisms and side-widgets composing molecules/organisms/definitions/templates.
 
 Source: `lib/presentation/CLAUDE.md` ("Every widget is a classified tier — no unclassified widgets next to pages").

@@ -11,7 +11,7 @@ description: >-
 
 1. **Never edit code.** Do not create, patch, insert into, or replace any
    production file, test, spec, agent file, or documentation. The only
-   permitted write target is `.codex/handoff/know-the-code.handoff.md`,
+   permitted write target is `agents/handoff/know-the-code.handoff.md`,
    and only when a handoff is explicitly requested or the pipeline agent
    calls for multi-layer discovery. All other write tool calls are forbidden.
 2. **Never guess.** Every claim must be backed by a file reference. If the
@@ -81,7 +81,7 @@ Return inline in context. Use this structure; omit sections that add no value:
 
 ### Handoff File format
 
-Write to `.codex/handoff/know-the-code.handoff.md`.
+Write to `agents/handoff/know-the-code.handoff.md`.
 
 When the **pipeline agent** requests multi-layer convention discovery,
 structure the handoff with one section per layer so downstream agents
@@ -214,5 +214,5 @@ so callers know it exists and can make an informed decision.
   is more useful than a missing one.
 - Do not write handoff files unless explicitly requested or called by
   the pipeline agent for multi-layer discovery.
-- Do not write to any path other than `.codex/handoff/know-the-code.handoff.md`.
+- Do not write to any path other than `agents/handoff/know-the-code.handoff.md`.
   Any other use of `create_file` or any other write tool is forbidden.

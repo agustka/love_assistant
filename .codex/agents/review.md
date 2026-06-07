@@ -26,14 +26,14 @@ It acts as a **gatekeeper** before code is accepted or further processing contin
 ## Input
 
 - uncommitted diff (new and modified files not yet checked in, obtained via `git-diff` skill against the main branch)
-- .codex/specs/bdd.md
-- .codex/specs/api.yaml
-- .codex/specs/layout.md (when present — used to validate UI layout correctness)
-- .codex/handoff/coordination.plan.md (required — provides `required_layers` and `work_type` to scope review)
-- .codex/handoff/infrastructure.handoff.md
-- .codex/handoff/domain.handoff.md
-- .codex/handoff/application.handoff.md
-- .codex/handoff/ui.handoff.md
+- agents/specs/bdd.md
+- agents/specs/api.yaml
+- agents/specs/layout.md (when present — used to validate UI layout correctness)
+- agents/handoff/coordination.plan.md (required — provides `required_layers` and `work_type` to scope review)
+- agents/handoff/infrastructure.handoff.md
+- agents/handoff/domain.handoff.md
+- agents/handoff/application.handoff.md
+- agents/handoff/ui.handoff.md
 
 Only handoffs for layers listed in `required_layers` from the coordination plan are reviewed. Non-required layers are ignored.
 
@@ -41,7 +41,7 @@ Only handoffs for layers listed in `required_layers` from the coordination plan 
 
 ## Output
 
-- .codex/handoff/review.handoff.md
+- agents/handoff/review.handoff.md
 
 The output must be a structured contract that:
 - lists all findings
@@ -80,8 +80,8 @@ The agent must:
 - Treat missing or unclear specification as a failure condition
 - If API usage is detected in code but not defined in `api.yaml` → flag as violation
 - **Only evaluate files present in the diff. Do not read beyond the diff boundary.**
-- Inter-agent communication is allowed only through `.codex/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.codex/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `agents/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `agents/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 
 ---

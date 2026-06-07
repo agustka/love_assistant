@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/login_cubit.dart';
 import 'package:la/presentation/auth/widgets/login_form_organism.dart';
 import 'package:la/presentation/core/app.dart';
+import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
-import 'package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/setup.dart';
 
@@ -28,7 +28,7 @@ class LoginPage extends StatefulWidget {
   static const String emailFieldId = "login_email_field";
   static const String passwordFieldId = "login_password_field";
 
-  const LoginPage({super.key});
+  const LoginPage({super.key = pageKey});
 
   @override
   State<LoginPage> createState() {
@@ -68,25 +68,26 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (BuildContext context, LoginState state) {
-          return LaEventBusListener<LoginNavigateToMainEvent>(
-            onMessage: (LoginNavigateToMainEvent event) => _onNavigateToMain(context),
-            child: LaEventBusListener<LoginNavigateToEmailConfirmationEvent>(
-              onMessage: (LoginNavigateToEmailConfirmationEvent event) =>
-                  _onNavigateToEmailConfirmation(context, event),
-              child: LaEventBusListener<LoginEvent>(
-                onMessage: _onLoginEvent,
-                child: LaDefaultPageTemplate(
-                  key: LoginPage.pageKey,
-                  paddingPreset: LaDefaultPageTemplatePadding.medium,
-                  appBar: LaAppBarOrganism(
-                    style: AppBarStyle.background,
-                    action: LaLanguageAppBarActionOrganism.action(context),
-                  ),
-                  bottomButtons: _bottomButtons(context, state),
-                  child: LoginFormOrganism(
-                    definition: _formDefinition(context, state),
-                  ),
-                ),
+          return LaMultiEventBusListener(
+            listeners: [
+              LaTypedEventBusListenerDefinition<LoginNavigateToMainEvent>(
+                onMessage: (LoginNavigateToMainEvent event) => _onNavigateToMain(context),
+              ),
+              LaTypedEventBusListenerDefinition<LoginNavigateToEmailConfirmationEvent>(
+                onMessage: (LoginNavigateToEmailConfirmationEvent event) =>
+                    _onNavigateToEmailConfirmation(context, event),
+              ),
+              LaTypedEventBusListenerDefinition<LoginEvent>(onMessage: _onLoginEvent),
+            ],
+            child: LaDefaultPageTemplate(
+              paddingPreset: LaDefaultPageTemplatePadding.medium,
+              appBar: LaAppBarOrganism(
+                style: AppBarStyle.background,
+                action: LaLanguageAppBarActionDefinition(context, showsIcon: false),
+              ),
+              bottomButtons: _bottomButtons(context, state),
+              child: LoginFormOrganism(
+                definition: _formDefinition(context, state),
               ),
             ),
           );

@@ -33,6 +33,122 @@ enum PageName {
   const PageName(this.route);
 }
 
+enum AppPageType {
+  cupertino,
+  material,
+}
+
+enum AppPageTransition {
+  platformDefault,
+}
+
+class AppPageDescriptor {
+  final PageName name;
+  final Key? identityKey;
+  final Set<AppPageType> pageTypes;
+  final AppPageTransition transition;
+  final Widget Function(BuildContext context, Key? identityKey) builder;
+
+  String get route {
+    return name.route;
+  }
+
+  const AppPageDescriptor({
+    required this.name,
+    required this.builder,
+    this.identityKey,
+    this.pageTypes = const {
+      AppPageType.cupertino,
+      AppPageType.material,
+    },
+    this.transition = AppPageTransition.platformDefault,
+  });
+
+  bool supports(AppPageType pageType) {
+    return pageTypes.contains(pageType);
+  }
+
+  Widget build(BuildContext context) {
+    return builder(context, identityKey);
+  }
+}
+
+class AppPages {
+  static const List<AppPageDescriptor> all = [
+    AppPageDescriptor(
+      name: PageName.splash,
+      builder: _splash,
+    ),
+    AppPageDescriptor(
+      name: PageName.landing,
+      identityKey: LandingPage.pageKey,
+      builder: _landing,
+    ),
+    AppPageDescriptor(
+      name: PageName.main,
+      identityKey: MainPage.pageKey,
+      builder: _main,
+    ),
+    AppPageDescriptor(
+      name: PageName.wizard,
+      identityKey: WizardPage.pageKey,
+      builder: _wizard,
+    ),
+    AppPageDescriptor(
+      name: PageName.login,
+      identityKey: LoginPage.pageKey,
+      builder: _login,
+    ),
+    AppPageDescriptor(
+      name: PageName.signUp,
+      identityKey: SignUpPage.pageKey,
+      builder: _signUp,
+    ),
+    AppPageDescriptor(
+      name: PageName.emailConfirmation,
+      identityKey: EmailConfirmationPage.pageKey,
+      builder: _emailConfirmation,
+    ),
+  ];
+
+  const AppPages._();
+
+  static Map<String, WidgetBuilder> routesFor(AppPageType pageType) {
+    return {
+      for (final AppPageDescriptor page in all)
+        if (page.supports(pageType)) page.route: page.build,
+    };
+  }
+
+  static Widget _splash(BuildContext context, Key? identityKey) {
+    return SplashPage(key: identityKey);
+  }
+
+  static Widget _landing(BuildContext context, Key? identityKey) {
+    return LandingPage(key: identityKey);
+  }
+
+  static Widget _main(BuildContext context, Key? identityKey) {
+    return MainPage(key: identityKey);
+  }
+
+  static Widget _wizard(BuildContext context, Key? identityKey) {
+    return WizardPage(key: identityKey);
+  }
+
+  static Widget _login(BuildContext context, Key? identityKey) {
+    return LoginPage(key: identityKey);
+  }
+
+  static Widget _signUp(BuildContext context, Key? identityKey) {
+    return SignUpPage(key: identityKey);
+  }
+
+  static Widget _emailConfirmation(BuildContext context, Key? identityKey) {
+    return EmailConfirmationPage(key: identityKey);
+  }
+}
+
 class App extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static UserLocale? userLocale;
@@ -78,15 +194,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         ? CupertinoApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
             navigatorKey: App.navigatorKey,
-            routes: {
-              PageName.splash.route: (BuildContext context) => const SplashPage(),
-              PageName.landing.route: (BuildContext context) => const LandingPage(),
-              PageName.main.route: (BuildContext context) => const MainPage(),
-              PageName.wizard.route: (BuildContext context) => const WizardPage(),
-              PageName.login.route: (BuildContext context) => const LoginPage(),
-              PageName.signUp.route: (BuildContext context) => const SignUpPage(),
-              PageName.emailConfirmation.route: (BuildContext context) => const EmailConfirmationPage(),
-            },
+            routes: AppPages.routesFor(AppPageType.cupertino),
             initialRoute: PageName.splash.route,
             localizationsDelegates: const [
               S.delegate,
@@ -102,15 +210,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         : MaterialApp(
             onGenerateTitle: (BuildContext context) => S.of(context).app_name,
             navigatorKey: App.navigatorKey,
-            routes: {
-              PageName.splash.route: (BuildContext context) => const SplashPage(),
-              PageName.landing.route: (BuildContext context) => const LandingPage(),
-              PageName.main.route: (BuildContext context) => const MainPage(),
-              PageName.wizard.route: (BuildContext context) => const WizardPage(),
-              PageName.login.route: (BuildContext context) => const LoginPage(),
-              PageName.signUp.route: (BuildContext context) => const SignUpPage(),
-              PageName.emailConfirmation.route: (BuildContext context) => const EmailConfirmationPage(),
-            },
+            routes: AppPages.routesFor(AppPageType.material),
             initialRoute: PageName.splash.route,
             localizationsDelegates: const [
               S.delegate,

@@ -16,10 +16,10 @@ A procedural guide for investigating this Flutter codebase before answering ques
 ## Handoff I/O Contract
 
 - Primary input: the current caller prompt/request.
-- Do not use `.codex/handoff/know-the-code.handoff.md` as implicit input for new investigations.
+- Do not use `agents/handoff/know-the-code.handoff.md` as implicit input for new investigations.
 - Reuse prior handoff content only when continuation is explicitly requested and still in scope.
 - Output mode is caller-selected: `direct` (default) or `handoff`.
-- Write `.codex/handoff/know-the-code.handoff.md` only when the caller explicitly requests handoff output.
+- Write `agents/handoff/know-the-code.handoff.md` only when the caller explicitly requests handoff output.
 - For `direct` output, return findings in context and do not create/update handoff files.
 
 ---
@@ -100,7 +100,7 @@ If caller requests `direct` output (default), answer in context with:
 - **Confirmed vs Inferred** — facts vs inference
 - **Variations/Caveats** — uncertainty or competing patterns
 
-If caller requests `handoff` output, write `.codex/handoff/know-the-code.handoff.md` using this structure:
+If caller requests `handoff` output, write `agents/handoff/know-the-code.handoff.md` using this structure:
 
 - **Request/Question** — direct framing of what was asked
 - **Findings** — key files, classes, symbols, and evidence

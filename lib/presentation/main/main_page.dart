@@ -6,13 +6,12 @@ import 'package:la/presentation/main/widgets/main_under_construction_organism.da
 class MainPage extends StatelessWidget {
   static const Key pageKey = Key("MainPage_page");
 
-  const MainPage({super.key});
+  const MainPage({super.key = pageKey});
 
   @override
   Widget build(BuildContext context) {
     final S strings = S.of(context);
     return LaDefaultPageTemplate(
-      key: pageKey,
       centerContent: true,
       scrollable: false,
       child: MainUnderConstructionOrganism(

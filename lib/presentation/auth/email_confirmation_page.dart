@@ -23,7 +23,7 @@ class EmailConfirmationPage extends StatefulWidget {
   static const Key resendSuccessKey = Key("email_confirmation_resend_success");
   static const Key resendErrorKey = Key("email_confirmation_resend_error");
 
-  const EmailConfirmationPage({super.key});
+  const EmailConfirmationPage({super.key = pageKey});
 
   @override
   State<EmailConfirmationPage> createState() {
@@ -45,19 +45,22 @@ class _EmailConfirmationPageState extends State<EmailConfirmationPage> {
       },
       child: BlocBuilder<EmailConfirmationCubit, EmailConfirmationState>(
         builder: (BuildContext context, EmailConfirmationState state) {
-          return LaEventBusListener<EmailConfirmationNavigateToMainEvent>(
-            onMessage: (EmailConfirmationNavigateToMainEvent event) => _onNavigateToMain(context),
-            child: LaEventBusListener<EmailConfirmationResendSucceededEvent>(
-              onMessage: (EmailConfirmationResendSucceededEvent event) => _onResendOutcome(_ResendOutcome.succeeded),
-              child: LaEventBusListener<EmailConfirmationResendFailedEvent>(
+          return LaMultiEventBusListener(
+            listeners: [
+              LaTypedEventBusListenerDefinition<EmailConfirmationNavigateToMainEvent>(
+                onMessage: (EmailConfirmationNavigateToMainEvent event) => _onNavigateToMain(context),
+              ),
+              LaTypedEventBusListenerDefinition<EmailConfirmationResendSucceededEvent>(
+                onMessage: (EmailConfirmationResendSucceededEvent event) => _onResendOutcome(_ResendOutcome.succeeded),
+              ),
+              LaTypedEventBusListenerDefinition<EmailConfirmationResendFailedEvent>(
                 onMessage: (EmailConfirmationResendFailedEvent event) => _onResendOutcome(_ResendOutcome.failed),
-                child: LaAuthTemplate(
-                  key: EmailConfirmationPage.pageKey,
-                  title: S.of(context).auth_email_confirmation_title,
-                  child: EmailConfirmationOrganism(
-                    definition: _definition(context, state),
-                  ),
-                ),
+              ),
+            ],
+            child: LaAuthTemplate(
+              title: S.of(context).auth_email_confirmation_title,
+              child: EmailConfirmationOrganism(
+                definition: _definition(context, state),
               ),
             ),
           );

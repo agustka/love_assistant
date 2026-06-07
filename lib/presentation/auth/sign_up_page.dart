@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la/application/core/auth/sign_up_cubit.dart';
 import 'package:la/presentation/auth/widgets/sign_up_form_organism.dart';
 import 'package:la/presentation/core/app.dart';
+import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
-import 'package:la/presentation/core/ui_components/organisms/la_language_app_bar_action_organism.dart';
 import 'package:la/presentation/core/ui_components/templates/la_default_page_template.dart';
 import 'package:la/setup.dart';
 
@@ -24,7 +24,7 @@ class SignUpPage extends StatefulWidget {
   static const String emailFieldId = "sign_up_email_field";
   static const String passwordFieldId = "sign_up_password_field";
 
-  const SignUpPage({super.key});
+  const SignUpPage({super.key = pageKey});
 
   @override
   State<SignUpPage> createState() {
@@ -67,11 +67,10 @@ class _SignUpPageState extends State<SignUpPage> {
           return LaEventBusListener<SignUpNavigateToConfirmationEvent>(
             onMessage: (SignUpNavigateToConfirmationEvent event) => _onNavigateToConfirmation(context, event),
             child: LaDefaultPageTemplate(
-              key: SignUpPage.pageKey,
               padding: const EdgeInsets.symmetric(horizontal: LaPadding.medium, vertical: LaPadding.medium),
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
-                action: LaLanguageAppBarActionOrganism.action(context),
+                action: LaLanguageAppBarActionDefinition(context, showsIcon: false),
               ),
               bottomButtons: _bottomButtons(context, state),
               child: SignUpFormOrganism(

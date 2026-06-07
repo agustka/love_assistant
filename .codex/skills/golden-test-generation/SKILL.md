@@ -19,7 +19,7 @@ Golden tests differ from UI component goldens (which test individual atoms/molec
 
 ## Input
 
-- UI handoff (handoff/ui.handoff.md) — pages and their visual states
+- UI handoff (agents/handoff/ui.handoff.md) — pages and their visual states
 - Once a UAT framework exists: any existing page drivers/builders. Until then, instantiate the page widget directly inside a `MaterialApp` with the project theme.
 
 ---

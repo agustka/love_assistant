@@ -20,9 +20,9 @@ class LaLinkPromptMolecule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle promptStyle = LaTheme.font.body16;
-    final TextStyle actionStyle = LaTheme.font.body16.copyWith(fontWeight: FontWeight.w700);
-    final Color actionColor = actionStyle.color ?? LaTheme.onSurface();
+    const LaTextAtomStyle promptStyle = LaTextAtomStyle.body16;
+    final LaTextAtomStyle actionStyle = LaTextAtomStyle.body16.bold;
+    final Color actionColor = actionStyle.resolve().color ?? LaTheme.onSurface();
 
     return LaCenterAtom(
       child: LaTapVisualAtom(
@@ -35,7 +35,7 @@ class LaLinkPromptMolecule extends StatelessWidget {
               spacing: LaPadding.extraSmall,
               runSpacing: LaPadding.extraSmall,
               children: [
-                Text(prompt, key: promptKey, style: promptStyle, textAlign: TextAlign.center),
+                LaTextAtom(prompt, key: promptKey, style: promptStyle, textAlign: TextAlign.center),
                 _LinkLabel(
                   key: actionKey,
                   text: actionText,
@@ -53,7 +53,7 @@ class LaLinkPromptMolecule extends StatelessWidget {
 
 class _LinkLabel extends StatelessWidget {
   final String text;
-  final TextStyle style;
+  final LaTextAtomStyle style;
   final Color underlineColor;
 
   const _LinkLabel({
@@ -70,7 +70,7 @@ class _LinkLabel extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(text, style: style),
+          LaTextAtom(text, style: style),
           const LaSizedBoxAtom(height: LaPadding.extraSmall),
           SizedBox(
             width: double.infinity,

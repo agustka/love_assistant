@@ -1,40 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:la/application/core/language/language_cubit.dart';
-import 'package:la/presentation/core/localization/user_locale.dart';
-import 'package:la/presentation/core/ui_components/import.dart';
+import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/organisms/la_app_bar_organism.dart';
-import 'package:la/setup.dart';
 
-class LaLanguageAppBarActionOrganism {
-  static const Key actionKey = Key("la_language_app_bar_action");
+class LaLanguageAppBarActionOrganism extends StatelessWidget {
+  static const Key actionKey = LaLanguageAppBarActionDefinition.actionKey;
 
-  const LaLanguageAppBarActionOrganism._();
+  final AppBarStyle style;
 
-  static AppBarActionDefinition action(BuildContext context) {
-    return AppBarActionDefinition(
-      key: actionKey,
-      icon: LaIcons.language,
-      onTap: () {
-        LaPicker.showPicker(
-          context,
-          entries: PickerEntries(
-            title: S.of(context).settings_pick_language,
-            entries: _availableLanguages
-                .map(
-                  (Language language) => PickerEntry(
-                    text: language.properName,
-                    svg: language.flagIcon,
-                    onTap: () => getIt<LanguageCubit>().setLanguage(language),
-                  ),
-                )
-                .toList(),
-          ),
-        );
-      },
-    );
-  }
+  const LaLanguageAppBarActionOrganism({
+    super.key,
+    this.style = AppBarStyle.background,
+  });
 
-  static List<Language> get _availableLanguages {
-    return Language.values.where((Language language) => language != Language.invalid).toList();
+  @override
+  Widget build(BuildContext context) {
+    return LaLanguageAppBarActionDefinition(context).toWidget(style: style);
   }
 }

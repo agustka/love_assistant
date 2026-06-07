@@ -23,11 +23,11 @@ This layer orchestrates domain use cases via constructor-injected use case class
 
 ## Input
 
-- .codex/specs/bdd.md (required)
-- .codex/handoff/domain.handoff.md (required)
-- .codex/handoff/ui.handoff.md (optional — consumed during iterations when the UI agent reports gaps such as missing cubit methods, missing state fields, or missing event messages that the presentation layer requires)
-- .codex/handoff/review.handoff.md (optional — consumed during iterations when the review agent reports application-layer violations)
-- .codex/handoff/testing.handoff.md (optional — consumed during iterations when tests report state/flow failures)
+- agents/specs/bdd.md (required)
+- agents/handoff/domain.handoff.md (required)
+- agents/handoff/ui.handoff.md (optional — consumed during iterations when the UI agent reports gaps such as missing cubit methods, missing state fields, or missing event messages that the presentation layer requires)
+- agents/handoff/review.handoff.md (optional — consumed during iterations when the review agent reports application-layer violations)
+- agents/handoff/testing.handoff.md (optional — consumed during iterations when tests report state/flow failures)
 
 ---
 
@@ -38,7 +38,7 @@ This layer orchestrates domain use cases via constructor-injected use case class
     - states
     - event messages (when needed)
 
-- .codex/handoff/application.handoff.md
+- agents/handoff/application.handoff.md
 
 ---
 
@@ -102,8 +102,8 @@ See the `application-event-handling` skill for full patterns and rules.
 - Must not introduce UI components
 - Must not implement business logic that belongs in domain
 - Input validation occurs only on user actions, not during typing (see `application-input-handling` skill)
-- Inter-agent communication is allowed only through `.codex/handoff/*.handoff.md`
-- Do not create or update `.md`/`.txt` artifacts outside `.codex/handoff/` unless explicitly requested by the user
+- Inter-agent communication is allowed only through `agents/handoff/*.handoff.md`
+- Do not create or update `.md`/`.txt` artifacts outside `agents/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - **Scope guard**: Only create or modify files within the current feature's own directory (`lib/application/<feature>/`). Never modify a pre-existing file that belongs to another feature or a shared layer, even if doing so appears to fix a test failure or compilation error. If such a modification seems necessary, stop and report it as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`. Do not proceed until a human resolves it.
 
@@ -119,7 +119,7 @@ The patterns returned by the know-the-code agent represent the actual codebase s
 
 Follow this order when generating application layer code:
 
-1. **Convention baseline** — read `.codex/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the application conventions (DI annotations, IsbCubit base class, state shape, copyWith, EventBus or ScopedEventBus usage, stream subscription patterns). If the handoff does not cover application conventions or is missing, call the know-the-code agent as a fallback with: `"What is the cubit and state convention for the <feature> area? Show me a complete precedent cubit file: DI annotations, IsbCubit base class, state shape, copyWith, EventBus or ScopedEventBus usage, and any stream subscription patterns."`
+1. **Convention baseline** — read `agents/handoff/know-the-code.handoff.md` (produced by the pipeline before implementation begins). Extract the application conventions (DI annotations, IsbCubit base class, state shape, copyWith, EventBus or ScopedEventBus usage, stream subscription patterns). If the handoff does not cover application conventions or is missing, call the know-the-code agent as a fallback with: `"What is the cubit and state convention for the <feature> area? Show me a complete precedent cubit file: DI annotations, IsbCubit base class, state shape, copyWith, EventBus or ScopedEventBus usage, and any stream subscription patterns."`
 2. **application-state-modeling** — derive state class and status enum from BDD scenarios + domain handoff
 3. **cubit-generation** — build cubit class that orchestrates domain use cases and emits state transitions
 4. **application-event-handling** — define messages for one-shot events (errors, success, navigation, scroll)
@@ -151,7 +151,7 @@ Gaps must be recorded in the handoff under the `gaps` section with enough detail
 
 ## Handoff Contract
 
-Produce `.codex/handoff/application.handoff.md` with:
+Produce `agents/handoff/application.handoff.md` with:
 
 - summary
 - artifacts (cubits, states, and message files created or modified)

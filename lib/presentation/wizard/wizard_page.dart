@@ -14,6 +14,7 @@ import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/domain/wizard/entities/wizard_config.dart';
 import 'package:la/presentation/core/app.dart';
 import 'package:la/presentation/core/dialogs/import.dart';
+import 'package:la/presentation/core/ui_components/definitions/la_language_app_bar_action_definition.dart';
 import 'package:la/presentation/core/ui_components/import.dart';
 import 'package:la/presentation/core/ui_components/molecules/import.dart';
 import 'package:la/presentation/core/ui_components/organisms/import.dart';
@@ -57,7 +58,7 @@ class WizardPage extends StatefulWidget {
 
   static const String partnerRelationshipTypeId = "WizardStep5_partnerRelationshipTypeId";
 
-  const WizardPage({super.key});
+  const WizardPage({super.key = pageKey});
 
   @override
   State<WizardPage> createState() => _WizardPageState();
@@ -84,7 +85,6 @@ class _WizardPageState extends State<WizardPage> {
         builder: (BuildContext context, WizardState state) {
           if (state.status == WizardStatus.loading) {
             return LaWizardTemplate(
-              key: WizardPage.pageKey,
               body: LaPagerOrganism(
                 itemCount: 0,
                 itemBuilder: (BuildContext context, int index) => _buildStep(state, index),
@@ -99,11 +99,10 @@ class _WizardPageState extends State<WizardPage> {
             onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
             onInitialSetupCompleted: (UserPartnerProfile profile) => _onInitialSetupCompleted(context, profile),
             child: LaWizardTemplate(
-              key: WizardPage.pageKey,
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
                 showBack: false,
-                action: LaLanguageAppBarActionOrganism.action(context),
+                action: LaLanguageAppBarActionDefinition(context),
               ),
               bottomButtons: _getBottomButtons(context, state),
               body: LaPagerOrganism(
@@ -288,21 +287,23 @@ class _WizardPageEventListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LaEventBusListener<WizardEventGoToPage>(
-      onMessage: (WizardEventGoToPage event) {
-        pageController.animateToPage(
-          event.page,
-          duration: 300.milliseconds,
-          curve: Curves.easeInOut,
-        );
-      },
-      child: LaEventBusListener<WizardEvent>(
-        onMessage: onWizardMessage,
-        child: LaEventBusListener<WizardInitialSetupCompletedEvent>(
-          onMessage: (WizardInitialSetupCompletedEvent event) => onInitialSetupCompleted(event.profile),
-          child: child,
+    return LaMultiEventBusListener(
+      listeners: [
+        LaTypedEventBusListenerDefinition<WizardEventGoToPage>(
+          onMessage: (WizardEventGoToPage event) {
+            pageController.animateToPage(
+              event.page,
+              duration: 300.milliseconds,
+              curve: Curves.easeInOut,
+            );
+          },
         ),
-      ),
+        LaTypedEventBusListenerDefinition<WizardEvent>(onMessage: onWizardMessage),
+        LaTypedEventBusListenerDefinition<WizardInitialSetupCompletedEvent>(
+          onMessage: (WizardInitialSetupCompletedEvent event) => onInitialSetupCompleted(event.profile),
+        ),
+      ],
+      child: child,
     );
   }
 }
