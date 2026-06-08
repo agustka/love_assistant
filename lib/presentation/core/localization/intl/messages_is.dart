@@ -354,6 +354,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "Prófíll maka þíns er tilbúinn",
     ),
     "landing_title_named": m1,
+    "main_profile_completion_cta_action": MessageLookupByLibrary.simpleMessage(
+      "Klára prófíl",
+    ),
+    "main_profile_completion_cta_dismiss_semantic_label":
+        MessageLookupByLibrary.simpleMessage("Loka prófílábendingu"),
+    "main_profile_completion_cta_message": MessageLookupByLibrary.simpleMessage(
+      "Bættu við nokkrum atriðum svo BetterHalf geti undirbúið tillögur sem passa maka þínum.",
+    ),
+    "main_profile_completion_cta_title": MessageLookupByLibrary.simpleMessage(
+      "Kláraðu prófíl maka þíns",
+    ),
     "main_title": MessageLookupByLibrary.simpleMessage("Aðalforrit"),
     "main_under_construction_message": MessageLookupByLibrary.simpleMessage(
       "Þessi hluti appsins er ekki tilbúinn enn.",

@@ -57,6 +57,7 @@ You are working in the **APPLICATION LAYER** - the orchestration and state manag
 - Expose public methods that handle user actions or external events
 - Use `emit()` to update state in response to events or data changes
 - Subscribe to repository streams and handle their payloads in private listener methods
+- Name payload/data receiver methods with `receive`, for example `_receiveProfile(StreamPayload<UserPartnerProfile> payload)`. Reserve the `on` prefix for user actions and UI callbacks such as `onTap`, `onLongPress`, and `onProfileCtaActionTap`.
 - Use private helper methods (prefixed with `_`) for internal logic and stream handlers
 
 **Important Lifecycle Rules:**

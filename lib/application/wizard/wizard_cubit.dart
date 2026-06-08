@@ -62,8 +62,11 @@ class WizardCubit extends BaseCubit<WizardState> {
       partnerBirthday: profile.partnerBirthday,
       partnerLoveLanguages: profile.partnerLoveLanguages,
       partnerToneOfVoice: profile.partnerToneOfVoice,
+      partnerHobbies: profile.partnerHobbies,
       partnerFavoriteFoods: profile.partnerFavoriteFoods,
       partnerGiftCategories: profile.partnerGiftCategories,
+      partnerAnniversary: profile.partnerAnniversary ?? DateTime(1800),
+      relationshipType: profile.relationshipType,
     );
   }
 
@@ -72,17 +75,9 @@ class WizardCubit extends BaseCubit<WizardState> {
     final WizardStep currentStep = config.visibleSteps[currentPage];
     final int nextStepIndex = currentPage + 1;
 
-    if (nextStepIndex >= config.visibleSteps.length) {
-      if (state.isInitial) {
-        await _completeInitialSetup();
-      }
-      return;
-    }
-
     if (!_validateCurrentStep(currentStep)) {
       final bool missingName = state.partnerName.isEmpty;
       final bool missingPronoun = !state.partnerPronoun.hasPronoun(state.customPronoun);
-      final bool missingBirthday = state.partnerBirthday.year <= 1800;
       if (currentStep.index == 1) {
         if (missingName) {
           getIt<EventBus>().fire(WizardEvent.missingName);
@@ -90,9 +85,21 @@ class WizardCubit extends BaseCubit<WizardState> {
         if (missingPronoun) {
           getIt<EventBus>().fire(WizardEvent.missingPronoun);
         }
-        if (missingBirthday && !state.isInitial) {
-          getIt<EventBus>().fire(WizardEvent.missingBirthday);
+      }
+      if (currentStep.index == 2 && _missingDetailedBirthday) {
+        getIt<EventBus>().fire(WizardEvent.missingBirthday);
+      }
+      return;
+    }
+
+    if (nextStepIndex >= config.visibleSteps.length) {
+      if (state.isInitial) {
+        await _completeInitialSetup();
+      } else {
+        if (!_validateDetailedProfileCompletion()) {
+          return;
         }
+        await _completeDetailedProfile();
       }
       return;
     }
@@ -114,7 +121,13 @@ class WizardCubit extends BaseCubit<WizardState> {
     getIt<EventBus>().fire(WizardInitialSetupCompletedEvent(profile: profile));
   }
 
-  UserPartnerProfile _buildPartnerProfile() {
+  Future<void> _completeDetailedProfile() async {
+    final UserPartnerProfile profile = _buildPartnerProfile(detailedProfileCompleted: true);
+    await _saveLocalPartnerProfileUseCase.execute(profile);
+    getIt<EventBus>().fire(WizardDetailedProfileCompletedEvent(profile: profile));
+  }
+
+  UserPartnerProfile _buildPartnerProfile({bool detailedProfileCompleted = false}) {
     return UserPartnerProfile(
       partnerName: state.partnerName,
       partnerPronoun: state.partnerPronoun,
@@ -124,8 +137,30 @@ class WizardCubit extends BaseCubit<WizardState> {
       partnerToneOfVoice: state.partnerToneOfVoice,
       partnerFavoriteFoods: state.partnerFavoriteFoods,
       partnerGiftCategories: state.partnerGiftCategories,
+      partnerHobbies: state.partnerHobbies,
+      partnerAnniversary: state.partnerAnniversary.year > 1800 ? state.partnerAnniversary : null,
+      relationshipType: state.relationshipType,
+      detailedProfileCompleted: detailedProfileCompleted,
     );
   }
+
+  bool _validateDetailedProfileCompletion() {
+    if (state.partnerName.isEmpty) {
+      getIt<EventBus>().fire(WizardEvent.missingName);
+      return false;
+    }
+    if (!state.partnerPronoun.hasPronoun(state.customPronoun)) {
+      getIt<EventBus>().fire(WizardEvent.missingPronoun);
+      return false;
+    }
+    if (_missingDetailedBirthday) {
+      getIt<EventBus>().fire(WizardEvent.missingBirthday);
+      return false;
+    }
+    return true;
+  }
+
+  bool get _missingDetailedBirthday => !state.isInitial && state.partnerBirthday.year <= 1800;
 
   bool _validateCurrentStep(WizardStep step) {
     switch (step.index) {
@@ -139,7 +174,7 @@ class WizardCubit extends BaseCubit<WizardState> {
         if (state.config.mode == WizardMode.initial) {
           return true;
         }
-        return state.partnerBirthday.year > 1800;
+        return !_missingDetailedBirthday;
       case 3:
         return true; // Always valid for preferences step
       case 4:

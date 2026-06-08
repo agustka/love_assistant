@@ -1,9 +1,11 @@
 import 'package:injectable/injectable.dart';
 import 'package:la/domain/core/value_objects/failures/failure.dart';
 import 'package:la/domain/core/value_objects/payload.dart';
+import 'package:la/domain/core/value_objects/stream_payload.dart';
 import 'package:la/domain/wizard/entities/user_partner_profile.dart';
 import 'package:la/infrastructure/wizard/store/i_partner_profile_local_store.dart';
 import 'package:la/setup.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// In-memory partner profile store for the offline (test) environment.
 ///
@@ -14,6 +16,8 @@ import 'package:la/setup.dart';
 @InjectableEnv.offline
 @LazySingleton(as: IPartnerProfileLocalStore)
 class OfflinePartnerProfileLocalStore implements IPartnerProfileLocalStore {
+  final BehaviorSubject<StreamPayload<UserPartnerProfile>> _profileSubject = BehaviorSubject();
+
   UserPartnerProfile? savedProfile;
   bool failOnSave = false;
   bool failOnLoad = false;
@@ -26,6 +30,7 @@ class OfflinePartnerProfileLocalStore implements IPartnerProfileLocalStore {
       return Payload.failure(const Failure("OfflinePartnerProfileLocalStore forced save failure"));
     }
     savedProfile = profile;
+    _profileSubject.add(StreamPayload.success(profile));
     return Payload.success(null);
   }
 
@@ -39,6 +44,14 @@ class OfflinePartnerProfileLocalStore implements IPartnerProfileLocalStore {
       return Payload.success(const UserPartnerProfile.invalid());
     }
     return Payload.success(profile);
+  }
+
+  @override
+  Stream<StreamPayload<UserPartnerProfile>> watchPartnerProfile() {
+    loadPartnerProfile().then((Payload<UserPartnerProfile> payload) {
+      _profileSubject.add(StreamPayload.fromPayload(payload));
+    });
+    return _profileSubject.stream;
   }
 
   @override
