@@ -55,6 +55,7 @@ class MainPage extends StatelessWidget {
     final S strings = S.of(context);
     final bool showProfileCompletionCta =
         mainState.status == MainStatus.loaded &&
+        dismissibleContentState.status == DismissibleContentLocalStatus.loaded &&
         mainState.partnerProfile.incomplete &&
         !dismissibleContentState.isDismissed(profileCompletionCtaDismissibleContentKey);
 
