@@ -16,6 +16,8 @@ import 'package:la/application/core/auth/email_confirmation_cubit.dart'
     as _i344;
 import 'package:la/application/core/auth/login_cubit.dart' as _i323;
 import 'package:la/application/core/auth/sign_up_cubit.dart' as _i249;
+import 'package:la/application/core/dismissible_content/dismissible_content_local_cubit.dart'
+    as _i768;
 import 'package:la/application/core/language/language_cubit.dart' as _i953;
 import 'package:la/application/main/main_cubit.dart' as _i693;
 import 'package:la/application/splash/splash_cubit.dart' as _i247;
@@ -31,11 +33,17 @@ import 'package:la/domain/core/auth/use_cases/has_active_session_use_case.dart'
 import 'package:la/domain/core/auth/use_cases/sign_in_use_case.dart' as _i198;
 import 'package:la/domain/core/auth/use_cases/watch_auth_events_use_case.dart'
     as _i211;
+import 'package:la/domain/core/dismissible_content/use_cases/dismiss_content_use_case.dart'
+    as _i614;
+import 'package:la/domain/core/dismissible_content/use_cases/get_dismissed_content_use_case.dart'
+    as _i177;
 import 'package:la/domain/core/repositories/i_auth_repository.dart' as _i742;
 import 'package:la/domain/wizard/use_cases/get_local_partner_profile_use_case.dart'
     as _i19;
 import 'package:la/domain/wizard/use_cases/save_local_partner_profile_use_case.dart'
     as _i1010;
+import 'package:la/domain/wizard/use_cases/watch_local_partner_profile_use_case.dart'
+    as _i336;
 import 'package:la/infrastructure/core/analytics/repository/i_logging_repository.dart'
     as _i1013;
 import 'package:la/infrastructure/core/analytics/repository/logging_repository.dart'
@@ -52,6 +60,12 @@ import 'package:la/infrastructure/core/auth/session/session_manager.dart'
     as _i693;
 import 'package:la/infrastructure/core/cache/hive_cache.dart' as _i681;
 import 'package:la/infrastructure/core/cache/i_hive_cache.dart' as _i339;
+import 'package:la/infrastructure/core/dismissible_content/store/dismissible_content_local_store.dart'
+    as _i720;
+import 'package:la/infrastructure/core/dismissible_content/store/i_dismissible_content_local_store.dart'
+    as _i841;
+import 'package:la/infrastructure/core/dismissible_content/store/offline/offline_dismissible_content_local_store.dart'
+    as _i768;
 import 'package:la/infrastructure/core/event/event_bus_module.dart' as _i16;
 import 'package:la/infrastructure/core/initialization/initialization_service.dart'
     as _i984;
@@ -110,6 +124,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i817.OfflineAuthService(),
       registerFor: {_offline},
     );
+    gh.lazySingleton<_i841.IDismissibleContentLocalStore>(
+      () => _i768.OfflineDismissibleContentLocalStore(),
+      registerFor: {_offline},
+    );
     gh.lazySingleton<_i1013.ILoggingRepository>(
       () => _i845.LoggingRepository(),
       dispose: (i) => i.dispose(),
@@ -157,9 +175,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i249.SignUpCubit>(
       () => _i249.SignUpCubit(gh<_i103.CreateAccountUseCase>()),
     );
+    gh.lazySingleton<_i841.IDismissibleContentLocalStore>(
+      () => _i720.DismissibleContentLocalStore(gh<_i306.ISharedPrefsWrapper>()),
+      registerFor: {_online},
+    );
     gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
       () => _i1018.PartnerProfileLocalStore(gh<_i306.ISharedPrefsWrapper>()),
       registerFor: {_online},
+    );
+    gh.factory<_i614.DismissContentUseCase>(
+      () => _i614.DismissContentUseCase(
+        gh<_i841.IDismissibleContentLocalStore>(),
+      ),
+    );
+    gh.factory<_i177.GetDismissedContentUseCase>(
+      () => _i177.GetDismissedContentUseCase(
+        gh<_i841.IDismissibleContentLocalStore>(),
+      ),
     );
     gh.factory<_i19.GetLocalPartnerProfileUseCase>(
       () => _i19.GetLocalPartnerProfileUseCase(
@@ -171,11 +203,22 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i667.IPartnerProfileLocalStore>(),
       ),
     );
+    gh.factory<_i336.WatchLocalPartnerProfileUseCase>(
+      () => _i336.WatchLocalPartnerProfileUseCase(
+        gh<_i667.IPartnerProfileLocalStore>(),
+      ),
+    );
+    gh.factory<_i768.DismissibleContentLocalCubit>(
+      () => _i768.DismissibleContentLocalCubit(
+        gh<_i177.GetDismissedContentUseCase>(),
+        gh<_i614.DismissContentUseCase>(),
+      ),
+    );
     gh.factory<_i323.LoginCubit>(
       () => _i323.LoginCubit(gh<_i198.SignInUseCase>()),
     );
     gh.factory<_i693.MainCubit>(
-      () => _i693.MainCubit(gh<_i19.GetLocalPartnerProfileUseCase>()),
+      () => _i693.MainCubit(gh<_i336.WatchLocalPartnerProfileUseCase>()),
     );
     gh.factory<_i167.WizardCubit>(
       () => _i167.WizardCubit(

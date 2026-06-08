@@ -23,6 +23,8 @@ class UserPartnerProfile extends Equatable {
   final bool detailedProfileCompleted;
   final bool valid;
 
+  bool get incomplete => valid && !detailedProfileCompleted;
+
   bool get isInvalid => !valid;
 
   const UserPartnerProfile({

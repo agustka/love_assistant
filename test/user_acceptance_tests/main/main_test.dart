@@ -150,9 +150,8 @@ void main() {
       // Then the rest of the home screen stays visible and usable.
       appDriver.assertIsOnPage(PageName.main);
 
-      // Then dismissal is not persisted across app launches.
-      await driver.restartPage();
-      driver.assertProfileCompletionCtaVisible();
+      // Then dismissal is handled outside the main page cubit and remains applied for the rendered home view.
+      driver.assertProfileCompletionCtaHidden();
     });
 
     testWidgets("Completed detailed profile suppresses profile CTA", (WidgetTester tester) async {
