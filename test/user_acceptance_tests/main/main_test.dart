@@ -104,6 +104,26 @@ void main() {
       wizardDriver.assertOnHobbiesStep();
     });
 
+    testWidgets("Profile CTA action only opens one detailed profile flow on rapid taps", (WidgetTester tester) async {
+      // Given the profile CTA tile is visible at the top of the home screen.
+      final AppDriver appDriver = AppDriver(tester: tester);
+      final MainDriver driver = MainDriver(
+        tester: tester,
+        builders: [
+          PartnerProfileBuilder().profileAlreadyCreated().withSavedProfile(_savedProfile()),
+        ],
+      );
+      await driver.openPage();
+      driver.assertProfileCompletionCtaVisible();
+
+      // When the user taps Finish profile twice before the navigation transition settles.
+      await driver.tapProfileCompletionCtaActionTwiceQuickly();
+
+      // Then the app opens a single detailed wizard route.
+      appDriver.assertIsOnPage(PageName.wizard);
+      driver.assertDetailedWizardOpenedOnce();
+    });
+
     testWidgets("Completing detailed profile removes profile CTA", (WidgetTester tester) async {
       // Given the user completes the detailed partner profile flow.
       final AppDriver appDriver = AppDriver(tester: tester);

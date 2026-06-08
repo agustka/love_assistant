@@ -66,7 +66,6 @@ class MainPage extends StatelessWidget {
         profileCompletionCtaMessage: strings.main_profile_completion_cta_message,
         profileCompletionCtaAction: strings.main_profile_completion_cta_action,
         profileCompletionCtaDismissSemanticLabel: strings.main_profile_completion_cta_dismiss_semantic_label,
-        profileCompletionCtaActionInProgress: mainState.profileCtaActionInProgress,
         profileCompletionCtaKey: profileCompletionCtaKey,
         profileCompletionCtaActionKey: profileCompletionCtaActionKey,
         profileCompletionCtaDismissKey: profileCompletionCtaDismissKey,
@@ -81,18 +80,11 @@ class MainPage extends StatelessWidget {
   }
 
   Future<void> _onOpenDetailedProfileWizard(BuildContext context) async {
-    final MainCubit cubit = context.read<MainCubit>();
-    try {
-      await Navigator.of(context).pushNamed(PageName.wizard.route);
-    } finally {
-      if (context.mounted) {
-        cubit.onProfileCtaActionSettled();
-      }
-    }
+    await Navigator.of(context).pushNamed(PageName.wizard.route);
   }
 }
 
-class _MainPageEventListener extends StatelessWidget {
+class _MainPageEventListener extends StatefulWidget {
   final Future<void> Function() onOpenDetailedProfileWizard;
   final Widget child;
 
@@ -102,14 +94,34 @@ class _MainPageEventListener extends StatelessWidget {
   });
 
   @override
+  State<_MainPageEventListener> createState() => _MainPageEventListenerState();
+}
+
+class _MainPageEventListenerState extends State<_MainPageEventListener> {
+  bool _detailedProfileWizardOpening = false;
+
+  @override
   Widget build(BuildContext context) {
     return LaMultiEventBusListener(
       listeners: [
         LaTypedEventBusListenerDefinition<MainOpenDetailedProfileWizardEvent>(
-          onMessage: (_) => onOpenDetailedProfileWizard(),
+          onMessage: (_) => _openDetailedProfileWizard(),
         ),
       ],
-      child: child,
+      child: widget.child,
     );
+  }
+
+  Future<void> _openDetailedProfileWizard() async {
+    if (_detailedProfileWizardOpening) {
+      return;
+    }
+
+    _detailedProfileWizardOpening = true;
+    try {
+      await widget.onOpenDetailedProfileWizard();
+    } finally {
+      _detailedProfileWizardOpening = false;
+    }
   }
 }

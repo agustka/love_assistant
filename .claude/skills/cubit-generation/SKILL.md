@@ -111,6 +111,9 @@ See the **dependency-injection** skill for the full DI contract. Key rules for c
 | User actions | `on<Action>Tap`, `on<Action>Changed` | `onNameChanged(String)` |
 | Internal handlers | `_receive<DataType>` | `_receiveData(StreamPayload<X>)` |
 
+- Use `receive` for payload and stream data handlers because the cubit receives data from a use case or subscription.
+- Reserve the `on` prefix for user actions and UI callbacks, for example `onTap`, `onLongPress`, and `onProfileCtaActionTap`.
+
 ### Error Handling
 
 - Use `payload.fold(onFailure, onSuccess)` for `Payload<T>`

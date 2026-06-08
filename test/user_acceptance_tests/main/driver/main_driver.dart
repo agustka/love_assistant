@@ -99,6 +99,12 @@ class MainDriver extends BaseDriver {
     await tester.pumpAndSettle();
   }
 
+  Future<void> tapProfileCompletionCtaActionTwiceQuickly() async {
+    await tester.tap(_profileCompletionCtaActionFinder);
+    await tester.tap(_profileCompletionCtaActionFinder, warnIfMissed: false);
+    await tester.pumpAndSettle();
+  }
+
   Future<void> tapProfileCompletionCtaDismiss() async {
     await tester.tap(_profileCompletionCtaDismissFinder);
     await tester.pumpAndSettle();

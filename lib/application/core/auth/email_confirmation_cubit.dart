@@ -39,7 +39,7 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
   void init(EmailPasswordCredentials credentials) {
     emit(state.copyWith(credentials: credentials));
     _authEventsSubscription?.cancel();
-    _authEventsSubscription = _watchAuthEventsUseCase.subscribe().listen(_onAuthEvent);
+    _authEventsSubscription = _watchAuthEventsUseCase.subscribe().listen(_receiveAuthEvent);
   }
 
   Future<void> recheckEmailConfirmation() async {
@@ -81,7 +81,7 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
     getIt<EventBus>().fire(const EmailConfirmationResendFailedEvent());
   }
 
-  void _onAuthEvent(StreamPayload<AuthEventType> payload) {
+  void _receiveAuthEvent(StreamPayload<AuthEventType> payload) {
     final AuthEventType? event = payload.dataOrNull;
     if (event == null) {
       return;

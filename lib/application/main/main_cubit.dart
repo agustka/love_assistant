@@ -22,29 +22,23 @@ class MainCubit extends BaseCubit<MainState> {
   void init() {
     emit(state.copyWith(status: MainStatus.loading));
     _profileSubscription?.cancel();
-    _profileSubscription = _watchLocalPartnerProfileUseCase.subscribe().listen(_onProfilePayload);
+    _profileSubscription = _watchLocalPartnerProfileUseCase.subscribe().listen(_receiveProfile);
   }
 
   void onProfileCtaActionTap() {
-    if (!state.partnerProfile.incomplete || state.profileCtaActionInProgress) {
+    if (!state.partnerProfile.incomplete) {
       return;
     }
 
-    emit(state.copyWith(profileCtaActionInProgress: true));
     getIt<EventBus>().fire(const MainOpenDetailedProfileWizardEvent());
   }
 
-  void onProfileCtaActionSettled() {
-    emit(state.copyWith(profileCtaActionInProgress: false));
-  }
-
-  void _onProfilePayload(StreamPayload<UserPartnerProfile> payload) {
+  void _receiveProfile(StreamPayload<UserPartnerProfile> payload) {
     final UserPartnerProfile profile = payload.dataOrNull ?? const UserPartnerProfile.invalid();
     emit(
       state.copyWith(
         status: MainStatus.loaded,
         partnerProfile: profile.valid ? profile : const UserPartnerProfile.invalid(),
-        profileCtaActionInProgress: false,
       ),
     );
   }

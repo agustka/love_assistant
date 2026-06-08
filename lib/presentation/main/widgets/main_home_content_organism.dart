@@ -10,7 +10,6 @@ class MainHomeContentOrganism extends StatelessWidget {
   final String profileCompletionCtaMessage;
   final String profileCompletionCtaAction;
   final String profileCompletionCtaDismissSemanticLabel;
-  final bool profileCompletionCtaActionInProgress;
   final VoidCallback onProfileCompletionCtaActionTap;
   final VoidCallback onProfileCompletionCtaDismissTap;
   final Key? profileCompletionCtaKey;
@@ -26,7 +25,6 @@ class MainHomeContentOrganism extends StatelessWidget {
     required this.profileCompletionCtaMessage,
     required this.profileCompletionCtaAction,
     required this.profileCompletionCtaDismissSemanticLabel,
-    required this.profileCompletionCtaActionInProgress,
     required this.onProfileCompletionCtaActionTap,
     required this.onProfileCompletionCtaDismissTap,
     required this.underConstructionTitle,
@@ -49,8 +47,6 @@ class MainHomeContentOrganism extends StatelessWidget {
             message: profileCompletionCtaMessage,
             actionText: profileCompletionCtaAction,
             dismissSemanticLabel: profileCompletionCtaDismissSemanticLabel,
-            actionEnabled: !profileCompletionCtaActionInProgress,
-            actionBusy: profileCompletionCtaActionInProgress,
             actionKey: profileCompletionCtaActionKey,
             dismissKey: profileCompletionCtaDismissKey,
             onActionTap: onProfileCompletionCtaActionTap,
