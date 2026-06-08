@@ -17,6 +17,7 @@ import 'package:la/application/core/auth/email_confirmation_cubit.dart'
 import 'package:la/application/core/auth/login_cubit.dart' as _i323;
 import 'package:la/application/core/auth/sign_up_cubit.dart' as _i249;
 import 'package:la/application/core/language/language_cubit.dart' as _i953;
+import 'package:la/application/main/main_cubit.dart' as _i693;
 import 'package:la/application/splash/splash_cubit.dart' as _i247;
 import 'package:la/application/wizard/wizard_cubit.dart' as _i167;
 import 'package:la/domain/core/auth/use_cases/create_account_use_case.dart'
@@ -172,6 +173,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i323.LoginCubit>(
       () => _i323.LoginCubit(gh<_i198.SignInUseCase>()),
+    );
+    gh.factory<_i693.MainCubit>(
+      () => _i693.MainCubit(gh<_i19.GetLocalPartnerProfileUseCase>()),
     );
     gh.factory<_i167.WizardCubit>(
       () => _i167.WizardCubit(

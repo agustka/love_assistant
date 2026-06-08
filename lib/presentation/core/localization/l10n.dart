@@ -1769,6 +1769,46 @@ class S {
     );
   }
 
+  /// `Kláraðu prófíl maka þíns`
+  String get main_profile_completion_cta_title {
+    return Intl.message(
+      'Kláraðu prófíl maka þíns',
+      name: 'main_profile_completion_cta_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bættu við nokkrum atriðum svo BetterHalf geti undirbúið tillögur sem passa maka þínum.`
+  String get main_profile_completion_cta_message {
+    return Intl.message(
+      'Bættu við nokkrum atriðum svo BetterHalf geti undirbúið tillögur sem passa maka þínum.',
+      name: 'main_profile_completion_cta_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Klára prófíl`
+  String get main_profile_completion_cta_action {
+    return Intl.message(
+      'Klára prófíl',
+      name: 'main_profile_completion_cta_action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loka prófílábendingu`
+  String get main_profile_completion_cta_dismiss_semantic_label {
+    return Intl.message(
+      'Loka prófílábendingu',
+      name: 'main_profile_completion_cta_dismiss_semantic_label',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Í smíðum`
   String get main_under_construction_title {
     return Intl.message(

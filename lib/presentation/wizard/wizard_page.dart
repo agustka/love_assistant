@@ -99,6 +99,7 @@ class _WizardPageState extends State<WizardPage> {
             pageController: controller,
             onWizardMessage: (WizardEvent message) => _onWizardMessage(context, message),
             onInitialSetupCompleted: (UserPartnerProfile profile) => _onInitialSetupCompleted(context, profile),
+            onDetailedProfileCompleted: (UserPartnerProfile profile) => _onDetailedProfileCompleted(context, profile),
             child: LaWizardTemplate(
               appBar: LaAppBarOrganism(
                 style: AppBarStyle.background,
@@ -167,6 +168,14 @@ class _WizardPageState extends State<WizardPage> {
     }
 
     await Navigator.of(context).pushNamed(PageName.landing.route, arguments: profile);
+  }
+
+  Future<void> _onDetailedProfileCompleted(BuildContext context, UserPartnerProfile profile) async {
+    if (!context.mounted) {
+      return;
+    }
+
+    Navigator.of(context).popUntil(ModalRoute.withName(PageName.main.route));
   }
 
   Widget _buildStep(WizardState state, int index) {
@@ -303,12 +312,14 @@ class _WizardPageEventListener extends StatelessWidget {
   final PageController pageController;
   final Future<void> Function(WizardEvent event) onWizardMessage;
   final Future<void> Function(UserPartnerProfile profile) onInitialSetupCompleted;
+  final Future<void> Function(UserPartnerProfile profile) onDetailedProfileCompleted;
   final Widget child;
 
   const _WizardPageEventListener({
     required this.pageController,
     required this.onWizardMessage,
     required this.onInitialSetupCompleted,
+    required this.onDetailedProfileCompleted,
     required this.child,
   });
 
@@ -328,6 +339,9 @@ class _WizardPageEventListener extends StatelessWidget {
         LaTypedEventBusListenerDefinition<WizardEvent>(onMessage: onWizardMessage),
         LaTypedEventBusListenerDefinition<WizardInitialSetupCompletedEvent>(
           onMessage: (WizardInitialSetupCompletedEvent event) => onInitialSetupCompleted(event.profile),
+        ),
+        LaTypedEventBusListenerDefinition<WizardDetailedProfileCompletedEvent>(
+          onMessage: (WizardDetailedProfileCompletedEvent event) => onDetailedProfileCompleted(event.profile),
         ),
       ],
       child: child,

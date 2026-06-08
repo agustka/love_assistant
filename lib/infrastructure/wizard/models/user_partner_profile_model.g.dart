@@ -23,6 +23,14 @@ UserPartnerProfileModel _$UserPartnerProfileModelFromJson(
   partnerGiftCategories: (json['partnerGiftCategories'] as List<dynamic>)
       .map((e) => e as String)
       .toList(),
+  partnerHobbies:
+      (json['partnerHobbies'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      [],
+  partnerAnniversary: json['partnerAnniversary'] as String?,
+  relationshipType: json['relationshipType'] as String? ?? '',
+  detailedProfileCompleted: json['detailedProfileCompleted'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$UserPartnerProfileModelToJson(
@@ -36,4 +44,8 @@ Map<String, dynamic> _$UserPartnerProfileModelToJson(
   'partnerToneOfVoice': instance.partnerToneOfVoice,
   'partnerFavoriteFoods': instance.partnerFavoriteFoods,
   'partnerGiftCategories': instance.partnerGiftCategories,
+  'partnerHobbies': instance.partnerHobbies,
+  'partnerAnniversary': instance.partnerAnniversary,
+  'relationshipType': instance.relationshipType,
+  'detailedProfileCompleted': instance.detailedProfileCompleted,
 };

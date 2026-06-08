@@ -337,6 +337,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "Your partner\'s profile is ready",
     ),
     "landing_title_named": m1,
+    "main_profile_completion_cta_action": MessageLookupByLibrary.simpleMessage(
+      "Finish profile",
+    ),
+    "main_profile_completion_cta_dismiss_semantic_label":
+        MessageLookupByLibrary.simpleMessage("Dismiss profile prompt"),
+    "main_profile_completion_cta_message": MessageLookupByLibrary.simpleMessage(
+      "Add a few more details so BetterHalf can prepare options that fit them.",
+    ),
+    "main_profile_completion_cta_title": MessageLookupByLibrary.simpleMessage(
+      "Finish your partner profile",
+    ),
     "main_title": MessageLookupByLibrary.simpleMessage("Main App"),
     "main_under_construction_message": MessageLookupByLibrary.simpleMessage(
       "This part of the app isn\'t ready yet.",

@@ -14,6 +14,13 @@ class WizardInitialSetupCompletedEvent {
   const WizardInitialSetupCompletedEvent({required this.profile});
 }
 
+@immutable
+class WizardDetailedProfileCompletedEvent {
+  final UserPartnerProfile profile;
+
+  const WizardDetailedProfileCompletedEvent({required this.profile});
+}
+
 enum WizardEvent {
   missingName,
   missingPronoun,

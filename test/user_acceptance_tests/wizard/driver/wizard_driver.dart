@@ -11,6 +11,7 @@ class WizardDriver extends BaseDriver {
   Finder get _greetingsStepFinder => find.byKey(WizardPage.greetingsStepKey);
   Finder get _basicInfoStepFinder => find.byKey(WizardPage.basicInfoStepKey);
   Finder get _foodsAndGiftsStepFinder => find.byKey(WizardPage.foodsAndGiftsStepKey);
+  Finder get _hobbiesStepFinder => find.byKey(WizardPage.hobbiesStepKey);
   Finder get _nextButtonFinder => find.byKey(WizardPage.nextButtonKey);
 
   WizardDriver({required super.tester, super.builders});
@@ -43,6 +44,10 @@ class WizardDriver extends BaseDriver {
 
   void assertOnLastStep() {
     expect(_foodsAndGiftsStepFinder, findsOneWidget);
+  }
+
+  void assertOnHobbiesStep() {
+    expect(_hobbiesStepFinder, findsOneWidget);
   }
 
   Future<void> tapNext() async {
