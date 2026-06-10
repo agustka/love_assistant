@@ -33,58 +33,63 @@ class LaCallToActionTileMolecule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LaCardAtom(
-      child: LaPaddingAtom.all(
-        value: LaPadding.medium,
-        child: LaColumnAtom(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          spacing: LaPadding.mediumSmall,
-          children: [
-            LaRow(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LaExpandedAtom(
-                  child: LaTextAtom(
-                    title,
-                    style: LaTextAtomStyle.body20.bold.onSurface,
+      child: LaContainerAtom(
+        decoration: BoxDecoration(
+          gradient: LaTheme.callToActionGradient(),
+        ),
+        child: LaPaddingAtom.all(
+          value: LaPadding.medium,
+          child: LaColumnAtom(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            spacing: LaPadding.mediumSmall,
+            children: [
+              LaRow(
+                children: [
+                  LaExpandedAtom(
+                    child: LaTextAtom(
+                      title,
+                      style: LaTextAtomStyle.body20.bold.onPrimary,
+                    ),
                   ),
-                ),
-                const LaSizedBoxAtom(width: LaPadding.small),
-                LaSemanticsAtom(
-                  label: dismissSemanticLabel,
-                  button: true,
-                  child: LaTapVisualAtom(
-                    key: dismissKey,
-                    borderRadius: BorderRadius.circular(LaCornerRadius.large),
-                    onTap: onDismissTap,
-                    excludeFromSemantics: true,
-                    child: LaSizedBoxAtom(
-                      width: _dismissTargetSize,
-                      height: _dismissTargetSize,
-                      child: LaCenterAtom(
-                        child: LaIconAtom(
-                          Icons.close,
-                          color: LaTheme.hintText(),
+                  const LaSizedBoxAtom(width: LaPadding.small),
+                  LaSemanticsAtom(
+                    label: dismissSemanticLabel,
+                    button: true,
+                    child: LaTapVisualAtom(
+                      key: dismissKey,
+                      borderRadius: BorderRadius.circular(LaCornerRadius.large),
+                      onTap: onDismissTap,
+                      excludeFromSemantics: true,
+                      child: LaSizedBoxAtom(
+                        width: _dismissTargetSize,
+                        height: _dismissTargetSize,
+                        child: LaCenterAtom(
+                          child: LaIconAtom(
+                            Icons.close,
+                            color: LaTheme.onPrimary(),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            LaTextAtom(
-              message,
-              style: LaTextAtomStyle.body16.light.hintText,
-            ),
-            LaButtonAtom(
-              key: actionKey,
-              onTap: onActionTap,
-              text: actionText,
-              enabled: actionEnabled,
-              busy: actionBusy,
-              maxLines: 2,
-            ),
-          ],
+                ],
+              ),
+              LaTextAtom(
+                message,
+                style: LaTextAtomStyle.body16.light.onPrimary,
+              ),
+              LaButtonAtom(
+                key: actionKey,
+                onTap: onActionTap,
+                text: actionText,
+                enabled: actionEnabled,
+                busy: actionBusy,
+                buttonStyle: LaButtonStyle.link,
+                maxLines: 2,
+              ),
+            ],
+          ),
         ),
       ),
     );

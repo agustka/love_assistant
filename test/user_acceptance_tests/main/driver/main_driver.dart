@@ -8,6 +8,8 @@ import "../../../_core/test_rig.dart";
 import "../../../_core/test_setup/driver/i_driver.dart";
 
 class MainDriver extends BaseDriver {
+  static const double _linkActionTapInset = 8;
+
   int _profileCompletionCtaActionTapCount = 0;
   int _profileCompletionCtaDismissTapCount = 0;
 
@@ -94,14 +96,20 @@ class MainDriver extends BaseDriver {
     expect(wizardPageCount, 1);
   }
 
+  Offset get _profileCompletionCtaActionTapPoint {
+    final Rect actionRect = tester.getRect(_profileCompletionCtaActionFinder);
+
+    return actionRect.centerLeft + const Offset(_linkActionTapInset, 0);
+  }
+
   Future<void> tapProfileCompletionCtaAction() async {
-    await tester.tap(_profileCompletionCtaActionFinder);
+    await tester.tapAt(_profileCompletionCtaActionTapPoint);
     await tester.pumpAndSettle();
   }
 
   Future<void> tapProfileCompletionCtaActionTwiceQuickly() async {
-    await tester.tap(_profileCompletionCtaActionFinder);
-    await tester.tap(_profileCompletionCtaActionFinder, warnIfMissed: false);
+    await tester.tapAt(_profileCompletionCtaActionTapPoint);
+    await tester.tapAt(_profileCompletionCtaActionTapPoint);
     await tester.pumpAndSettle();
   }
 

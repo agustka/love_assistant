@@ -114,6 +114,7 @@ Concrete screen instances binding a template with real content and Cubit state.
 - No arbitrary literals: extract numbers, durations, strings, keys into constants or design tokens.
 - Semantic naming: `primaryBackground`, `dangerText`, `spacingXL`.
 - Support dark/light modes and accessibility (contrast & scaling).
+- A UI component must never define its own outer margin; outer spacing is owned by the containing component, ending at the template. Components are flush — the parent (separated column, organism, or template) supplies the gaps/margins. A component's own internal content padding (the inset between its edge and its content) is not outer margin and is allowed.
 
 ## Localization
 - Use this app’s localization system via `S` in `lib/presentation/core/localization/l10n.dart`—do not hardcode strings in widgets.
@@ -140,3 +141,4 @@ Concrete screen instances binding a template with real content and Cubit state.
 - Static-only organisms or organism static methods that return definition objects
 - Hardcoded colors/strings/spacings
 - Mixing layout and data transformation logic
+- Defining outer margin inside an atom/molecule/organism instead of letting the container own spacing
