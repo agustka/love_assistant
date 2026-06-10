@@ -83,7 +83,7 @@ confirmed by know-the-code with high confidence, or unambiguously inferable.
 3. **Trigger** — the user action or system event that initiates the behavior
 4. **Success state** — the observable outcome when the behavior works correctly
 5. **Failure or edge state** — at least one observable outcome when something goes wrong or input is invalid
-6. **Scope of change** — which output dimensions are in scope: behavior/BDD, UI layout, infrastructure contract
+6. **Scope of change** — which output dimensions are in scope: behavior/BDD, UI layout, infrastructure contract. The infrastructure-contract dimension includes Supabase backend work — database tables/columns/RLS and migrations, and Edge Functions — owned by the infrastructure layer. If the feature reads or writes a Supabase table, treat the table schema and any required migration as in scope.
 
 If any field is missing, ambiguous, or backed only by low/medium-confidence know-the-code inference,
 stop and ask. Do not proceed.
@@ -351,6 +351,51 @@ models:
 
 # open_questions:
 #   - <any adapter details that remain unresolved>
+```
+
+### Mode C — Supabase backend (database + Edge Functions)
+
+Use when the change reads or writes a Supabase table, requires a schema/migration
+change, or adds/changes a Supabase Edge Function. The infrastructure layer owns and
+deploys all of this (migrations under `supabase/migrations/`, functions under
+`supabase/functions/`), so it must be declared here. Never assume a table already
+exists — if the feature touches a table, declare it and whether a migration is required.
+
+Declare the backend objects under a `supabase` block, and keep the Dart client adapter
+under `adapters` (same shape as Mode B).
+
+```yaml
+mode: supabase
+info:
+  title: <feature or bug name> Supabase contract
+  version: draft
+supabase:
+  tables:
+    <table_name>:
+      migration: required            # required if this table must be created/altered
+      columns:
+        <column>: { type: <pg type>, primary_key: <true|false>, not_null: <true|false>, references: <table.column or omit>, default: <expr or omit> }
+      rls:
+        - <intended row-level-security policy, e.g. select/insert/update only own row (auth.uid() = <column>)>
+  functions: {}                      # e.g. <fn_name>: { trigger: <http|cron|client>, verify_jwt: <true|false>, behavior: [<what it does>] }
+adapters:
+  <client_store_name>:
+    backing_store: { table: <table_name> }
+    operations:
+      <operation_name>:
+        input: <InputModel or omit>
+        output: <OutputModel or void>
+        errors:
+          - <error name or condition>
+models:
+  <ModelName>:
+    type: object
+    required: [field1]
+    properties:
+      field1: { type: string }
+
+# open_questions:
+#   - <any backend/adapter details that remain unresolved>
 ```
 
 Use one `api.yaml` per feature. Keep it minimal — include only what is in scope

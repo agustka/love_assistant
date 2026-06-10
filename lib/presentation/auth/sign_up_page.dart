@@ -15,7 +15,9 @@ import 'package:la/setup.dart';
 
 class SignUpPage extends StatefulWidget {
   static const Key emailFieldKey = Key("sign_up_email_field");
+  static const Key emailEditableKey = Key("sign_up_email_editable");
   static const Key passwordFieldKey = Key("sign_up_password_field");
+  static const Key passwordEditableKey = Key("sign_up_password_editable");
   static const Key passwordVisibilityToggleKey = Key("sign_up_password_visibility_toggle");
   static const Key submitButtonKey = Key("sign_up_submit_button");
   static const Key emailErrorKey = Key("sign_up_email_error");
@@ -178,7 +180,9 @@ class _SignUpPageState extends State<SignUpPage> {
       emailFieldId: SignUpPage.emailFieldId,
       passwordFieldId: SignUpPage.passwordFieldId,
       emailFieldKey: SignUpPage.emailFieldKey,
+      emailEditableKey: SignUpPage.emailEditableKey,
       passwordFieldKey: SignUpPage.passwordFieldKey,
+      passwordEditableKey: SignUpPage.passwordEditableKey,
       passwordVisibilityToggleKey: SignUpPage.passwordVisibilityToggleKey,
       emailErrorKey: SignUpPage.emailErrorKey,
       passwordErrorKey: SignUpPage.passwordErrorKey,

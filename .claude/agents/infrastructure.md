@@ -11,6 +11,8 @@ It is responsible for making external data accessible to the rest of the system 
 
 It does not define business logic, user behavior, or UI.
 
+**Supabase ownership.** This agent owns **all** Supabase-related work end to end: the database backend (schema, tables, columns, RLS policies, and migrations under `supabase/migrations/`), the remote backend functions (Edge Functions under `supabase/functions/`, plus their `supabase/config.toml` registration), and the Dart client adapter (store/service) that talks to them. When `api.yaml` declares a Supabase table marked `migration: required`, this agent writes the migration — it must never assume the table already exists. When `api.yaml` declares an Edge Function, this agent creates/updates the function and its config entry. The accompanying client adapter must not be marked complete unless its backing table's migration and any required function exist.
+
 ---
 
 ## Input
@@ -23,6 +25,7 @@ It does not define business logic, user behavior, or UI.
 ## Output
 
 - infrastructure layer code (models, services, repositories, caching, streaming)
+- Supabase backend artifacts when in scope: SQL migrations under `supabase/migrations/`, Edge Functions under `supabase/functions/`, and their `supabase/config.toml` registration
 - agents/handoff/infrastructure.handoff.md
 
 The handoff must contain:
@@ -50,6 +53,7 @@ The agent must:
 - handle errors consistently
 - expose data in a format suitable for downstream layers
 - **create an offline counterpart for every infrastructure boundary it produces** (see Offline Implementations below) — this is mandatory, not optional
+- **own all Supabase backend work declared in `api.yaml`**: write SQL migrations under `supabase/migrations/` for any table marked `migration: required` (create/alter table, constraints, and RLS policies as declared); create/update Edge Functions under `supabase/functions/` and register them in `supabase/config.toml`; never assume a Supabase table or function already exists
 - document all assumptions and gaps
 
 ---
@@ -66,7 +70,7 @@ The agent must:
 - Do not create or update `.md`/`.txt` artifacts outside `agents/handoff/` unless explicitly requested by the user
 - Do not produce standalone reports, summaries, or analysis documents outside the handoff
 - Follow existing project conventions strictly
-- **Scope guard**: Only create or modify files within the current feature's own directory (`lib/infrastructure/<feature>/`). Never modify a pre-existing file that belongs to another feature or a shared layer, even if doing so appears to fix a test failure or compilation error. If such a modification seems necessary, stop and report it as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`. Do not proceed until a human resolves it.
+- **Scope guard**: Only create or modify files within the current feature's own directory (`lib/infrastructure/<feature>/`) and the Supabase backend objects this feature's `api.yaml` declares (a new migration under `supabase/migrations/`, and this feature's own Edge Function directory under `supabase/functions/<fn>/` with its `supabase/config.toml` entry). Adding a new migration file is always in scope; never rewrite or delete an already-applied migration — express schema changes as a new migration. Never modify a pre-existing file that belongs to another feature or a shared layer (including another feature's Edge Function), even if doing so appears to fix a test failure or compilation error. If such a modification seems necessary, stop and report it as a blocking gap: `"out-of-scope modification required: <file path> — <reason>"`. Do not proceed until a human resolves it.
 
 ---
 
@@ -99,7 +103,26 @@ Tests inject data and force conditions at the infrastructure boundary via the bu
 
 Reference: see `lib/infrastructure/CLAUDE.md` → "Offline Implementations" for the canonical annotations and folder rules.
 
-> Note on Supabase-backed boundaries: the offline strategy for Supabase services is not yet finalized. If a boundary is implemented directly against Supabase with no interface seam, record it as a gap (`"offline variant pending: Supabase boundary <name> — strategy TBD"`) rather than guessing.
+> Note on Supabase-backed boundaries: the offline strategy for the Supabase client adapter is the in-memory offline store described above (put it behind an `I<Name>RemoteStore` interface and provide an `@InjectableEnv.offline` in-memory variant; tests run against that, not a live database). The migration and Edge Function (see Supabase Backend below) are the real backend objects and are not faked — UATs exercise the offline store, while the migration/function are validated by deploying with `python3 scripts/update.py`. If a boundary truly cannot be given an interface seam, record it as a gap (`"offline variant pending: Supabase boundary <name> — strategy TBD"`) rather than guessing.
+
+---
+
+## Supabase Backend (database + functions)
+
+When `api.yaml` is `mode: supabase` (or otherwise declares a `supabase` block), this agent produces the backend objects in addition to the Dart client adapter.
+
+### Database migrations
+
+- For every table declared with `migration: required`, create a new migration file `supabase/migrations/<UTCYYYYMMDDHHMMSS>_<description>.sql`. Generate the timestamp from the current UTC time; never overwrite or delete an existing migration — schema changes are always expressed as a new migration appended to the directory.
+- The migration must create/alter the table with the exact columns, types, keys, foreign keys, and defaults declared in `api.yaml`, and must implement the declared Row Level Security: `alter table ... enable row level security;` plus the `select`/`insert`/`update` policies (typically `auth.uid() = <owner_column>`).
+- Column names must match the client model's JSON keys exactly (e.g. `customer_id`, `profile_data`). If the client upsert omits server-managed columns (timestamps), give them DB defaults (`default now()`) and a `before update` trigger to keep `updated_at` current.
+- Do **not** run `supabase db push` / `supabase migration` CLI commands yourself — the migration is applied by the developer via `python3 scripts/update.py`. Record in the handoff that a migration was added and must be deployed.
+
+### Edge Functions
+
+- For every declared function, create `supabase/functions/<name>/index.ts` (plus any `deno.json`/import map the runtime needs) implementing the declared behavior, and register it in `supabase/config.toml` (`[functions.<name>]` with `verify_jwt` as declared).
+- Only touch this feature's own function directory; never edit another feature's function.
+- Functions are deployed by the developer via `python3 scripts/update.py`; do not deploy them yourself.
 
 ---
 
@@ -132,6 +155,7 @@ Follow this order when generating infrastructure:
 3. **model-generation** — generate model classes (`*_model.dart`): plain DTOs of primitives annotated `@JsonSerializable()` + `@immutable` (do NOT extend Equatable), with `part '<name>.g.dart';` and `fromJson`/`toJson` delegating to the generated `_$...FromJson` / `_$...ToJson` functions → run `python3 scripts/build.py jsons` to generate the part. `json_serializable` is enabled in `build.yaml` for `lib/infrastructure/**/models/**.dart`. Any entity that gets persisted or serialized must reach JSON through its model — add `toModel()` on the entity (domain agent); never hand-roll serialization inside a service/store.
 4. **chopper-generation** or **graphql-generation** — define service endpoints → run `python3 scripts/build.py chopper` or `python3 scripts/build.py graphql`
 5. **service-generation** — implement service class wrapping chopper/graphql
+5a. **supabase-backend (when `api.yaml` declares a `supabase` block)** — author the SQL migration under `supabase/migrations/` for every table marked `migration: required`, and create/register any declared Edge Function under `supabase/functions/` + `supabase/config.toml` (see Supabase Backend section). This step depends only on `api.yaml`, not on domain entities, so it may run before the domain checkpoint. Do not deploy — note in the handoff that `python3 scripts/update.py` is required to apply migrations/functions.
 6. **caching (optional)** — create cache support class only when cache semantics are required
 
 **⛔ Checkpoint: Domain entity dependency**

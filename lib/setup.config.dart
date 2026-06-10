@@ -38,10 +38,16 @@ import 'package:la/domain/core/dismissible_content/use_cases/dismiss_content_use
 import 'package:la/domain/core/dismissible_content/use_cases/get_dismissed_content_use_case.dart'
     as _i177;
 import 'package:la/domain/core/repositories/i_auth_repository.dart' as _i742;
+import 'package:la/domain/wizard/repositories/i_partner_profile_repository.dart'
+    as _i113;
 import 'package:la/domain/wizard/use_cases/get_local_partner_profile_use_case.dart'
     as _i19;
+import 'package:la/domain/wizard/use_cases/remove_local_partner_profile_use_case.dart'
+    as _i660;
 import 'package:la/domain/wizard/use_cases/save_local_partner_profile_use_case.dart'
     as _i1010;
+import 'package:la/domain/wizard/use_cases/sync_authenticated_partner_profile_use_case.dart'
+    as _i871;
 import 'package:la/domain/wizard/use_cases/watch_local_partner_profile_use_case.dart'
     as _i336;
 import 'package:la/infrastructure/core/analytics/repository/i_logging_repository.dart'
@@ -78,12 +84,20 @@ import 'package:la/infrastructure/core/prefs/shared_prefs_wrapper.dart'
 import 'package:la/infrastructure/core/supabase/supabase_module.dart' as _i1048;
 import 'package:la/infrastructure/core/time/i_poll_and_debounce.dart' as _i651;
 import 'package:la/infrastructure/core/time/poll_and_debounce.dart' as _i187;
+import 'package:la/infrastructure/wizard/repository/partner_profile_repository.dart'
+    as _i911;
 import 'package:la/infrastructure/wizard/store/i_partner_profile_local_store.dart'
     as _i667;
+import 'package:la/infrastructure/wizard/store/i_partner_profile_remote_store.dart'
+    as _i1067;
 import 'package:la/infrastructure/wizard/store/offline/offline_partner_profile_local_store.dart'
     as _i261;
+import 'package:la/infrastructure/wizard/store/offline/offline_partner_profile_remote_store.dart'
+    as _i578;
 import 'package:la/infrastructure/wizard/store/partner_profile_local_store.dart'
     as _i1018;
+import 'package:la/infrastructure/wizard/store/partner_profile_remote_store.dart'
+    as _i718;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
@@ -115,10 +129,18 @@ extension GetItInjectableX on _i174.GetIt {
       registerFor: {_online},
     );
     gh.lazySingleton<_i339.IHiveCache>(() => const _i681.HiveCache());
+    gh.lazySingleton<_i1067.IPartnerProfileRemoteStore>(
+      () => _i578.OfflinePartnerProfileRemoteStore(),
+      registerFor: {_offline},
+    );
     gh.factory<_i651.IPollAndDebounce>(() => _i187.PollAndDebounce());
     gh.lazySingleton<_i667.IPartnerProfileLocalStore>(
       () => _i261.OfflinePartnerProfileLocalStore(),
       registerFor: {_offline},
+    );
+    gh.lazySingleton<_i1067.IPartnerProfileRemoteStore>(
+      () => _i718.PartnerProfileRemoteStore(gh<_i454.SupabaseClient>()),
+      registerFor: {_online},
     );
     gh.lazySingleton<_i663.IAuthService>(
       () => _i817.OfflineAuthService(),
@@ -165,13 +187,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i784.SharedPrefsWrapper(gh<_i460.SharedPreferences>()),
       registerFor: {_online},
     );
-    gh.factory<_i344.EmailConfirmationCubit>(
-      () => _i344.EmailConfirmationCubit(
-        gh<_i1063.GetEmailConfirmationUseCase>(),
-        gh<_i658.CreateConfirmationEmailUseCase>(),
-        gh<_i211.WatchAuthEventsUseCase>(),
-      ),
-    );
     gh.factory<_i249.SignUpCubit>(
       () => _i249.SignUpCubit(gh<_i103.CreateAccountUseCase>()),
     );
@@ -193,8 +208,19 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i841.IDismissibleContentLocalStore>(),
       ),
     );
+    gh.lazySingleton<_i113.IPartnerProfileRepository>(
+      () => _i911.PartnerProfileRepository(
+        gh<_i667.IPartnerProfileLocalStore>(),
+        gh<_i1067.IPartnerProfileRemoteStore>(),
+      ),
+    );
     gh.factory<_i19.GetLocalPartnerProfileUseCase>(
       () => _i19.GetLocalPartnerProfileUseCase(
+        gh<_i667.IPartnerProfileLocalStore>(),
+      ),
+    );
+    gh.factory<_i660.RemoveLocalPartnerProfileUseCase>(
+      () => _i660.RemoveLocalPartnerProfileUseCase(
         gh<_i667.IPartnerProfileLocalStore>(),
       ),
     );
@@ -214,9 +240,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i614.DismissContentUseCase>(),
       ),
     );
-    gh.factory<_i323.LoginCubit>(
-      () => _i323.LoginCubit(gh<_i198.SignInUseCase>()),
-    );
     gh.factory<_i693.MainCubit>(
       () => _i693.MainCubit(gh<_i336.WatchLocalPartnerProfileUseCase>()),
     );
@@ -233,10 +256,30 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i339.IHiveCache>(),
       ),
     );
+    gh.factory<_i871.SyncAuthenticatedPartnerProfileUseCase>(
+      () => _i871.SyncAuthenticatedPartnerProfileUseCase(
+        gh<_i113.IPartnerProfileRepository>(),
+      ),
+    );
+    gh.factory<_i323.LoginCubit>(
+      () => _i323.LoginCubit(
+        gh<_i198.SignInUseCase>(),
+        gh<_i871.SyncAuthenticatedPartnerProfileUseCase>(),
+      ),
+    );
     gh.factory<_i247.SplashCubit>(
       () => _i247.SplashCubit(
         gh<_i19.GetLocalPartnerProfileUseCase>(),
         gh<_i850.HasActiveSessionUseCase>(),
+        gh<_i871.SyncAuthenticatedPartnerProfileUseCase>(),
+      ),
+    );
+    gh.factory<_i344.EmailConfirmationCubit>(
+      () => _i344.EmailConfirmationCubit(
+        gh<_i1063.GetEmailConfirmationUseCase>(),
+        gh<_i658.CreateConfirmationEmailUseCase>(),
+        gh<_i211.WatchAuthEventsUseCase>(),
+        gh<_i871.SyncAuthenticatedPartnerProfileUseCase>(),
       ),
     );
     return this;
