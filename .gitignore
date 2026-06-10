@@ -50,6 +50,10 @@ app.*.map.json
 # Local Supabase / environment config (never commit — use config.json as template)
 assets/keys/config.json
 
+# Supabase CLI local state/cache (machine-specific, not for version control)
+supabase/.temp/
+supabase/.branches/
+
 # Agent input documents
 .claude/specs/api.yaml
 .claude/specs/bdd.md

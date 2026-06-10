@@ -1,17 +1,17 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:injectable/injectable.dart';
-import 'package:la/domain/core/value_objects/failures/failure.dart';
-import 'package:la/domain/core/value_objects/payload.dart';
-import 'package:la/domain/core/value_objects/stream_payload.dart';
-import 'package:la/domain/wizard/entities/user_partner_profile.dart';
-import 'package:la/infrastructure/core/error_handling/error_handler.dart';
-import 'package:la/infrastructure/core/prefs/i_shared_prefs_wrapper.dart';
-import 'package:la/infrastructure/core/prefs/shared_prefs_keys.dart';
-import 'package:la/infrastructure/wizard/models/user_partner_profile_model.dart';
-import 'package:la/infrastructure/wizard/store/i_partner_profile_local_store.dart';
-import 'package:la/setup.dart';
-import 'package:rxdart/rxdart.dart';
+import "package:injectable/injectable.dart";
+import "package:la/domain/core/value_objects/failures/failure.dart";
+import "package:la/domain/core/value_objects/payload.dart";
+import "package:la/domain/core/value_objects/stream_payload.dart";
+import "package:la/domain/wizard/entities/user_partner_profile.dart";
+import "package:la/infrastructure/core/error_handling/error_handler.dart";
+import "package:la/infrastructure/core/prefs/i_shared_prefs_wrapper.dart";
+import "package:la/infrastructure/core/prefs/shared_prefs_keys.dart";
+import "package:la/infrastructure/wizard/models/user_partner_profile_model.dart";
+import "package:la/infrastructure/wizard/store/i_partner_profile_local_store.dart";
+import "package:la/setup.dart";
+import "package:rxdart/rxdart.dart";
 
 @InjectableEnv.online
 @LazySingleton(as: IPartnerProfileLocalStore)
@@ -65,6 +65,18 @@ class PartnerProfileLocalStore implements IPartnerProfileLocalStore {
     } catch (ex, trace) {
       err(ex, trace: trace, location: "PartnerProfileLocalStore.hasPartnerProfile");
       return Payload.failure(const Failure("Failed to read partner profile presence"));
+    }
+  }
+
+  @override
+  Future<Payload<void>> removePartnerProfile() async {
+    try {
+      await _prefs.remove(SharedPrefsKeys.partnerProfile);
+      _profileSubject.add(StreamPayload.reset());
+      return Payload.success(null);
+    } catch (ex, trace) {
+      err(ex, trace: trace, location: "PartnerProfileLocalStore.removePartnerProfile");
+      return Payload.failure(const Failure("Failed to remove partner profile locally"));
     }
   }
 }

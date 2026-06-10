@@ -84,6 +84,7 @@ Write **real API spec content** only if the ticket requires API contract work, f
 - Request/response schema change
 - New/changed fields or validation rules coming from backend
 - Different HTTP method/status/error contract behavior
+- Supabase backend work — a database table/column/RLS change, a migration, or an Edge Function (all owned by the infrastructure layer). If the bug involves reading or writing a Supabase table, declare the table and whether a migration is required; never assume the table already exists.
 
 If no API contract change is required, write exactly:
 
@@ -91,7 +92,7 @@ If no API contract change is required, write exactly:
 No API changes needed for this change.
 ```
 
-When API changes are required, produce valid OpenAPI YAML (minimal slice for the bug scope only).
+When changes are required, produce valid YAML in the matching mode (see `agents/specs/README_api_yml_creation.md`): Mode A OpenAPI for HTTP endpoints, Mode B adapters for non-API local infrastructure, or Mode C `mode: supabase` for Supabase tables/migrations/Edge Functions plus their client adapter. Keep it to a minimal slice for the bug scope only.
 
 ## Workflow
 

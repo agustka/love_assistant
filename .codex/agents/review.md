@@ -63,6 +63,7 @@ The agent must:
 - verify that layer boundaries are respected:
     - infrastructure → domain → application → UI
 - verify that handoff invariants are satisfied by the generated code
+- run the project analyzer (`dart analyze` / `flutter analyze`) over the files in the diff — this is the pipeline's centralized compilation verification — and treat every reported diagnostic, including info-level lints, as a blocking finding
 - identify:
     - security risks
     - inefficiencies
@@ -137,8 +138,12 @@ The agent must combine results from all applicable skills into a single, structu
 - **If a presentation definition class accepts `BuildContext` or stores context-dependent behavior instead of receiving data and callbacks from the widget/page that owns the context** → **blocking violation**: `"definition must not take BuildContext: <file path>"`.
 - **If presentation code resolves any cubit with `getIt<...Cubit>()` outside a `BlocProvider.create` callback** → **blocking violation**: `"cubit must be read from context: <file path>"`. Cubits are provided with `getIt` only when the provider creates them; consumers must use `context.read`, `context.watch`, or `context.select`.
 - **If application/domain/infrastructure business logic resolves dependencies via `getIt<T>()` instead of constructor injection** — except `getIt<Navigation>()` and `getIt<EventBus>()` — → **blocking violation**: `"dependency injection violation: <file path>"`. Cite `.codex/skills/dependency-injection/SKILL.md` and the relevant layer rules in the finding.
+- **If the project analyzer (`dart analyze` / `flutter analyze`) reports any diagnostic — error, warning, hint, or info-level lint (for example `avoid_redundant_argument_values`) — on a file present in the diff** → **blocking violation**: `"analyzer diagnostic: <rule> at <file:line>"`. Never downgrade an info-level lint to warning/note; route it to the owning layer for a fix.
+- **If a test driver or UAT locates widgets with `find.descendant()` or `find.byType()` instead of `find.byKey()` with a static presentation `Key`** → **blocking violation**: `"test finder convention: use find.byKey with a static Key — <file:line>"`. If the target widget lacks the needed `Key`, the required action adds the `Key` in the presentation layer (owner: `ui`) and updates the driver to use it (owner: `testing`). Mirroring a pre-existing driver that already uses these finders does not downgrade the finding.
+- **If any line added or modified in the diff violates an Effective Dart or project convention defined in `CLAUDE.md`** (for example single-quoted strings where double quotes are required, arrow bodies on non-getters, member ordering, doc comments on members) → **blocking violation**: `"project convention violation: <rule> at <file:line>"` (owner: the layer that owns the file). These must always be fixed before acceptance.
 - **If the diff contains modifications to a pre-existing file outside the current feature's directory scope** → record a **note** or **risk** only: `"out-of-scope modification present: <file path>"`. This is non-blocking because the user may be working on unrelated changes concurrently. Only escalate it if that exact file introduces an independent spec, architecture, test, or safety violation.
 - **When a blocking finding is fixable and the owning layer is clear**, the required action must name that owner explicitly (for example `application`, `domain`, `ui`, `testing`) rather than saying human intervention is required.
+- **The "pre-existing pattern", "consistent with the existing file style", or "not introduced by this diff" rationale must never downgrade a finding below blocking when the lines added or modified by the diff themselves violate a project convention, analyzer rule, or test convention.** In-scope diff lines are held to current standards regardless of surrounding legacy code. This does not change the separate `out-of-scope modification present` rule above, which applies only to entirely unrelated files outside the current feature's directory scope.
 
 ---
 

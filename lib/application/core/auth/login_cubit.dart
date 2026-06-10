@@ -8,6 +8,7 @@ import "package:la/domain/core/entities/email_password_credentials.dart";
 import "package:la/domain/core/value_objects/email_value_object.dart";
 import "package:la/domain/core/value_objects/password_value_object.dart";
 import "package:la/domain/core/value_objects/payload.dart";
+import "package:la/domain/wizard/use_cases/sync_authenticated_partner_profile_use_case.dart";
 import "package:la/infrastructure/core/auth/auth_failure_reason.dart";
 import "package:la/infrastructure/core/auth/models/auth_user_model.dart";
 import "package:la/setup.dart";
@@ -17,8 +18,12 @@ part "login_state.dart";
 @injectable
 class LoginCubit extends BaseCubit<LoginState> {
   final SignInUseCase _signInUseCase;
+  final SyncAuthenticatedPartnerProfileUseCase _syncAuthenticatedPartnerProfileUseCase;
 
-  LoginCubit(this._signInUseCase) : super(LoginState.initial());
+  LoginCubit(
+    this._signInUseCase,
+    this._syncAuthenticatedPartnerProfileUseCase,
+  ) : super(LoginState.initial());
 
   void onEmailChanged(String input) {
     emit(state.copyWith(email: input, emailError: false, formError: LoginFormError.none));
@@ -60,6 +65,7 @@ class LoginCubit extends BaseCubit<LoginState> {
 
     if (result.succeeded) {
       emit(state.copyWith(status: LoginStatus.success));
+      await _syncAuthenticatedPartnerProfileUseCase.execute();
       getIt<EventBus>().fire(const LoginNavigateToMainEvent());
       return;
     }

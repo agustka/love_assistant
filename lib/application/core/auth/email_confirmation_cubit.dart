@@ -11,6 +11,7 @@ import 'package:la/domain/core/auth/use_cases/watch_auth_events_use_case.dart';
 import 'package:la/domain/core/entities/email_password_credentials.dart';
 import 'package:la/domain/core/value_objects/payload.dart';
 import 'package:la/domain/core/value_objects/stream_payload.dart';
+import "package:la/domain/wizard/use_cases/sync_authenticated_partner_profile_use_case.dart";
 import 'package:la/infrastructure/core/auth/auth_event_type.dart';
 import 'package:la/infrastructure/core/auth/auth_failure_reason.dart';
 import 'package:la/infrastructure/core/auth/models/auth_user_model.dart';
@@ -26,6 +27,7 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
   final GetEmailConfirmationUseCase _getEmailConfirmationUseCase;
   final CreateConfirmationEmailUseCase _createConfirmationEmailUseCase;
   final WatchAuthEventsUseCase _watchAuthEventsUseCase;
+  final SyncAuthenticatedPartnerProfileUseCase _syncAuthenticatedPartnerProfileUseCase;
 
   StreamSubscription<StreamPayload<AuthEventType>>? _authEventsSubscription;
   Timer? _cooldownTimer;
@@ -34,6 +36,7 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
     this._getEmailConfirmationUseCase,
     this._createConfirmationEmailUseCase,
     this._watchAuthEventsUseCase,
+    this._syncAuthenticatedPartnerProfileUseCase,
   ) : super(EmailConfirmationState.initial());
 
   void init(EmailPasswordCredentials credentials) {
@@ -54,6 +57,7 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
 
     if (result.succeeded) {
       emit(state.copyWith(status: EmailConfirmationStatus.confirmed));
+      await _syncAuthenticatedPartnerProfileUseCase.execute();
       getIt<EventBus>().fire(const EmailConfirmationNavigateToMainEvent());
       return;
     }
@@ -81,13 +85,14 @@ class EmailConfirmationCubit extends BaseCubit<EmailConfirmationState> {
     getIt<EventBus>().fire(const EmailConfirmationResendFailedEvent());
   }
 
-  void _receiveAuthEvent(StreamPayload<AuthEventType> payload) {
+  Future<void> _receiveAuthEvent(StreamPayload<AuthEventType> payload) async {
     final AuthEventType? event = payload.dataOrNull;
     if (event == null) {
       return;
     }
     if (event == AuthEventType.login && state.status != EmailConfirmationStatus.confirmed) {
       emit(state.copyWith(status: EmailConfirmationStatus.confirmed));
+      await _syncAuthenticatedPartnerProfileUseCase.execute();
       getIt<EventBus>().fire(const EmailConfirmationNavigateToMainEvent());
     }
   }
