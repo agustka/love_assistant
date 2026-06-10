@@ -12,6 +12,7 @@ enum LaButtonSize {
 enum LaButtonStyle {
   primary,
   secondary,
+  link,
 }
 
 class LaButtonAtom extends StatelessWidget {
@@ -31,6 +32,8 @@ class LaButtonAtom extends StatelessWidget {
   final String? semanticLabel;
 
   bool get isIOS => PlatformDetector.isIOS;
+
+  bool get isLink => buttonStyle == LaButtonStyle.link;
 
   const LaButtonAtom({
     Key? key,
@@ -129,7 +132,7 @@ class LaButtonAtom extends StatelessWidget {
         child = Padding(
           padding: const EdgeInsets.all(LaPadding.small),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: isLink ? MainAxisAlignment.start : MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               if (icon != null)
@@ -145,7 +148,7 @@ class LaButtonAtom extends StatelessWidget {
                     text ?? "",
                     maxLines: maxLines,
                     overflow: maxLines != null ? TextOverflow.ellipsis : null,
-                    textAlign: TextAlign.center,
+                    textAlign: isLink ? TextAlign.start : TextAlign.center,
                     style: size.getTextStyle(buttonStyle: buttonStyle, enabled: enabled),
                   ),
                 ),
@@ -157,30 +160,39 @@ class LaButtonAtom extends StatelessWidget {
 
     final VoidCallback onTap = busy ? () {} : ((enabled ? this.onTap : onDisabledTap) ?? () {});
 
+    final double? width = isLink ? null : double.infinity;
+    final Alignment? alignment = isLink ? Alignment.centerLeft : null;
+
     return PlatformDetector.isIOS
-        ? SizedBox(
-            width: double.infinity,
-            child: CupertinoButton(
-              onPressed: onTap,
-              color: colors.enabledBackgroundColor,
-              sizeStyle: CupertinoButtonSize.medium,
-              child: child,
+        ? Align(
+            alignment: alignment ?? Alignment.center,
+            child: SizedBox(
+              width: width,
+              child: CupertinoButton(
+                onPressed: onTap,
+                color: colors.enabledBackgroundColor,
+                sizeStyle: CupertinoButtonSize.medium,
+                child: child,
+              ),
             ),
           )
-        : SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: onTap,
-              style: ElevatedButton.styleFrom(
-                elevation: LaElevation.minimal,
-                padding: EdgeInsets.zero,
-                side: BorderSide(color: colors.enabledBorderColor),
-                backgroundColor: colors.enabledBackgroundColor,
-                foregroundColor: colors.enabledTextColor,
-                disabledBackgroundColor: colors.disabledBackgroundColor,
-                disabledForegroundColor: colors.disabledTextColor,
+        : Align(
+            alignment: alignment ?? Alignment.center,
+            child: SizedBox(
+              width: width,
+              child: ElevatedButton(
+                onPressed: onTap,
+                style: ElevatedButton.styleFrom(
+                  elevation: LaElevation.minimal,
+                  padding: EdgeInsets.zero,
+                  side: BorderSide(color: colors.enabledBorderColor),
+                  backgroundColor: colors.enabledBackgroundColor,
+                  foregroundColor: colors.enabledTextColor,
+                  disabledBackgroundColor: colors.disabledBackgroundColor,
+                  disabledForegroundColor: colors.disabledTextColor,
+                ),
+                child: child,
               ),
-              child: child,
             ),
           );
   }
@@ -212,6 +224,7 @@ class _LaButtonColorPalette {
   factory _LaButtonColorPalette.fromButtonStyle(LaButtonStyle style) => switch (style) {
         LaButtonStyle.primary => _LaButtonColorPalette.primary(),
         LaButtonStyle.secondary => _LaButtonColorPalette.secondary(),
+        LaButtonStyle.link => _LaButtonColorPalette.link(),
       };
 
   factory _LaButtonColorPalette.primary() => _LaButtonColorPalette._(
@@ -236,6 +249,18 @@ class _LaButtonColorPalette {
         disabledBorderColor: Colors.transparent,
         disabledSplashColor: LaTheme.onTertiaryContainer(),
         busyColor: LaTheme.onTertiaryContainer(),
+      );
+
+  factory _LaButtonColorPalette.link() => _LaButtonColorPalette._(
+        enabledTextColor: LaTheme.onPrimary(),
+        enabledBackgroundColor: Colors.transparent,
+        enabledBorderColor: Colors.transparent,
+        enabledSplashColor: LaTheme.onPrimary().withValues(alpha: 60),
+        disabledTextColor: LaTheme.onPrimary().withValues(alpha: 120),
+        disabledBackgroundColor: Colors.transparent,
+        disabledBorderColor: Colors.transparent,
+        disabledSplashColor: Colors.transparent,
+        busyColor: LaTheme.onPrimary(),
       );
 
   Color getTextColor(bool enabled) => enabled ? enabledTextColor : disabledTextColor;
@@ -285,6 +310,7 @@ extension _LaButtonSizeX on LaButtonSize {
     return switch (buttonStyle) {
       LaButtonStyle.primary => sizeStyle.onPrimary,
       LaButtonStyle.secondary => sizeStyle.onTertiaryContainer,
+      LaButtonStyle.link => sizeStyle.onPrimary.bold,
     };
   }
 }

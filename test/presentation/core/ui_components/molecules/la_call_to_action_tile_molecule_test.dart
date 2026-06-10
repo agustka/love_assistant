@@ -13,6 +13,8 @@ void main() {
   Widget harness({
     VoidCallback? onActionTap,
     VoidCallback? onDismissTap,
+    bool actionEnabled = true,
+    bool actionBusy = false,
   }) {
     return Scaffold(
       body: Center(
@@ -25,6 +27,8 @@ void main() {
             dismissSemanticLabel: "Dismiss profile prompt",
             actionKey: const Key("ctaAction"),
             dismissKey: const Key("ctaDismiss"),
+            actionEnabled: actionEnabled,
+            actionBusy: actionBusy,
             onActionTap: onActionTap ?? () {},
             onDismissTap: onDismissTap ?? () {},
           ),
@@ -55,13 +59,32 @@ void main() {
       expect(find.text("Finish profile"), findsOneWidget);
       expect(find.bySemanticsLabel("Dismiss profile prompt"), findsOneWidget);
 
-      await tester.tap(find.byKey(const Key("ctaAction")));
+      await tester.tap(find.text("Finish profile"));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key("ctaDismiss")));
       await tester.pumpAndSettle();
 
       expect(actionTapCount, 1);
       expect(dismissTapCount, 1);
+    });
+
+    testWidgets("disabled action does not invoke its callback", (WidgetTester tester) async {
+      int actionTapCount = 0;
+
+      await launchApp(
+        tester,
+        home: harness(
+          actionEnabled: false,
+          onActionTap: () {
+            actionTapCount += 1;
+          },
+        ),
+      );
+
+      await tester.tap(find.text("Finish profile"), warnIfMissed: false);
+      await tester.pumpAndSettle();
+
+      expect(actionTapCount, 0);
     });
 
     testGoldens("Light mode", (WidgetTester tester) async {
@@ -79,6 +102,16 @@ void main() {
       );
 
       await screenMatchesGolden(tester, "la_call_to_action_tile_molecule_dark");
+    });
+
+    testGoldens("Disabled action", (WidgetTester tester) async {
+      await launchApp(
+        tester,
+        home: harness(actionEnabled: false),
+        size: const Size(400, 280),
+      );
+
+      await screenMatchesGolden(tester, "la_call_to_action_tile_molecule_disabled");
     });
   });
 }

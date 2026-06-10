@@ -197,6 +197,17 @@ class LaTheme {
     return isDark ? _darkHintText : _lightHintText;
   }
 
+  static LinearGradient callToActionGradient({Brightness? brightness}) {
+    final bool isDark = (brightness ?? LaTheme.brightness) == Brightness.dark;
+    return LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: isDark
+          ? <Color>[_darkPrimary, _darkError]
+          : <Color>[_lightPrimary, _lightError],
+    );
+  }
+
   static ThemeData materialTheme(Brightness brightness) {
     return ThemeData(
       brightness: brightness,

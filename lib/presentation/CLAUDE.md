@@ -113,6 +113,7 @@ Concrete screen instances binding a template with real content and Cubit state.
 - No arbitrary literals: extract numbers, durations, strings, keys into constants or design tokens.
 - Semantic naming: `primaryBackground`, `dangerText`, `spacingXL`.
 - Support dark/light modes and accessibility (contrast & scaling).
+- A UI component must never define its own outer margin; outer spacing is owned by the containing component, ending at the template. Components are flush — the parent (separated column, organism, or template) supplies the gaps/margins. A component's own internal content padding (the inset between its edge and its content) is not outer margin and is allowed.
 
 ## Inputs & Forms
 - **One input is one card with a heading.** Each text input is its own `LaCardAtom` with a heading on top and the field inside — the pattern `LaWizardStepOrganism` uses (`LaTextField` with `showCard: true`). The card is the field boundary.
@@ -142,4 +143,5 @@ Concrete screen instances binding a template with real content and Cubit state.
 - Instantiating blocs/cubits inside widgets (use DI/injection layer)
 - Hardcoded colors/strings/spacings
 - Mixing layout and data transformation logic
+- Defining outer margin inside an atom/molecule/organism instead of letting the container own spacing
 - Stacking multiple borderless inputs inside one card, nesting an input card inside another card, or adding outlines to fields — use one headed card per input (see Inputs & Forms)
