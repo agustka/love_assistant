@@ -28,7 +28,7 @@ class SplashDriver extends BaseDriver {
   }
 
   void assertOnWizard() {
-    expect(_wizardGreetingsFinder, findsOneWidget);
+    expect(AppPages.navigationObserver.currentPage, AppPages.descriptorForName(PageName.wizard));
   }
 
   void assertOnLanding() {

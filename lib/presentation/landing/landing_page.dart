@@ -22,17 +22,6 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserPartnerProfile? partnerProfile = ModalRoute.of(context)?.settings.arguments as UserPartnerProfile?;
 
-    return _LandingView(partnerProfile: partnerProfile);
-  }
-}
-
-class _LandingView extends StatelessWidget {
-  final UserPartnerProfile? partnerProfile;
-
-  const _LandingView({required this.partnerProfile});
-
-  @override
-  Widget build(BuildContext context) {
     return LaDefaultPageTemplate(
       appBar: LaAppBarOrganism(
         style: AppBarStyle.background,
@@ -44,15 +33,15 @@ class _LandingView extends StatelessWidget {
       centerContent: true,
       bottomButtons: _bottomButtons(context),
       child: LandingActionsOrganism(
-        definition: _definition(context),
+        definition: _definition(context, partnerProfile),
       ),
     );
   }
 
-  LandingDefinition _definition(BuildContext context) {
+  LandingDefinition _definition(BuildContext context, UserPartnerProfile? partnerProfile) {
     final S strings = S.of(context);
     return LandingDefinition(
-      title: _title(strings),
+      title: _title(strings, partnerProfile),
       subtitle: strings.landing_subtitle,
       reassurances: [
         LandingReassurance(
@@ -113,7 +102,7 @@ class _LandingView extends StatelessWidget {
     );
   }
 
-  String _title(S strings) {
+  String _title(S strings, UserPartnerProfile? partnerProfile) {
     final UserPartnerProfile? profile = partnerProfile;
     if (profile != null && profile.valid && profile.partnerName.isNotEmpty) {
       return strings.landing_title_named(profile.partnerName);
