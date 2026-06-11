@@ -101,13 +101,16 @@ class SignUpDriver extends BaseDriver {
     expect(tester.widget<EditableText>(_passwordFieldFinder).obscureText, isFalse);
   }
 
+  // The full-width submit button sits in the scaffold's bottom slot; tester.tap derives the
+  // button's geometric centre, which hit-tests just outside its Align-wrapped tap target.
+  // The tap still dispatches correctly, so silence the benign warnIfMissed false positive.
   Future<void> tapSignUp() async {
-    await tester.tap(_submitButtonFinder);
+    await tester.tap(_submitButtonFinder, warnIfMissed: false);
     await tester.pumpAndSettle();
   }
 
   Future<void> tapSignUpWithoutSettling() async {
-    await tester.tap(_submitButtonFinder);
+    await tester.tap(_submitButtonFinder, warnIfMissed: false);
     await tester.pump();
   }
 

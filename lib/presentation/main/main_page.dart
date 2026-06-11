@@ -9,6 +9,8 @@ import 'package:la/presentation/core/ui_components/templates/la_default_page_tem
 import 'package:la/presentation/main/widgets/main_home_content_organism.dart';
 import 'package:la/setup.dart';
 
+part "widgets/main_page_event_listener.dart";
+
 class MainPage extends StatelessWidget {
   static const Key profileCompletionCtaKey = Key("MainPage_profileCompletionCta");
   static const Key profileCompletionCtaActionKey = Key("MainPage_profileCompletionCtaAction");
@@ -81,47 +83,5 @@ class MainPage extends StatelessWidget {
 
   Future<void> _onOpenDetailedProfileWizard(BuildContext context) async {
     await Navigator.of(context).pushNamed(PageName.wizard.route);
-  }
-}
-
-class _MainPageEventListener extends StatefulWidget {
-  final Future<void> Function() onOpenDetailedProfileWizard;
-  final Widget child;
-
-  const _MainPageEventListener({
-    required this.onOpenDetailedProfileWizard,
-    required this.child,
-  });
-
-  @override
-  State<_MainPageEventListener> createState() => _MainPageEventListenerState();
-}
-
-class _MainPageEventListenerState extends State<_MainPageEventListener> {
-  bool _detailedProfileWizardOpening = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return LaMultiEventBusListener(
-      listeners: [
-        LaTypedEventBusListenerDefinition<MainOpenDetailedProfileWizardEvent>(
-          onMessage: (_) => _openDetailedProfileWizard(),
-        ),
-      ],
-      child: widget.child,
-    );
-  }
-
-  Future<void> _openDetailedProfileWizard() async {
-    if (_detailedProfileWizardOpening) {
-      return;
-    }
-
-    _detailedProfileWizardOpening = true;
-    try {
-      await widget.onOpenDetailedProfileWizard();
-    } finally {
-      _detailedProfileWizardOpening = false;
-    }
   }
 }

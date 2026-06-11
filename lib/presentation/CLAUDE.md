@@ -98,6 +98,8 @@ Concrete screen instances binding a template with real content and Cubit state.
 - File name aligns with primary public widget: `location_card.dart`
 - One primary widget per file; related private helper widgets may live below it.
 - Avoid widget-returning methods; extract as separate widget classes.
+- A private helper *wrapper* widget (e.g. an event-listener wrapper like `_MainPageEventListener`) co-located in a page/drawer/dialog file must be moved into that feature's `widgets/` subfolder and attached to the owning file via `part` / `part of` (matching the `wizard_page.dart` → `widgets/wizard_step_N.dart` precedent), so it stays private to the owning library.
+- A page/drawer/dialog widget must own its template and cubits directly in its own `build`; it must not delegate its entire content to a private `_XView` sub-widget (the `_LandingView` anti-pattern). That indirection must not exist anywhere in the codebase.
 
 ## Const & Stateless Priority
 - Always mark constructors `const` when possible.

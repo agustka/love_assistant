@@ -75,7 +75,7 @@ Future<void> launchApp(
             child: child!,
           );
         },
-        navigatorObservers: [AppPages.navigationObserver],
+        navigatorObservers: effectiveInitialPageName == null ? const [] : [AppPages.navigationObserver],
         routes: effectiveRoutes,
         initialRoute: effectiveInitialPageName?.route,
         onGenerateInitialRoutes: effectiveInitialPageName == null
